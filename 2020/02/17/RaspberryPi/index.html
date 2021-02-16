@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Catalog1.关于系统2.关于硬件3.正确打开方式，树莓派的功能 关于系统RaspberryPi 4B 参数 linux下烧写与备份系统镜像烧写：df -h 查找哪个设备是SD卡为了避免其它设备操作内存卡，先卸载设备umount &#x2F;dev&#x2F;sdb1烧写系统：sudo dd bs&#x3D;4M if&#x3D;2018-10-09-raspbian-stretch.img of&#x3D;&#x2F;dev&#x2F;sdb  bs代表一次写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RaspberryPi_麻雀虽小(持续更新)">
+<meta property="og:url" content="http://ybm911.work/2020/02/17/RaspberryPi/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Catalog1.关于系统2.关于硬件3.正确打开方式，树莓派的功能 关于系统RaspberryPi 4B 参数 linux下烧写与备份系统镜像烧写：df -h 查找哪个设备是SD卡为了避免其它设备操作内存卡，先卸载设备umount &#x2F;dev&#x2F;sdb1烧写系统：sudo dd bs&#x3D;4M if&#x3D;2018-10-09-raspbian-stretch.img of&#x3D;&#x2F;dev&#x2F;sdb  bs代表一次写">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217002028.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217002136.png">
+<meta property="og:image" content="http://ybm911.work/2020/02/17/RaspberryPi/post-bg-home.jpeg">
+<meta property="article:published_time" content="2020-02-17T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:21:45.040Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="RaspberryPi">
+<meta property="article:tag" content="硬件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217002028.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>RaspberryPi_麻雀虽小(持续更新)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/15/%E6%B1%9F%E8%A5%BF%E8%AD%A6%E9%99%A2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/17/RaspberryPi/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/17/RaspberryPi/&text=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/17/RaspberryPi/&is_video=false&description=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RaspberryPi_麻雀虽小(持续更新)&body=Check out this article: http://ybm911.work/2020/02/17/RaspberryPi/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/17/RaspberryPi/&name=RaspberryPi_麻雀虽小(持续更新)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/17/RaspberryPi/&t=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">关于系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E4%B8%8B%E7%83%A7%E5%86%99%E4%B8%8E%E5%A4%87%E4%BB%BD%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">linux下烧写与备份系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5WIFI"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">连接WIFI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac-%E5%A4%87%E4%BB%BD%E6%A0%91%E8%8E%93%E6%B4%BE%E9%95%9C%E5%83%8F"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">mac 备份树莓派镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8D"><span class="toc-number">1.1.0.5.</span> <span class="toc-text">多虚拟域名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%A1%AC%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">关于硬件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4B-%E5%AE%89%E8%A3%85-wiringPi"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">4B 安装 wiringPi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E4%B8%AD%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%95%E8%84%9A%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">Python中控制树莓派引脚的模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%99%A4%E7%94%B5%E6%B5%81%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">解除电流设置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E5%8A%9F%E8%83%BD%E5%AE%9E%E6%96%BD"><span class="toc-number">1.3.</span> <span class="toc-text">正确打开方式，树莓派的功能实施</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ubuntu%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">Ubuntu树莓派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%EF%BC%88NAS%EF%BC%89%EF%BC%8C%E4%BD%BF%E7%94%A8OpenMediaVault%E6%9E%84%E5%BB%BA%E6%82%A8%E8%87%AA%E5%B7%B1%E7%9A%84NAS"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">树莓派网络存储（NAS），使用OpenMediaVault构建您自己的NAS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">树莓派智能家居</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E9%AD%94%E9%95%9C"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">树莓派魔镜</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86Raspberry-Pi%E7%94%A8%E4%BD%9C%E6%97%A0%E7%BA%BF%E8%AE%BF%E9%97%AE%E7%82%B9"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">将Raspberry Pi用作无线访问点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Tor-%E8%B7%AF%E7%94%B1"><span class="toc-number">1.3.0.6.</span> <span class="toc-text">建立 Tor 路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker"><span class="toc-number">1.3.0.7.</span> <span class="toc-text">Docker</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        RaspberryPi_麻雀虽小(持续更新)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-17T00:00:00.000Z" itemprop="datePublished">2020-02-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-link-link" href="/tags/RaspberryPi/" rel="tag">RaspberryPi</a>, <a class="tag-link-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h1><p>1.<a href="#%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F">关于系统</a><br>2.<a href="#%E5%85%B3%E4%BA%8E%E7%A1%AC%E4%BB%B6">关于硬件</a><br>3.<a href="#%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E5%8A%9F%E8%83%BD">正确打开方式，树莓派的功能</a></p>
+<h2 id="关于系统"><a href="#关于系统" class="headerlink" title="关于系统"></a>关于系统</h2><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/">RaspberryPi 4B 参数</a></p>
+<h4 id="linux下烧写与备份系统"><a href="#linux下烧写与备份系统" class="headerlink" title="linux下烧写与备份系统"></a>linux下烧写与备份系统</h4><p>镜像烧写：<br>df -h 查找哪个设备是SD卡<br>为了避免其它设备操作内存卡，先卸载设备<br>umount /dev/sdb1<br>烧写系统：<br>sudo dd bs=4M if=2018-10-09-raspbian-stretch.img of=/dev/sdb</p>
+<blockquote>
+<p>bs代表一次写入多大的块，是blocksize的缩写，4M一般都没问题，如果不行，试试改成1M，if参数为下载的镜像的路径（应该是input file缩写），of后参数为设备地址（应该是output file的缩写，linux上一切都是文件）</p>
+</blockquote>
+<p>镜像备份：<br>sudo dd if=/dev/sdb | gzip&gt;/home/ubuntu/raspi/raspberry_v1.0.gz<br>这个命令可以在复制镜像的时候同时进行压缩。</p>
+<p>镜像恢复：<br>首先使用fdisk命令对SD卡进行格式化<br><code>sudo fdisk /dev/sdb</code>, 里面的commond 选p<br>dd命令写入前面备份过的镜像<br><code>sudo gzip -dc /home/ubuntu/raspi/raspberry_v1.0.gz | sudo dd of=/dev/sdb</code></p>
+<h4 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h4><p><a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/raspbian/">https://mirror.tuna.tsinghua.edu.cn/help/raspbian/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 编辑 &#96;&#x2F;etc&#x2F;apt&#x2F;sources.list&#96; 文件，删除原文件所有内容，用以下内容取代：</span><br><span class="line">deb http:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;raspbian&#x2F;raspbian&#x2F; buster main non-free contrib</span><br><span class="line">deb-src http:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;raspbian&#x2F;raspbian&#x2F; buster main non-free contrib</span><br><span class="line"> </span><br><span class="line"># 编辑 &#96;&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;raspi.list&#96; 文件，删除原文件所有内容，用以下内容取代：</span><br><span class="line">deb http:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;raspberrypi&#x2F; buster main ui</span><br></pre></td></tr></table></figure>
+<p>注意：网址末尾的raspbian重复两次是必须的。因为Raspbian的仓库中除了APT软件源还包含其他代码。APT软件源不在仓库的根目录，而在raspbian/子目录下。</p>
+<h4 id="连接WIFI"><a href="#连接WIFI" class="headerlink" title="连接WIFI"></a>连接WIFI</h4><p><code>sudo iwlist wlan0 scan</code>扫描wifi<br><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/91f5db1b9daa3e5c7f05e3e8.html">https://jingyan.baidu.com/article/91f5db1b9daa3e5c7f05e3e8.html</a></p>
+<p>wpa_supplicant.conf配置文件连接 WiFi 设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">country&#x3D;CN</span><br><span class="line">ctrl_interface&#x3D;DIR&#x3D;&#x2F;var&#x2F;run&#x2F;wpa_supplicant GROUP&#x3D;netdev</span><br><span class="line">update_config&#x3D;1</span><br><span class="line"> </span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">ssid&#x3D;&quot;WiFi-A&quot;</span><br><span class="line">psk&#x3D;&quot;12345678&quot;</span><br><span class="line">key_mgmt&#x3D;WPA-PSK</span><br><span class="line">priority&#x3D;1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">ssid&#x3D;&quot;WiFi-B&quot;</span><br><span class="line">psk&#x3D;&quot;12345678&quot;</span><br><span class="line">key_mgmt&#x3D;WPA-PSK</span><br><span class="line">priority&#x3D;2</span><br><span class="line">scan_ssid&#x3D;1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明以及不同安全性的 WiFi 配置示例：<br>ssid:网络的ssid<br>psk:密码<br>priority:连接优先级，数字越大优先级越高（不可以是负数）<br>scan_ssid:连接隐藏WiFi时需要指定该值为1<br>如果你的 WiFi 没有密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">network&#x3D;&#123;</span><br><span class="line">ssid&#x3D;&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt&#x3D;NONE</span><br><span class="line">&#125;</span><br><span class="line">如果你的 WiFi 使用WEP加密</span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">ssid&#x3D;&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt&#x3D;NONE</span><br><span class="line">wep_key0&#x3D;&quot;你的wifi密码&quot;</span><br><span class="line">&#125;</span><br><span class="line">如果你的 WiFi 使用WPA&#x2F;WPA2加密</span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">ssid&#x3D;&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt&#x3D;WPA-PSK</span><br><span class="line">psk&#x3D;&quot;你的wifi密码&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mac-备份树莓派镜像"><a href="#mac-备份树莓派镜像" class="headerlink" title="mac 备份树莓派镜像"></a>mac 备份树莓派镜像</h4><p>列出连接到小派上的卡<br><code>sudo fdisk -l</code><br>或者<br><code>sudo diskutil list</code><br>备份img<br><code>sudo dd if=/dev/disk2 of=raspi_20200117.img</code></p>
+<p>烧录img<br>需要卸载Disk2，再烧录<br><code>sudo diskutil umountDisk /dev/disk2</code><br><code>sudo dd bs=4m if=raspi_20200117.img of=/dev/disk2</code></p>
+<h4 id="多虚拟域名"><a href="#多虚拟域名" class="headerlink" title="多虚拟域名"></a>多虚拟域名</h4><p><code>sudo vi /etc/hosts</code></p>
+<p>然后新建一个网站</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217002028.png" alt="VirtualHost80"></p>
+<p><code>sudo cp /etc/apache/site-avaliable/000-default.conf  /etc/apache/site-avaliable/ctf.conf </code><br>配置ctf.conf<br><code>sudo a2ensite ctf.conf</code>激活站点配置(其实是建立一个软连接)</p>
+<blockquote>
+<p>a2ensite可以激活apache文件夹下sites-available里包含配置文件的站点，a2dissite的作用正好相反。</p>
+</blockquote>
+<p>重新加载apache配置文件<br><code>sudo /etc/init.d/apache2 reload</code></p>
+<p><a target="_blank" rel="noopener" href="https://shumeipai.nxez.com/2013/09/16/raspberry-pi-tool-collection-of-androidapp.html">android 连接 raspberryPi 工具</a></p>
+<h2 id="关于硬件"><a href="#关于硬件" class="headerlink" title="关于硬件"></a>关于硬件</h2><h4 id="4B-安装-wiringPi"><a href="#4B-安装-wiringPi" class="headerlink" title="4B 安装 wiringPi"></a><a target="_blank" rel="noopener" href="http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/">4B 安装 wiringPi</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget https://project-downloads.drogon.net/wiringpi-latest.deb</span><br><span class="line">sudo dpkg -i wiringpi-latest.deb</span><br><span class="line">gpio -v</span><br></pre></td></tr></table></figure>
+<h4 id="Python中控制树莓派引脚的模块"><a href="#Python中控制树莓派引脚的模块" class="headerlink" title="Python中控制树莓派引脚的模块"></a>Python中控制树莓派引脚的模块</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> GPIO</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">GPIO.setmode(GPIO.BCM)</span><br><span class="line">GPIO.setup(<span class="number">2</span>,GPIO.OUT)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    print(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    GPIO.output(<span class="number">2</span>,GPIO.HIGH)</span><br><span class="line">    print(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">    GPIO.output(<span class="number">2</span>,GPIO.LOW)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/ybm911/Raspi/blob/master/test/HUAWEI.py">我的内网转发项目有树莓派版本</a>里面加入了几个控制引脚使不同的灯亮的操作。可随时观察到项目是否正常运行😎。</p>
+<h4 id="解除电流设置"><a href="#解除电流设置" class="headerlink" title="解除电流设置"></a>解除电流设置</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/huayucong/article/details/49338831">https://blog.csdn.net/huayucong/article/details/49338831</a></p>
+<p>如果原系统没有解除USB电流限制，当USB供电设备过多时，可能会导致USB供电不足。</p>
+<p>此时只需在/boot/config.txt文件中增加以下代码以解除USB电流限制即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max_usb_current&#x3D;1</span><br></pre></td></tr></table></figure>
+<h2 id="正确打开方式，树莓派的功能实施"><a href="#正确打开方式，树莓派的功能实施" class="headerlink" title="正确打开方式，树莓派的功能实施"></a>正确打开方式，树莓派的功能实施</h2><h4 id="Ubuntu树莓派"><a href="#Ubuntu树莓派" class="headerlink" title="Ubuntu树莓派"></a>Ubuntu树莓派</h4><p>安装好后图形界面是会不兼容的，网上有<a target="_blank" rel="noopener" href="https://blog.csdn.net/kevin3683/article/details/84405312">修改系统的教程</a>，我比较懒😅反正也不需要用图形界面。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/kevin3683/article/details/84405312">初始安装</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/846996cedfee">初始配置</a><br>虽然教程里出现了国内的源，不过我当时换的时候失败了。树莓派用其他系统换源一直是一个问题。</p>
+<blockquote>
+<p>默认的登录账号密码是ubuntu/ubuntu（吐了每次都是这样，初始密码不知道）</p>
+</blockquote>
+<h4 id="树莓派网络存储（NAS），使用OpenMediaVault构建您自己的NAS"><a href="#树莓派网络存储（NAS），使用OpenMediaVault构建您自己的NAS" class="headerlink" title="树莓派网络存储（NAS），使用OpenMediaVault构建您自己的NAS"></a>树莓派网络存储（NAS），使用<a target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a>构建您自己的NAS</h4><blockquote>
+<p>OpenMediaVault，是一个开源的基于 Debian Linux 的下一代网络附加存储(NAS)解决方案。它包含众多服务，如 SSH、(S)FTP、SMB / CIFS、DAAP 媒体服务器、RSync、BitTorrent 客户机等。并具有通过插件可增强的模块化设计框架特性。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/openmediavault/files/">下载地址</a>（不知道为什么我在2020/02/16日再去看的时候没有找到适用于树莓派的img）<br><a target="_blank" rel="noopener" href="https://shumeipai.nxez.com/2018/01/10/raspberry-pi-nas-openmediavault-installation.html">教程</a></p>
+<p>安装好后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户名：admin</span><br><span class="line">密　码：openmediavault</span><br></pre></td></tr></table></figure>
+<p>修改密码的问题</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217002136.png" alt="post-bg-nas"></p>
+<blockquote>
+<p>Raspberry Pi 3 能够接受最高 5V，2.5A的功率，除去自身的功耗，能提供给USB设备的大概只有 5V，0.5A左右。<br>实测中，外接1个2.5寸移动硬盘没有问题，但是2个以上就拖不动了，想要多加硬盘，需要额外买一个提供电源的USB Hub。</p>
+</blockquote>
+<h4 id="树莓派智能家居"><a href="#树莓派智能家居" class="headerlink" title="树莓派智能家居"></a>树莓派智能家居</h4><blockquote>
+<p>Home Assistant <a target="_blank" rel="noopener" href="https://www.home-assistant.io/docs/installation/raspberry-pi/">manual installation on a Raspberry Pi</a></p>
+</blockquote>
+<p>官网的方法一直会出七七八八很奇怪的问题，这里有一个大神写的<a target="_blank" rel="noopener" href="https://bbs.hassbian.com/forum.php?mod=viewthread&tid=4520&highlight=hassio">安装一键脚本</a>。大神是真的牛逼，我成功了。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://bbs.hassbian.com/thread-6795-1-1.html">天猫精灵接入技能</a>接官方通知，天猫精灵APP将于近期进行改版，改版后将按品牌进行技能展示。因为Home Assistant（下简称HASS）为开源平台，并非智能设备品牌，故使用论坛原创硬件品牌“HASSMART”来作为技能名称。同时由于服务对象为HASS用户，并非所有用户都使用HASSMART设备，故Logo仍沿用HASS官方Logo。</p>
+</blockquote>
+<p>我还get到了一个汉化的Home Assistant安卓客户端安装包，有需要的可以私聊我。项目最后的成果（人一生不就图一成果❤️，手动滑稽）就是可直接唤醒天猫精灵打开智能设备或者通过手机Home Assistant Client客户端控制。我就不演示了，直接在B站里去搜“树莓派智能家居”一大堆视频。<br><img src="post-bg-home.jpeg" width="30%" height="30%"></p>
+<h4 id="树莓派魔镜"><a href="#树莓派魔镜" class="headerlink" title="树莓派魔镜"></a>树莓派魔镜</h4><p><a target="_blank" rel="noopener" href="https://magicmirror.builders/">https://magicmirror.builders/</a></p>
+<blockquote>
+<p>Toggle navigation MagicMirror ² Donate Repository Modules Forum Discord Blog MagicMirror ² The open source modular smart mirror platform. Open Source MagicMirror² is Open Source, free and maintained by a big group of enthusiasts. Got a nice idea? Send us a pull request and become a part of the big list of contributors. Go to the Repository » Modular The core of MagicMirror² contains a strong API which allows 3rd party developers to build additional modules. Modules you can use. Modules you can develop. Check out the Modules »</p>
+</blockquote>
+<h4 id="将Raspberry-Pi用作无线访问点"><a href="#将Raspberry-Pi用作无线访问点" class="headerlink" title="将Raspberry Pi用作无线访问点"></a>将Raspberry Pi用作无线访问点</h4><p><a target="_blank" rel="noopener" href="https://thepi.io/how-to-use-your-raspberry-pi-as-a-wireless-access-point/">https://thepi.io/how-to-use-your-raspberry-pi-as-a-wireless-access-point/</a></p>
+<h4 id="建立-Tor-路由"><a href="#建立-Tor-路由" class="headerlink" title="建立 Tor 路由"></a>建立 Tor 路由</h4><p><a target="_blank" rel="noopener" href="https://learn.adafruit.com/onion-pi/install-tor">https://learn.adafruit.com/onion-pi/install-tor</a></p>
+<h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>Raspi Docker 安装教程: <a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/docker-on-raspberry-pi">https://phoenixnap.com/kb/docker-on-raspberry-pi</a></p>
+<p><em>注意：</em> ARM 平台不能使用 <code>x86</code> 镜像，查看 Raspberry Pi OS 可使用镜像请访问 <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm32v7/">arm32v7</a> 或者 <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm64v8/">arm64v8</a></p>
+<p>Link</p>
+<p>树莓派全版本换源（多环境测试无误版）<a target="_blank" rel="noopener" href="https://blog.csdn.net/Archger/article/details/104753113/">https://blog.csdn.net/Archger/article/details/104753113/</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zz531987464/article/details/83051955">https://blog.csdn.net/zz531987464/article/details/83051955</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">关于系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E4%B8%8B%E7%83%A7%E5%86%99%E4%B8%8E%E5%A4%87%E4%BB%BD%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">linux下烧写与备份系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5WIFI"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">连接WIFI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac-%E5%A4%87%E4%BB%BD%E6%A0%91%E8%8E%93%E6%B4%BE%E9%95%9C%E5%83%8F"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">mac 备份树莓派镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8D"><span class="toc-number">1.1.0.5.</span> <span class="toc-text">多虚拟域名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%A1%AC%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">关于硬件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4B-%E5%AE%89%E8%A3%85-wiringPi"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">4B 安装 wiringPi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E4%B8%AD%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%95%E8%84%9A%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">Python中控制树莓派引脚的模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%99%A4%E7%94%B5%E6%B5%81%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">解除电流设置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E5%8A%9F%E8%83%BD%E5%AE%9E%E6%96%BD"><span class="toc-number">1.3.</span> <span class="toc-text">正确打开方式，树莓派的功能实施</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ubuntu%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">Ubuntu树莓派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%EF%BC%88NAS%EF%BC%89%EF%BC%8C%E4%BD%BF%E7%94%A8OpenMediaVault%E6%9E%84%E5%BB%BA%E6%82%A8%E8%87%AA%E5%B7%B1%E7%9A%84NAS"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">树莓派网络存储（NAS），使用OpenMediaVault构建您自己的NAS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">树莓派智能家居</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E9%AD%94%E9%95%9C"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">树莓派魔镜</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86Raspberry-Pi%E7%94%A8%E4%BD%9C%E6%97%A0%E7%BA%BF%E8%AE%BF%E9%97%AE%E7%82%B9"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">将Raspberry Pi用作无线访问点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Tor-%E8%B7%AF%E7%94%B1"><span class="toc-number">1.3.0.6.</span> <span class="toc-text">建立 Tor 路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker"><span class="toc-number">1.3.0.7.</span> <span class="toc-text">Docker</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/17/RaspberryPi/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/17/RaspberryPi/&text=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/17/RaspberryPi/&is_video=false&description=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RaspberryPi_麻雀虽小(持续更新)&body=Check out this article: http://ybm911.work/2020/02/17/RaspberryPi/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/17/RaspberryPi/&title=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/17/RaspberryPi/&name=RaspberryPi_麻雀虽小(持续更新)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/17/RaspberryPi/&t=RaspberryPi_麻雀虽小(持续更新)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="enter password to read">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 使用记录">
+<meta property="og:url" content="http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="enter password to read">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-25T11:03:18.000Z">
+<meta property="article:modified_time" content="2021-01-14T04:19:27.054Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>linux 使用记录</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/12/28/Kali/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/12/21/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%92%8C%E8%B5%84%E6%96%99%F0%9F%92%BE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&text=linux 使用记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&is_video=false&description=linux 使用记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux 使用记录&body=Check out this article: http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&name=linux 使用记录&description=enter password to read"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&t=linux 使用记录"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        linux 使用记录
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-25T11:03:18.000Z" itemprop="datePublished">2020-12-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="42d0b196cd33ddafb2b620263553f81143b9a043e01f01363b7296a661572e6e">66407615c611b88c296c3e74925544f75f603dbeb738063b556c76a9ddc62eea18227a5b6e0872b4f6fa230d8d560bf8d7b9dd835a05f1dd8085962cc3daaa6d950052cff8c26a218a464c30fb7554cc4c0ce3a15ced93dd8351ceaeb1ced971ae27cf7694593f5f24fefdc959a07a61772b54ebe3efd69adba21948b81e5a6dc9b3d6a7868712f198a5e69f8f61659654a3fb9a01e899284e7e6ca20536ed3385dd4d29b2716e03203081b74bb456ef260c5bef505725300e27c44b5e065eb3f74045e76fe6dadc568ae0eb4e3649b33ef562be130c431e4a145fe441a268870dc41af89696921e829def08ff06275c4a74f3f38ca20f5f1e66d712482ef39d5431dc72c7c07c832c613fcf26cee04341838a7f32f9af3985c0b968d543e91e0e6502136e09fa9fc105c0e6fe772d28d5b68c271d4faad3f9971c0ad5963d1afb5a3469e6feb45393389cb68dbf38b916faa034a4f2f4a3f1020d5deef43804c1322d6191fa232235fdaa9b0dd66c9121c26330e927ef401c315ba52b301b52fffabafa3a890be2e1155c1000eabe7e7d812eaaaa30c42afb61a7140faa4ec8aa2b537369267f71df33588c3a1c6885e0b961283859fc1140054b012cb1c2584a677937fde23d0e772a1abee2dfbc91403457eb2c8e72567ab3cf5f623f180c77992b51df7d6c3e465ccbf9fd0ef21726507917ca6669e1438a08a07a22205ed2656da7327de9e751094cebbb93176115467bf1ff7f65c08360c495f57e3c2707066b9755e52b432294ffeab3deeee8ea02dd801524a742fc365273bf1bc7476dfc91ccf29869139691a40f7204903dd3280bcfadcb55e999b8155752b53868cfe8931b94ef8584110b7b3ecefea486e1293ed3b54c0b2d8a7dab8474a9c4219a6e23f8c16bcf94bc03108ee5f7d84aa9271db94641b074641cdabbf291f2c50f5a9c51614f2be663de1910622d3146a4176b87dc9c1fe47e3ccac2406adaa63168330d66861372cf1b48f081ad0a7d1cf8781c0d82b39ce0fc981eb6a2575be1764d830a0954cf6a6ce308d0bedc1aee30fef5cf4e6ea6bea53aafe22b8e207f1213e67c5e0a27715f134d9420cbeff3259a67350610247baee7735e4bdb460c08b5a0f4ce4b3ae2ece8500857ce66d526d7525ed1e53e59bd4dee0e6082a519c9c95f0911a0319155f541aee340ab88bcf980562691ff1d9ae7b11672ce7c8adaad90c7e3552f54024e5c754417c608aec0984e80c0739811c46c10b9f659a3f8de02e593244750829ccec037821929d33cd30c8a3d21fbaa80e91ae19b3060edfe264d42478ae0a0607775c942ce6610534ab884f1ac5d518daaf4008af58a6048f60187bbebb0cb6dac215008e4311c76691413786415ff58660920c5c6eefecafa452eef02cf7277bdaea737bcb7a773946238a966855df20f629c779209b7c4315997fbdeef0c75f3b3fff8c2a010f76f94e043392429be584cfd7a8f9cbad4acca9c1ca2e18027d9b9377bbfffc8ef8abee39c7b34ca44978e3ab81f60c9a82a71cedb0fd10baf3d322c0454bf1ba118de9f1681bbb5160ef8c667c29bb2a16388d1f7b0ca714a0a2563bac51a047c8b6296ed6e50ce09534ce2bdb828d3d20762c8f6e7422a5f86b54e8b2a5f19c16528dbd50e58d9ead60c9d1b9f570f8047d81b4b29a55ffcd423d3a0e461bbc76541aac18d55266d91abec92b2778fad32ecac9aa08b5cb1e8344a5f81f6bb551e9dc49be9d676a2e33688cd7356aa13157530de61df7ddb455a58f5c675712cf89099582adc6216271dacb7970919d73b7da00c1b13d942af39091f7e482b975ee9bd5f9f12b5dc51b171a139f5a52004bf500149349ba8edee8973ada1848b3d48d4a0b1d52fec239f1bf3926186947c41af7e90a5b18db20c8767181548e4ca794cb2a63514bc0e33be5f9e7342620d633159a458c555b21629652a228cb58580c1683b86566b37d1ee5787f6d689e108c77954a3e7f2c5c81b5e8c7c549197b3f6a8961bcee7f6c4da89e615d8d9b3f6f553f85ad45e459fabcaa2b41198f1d8acc01bc880e097ea4dc9dee3eca38787b2875313cef0fe0760f34ae31d814488c640fd13a0b9f76aa4a55b1f7b7b7fa7e84c067b6b6861ad8bef979b1790e003301b1ac715a3fb87c53e4ba8e6324cc542819690782b62cc92e5265611bbdd4a51b29c81c484c1905533ea20961b1553da2cdeb6c6ee8b4791c4806c8500ce8765fbf13b20359a46d2690787107626bf085f0a7fd670dfd7fee3c491f0c53c57ee4c3fe81c8b90f3df916a68e93075dbca671e3169d0c11cfda797bc20145540345992a3a0b5920832f9c8b48779839e1fd9f77579388554cc750d80a0e4548b9a88620a301eef59e4faddb1fe3c8ffcfb16fd57b9b209f29ec2e9b43d9bb2a5bbdb3ca343acb4dd6f556f9d6f49de105e9812bc9fb419905639a198f437fdcda45433fc7ad754838a5d2044c789c88cc688eec077f46a45908cea754ead3bdb5eb889f8bcfb75706466a9a9ab79239ef8a21c28d36ffe8ec8fbe74d5bae5832b3a3eb299df0258bdbde170c43e0e0ad2fe05c3cd67d423865408cabd2327b54ad622ae716a13b3eac22119cbe3681f4f3baa6e5a9b2cc19908c2ba849f257e04a5282b0d1c5c53482fd5d908907d1bfc69a302f979f2b2471c85a340d57d3938056adc41ba2ef9d15a4098c379736df9e6b9fe8781b9e981121e5f0c14d216fb209c951b9d8c06491d741a69b9c6fd33636727bd9551007e3111a9cbc906af6290896fce3fd446c494083a1ef587a96a611f027338dc17fe2d2548e69f20275a1df72d0dff7c7db317bf9fe8d7f3085012285604733df9d3615a75bbf772888ec5fc827f8f4b81b880fa8bcfd2d88aaa34700cbe7eaa78e9dbaea7d75b937d189422812ed3bce721f06b80aa28a22dc6c9f7a970ad7ee2dfc8b84f6d585a2eee8d66a0c8623b003f1c2dd3dd50f9da62b5fa1bbf89ba076ee4b614be84df68858af86c0a707a0383b6005336ccc0223d728ec2b3cd1d7183587430e49a9b185ceb2e1062959359a93e49e7b30ae66600fa1b35d56f66f70f5ec266c407b59557ee72488bf17e3116e0f6af244d7ed7230239d91bf89e13aeb52073b136001ca515b72e949d781c5a89cc51c24a8c144fe51af95d9c58985e500177b937c60a0c8b13d42cd566e93c4da3aabf143d31a5f6dae1c40b16497130cae5f150f7ade0c8f997e3adcb71565930a5c5708f92e59045bf038283ff61b9c226efdaa15e66648fb9e123da5a6cb5ae32e43db1f05681ccaceb1f5c19af7be422a344678637468a34ab5c2a3d9601034df5cdff4c470b505a35c5b49a17e438ca5b2875d9160d88160f9b8e92cc2eabceef9462a78822df3fe68e4da491a895747aed3b4ff77acd259e9255b485a5544606f4aa751f1f7849045b1fde64399e9d92a739588bfe5f254d22add14adf988c62efdbfac9d83e911d4e47e25282266b8fd33d98f46ba1ccf14ba0020de8f00fd687565feffb61d3e534e7dc416aefb44c911ba420289426c04956fb8677f20575416268ed6a8214c42d606528497af1ad1b17449b6b7c9c610f7cf1ce7105299143cdf6144277f7243576ef147c186fd92db459e03026d536c26aa897ed415ab14d118e542a69bf9ed37f28c243600</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">not_root</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&text=linux 使用记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&is_video=false&description=linux 使用记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux 使用记录&body=Check out this article: http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=linux 使用记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&name=linux 使用记录&description=enter password to read"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/12/25/linux-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&t=linux 使用记录"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

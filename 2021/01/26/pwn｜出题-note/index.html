@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="题目来源https:&#x2F;&#x2F;github.com&#x2F;CTFTraining&#x2F;CTFTrainingCTF Training 含有dockerfile https:&#x2F;&#x2F;github.com&#x2F;ctf-wiki&#x2F;ctf-challengesctf-challenges 只有源文件 https:&#x2F;&#x2F;github.com&#x2F;TaQini&#x2F;ctfctf 只有源文件 https:&#x2F;&#x2F;github.com&#x2F;bash-c&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn｜出题 note">
+<meta property="og:url" content="http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="题目来源https:&#x2F;&#x2F;github.com&#x2F;CTFTraining&#x2F;CTFTrainingCTF Training 含有dockerfile https:&#x2F;&#x2F;github.com&#x2F;ctf-wiki&#x2F;ctf-challengesctf-challenges 只有源文件 https:&#x2F;&#x2F;github.com&#x2F;TaQini&#x2F;ctfctf 只有源文件 https:&#x2F;&#x2F;github.com&#x2F;bash-c&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210125165359.png">
+<meta property="article:published_time" content="2021-01-25T16:41:54.000Z">
+<meta property="article:modified_time" content="2021-01-25T08:57:45.586Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta property="article:tag" content="出题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210125165359.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>pwn｜出题 note</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/02/JavaScript-%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&text=pwn｜出题 note"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&is_video=false&description=pwn｜出题 note"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwn｜出题 note&body=Check out this article: http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&name=pwn｜出题 note&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&t=pwn｜出题 note"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%88%B6%E9%A2%98%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">自制题目环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TorchWood-FTP"><span class="toc-number">2.0.1.</span> <span class="toc-text">TorchWood_FTP</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        pwn｜出题 note
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-01-25T16:41:54.000Z" itemprop="datePublished">2021-01-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>, <a class="tag-link-link" href="/tags/%E5%87%BA%E9%A2%98/" rel="tag">出题</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h2><p><a target="_blank" rel="noopener" href="https://github.com/CTFTraining/CTFTraining">https://github.com/CTFTraining/CTFTraining</a><br>CTF Training 含有dockerfile</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges">https://github.com/ctf-wiki/ctf-challenges</a><br>ctf-challenges 只有源文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/TaQini/ctf">https://github.com/TaQini/ctf</a><br>ctf 只有源文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bash-c/pwn_repo">https://github.com/bash-c/pwn_repo</a><br>pwn_repo 只有源文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Naetw/CTF-pwn-tips#overflow">https://github.com/Naetw/CTF-pwn-tips#overflow</a><br>CTF-pwn-tips 一些 pwn 技巧</p>
+<h2 id="自制题目环境"><a href="#自制题目环境" class="headerlink" title="自制题目环境"></a>自制题目环境</h2><p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/ctftraining/base_pwn_xinetd_kafel_1804">Base image with xinetd and kafel for pwn</a></p>
+<h4 id="TorchWood-FTP"><a href="#TorchWood-FTP" class="headerlink" title="TorchWood_FTP"></a>TorchWood_FTP</h4><p>题目名字：TorchWood_FTP<br>题目分数：300<br>题目hint：hijack GOT<br>出题人：Elli0t<br>题目来源：参考2016 CCTF 中的 pwn3<br>解题思路：考点：格式化字符串漏洞覆盖got表</p>
+<p><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/30/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">编译指令</a><br>gcc -m32 -z lazy -no-pie -fno-stack-protector -o pwn pwn.c</p>
+<p>glibc: 2.27</p>
+<p>题目源码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  Created by Elli0t on 21/01/18.</span></span><br><span class="line"><span class="comment">//  Copyright © 2021年 Elli0t. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">File</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> title[<span class="number">30</span>];</span><br><span class="line">    <span class="keyword">char</span> content[<span class="number">60</span>];</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">File</span> *<span class="title">previous</span>;</span></span><br><span class="line">&#125;file;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ask_username</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ask_password</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="keyword">int</span> <span class="title">get_command</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function">file *<span class="title">up_file</span><span class="params">(file *file_use, file *used_file)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ls_file</span><span class="params">(file *used_file)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dump_file</span><span class="params">(file *used_file)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">signed</span> <span class="keyword">int</span> command;</span><br><span class="line">    setbuf(<span class="built_in">stdout</span>, <span class="number">0</span>);</span><br><span class="line">    ask_username();</span><br><span class="line">    ask_password();</span><br><span class="line">    file *file_use = (file *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(file)*<span class="number">20</span>);  <span class="comment">// init</span></span><br><span class="line">    file *used_file = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot; ftp&gt;&quot;</span>);</span><br><span class="line">            command = get_command();</span><br><span class="line">            <span class="keyword">if</span>(command != <span class="number">2</span>)    <span class="comment">// up</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            used_file = up_file(file_use, used_file);</span><br><span class="line">            file_use = file_use + <span class="keyword">sizeof</span>(file);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(command == <span class="number">3</span>)&#123;       <span class="comment">// ls</span></span><br><span class="line">            ls_file(used_file);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(command != <span class="number">1</span>)    <span class="comment">// dump</span></span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">            dump_file(used_file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ask_username</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> src[<span class="number">15</span>], username[<span class="number">15</span>];</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot; Welcome to TorchWoodCTF!&quot;</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot; Login TorchWood ftp,please.&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; Name to login:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%15s&quot;</span>, src);</span><br><span class="line">    <span class="built_in">strcpy</span>(username, src);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">strcmp</span>(username, <span class="string">&quot;root&quot;</span>))&#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot; error name &quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ask_password</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> src[<span class="number">15</span>], password[<span class="number">15</span>];</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; password:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%15s&quot;</span>, src);</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= <span class="number">14</span> &amp;&amp; src[i]; ++i)&#123;</span><br><span class="line">        ++src[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">strcpy</span>(password, src);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">strcmp</span>(password, <span class="string">&quot;password&quot;</span>))&#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot; error password &quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot; Hello root.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="keyword">int</span> <span class="title">get_command</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> src[<span class="number">4</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%4s&quot;</span>, &amp;src);</span><br><span class="line">    <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(&amp;src, <span class="string">&quot;dump&quot;</span>, <span class="number">4</span>) )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(&amp;src, <span class="string">&quot;up&quot;</span>, <span class="number">2</span>) )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(&amp;src, <span class="string">&quot;ls&quot;</span>, <span class="number">2</span>) )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">file *<span class="title">up_file</span><span class="params">(file *file_use, file *used_file)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> title[<span class="number">30</span>], content[<span class="number">60</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; title of file:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%30s&quot;</span>, title);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; content of file:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%60s&quot;</span>, content);</span><br><span class="line">    <span class="built_in">strcpy</span>(file_use -&gt; title, title);</span><br><span class="line">    <span class="built_in">strcpy</span>(file_use -&gt; content, content);</span><br><span class="line">    file_use -&gt; previous = used_file;</span><br><span class="line">    <span class="keyword">return</span> file_use;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ls_file</span><span class="params">(file *used_file)</span></span>&#123;</span><br><span class="line">    file i;</span><br><span class="line">    i = *used_file;</span><br><span class="line">    <span class="keyword">for</span>(; i.previous; i = *(i.previous))&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %s\n&quot;</span>, i.title);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// bug</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; %s\n&quot;</span>, i.title);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dump_file</span><span class="params">(file *used_file)</span></span>&#123;</span><br><span class="line">    file i;</span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">30</span>];</span><br><span class="line">    i = *used_file;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; The file name:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%30s&quot;</span>, name);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(name, <span class="string">&quot;flag&quot;</span>, <span class="number">4</span>))</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot; What&#x27;s Wrong with you???&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(; i.previous; i = *(i.previous))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">strcmp</span>(i.title, name))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(i.content);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">strcmp</span>(i.title, name))&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %s\n&quot;</span>, i.content);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 dump_file 函数中的 printf 函数存在格式化字符串漏洞，此题目是模仿2016 CCTF 中的 pwn3 考点全部相同，只是源代码重新写过。故掌握2016 CCTF 中的 pwn3 此题也可做出。解题思路：<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/fmtstr/fmtstr_example/#_9">https://ctf-wiki.org/pwn/linux/fmtstr/fmtstr_example/#_9</a></p>
+<p>修改的点：登陆处增加账号密码，账号为 <code>root</code>，密码为 <code>o\</code>rrvnqc<code>，dump_file 函数当内存中只有一个文件时候执行 </code>if(!strcmp(i.title, name))<code>判断，此时执行的</code>printf` 函数不存在格式化漏洞，故触发漏洞需要添加文件两个或两个以上才会触发。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210125165359.png" alt="image-20210125165353715"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%88%B6%E9%A2%98%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">自制题目环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TorchWood-FTP"><span class="toc-number">2.0.1.</span> <span class="toc-text">TorchWood_FTP</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&text=pwn｜出题 note"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&is_video=false&description=pwn｜出题 note"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwn｜出题 note&body=Check out this article: http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&title=pwn｜出题 note"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&name=pwn｜出题 note&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/&t=pwn｜出题 note"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

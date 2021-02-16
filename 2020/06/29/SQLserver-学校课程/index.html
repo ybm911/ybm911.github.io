@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="实验实验一12345678910111213141516create table sc(	sno char(9),	grade decimal(5,1) check(grade &gt;&#x3D;0 and grade &lt;&#x3D; 100),	primary key(sno,cno),	foreign key(sno) references student(sno));--将表sc中的grade列的取值范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL server 学校课程">
+<meta property="og:url" content="http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="实验实验一12345678910111213141516create table sc(	sno char(9),	grade decimal(5,1) check(grade &gt;&#x3D;0 and grade &lt;&#x3D; 100),	primary key(sno,cno),	foreign key(sno) references student(sno));--将表sc中的grade列的取值范">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705172106188.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705175338234.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705175532613.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181801858.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181839174.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181853430.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181909448.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705182118194.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705182137701.png">
+<meta property="article:published_time" content="2020-06-29T10:32:55.000Z">
+<meta property="article:modified_time" content="2020-07-07T00:10:41.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="WEB">
+<meta property="article:tag" content="SQLserver">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705172106188.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>SQL server 学校课程</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/01/%E6%B4%8B%E5%9E%83%E5%9C%BE%EF%BD%9CR6300V2-Merlin/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/06/21/%E5%9B%BE%E5%BA%8A%EF%BD%9CGithub-jsDelivr-PicGo/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&text=SQL server 学校课程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&is_video=false&description=SQL server 学校课程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL server 学校课程&body=Check out this article: http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&name=SQL server 学校课程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&t=SQL server 学校课程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80"><span class="toc-number">1.0.1.</span> <span class="toc-text">实验一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C-SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.2.</span> <span class="toc-text">实验二 SQL查询操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89-SQL%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5"><span class="toc-number">1.0.3.</span> <span class="toc-text">实验三 SQL数据定义与数据操纵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%9B%9B-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.4.</span> <span class="toc-text">实验四 数据库的安全性管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%94-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-number">1.0.5.</span> <span class="toc-text">实验五 数据库的备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.5.0.1.</span> <span class="toc-text">备份操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%85%AD-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.0.6.</span> <span class="toc-text">实验六 存储过程与程序设计</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">知识点</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        SQL server 学校课程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-29T10:32:55.000Z" itemprop="datePublished">2020-06-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/SQLserver/" rel="tag">SQLserver</a>, <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h4 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sc(</span><br><span class="line">	sno <span class="type">char</span>(<span class="number">9</span>),</span><br><span class="line">	grade <span class="type">decimal</span>(<span class="number">5</span>,<span class="number">1</span>) <span class="keyword">check</span>(grade <span class="operator">&gt;=</span><span class="number">0</span> <span class="keyword">and</span> grade <span class="operator">&lt;=</span> <span class="number">100</span>),</span><br><span class="line">	<span class="keyword">primary</span> key(sno,cno),</span><br><span class="line">	<span class="keyword">foreign</span> key(sno) <span class="keyword">references</span> student(sno)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">--将表sc中的grade列的取值范围改为小于150的正数</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> sc</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">constraint</span> CK__sc__grade <span class="keyword">check</span>(grade <span class="operator">&gt;</span><span class="number">0</span> <span class="keyword">and</span> grade <span class="operator">&lt;</span> <span class="number">150</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--为Student表的“Sname”字段增加一个唯一性约束</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> students <span class="keyword">add</span> <span class="keyword">constraint</span> uq_sname <span class="keyword">unique</span>(sname);</span><br><span class="line"></span><br><span class="line"><span class="comment">--为SC表建立外键,依赖于Student表，约束名为fk_s_c</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> sc <span class="keyword">add</span> <span class="keyword">constraint</span> fk_s_c <span class="keyword">foreign</span> key(sno) <span class="keyword">references</span> stuents(sno);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>decimal(p ,s )</p>
+<p>p（精度）<br>要存储的最大十进制数字总数。该数字包括小数点的左侧和右侧。精度必须是1到最大精度38之间的值。默认精度是18。</p>
+<p>s（刻度）<br>存储在小数点右边的小数位数。从<em>p</em>减去此数字，以确定小数点左边的最大位数。</p>
+</blockquote>
+<h4 id="实验二-SQL查询操作"><a href="#实验二-SQL查询操作" class="headerlink" title="实验二 SQL查询操作"></a>实验二 SQL查询操作</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> course <span class="keyword">where</span> ccredit<span class="operator">&gt;</span><span class="number">2</span> <span class="keyword">and</span> cno<span class="operator">&lt;</span><span class="number">5</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> course <span class="keyword">where</span> ccredit <span class="keyword">between</span> <span class="number">2</span> <span class="keyword">and</span> <span class="number">8</span>;</span><br><span class="line"><span class="comment">--从course表中查询出课程号为1或4或7的课程的课程号、课程名称、以及学分</span></span><br><span class="line"><span class="keyword">select</span> cno,cname,ccredit <span class="keyword">from</span> course <span class="keyword">where</span> cno <span class="keyword">in</span>(<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;4&#x27;</span>,<span class="string">&#x27;7&#x27;</span>);</span><br><span class="line"><span class="comment">--从course表中查询学分大于3的课程信息，并按课程号升序排列</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> course <span class="keyword">where</span> ccredit<span class="operator">&gt;</span><span class="number">3</span> <span class="keyword">order</span> <span class="keyword">by</span> cno;</span><br><span class="line"><span class="comment">--查询每个学生及其课程的平均分情况，显示学号和平均分</span></span><br><span class="line"><span class="keyword">select</span> sno,<span class="built_in">avg</span>(grade) <span class="keyword">from</span> sc <span class="keyword">group</span> <span class="keyword">by</span> sno;</span><br><span class="line"><span class="comment">--查询选修2号课程且成绩在80分以上的学生信息</span></span><br><span class="line"><span class="keyword">select</span> student.sno,sname,cno,grade <span class="keyword">from</span> student,sc</span><br><span class="line">	<span class="keyword">where</span> student.sno<span class="operator">=</span>sc.sno <span class="keyword">and</span> cno<span class="operator">=</span><span class="string">&#x27;2&#x27;</span> <span class="keyword">and</span> grade<span class="operator">&gt;</span><span class="number">80</span>;</span><br><span class="line"><span class="comment">--查询每个学生的学号、姓名、选修的课程及成绩。(要求显示student表中所有学生信息)</span></span><br><span class="line"><span class="keyword">select</span> student.sno,sname,cno,grade <span class="keyword">from</span> student <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> sc <span class="keyword">on</span> student.sno<span class="operator">=</span>sc.sno;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> sno,cno,grade <span class="keyword">from</span> sc <span class="keyword">where</span> sno <span class="keyword">in</span></span><br><span class="line">	(<span class="keyword">select</span> sno <span class="keyword">from</span> student <span class="keyword">where</span> sdept<span class="operator">=</span><span class="string">&#x27;CS&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> sno,sname <span class="keyword">from</span> student <span class="keyword">where</span> sno <span class="keyword">in</span> (<span class="keyword">select</span> sno <span class="keyword">from</span> sc </span><br><span class="line">   <span class="keyword">where</span> cno<span class="operator">=</span>(<span class="keyword">select</span> cno <span class="keyword">from</span> course <span class="keyword">where</span> cname<span class="operator">=</span><span class="string">&#x27;操作系统&#x27;</span>)  );</span><br></pre></td></tr></table></figure>
+<h4 id="实验三-SQL数据定义与数据操纵"><a href="#实验三-SQL数据定义与数据操纵" class="headerlink" title="实验三 SQL数据定义与数据操纵"></a>实验三 SQL数据定义与数据操纵</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--在实验一建立的数据库STUDENTDB的三个表中各插入一条记录</span></span><br><span class="line"><span class="keyword">Insert</span> <span class="keyword">into</span> students (sno,sname,ssex,sage,sdept)</span><br><span class="line">	<span class="keyword">values</span>(<span class="string">&#x27;201201005&#x27;</span>,<span class="string">&#x27;ZhangSan&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;计算机系&#x27;</span>);</span><br><span class="line"><span class="comment">--创建一个表，保存学生的学号、姓名和年龄，把students表中‘CS’系的全部同学插入到此表中</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> student_1 (sno <span class="type">char</span>(<span class="number">10</span>),sname <span class="type">char</span>(<span class="number">16</span>),sage <span class="type">smallint</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> student_1 <span class="keyword">select</span> sno,sname,sage <span class="keyword">from</span> students <span class="keyword">where</span> sdept<span class="operator">=</span><span class="string">&#x27;计算机系&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--将学号为“200215121”的学生的年龄增加一岁</span></span><br><span class="line">Update student <span class="keyword">set</span> sage<span class="operator">=</span>sage<span class="operator">+</span><span class="number">1</span> <span class="keyword">where</span> sno<span class="operator">=</span><span class="string">&#x27;201201005&#x27;</span>;</span><br><span class="line"><span class="comment">--将CS系全体学生的1号课程成绩加5分</span></span><br><span class="line">Update sc <span class="keyword">set</span> grade<span class="operator">=</span>grade<span class="operator">+</span><span class="number">5</span> <span class="keyword">where</span> cno<span class="operator">=</span> <span class="string">&#x27;01&#x27;</span> <span class="keyword">and</span> sno <span class="keyword">in</span> </span><br><span class="line">	(<span class="keyword">select</span> sno <span class="keyword">from</span> students <span class="keyword">where</span> sdept<span class="operator">=</span><span class="string">&#x27;计算机系&#x27;</span>);</span><br><span class="line"><span class="comment">--将2号课程中低于该课程平均分的同学的分数加5分</span></span><br><span class="line">UPDATE sc <span class="keyword">SET</span> grade<span class="operator">=</span>grade<span class="operator">+</span><span class="number">5</span> <span class="keyword">WHERE</span> cno<span class="operator">=</span><span class="string">&#x27;04&#x27;</span> <span class="keyword">AND</span> grade<span class="operator">&lt;</span></span><br><span class="line">	(<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(grade) <span class="keyword">FROM</span> sc <span class="keyword">WHERE</span> cno<span class="operator">=</span><span class="string">&#x27;04&#x27;</span>);</span><br><span class="line"><span class="comment">--删除3号课程还未登记分数的记录</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> sc <span class="keyword">WHERE</span> cno<span class="operator">=</span><span class="string">&#x27;05&#x27;</span> <span class="keyword">AND</span> grade <span class="keyword">is</span> <span class="keyword">NULL</span>;</span><br><span class="line"><span class="comment">--建立视图view_CS,内容为CS系全体同学</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view_cs <span class="keyword">AS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> sdept<span class="operator">=</span><span class="string">&#x27;计算机系&#x27;</span>);</span><br><span class="line"><span class="comment">--建立视图view_gf,内容为1号课程80分以上同学选课信息</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view_gf</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> sc <span class="keyword">WHERE</span> cno<span class="operator">=</span><span class="string">&#x27;01&#x27;</span> <span class="keyword">and</span> grade<span class="operator">&gt;</span><span class="number">80</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="实验四-数据库的安全性管理"><a href="#实验四-数据库的安全性管理" class="headerlink" title="实验四 数据库的安全性管理"></a>实验四 数据库的安全性管理</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建两个登录帐号Test1和Test2，密码自定，默认登录数据库s_t</span></span><br><span class="line"><span class="keyword">Exec</span> sp_addlogin Test1,<span class="string">&#x27;123456&#x27;</span>,s_t；</span><br><span class="line"><span class="keyword">Exec</span> sp_addlogin Test2,<span class="string">&#x27;654321&#x27;</span>,s_t；</span><br><span class="line"><span class="comment">--建立与登录帐号Test1和Test2相应的数据库用户，分别为Test1和Test2</span></span><br><span class="line"><span class="keyword">Exec</span> sp_adduser Test1,Test1；</span><br><span class="line"><span class="keyword">Exec</span> sp_adduser Test2,Test2；</span><br><span class="line"></span><br><span class="line"><span class="comment">--Test1可以对表students和sc进行查询、插入、修改的操作；</span></span><br><span class="line"><span class="comment">--Test2可以对表sc进行查询，对sc的grade列进行修改操作;</span></span><br><span class="line"><span class="keyword">Grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,update <span class="keyword">on</span> students, sc <span class="keyword">to</span> Test1；</span><br><span class="line"><span class="keyword">Grant</span> <span class="keyword">select</span> <span class="keyword">on</span> sc <span class="keyword">to</span> Test2;</span><br><span class="line"><span class="keyword">Grant</span> update <span class="keyword">on</span> sc(grade) <span class="keyword">to</span> Test2；</span><br><span class="line"></span><br><span class="line"><span class="comment">--Test2可对students表查询但仅能查询CS系的学生信息</span></span><br><span class="line"><span class="comment">--分两步，第1步建立视图：</span></span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">view</span> view_CS</span><br><span class="line"><span class="keyword">As</span></span><br><span class="line"><span class="keyword">Select</span> <span class="operator">*</span> <span class="keyword">from</span> students <span class="keyword">where</span> sdept<span class="operator">=</span>’CS’;</span><br><span class="line"><span class="comment">--第2步：</span></span><br><span class="line"><span class="keyword">Grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_CS <span class="keyword">to</span> Test2;</span><br><span class="line"></span><br><span class="line"><span class="comment">--Test1可以创建表和视图</span></span><br><span class="line"><span class="keyword">Grant</span> <span class="keyword">create</span> <span class="keyword">table</span>,<span class="keyword">create</span> <span class="keyword">view</span> <span class="keyword">to</span> Test1;</span><br><span class="line"></span><br><span class="line"><span class="comment">--创建角色role_delsc，设置该角色具有删除sc表的记录权限，将Test1用户添加到此角色</span></span><br><span class="line"><span class="keyword">Exec</span> Sp_addrole ‘role_delsc’;</span><br><span class="line"><span class="keyword">Grant</span> <span class="keyword">delete</span> <span class="keyword">on</span> sc <span class="keyword">to</span> role_delsc;</span><br><span class="line"><span class="keyword">Exec</span> sp_addrolemember ‘role_delsc’,’Test1’;</span><br></pre></td></tr></table></figure>
+<h4 id="实验五-数据库的备份与恢复"><a href="#实验五-数据库的备份与恢复" class="headerlink" title="实验五 数据库的备份与恢复"></a>实验五 数据库的备份与恢复</h4><p>1、SQL Server的三种备份形式</p>
+<p>SQL Server具有三种备份形式：完全备份、事务日志和差异备份。</p>
+<p>⑴   完全备份：将数据库完全复制到备份文件中。</p>
+<p>⑵   事务日志备份：备份发生在数据库上的事务。</p>
+<p>⑶   差异备份：备份最近一次完全备份以后数据库发生变化的数据。</p>
+<p>2、数据库进行备份和恢复操作的方式</p>
+<p>⑴   静态的备份和恢复方式。该方式在进行数据备份或恢复操作时，SQL服务器不接受任何应用程序的访问请求，只执行备份或恢复操作。</p>
+<p>⑵   动态的备份和恢复方式。该方式在进行数据备份或恢复操作时，SQL服务器同时接受应用程序的访问请求。</p>
+<blockquote>
+<p>事务日志备份 事务日志是一个单独的文件,它记录数据库的改变,备份的时候只需要复制自上次备份以来对数据库所做的改变,所以只需要很少的时间。为了使数据库具有鲁棒性,推荐每小时甚至更频繁的备份事务日志。</p>
+<p>差异备份 也叫增量备份。它是只备份数据库一部分的另一种方法,它不使用事务日志,相反,它使用整个数据库的一种新映象。它比最初的完全备份小,因为它只包含自上次完全备份以来所改变的数据库。</p>
+</blockquote>
+<h6 id="备份操作"><a href="#备份操作" class="headerlink" title="备份操作"></a>备份操作</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--对数据库Studinfo做完整备份，生成：stud_full.bak</span></span><br><span class="line">backup database Studinfo <span class="keyword">to</span> disk <span class="operator">=</span> <span class="string">&#x27;D:/stud_full.bak&#x27;</span></span><br><span class="line"><span class="comment">--对数据库Studinfo进行更新操作，例如：新建一个表tbtest1</span></span><br><span class="line"><span class="comment">--然后对数据库Studinfo做第一次差异备份，生成：stud_diff1.bak</span></span><br><span class="line">backup database Studinfo <span class="keyword">to</span> disk <span class="operator">=</span> <span class="string">&#x27;D:/stud_diff1.bak&#x27;</span> <span class="keyword">with</span> differential</span><br><span class="line"><span class="comment">--再次对数据库Studinfo进行更新操作，例如：新建一个表tbtest2</span></span><br><span class="line"><span class="comment">--然后对数据库Studinfo做第二次差异备份，生成：stud_diff2.bak</span></span><br><span class="line">backup database Studinfo <span class="keyword">to</span> disk <span class="operator">=</span> <span class="string">&#x27;D:/stud_diff2.bak&#x27;</span> <span class="keyword">with</span> differential;</span><br><span class="line"><span class="comment">--继续对数据库Studinfo进行更新操作，例如：新建一个表tbtest3</span></span><br><span class="line"><span class="comment">--然后对数据库Studinfo做事务日志备份，生成：stud_log.bak</span></span><br><span class="line">BACKUP LOG Studinfo <span class="keyword">to</span> disk <span class="operator">=</span> <span class="string">&#x27;D:/stud_log.bak&#x27;</span>;</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<h4 id="实验六-存储过程与程序设计"><a href="#实验六-存储过程与程序设计" class="headerlink" title="实验六 存储过程与程序设计"></a>实验六 存储过程与程序设计</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建存储过程score90，执行该存储过程时，显示成绩表中分数超过90的同学情况</span></span><br><span class="line"><span class="keyword">CREATE</span> PROC score90</span><br><span class="line"><span class="keyword">As</span></span><br><span class="line"><span class="keyword">Select</span> <span class="operator">*</span> <span class="keyword">from</span> sc <span class="keyword">where</span> grade<span class="operator">&gt;=</span><span class="number">90</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--创建带参数的存储过程disp_xs，执行该存储过程时可附加一个参数——系的名称，结果可显示student表中此系的学生信息</span></span><br><span class="line"><span class="keyword">CREATE</span> PROC disp_xs <span class="variable">@tdept</span> <span class="type">char</span>(<span class="number">16</span>)</span><br><span class="line"><span class="keyword">As</span></span><br><span class="line"><span class="keyword">Select</span> <span class="operator">*</span> <span class="keyword">from</span> students <span class="keyword">where</span> sdept<span class="operator">=</span><span class="variable">@tdept</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--创建带参数的存储过程p_b2a,执行该存储过程时可附加两个参数--金额和项目号</span></span><br><span class="line"><span class="comment">--结果指定项目从b转账指定金额到a,建立事务的方式,当b的金额不够转时就不执行</span></span><br><span class="line"><span class="comment">--Step1：创建实验表counter</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> counter(</span><br><span class="line">id <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b <span class="type">int</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">Insert</span> <span class="keyword">into</span> counter <span class="keyword">values</span>(‘c1’,<span class="number">1000</span>,<span class="number">500</span>);</span><br><span class="line"><span class="keyword">Insert</span> <span class="keyword">into</span> counter <span class="keyword">values</span>(‘c2’,<span class="number">2000</span>,<span class="number">800</span>);</span><br><span class="line"><span class="comment">--Step2：创建存储过程</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> p_b2a <span class="variable">@amount</span> <span class="type">int</span>,<span class="variable">@idname</span> <span class="type">char</span>(<span class="number">8</span>)</span><br><span class="line"><span class="keyword">as</span> </span><br><span class="line"><span class="keyword">begin</span> transaction</span><br><span class="line">update counter <span class="keyword">set</span> b<span class="operator">=</span>b<span class="operator">-</span><span class="variable">@amount</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="variable">@idname</span></span><br><span class="line">if (<span class="keyword">select</span> b <span class="keyword">from</span> counter <span class="keyword">where</span> id<span class="operator">=</span><span class="variable">@idname</span>)<span class="operator">&lt;</span><span class="number">0</span>  </span><br><span class="line">   <span class="keyword">rollback</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    update counter <span class="keyword">set</span> a<span class="operator">=</span>a<span class="operator">+</span><span class="variable">@amount</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="variable">@idname</span></span><br><span class="line">    <span class="keyword">commit</span></span><br><span class="line">  <span class="keyword">End</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--在student表上创建触发器trig_welcome，当在student表中插入记录后，显示“welcome”</span></span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">trigger</span> trig_welcome </span><br><span class="line"><span class="keyword">on</span> students</span><br><span class="line">after <span class="keyword">insert</span> </span><br><span class="line"><span class="keyword">as</span></span><br><span class="line">print ‘welcome’;</span><br><span class="line"></span><br><span class="line"><span class="comment">--在sc表上创建触发器trig_delete，当删除了sc表中的记录时，显示sc表的所有记录</span></span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">trigger</span> trig_delete </span><br><span class="line"><span class="keyword">on</span> sc</span><br><span class="line">after <span class="keyword">delete</span></span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> sc</span><br></pre></td></tr></table></figure>
+<p>分别在students表执行插入操作，在成绩表执行删除操作，观察结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705172106188.png" alt="image-20200705172106188"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--在SC表创建触发器，当更新了sc表的记录时，把更新前后的值记录到日志表中</span></span><br><span class="line"><span class="comment">--Step1：先创建日志表sc_log</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sc_log(</span><br><span class="line">  sno_old <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">  cno_old <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">  grade_old <span class="type">smallint</span>,</span><br><span class="line">  sno_new <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">  cno_new <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">  grade_new <span class="type">smallint</span>,</span><br><span class="line">  optype <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">  username <span class="type">char</span>(<span class="number">10</span>),</span><br><span class="line">hostname <span class="type">char</span>(<span class="number">20</span>)，</span><br><span class="line">  date_time datetime</span><br><span class="line">);</span><br><span class="line"><span class="comment">--Step2：建立触发器</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> t_sc_update</span><br><span class="line"><span class="keyword">on</span> sc</span><br><span class="line">after update</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">declare</span> <span class="variable">@sno1</span> <span class="type">char</span>(<span class="number">8</span>),<span class="variable">@cno1</span> <span class="type">char</span>(<span class="number">8</span>),<span class="variable">@grade1</span> <span class="type">smallint</span></span><br><span class="line">  <span class="keyword">declare</span> <span class="variable">@sno2</span> <span class="type">char</span>(<span class="number">8</span>),<span class="variable">@cno2</span> <span class="type">char</span>(<span class="number">8</span>),<span class="variable">@grade2</span> <span class="type">smallint</span></span><br><span class="line">  <span class="keyword">select</span> <span class="variable">@sno1</span><span class="operator">=</span>sno,<span class="variable">@cno1</span><span class="operator">=</span>cno,<span class="variable">@grade1</span><span class="operator">=</span>grade <span class="keyword">from</span> deleted</span><br><span class="line">  <span class="keyword">select</span> <span class="variable">@sno2</span><span class="operator">=</span>sno,<span class="variable">@cno2</span><span class="operator">=</span>cno,<span class="variable">@grade2</span><span class="operator">=</span>grade <span class="keyword">from</span> inserted</span><br><span class="line">  <span class="keyword">insert</span> <span class="keyword">into</span> sc_log     <span class="keyword">values</span>(<span class="variable">@sno1</span>,<span class="variable">@cno1</span>,<span class="variable">@grade1</span>,<span class="variable">@sno2</span>,<span class="variable">@cno2</span>,<span class="variable">@grade2</span>,<span class="string">&#x27;update&#x27;</span>, suser_name(),host_name(),<span class="built_in">current_timestamp</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p><strong>一、绪论</strong></p>
+<p>\1. 数据库，是相互关联的数据的集合，它用综合的方法组织数据，具有较小的数据冗余，可供多个用户共享，具有较高的数据独立性，具有安全控制机制，能够保证数据的安全、可靠，允许并发地使用数据库，能有效、及时地处理数据，并能保证数据的一致性和完整性。</p>
+<p>\2. 数据管理的三个阶段：人工管理，文件系统，数据库系统。</p>
+<p>\3. 数据库系统包括：数据库，数据库管理系统，应用程序，各类人员；其核心是数据库管理系统。</p>
+<p>\4. 两大类数据模型：概念模型和（组织）数据模型</p>
+<p> （1）概念模型：实体-联系模型</p>
+<p>   实体：实体是具有公共性质的可相互区别的现实世界对象的集合。</p>
+<p>   属性：属性就是描述实体或者联系的性质或特征的数据项。</p>
+<p>   联系：实体内部的联系通常是指组成实体的各属性之间的联系，实体之间的联系通常是指不同实体之间的联系。联系分为三类：一对一联系、一对多联系、多对多联系。</p>
+<p> （2）(组织)数据模型</p>
+<p>   常见的数据模型，三类：层次模型（用树型结构组织数据）、网状模型（用图型结构组织数据）、关系模型（用简单二维表结构组织数据）。</p>
+<p>  层次模型无法直接表示多对多联系。</p>
+<p>5.数据库系统的三级模式结构</p>
+<p>（1）数据库划分为三层结构：内模式、模式和外模式。</p>
+<p>（2）数据库的二级映像功能：模式和内模式间的映象以及外模式和模式间的映象。</p>
+<p>（3）同一个模式可以有任意多个外模式，外模式／模式映象，保证了数据与程序的逻辑独立性</p>
+<p> （4）模式／内模式映象是唯一的，保证了数据与程序的物理独立性</p>
+<p><strong>二、关系数据库</strong></p>
+<p>1.关系模型中的基本术语</p>
+<p>（1）关系</p>
+<p>​     关系就是二维表，它满足如下条件：</p>
+<p>​       关系表中的每一列都是不可再分的基本属性。</p>
+<p>​       表中各属性不能重名。 </p>
+<p>​       表中的行、列次序并不重要，即交换列的前后顺序不影响其表达的语义。</p>
+<p>   （2）元组</p>
+<p>​       表中的每一行数据称作是一个元组，它相当于一个记录值。</p>
+<p>   （3）属性</p>
+<p>​       表中的每一列是一个属性值集，列可以命名，称为属性名。</p>
+<p>   （4）主码</p>
+<p>​       主码（Primary key）也译为主键或主关键字，是表中的属性或属性组，用于惟一地确定一个元组。</p>
+<p>2.数据完整性，是指数据库中存储的数据是有意义的或正确的。</p>
+<p>数据完整性约束主要包括三大类：</p>
+<p>  （1） 实体完整性，关系模型中使用主码作为记录的惟一标识。</p>
+<p>  （2）参照完整性，参照完整性是描述实体之间的联系的。参照完整性一般是指多个实体或表之间的关联关系。</p>
+<p>（3）用户定义的完整性，用户定义的完整性就是针对某一具体应用领域定义的数据库约束条件。 </p>
+<p>3.关系运算</p>
+<p>（1）集合运算</p>
+<p>  并、交、差、笛卡尔积</p>
+<p>（2）关系运算</p>
+<p>​    选择、投影、连接、除（不考）</p>
+<p>  其中,关系运算中五种基本操作：并、差、笛卡儿积、选择、投影,其他运算可由其推导.</p>
+<p><strong>三、关系数据库标准语言SQL</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705175338234.png" alt="image-20200705175320059"></p>
+<p>1、数据定义</p>
+<p>CREATE TABLE &lt;表名&gt;</p>
+<p>   （&lt;列名&gt; &lt;数据类型&gt;[ &lt;列级完整性约束条件&gt; ]</p>
+<p>   [，&lt;列名&gt; &lt;数据类型&gt;[ &lt;列级完整性约束条件&gt;] ] …</p>
+<p>   [，&lt;表级完整性约束条件&gt; ] ）；</p>
+<p>掌握：</p>
+<p>用CREATE TABLE创建Student、Course、SC表及相关约束。</p>
+<p>2、数据查询</p>
+<p>语句格式</p>
+<p>​    SELECT [ALL|DISTINCT] &lt;目标列表达式&gt;</p>
+<p>​                        [，&lt;目标列表达式&gt;] …</p>
+<p>FROM &lt;表名或视图名&gt;[， &lt;表名或视图名&gt; ] …</p>
+<p>[ WHERE &lt;条件表达式&gt; ]</p>
+<p>[ GROUP BY &lt;列名1&gt; [ HAVING &lt;条件表达式&gt; ] ]</p>
+<p>[ ORDER BY &lt;列名2&gt; [ ASC|DESC ] ]；</p>
+<p>掌握：</p>
+<p>（1）DISTINCT、BETWEEN … AND …、IN、LIKE （%、_）、IS NULL的含义和用法。</p>
+<p>（2）ORDER BY的用法</p>
+<p>（3）5个聚集函数的用法</p>
+<p>（4）GROUP BY的用法</p>
+<p>（5）连接查询，内连接和外连接的区别</p>
+<p>（6）嵌套查询，掌握最基本的使用IN实现内外层不相关的嵌套查询。</p>
+<p>3、数据操纵</p>
+<p>  掌握Insert、Update、Delete语句的用法。</p>
+<p> 4、视图</p>
+<p>​    掌握Create View的用法，掌握基于视图的查询。</p>
+<p><strong>四、</strong> <strong>数据库安全性</strong></p>
+<p>1、自主存取控制和强制存取控制的区别</p>
+<p>​    自主存取控制方法：定义各个用户对不同数据对象的存取权限。当用户对数据库访问时首先检查用户的存取权限。防止不合法用户对数据库的存取。</p>
+<p>  强制存取控制方法：每一个数据对象被（强制地）标以一定的密级，每一个用户也被（强</p>
+<p>制地）授予某一个级别的许可证。系统规定只有具有某一许可证级别的用户才能存取某一个密级的数据对象。</p>
+<p>2、掌握Grant语句</p>
+<p>GRANT语句的一般格式：</p>
+<p>​    GRANT &lt;权限&gt;[,&lt;权限&gt;]… </p>
+<p>​    [ON &lt;对象类型&gt; &lt;对象名&gt;]</p>
+<p>​    TO &lt;用户&gt;[,&lt;用户&gt;]…</p>
+<p>​    [WITH GRANT OPTION];</p>
+<p>3、掌握SQL Server中访问数据库中数据的三个步骤。</p>
+<p>（1）创建登录账号；</p>
+<p>Create Login 或 exec sp_addlogin</p>
+<p>（2）创建数据库用户，并关联到相应的登录账号；</p>
+<p>Create User 或 exec sp_adduser</p>
+<p>（2）为用户授权。</p>
+<p>Grant</p>
+<p>4、掌握创建角色，及角色的使用方法。</p>
+<p>（1）创建角色；</p>
+<p>​      Create role </p>
+<p>（2）给角色授权</p>
+<p>​       Grant </p>
+<p>（3）把用户加入到角色</p>
+<p>​       Exec sp_addrolemember </p>
+<p><strong>五、数据库完整性</strong></p>
+<p>1、数据库的完整性是指：数据的正确性和相容性</p>
+<p>2、掌握完整性约束命名的方法，即：CONSTRAINT的使用。</p>
+<p>3、触发器</p>
+<p>​    （1）当对表进行insert,update,delete操作,可定义触发器.</p>
+<p>（2）创建触发器的格式:</p>
+<p>CREATE TRIGGER trigger_name </p>
+<p>ON { table | view } </p>
+<p>{ FOR | AFTER | INSTEAD OF }  </p>
+<p>{ [ INSERT ] [ , ] [ UPDATE ] [ , ] [ DELETE ] }</p>
+<p>AS</p>
+<p>　 sql_statement [ …n ]</p>
+<p><strong>触发器举例：</strong></p>
+<p>（1）在student表中插入记录后显示学生总数</p>
+<p>create trigger t_insert_st</p>
+<p>on student</p>
+<p>for insert</p>
+<p>as</p>
+<p>begin</p>
+<p> declare @totalnum int</p>
+<p> set @totalnum=(select count(*) from student)</p>
+<p> print ‘共有：’+str(@totalnum)+’名学生’</p>
+<p>End</p>
+<p>（2）在SC表创建触发器，当更新了sc表的记录时，把更新前后的值记录到日志表中。</p>
+<p>(a)先创建日志表sc_log</p>
+<p>create table sc_log(</p>
+<p> sno_old char(8),</p>
+<p> cno_old char(8),</p>
+<p> grade_old smallint,</p>
+<p> sno_new char(8),</p>
+<p> cno_new char(8),</p>
+<p> grade_new smallint,</p>
+<p> optype char(8),</p>
+<p> username varchar(50),</p>
+<p> hostname varchar(50),</p>
+<p> date_time datetime</p>
+<p>) </p>
+<p>(b)建立触发器</p>
+<p>create trigger t_sc_update</p>
+<p>on sc</p>
+<p>after update</p>
+<p>as</p>
+<p>begin</p>
+<p> declare @sno1 char(8),@cno1 char(8),@grade1 smallint</p>
+<p> declare @sno2 char(8),@cno2 char(8),@grade2 smallint</p>
+<p> select @sno1=sno,@cno1=cno,@grade1=grade from deleted</p>
+<p> select @sno2=sno,@cno2=cno,@grade2=grade from inserted</p>
+<p> insert into sc_log   values(@sno1,@cno1,@grade1,@sno2,@cno2,@grade2,’update’, suser_name(),host_name(),current_timestamp)</p>
+<p>end</p>
+<p><strong>六、关系规范化理论</strong></p>
+<p>七、数据库设计**</p>
+<p>1、数据库设计分6个阶段</p>
+<p>（1）需求分析 — 构造数据字典和数据流图</p>
+<p>（2）概念结构设计 — 形成一个独立于具体DBMS的概念模型，最常用：E-R图</p>
+<p>E-R图：实体-&gt;矩形框, 属性-&gt;椭圆形框, 联系-&gt;菱形框</p>
+<p>例:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705175532613.png" alt="image-20200705175532613"></p>
+<p> 关系模式： 货物（货号，单价，仓库号）</p>
+<p>​            仓库（仓库号，面积）</p>
+<p>​            存放（货号，仓库号，存量）</p>
+<p>例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181801858.png" alt="image-20200705181801858"></p>
+<p>关系模式：职工（职工号，姓名，年龄，职称）</p>
+<p>​          职称（职称代码，职称名，工资，住房标准，附加福利）</p>
+<p>（3）逻辑结构设计 — 将概念结构转换为某个DBMS所支持的数据模型。</p>
+<p>将E-R图转换为关系模型：每个实体转换为一个关系；一个1:1联系可以转换为一个独立的关系模式，也可以与任意一端对应的关系模式合并；一个1:n联系可以转换为一个独立的关系模式，也可以与n端对应的关系模式合并；一个m:n联系必须转换为一个关系模式。</p>
+<p>（4）物理结构设计 — 为逻辑数据模型选取一个最适合应用环境的物理结构（包括存储结构和存取方法）</p>
+<p>（5）数据库实施 — 运用DBMS提供的数据库语言（如SQL）及宿主语言，根据逻辑设计和物理设计的结果，建立数据库、编制与调试应用程序、组织数据入库、进行试运行</p>
+<p>（6）数据库运行和维护 </p>
+<p>2、需求分析和概念设计独立于任何数据库管理系统，逻辑设计和物理设计与选用的DBMS密切相关。</p>
+<p><strong>八、数据库编程</strong></p>
+<p>1、存储过程</p>
+<p>SQL Server存储过程</p>
+<p>简化格式:</p>
+<p>创建存储过程:</p>
+<p>CREATE PROC[EDURE] procedure_name<br> [{@parameterdata_type}</p>
+<p>AS </p>
+<p>sql_statement</p>
+<p>执行存储过程</p>
+<p>EXEC[UTE] procedure_name</p>
+<p>[@parameter=]{value|@variable}</p>
+<p><strong>存储过程举例：</strong></p>
+<p>（1）创建存储过程，检索指定系的学生信息</p>
+<p>create procedure display_stud @dept char(8) </p>
+<p>  as</p>
+<p>  select * from student where sdept=@dept</p>
+<p>执行</p>
+<p>execute display_stud ‘CS’</p>
+<p>（2）创建带参数的存储过程p_b2a,执行该存储过程时可附加两个参数–金额和项目号,结果指定项目从b转账指定金额到a,建立事务的方式,当b的金额不够转时就不执行。</p>
+<p>create procedure p_b2a @amount int,@idname char(8)</p>
+<p>as </p>
+<p>begin transaction</p>
+<p>update counter set b=b-@amount where id=@idname</p>
+<p>if (select b from counter where id=@idname)&lt;0 </p>
+<p>  rollback</p>
+<p>else</p>
+<p> begin</p>
+<p>  update counter set a=a+@amount where id=@idname</p>
+<p>  commit</p>
+<p> End</p>
+<p><strong>九、查询处理与优化</strong></p>
+<p><strong>十、数据库恢复技术</strong></p>
+<p>1、事务</p>
+<p>一个数据库操作序列，一个不可分割的工作单位，恢复和并发控制的基本单位。</p>
+<p>事务的ACID特性：</p>
+<p>原子性（Atomicity）</p>
+<p>表示的是事务的所有操作在数据库中要么都做,要么都不做。</p>
+<p>一致性（Consistency）</p>
+<p>事务在执行前如果数据库是一致性的那么执行后也是一致性的。</p>
+<p>隔离性（Isolation）</p>
+<p>事务在执行过程中不受其他事务的干扰</p>
+<p>持续性（Durability ）</p>
+<p>一个事务成功完成后,它对数据库的改变必须是永久的,即使是系统出现故障时也如此</p>
+<p>2、例：</p>
+<p>​    begin tran</p>
+<p>update counter set bb = bb - 100 where id = ‘c1’</p>
+<p> waitfor delay ‘00:00:30.000’  </p>
+<p>update counter set aa = aa + 100 where id = ‘c1’</p>
+<p>commit tran</p>
+<p>运行结束前，停止SQL SERVER服务，然后重启服务查看aa和bb的值，aa和bb的值均没变。</p>
+<p> 3、数据库恢复的基础是利用转储的冗余数据。这些转储的冗余数据包括：数据库后备副本、日志文件。</p>
+<p>4、SQL Server中的备份主要有：完整备份、差异备份和事务日志备份。</p>
+<p>5、系统故障恢复的基本策略</p>
+<p>（1）发生系统故障时，事务未提交</p>
+<p>  恢复策略：强行撤消（UNDO）所有未完成事务</p>
+<p>（2）发生系统故障时，事务已提交，但缓冲区中的信息尚未完全写回到磁盘上。</p>
+<p>恢复策略：重做（REDO）所有已提交的事务</p>
+<p>6、具有检查点（checkpoint）的恢复技术</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181839174.png" alt="image-20200705181839174"></p>
+<p><strong>十一、并发控制</strong></p>
+<p>1、并发控制机制的任务：对并发操作进行正确调度，保证事务的隔离性，保证数据库的一致性。</p>
+<p>2、并发操作带来的数据不一致性：丢失修改（Lost Update），不可重复读（Non-repeatable Read），读“脏”数据（Dirty Read）。</p>
+<p>3、丢失修改例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181853430.png" alt="image-20200705181853430"></p>
+<p>4、不可重复读例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705181909448.png" alt="image-20200705181909448"></p>
+<p>5、读“脏”数据例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705182118194.png" alt="image-20200705182118194"></p>
+<p>6、为解决并发操作带来的问题，商用的DBMS一般都采用封锁方法。</p>
+<p>7、基本封锁类型</p>
+<p>​    排它锁（Exclusive Locks，简记为X锁）</p>
+<p>​    共享锁（Share Locks，简记为S锁）</p>
+<p>8、死锁例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200705182137701.png" alt="image-20200705182137701"></p>
+<p>9、DBMS在解决死锁的问题上普遍采用的是诊断并解除死锁的方法。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80"><span class="toc-number">1.0.1.</span> <span class="toc-text">实验一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C-SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.2.</span> <span class="toc-text">实验二 SQL查询操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89-SQL%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5"><span class="toc-number">1.0.3.</span> <span class="toc-text">实验三 SQL数据定义与数据操纵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%9B%9B-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.4.</span> <span class="toc-text">实验四 数据库的安全性管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%94-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-number">1.0.5.</span> <span class="toc-text">实验五 数据库的备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.5.0.1.</span> <span class="toc-text">备份操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%85%AD-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.0.6.</span> <span class="toc-text">实验六 存储过程与程序设计</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">知识点</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&text=SQL server 学校课程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&is_video=false&description=SQL server 学校课程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL server 学校课程&body=Check out this article: http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&title=SQL server 学校课程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&name=SQL server 学校课程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/29/SQLserver-%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/&t=SQL server 学校课程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

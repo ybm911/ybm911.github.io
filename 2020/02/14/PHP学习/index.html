@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="php真正的威力来自于他的函数在php中，提供了超过一千个内建函数 根据“TIOBE编程语言排行榜”（榜单虽然统计方式有局限，但是仍然不失为一个比较好的参考），2010年PHP最高曾经在世界编程语言中排名第三。可见，PHP语言在PC互联网时代的Web领域可谓叱咤风云，擎天一柱。  某女：你能让这个论坛的人都吵起来，我就跟你吃饭。PHP程序员：PHP是世界上最好的语言！某论坛炸锅了，各种吵架……某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP学习_世界上最好的语言😅（持续更新）">
+<meta property="og:url" content="http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="php真正的威力来自于他的函数在php中，提供了超过一千个内建函数 根据“TIOBE编程语言排行榜”（榜单虽然统计方式有局限，但是仍然不失为一个比较好的参考），2010年PHP最高曾经在世界编程语言中排名第三。可见，PHP语言在PC互联网时代的Web领域可谓叱咤风云，擎天一柱。  某女：你能让这个论坛的人都吵起来，我就跟你吃饭。PHP程序员：PHP是世界上最好的语言！某论坛炸锅了，各种吵架……某">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217001903.png">
+<meta property="article:published_time" content="2020-02-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:20:06.845Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="计算机语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217001903.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PHP学习_世界上最好的语言😅（持续更新）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/02/14/Mac+Hexo+GitHub/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&text=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&is_video=false&description=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP学习_世界上最好的语言😅（持续更新）&body=Check out this article: http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&name=PHP学习_世界上最好的语言😅（持续更新）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&t=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">PHP配置问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#php%E7%AE%80%E5%86%99"><span class="toc-number">2.0.1.</span> <span class="toc-text">php简写</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">PHP基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ini-set"><span class="toc-number">3.0.1.</span> <span class="toc-text">ini_set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">3.0.2.</span> <span class="toc-text">@的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#addslashes"><span class="toc-number">3.0.3.</span> <span class="toc-text">addslashes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#htmlspecialchars"><span class="toc-number">3.0.4.</span> <span class="toc-text">htmlspecialchars</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hex2bin"><span class="toc-number">3.0.5.</span> <span class="toc-text">hex2bin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#base-convert"><span class="toc-number">3.0.6.</span> <span class="toc-text">base_convert</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%AD%A3%E5%88%99"><span class="toc-number">4.</span> <span class="toc-text">PHP正则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">PHP数据库操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.0.0.0.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PHP学习_世界上最好的语言😅（持续更新）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-14T00:00:00.000Z" itemprop="datePublished">2020-02-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PHP/" rel="tag">PHP</a>, <a class="tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/" rel="tag">计算机语言</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>php真正的威力来自于他的函数<br>在php中，提供了超过一千个内建函数</p>
+<p>根据“TIOBE编程语言排行榜”（榜单虽然统计方式有局限，但是仍然不失为一个比较好的参考），2010年PHP最高曾经在世界编程语言中排名第三。可见，PHP语言在PC互联网时代的Web领域可谓叱咤风云，擎天一柱。 </p>
+<p>某女：你能让这个论坛的人都吵起来，我就跟你吃饭。<br>PHP程序员：PHP是世界上最好的语言！<br>某论坛炸锅了，各种吵架……<br>某女：服了你了，我们走吧！<br>PHP程序员：今天不行，我一定要说服他们，PHP必须是最好的语言。</p>
+</blockquote>
+<h2 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h2><ol>
+<li><a href="#PHP%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98">PHP配置问题</a></li>
+<li><a href="#PHP%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95">PHP基础语法</a></li>
+<li><a href="#PHP%E6%AD%A3%E5%88%99">PHP正则</a></li>
+<li><a href="#PHP%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C">PHP数据库操作</a></li>
+</ol>
+<hr>
+<h2 id="PHP配置问题"><a href="#PHP配置问题" class="headerlink" title="PHP配置问题"></a>PHP配置问题</h2><h4 id="php简写"><a href="#php简写" class="headerlink" title="php简写"></a>php简写</h4><p>使用php简写标签&lt;?</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line">phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>/etc/php/7.*/php.ini中short_open_tag为on。</p>
+<p>例：ubuntu 18<br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217001903.png" alt="php"></p>
+<h2 id="PHP基础语法"><a href="#PHP基础语法" class="headerlink" title="PHP基础语法"></a>PHP基础语法</h2><p>在终端输出 php,<code>php -a</code><br>一句话命令执行 php:<code>php -r &quot;phpinfo();&quot;</code></p>
+<h4 id="ini-set"><a href="#ini-set" class="headerlink" title="ini_set"></a>ini_set</h4><p> PHP   ini_set用来设置php.ini的值，在函数执行的时候生效，脚本结束后，设置失效。无需打开php.ini文件，就能修改配置，对于虚拟空间来说，很方便<br>@ini_set(‘session.use_cookies’,1);<br>‘session.use_cookies’：是否使用cookie在客户端保存会话ID。<br>@ini_set(‘memory_limit’,’64M’);<br>‘menory_limit’：设定一个脚本所能够申请到的最大内存字节数，这有利于写的不好的脚本消耗服务器上的可用内存。<br>@ini_set(‘display_errors’,1);<br>‘display_errors’：设置错误信息的类别。（0为Off,1为On）<br>@ini_set(“display_errors”, “On”);  #开启错误提示</p>
+<h4 id="的作用"><a href="#的作用" class="headerlink" title="@的作用"></a>@的作用</h4><p>PHP @ at 记号的作用，它是错误控制符，即即使出现错误，也无视出现的错误信息，继续执行下边的代码。</p>
+<p>intval — Get the integer value of a variable</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">42</span>);                      <span class="comment">// 42</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">4.2</span>);                     <span class="comment">// 4</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="string">&#x27;42&#x27;</span>);                    <span class="comment">// 42</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="string">&#x27;+42&#x27;</span>);                   <span class="comment">// 42</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="string">&#x27;-42&#x27;</span>);                   <span class="comment">// -42</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">042</span>);                     <span class="comment">// 34(8进制)</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="string">&#x27;042&#x27;</span>);                   <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/7qin/p/10219564.html">PHP $_SERVER</a></p>
+<table>
+<thead>
+<tr>
+<th>$_SERVER[‘SERVER_ADDR’]</th>
+<th>当前运行脚本所在的服务器的 IP 地址。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$_SERVER[‘SERVER_NAME’]</td>
+<td>当前运行脚本所在的服务器的主机名。如果脚本运行于虚拟主机中，该名称是由那个虚拟主机所设置的值决定。</td>
+</tr>
+<tr>
+<td>$_SERVER[‘REQUEST_TIME’]</td>
+<td>请求开始时的时间戳。从 PHP 5.1.0 起可用。</td>
+</tr>
+<tr>
+<td>$_SERVER[‘REMOTE_ADDR’]</td>
+<td>浏览当前页面的用户的 IP 地址。</td>
+</tr>
+<tr>
+<td>$_SERVER[‘REMOTE_HOST’]</td>
+<td>浏览当前页面的用户的主机名。DNS 反向解析不依赖于用户的 REMOTE_ADDR。</td>
+</tr>
+<tr>
+<td>$_SERVER[‘SCRIPT_FILENAME’]</td>
+<td>当前执行脚本的绝对路径。如果是include则是include中的文件</td>
+</tr>
+<tr>
+<td>$_SERVER[‘SCRIPT_NAME’]</td>
+<td>这是从客户端来看的路径，假如你访问的URL地址为 http://**/test/test.php，那么在脚本中 $_SERVER[‘SCRIPT_NAME’] 将会是 /test/test.php 。</td>
+</tr>
+</tbody></table>
+<p>如果你想引用脚本自身，例如把一个表单提交给自己处理时，这可以用这个。<br><code>&lt;form action=&quot;&lt;?php echo $_SERVER[&#39;SCRIPT_NAME&#39;]; ?&gt;&quot; method=&quot;get&quot;&gt;</code></p>
+<h4 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes"></a>addslashes</h4><p>addslashes — 使用反斜线引用字符串<br>返回字符串，该字符串为了数据库查询语句等的需要在某些字符前加上了反斜线。<br>Example #1 一个 addslashes() 例子</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">&quot;Is your name O&#x27;reilly?&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： Is your name O\&#x27;reilly?</span></span><br><span class="line"><span class="keyword">echo</span> addslashes(<span class="variable">$str</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="htmlspecialchars"><a href="#htmlspecialchars" class="headerlink" title="htmlspecialchars"></a>htmlspecialchars</h4><p>(PHP 4, PHP 5, PHP 7)<br>htmlspecialchars — 将特殊字符转换为 HTML 实体</p>
+<h4 id="hex2bin"><a href="#hex2bin" class="headerlink" title="hex2bin"></a>hex2bin</h4><p>hex2bin — 转换十六进制字符串为二进制字符串</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$hex</span> = hex2bin(<span class="string">&quot;6578616d706c65206865782064617461&quot;</span>);</span><br><span class="line">var_dump(<span class="variable">$hex</span>);</span><br></pre></td></tr></table></figure>
+<p>输出<br><code>string(16) &quot;example hex data&quot;</code></p>
+<h4 id="base-convert"><a href="#base-convert" class="headerlink" title="base_convert"></a>base_convert</h4><p>base_convert — 在任意进制之间转换数字</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$hexadecimal</span> = <span class="string">&#x27;A37334&#x27;</span>;</span><br><span class="line"><span class="keyword">echo</span> base_convert(<span class="variable">$hexadecimal</span>, <span class="number">16</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>输出<br><code>101000110111001100110100</code></p>
+<h2 id="PHP正则"><a href="#PHP正则" class="headerlink" title="PHP正则"></a>PHP正则</h2><h2 id="PHP数据库操作"><a href="#PHP数据库操作" class="headerlink" title="PHP数据库操作"></a>PHP数据库操作</h2><h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lxwphp/p/11242955.html">https://www.cnblogs.com/lxwphp/p/11242955.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">PHP配置问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#php%E7%AE%80%E5%86%99"><span class="toc-number">2.0.1.</span> <span class="toc-text">php简写</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">PHP基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ini-set"><span class="toc-number">3.0.1.</span> <span class="toc-text">ini_set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">3.0.2.</span> <span class="toc-text">@的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#addslashes"><span class="toc-number">3.0.3.</span> <span class="toc-text">addslashes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#htmlspecialchars"><span class="toc-number">3.0.4.</span> <span class="toc-text">htmlspecialchars</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hex2bin"><span class="toc-number">3.0.5.</span> <span class="toc-text">hex2bin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#base-convert"><span class="toc-number">3.0.6.</span> <span class="toc-text">base_convert</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%AD%A3%E5%88%99"><span class="toc-number">4.</span> <span class="toc-text">PHP正则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">PHP数据库操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.0.0.0.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&text=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&is_video=false&description=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP学习_世界上最好的语言😅（持续更新）&body=Check out this article: http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&title=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&name=PHP学习_世界上最好的语言😅（持续更新）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/&t=PHP学习_世界上最好的语言😅（持续更新）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

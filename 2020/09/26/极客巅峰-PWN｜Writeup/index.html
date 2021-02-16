@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="PWNbheapblind pwn 题目，发现两点问题  10个空间，每个空间只能用一次（删除了也是） 只能交互9次  Link: https:&#x2F;&#x2F;www.anquanke.com&#x2F;post&#x2F;id&#x2F;196722 https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;6984 Miscbaby_forensics查看文件，发现是流量包，用 wireshark 分析一下。发现是IEC 60870-5-104">
+<meta property="og:type" content="article">
+<meta property="og:title" content="极客巅峰 Writeup">
+<meta property="og:url" content="http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="PWNbheapblind pwn 题目，发现两点问题  10个空间，每个空间只能用一次（删除了也是） 只能交互9次  Link: https:&#x2F;&#x2F;www.anquanke.com&#x2F;post&#x2F;id&#x2F;196722 https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;6984 Miscbaby_forensics查看文件，发现是流量包，用 wireshark 分析一下。发现是IEC 60870-5-104">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124126.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005122636.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124225.png">
+<meta property="og:image" content="http://www.tr0jan.top/img/DFJK/K60VUqeC0DfV3NmQ.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124521.png!thumbnail">
+<meta property="article:published_time" content="2020-09-26T10:52:48.000Z">
+<meta property="article:modified_time" content="2020-12-20T04:28:20.021Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta property="article:tag" content="Misc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124126.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>极客巅峰 Writeup</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/10/02/Brushless-Motor-with-Arduino/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&text=极客巅峰 Writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&is_video=false&description=极客巅峰 Writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=极客巅峰 Writeup&body=Check out this article: http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&name=极客巅峰 Writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&t=极客巅峰 Writeup"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN"><span class="toc-number">1.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bheap"><span class="toc-number">1.1.</span> <span class="toc-text">bheap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Misc"><span class="toc-number">2.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#baby-forensics"><span class="toc-number">2.1.</span> <span class="toc-text">baby_forensics</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        极客巅峰 Writeup
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-26T10:52:48.000Z" itemprop="datePublished">2020-09-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Misc/" rel="tag">Misc</a>, <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="bheap"><a href="#bheap" class="headerlink" title="bheap"></a>bheap</h2><p>blind pwn 题目，发现两点问题</p>
+<ul>
+<li>10个空间，每个空间只能用一次（删除了也是）</li>
+<li>只能交互9次</li>
+</ul>
+<p>Link:</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/196722">https://www.anquanke.com/post/id/196722</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/6984">https://xz.aliyun.com/t/6984</a></p>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="baby-forensics"><a href="#baby-forensics" class="headerlink" title="baby_forensics"></a>baby_forensics</h2><p>查看文件，发现是流量包，用 wireshark 分析一下。发现是IEC 60870-5-104协议，并且通过tcp的传输流得到了客户与服务端的通信报文</p>
+<p><strong>IEC</strong> 60870-5- <strong>104</strong>支持通过标准TCP / IP网络在控制站和变电站之间进行通信。TCP协议用于面向连接的安全数据传输。</p>
+<p>大概总结就是IEC 60870-5-104是电网控制所用的，传输包分为IUS三种。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124126.png" alt="img"></p>
+<p>根据上图分析只有I帧是我们所需要的包数据。该类型的数据存在于ASDU包的最后几个字节。查找 ASDU 协议</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005122636.png" alt="截屏2020-10-02 10.27.53"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124225.png" alt="img"></p>
+<p>使用 IEC8705 报文分析工具。选择104规约，可以看到所对应的信息对象地址为3，最后01表示ON合</p>
+<p><img src="http://www.tr0jan.top/img/DFJK/K60VUqeC0DfV3NmQ.png" alt="img"></p>
+<p>所有的 ASDU 包 dump 下来为：<code>2 3 6 7 10 11 13 14 19 20 22 26 27 31 32 30 40 38 39 37 34 36 42 47 46 50 54 53 64 58 66 70 72 71</code> 将信息对象地址按照顺序列出，并且结合该地址是on状态即为1，没有标注即为0</p>
+<p>标注后结果为：011001100110110000110100011001110101111101000110010011000100000101000111 转换一下即得到隐藏的flag</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005124521.png!thumbnail" alt="img"></p>
+<p>md5 加密后得到 <code>flag&#123;1f363c8468013726578830465d4739fe&#125;</code></p>
+<p>教学：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ntazQXHAtTo&amp;list=PL4tVfIsUhy1bx7TVjtZnqFB6tbZBhOlJP&amp;index=2">https://www.youtube.com/watch?v=ntazQXHAtTo&amp;list=PL4tVfIsUhy1bx7TVjtZnqFB6tbZBhOlJP&amp;index=2</a></p>
+<p>报文解释：<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/1337a739647d27284b7351cb.html#http://blog.sina.com.cn/s/blog_4c8701d00102xe9d.html">https://wenku.baidu.com/view/1337a739647d27284b7351cb.html#http://blog.sina.com.cn/s/blog_4c8701d00102xe9d.html</a><br><a target="_blank" rel="noopener" href="https://www.key1.top/index.php/archives/621/#iec60870-5-104%E5%8D%8F%E8%AE%AE">https://www.key1.top/index.php/archives/621/#iec60870-5-104%E5%8D%8F%E8%AE%AE</a></p>
+<p>题目来源：[<a target="_blank" rel="noopener" href="https://github.com/hi-KK/ICS-Protocol-identify/tree/master/IEC%2060870-5-104%E5%8D%8F%E8%AE%AE%E8%AF%86%E5%88%AB]">https://github.com/hi-KK/ICS-Protocol-identify/tree/master/IEC%2060870-5-104%E5%8D%8F%E8%AE%AE%E8%AF%86%E5%88%AB]</a>(<a target="_blank" rel="noopener" href="https://github.com/hi-KK/ICS-Protocol-identify/tree/master/IEC">https://github.com/hi-KK/ICS-Protocol-identify/tree/master/IEC</a> 60870-5-104协议识别)</p>
+<p>Link<br><a target="_blank" rel="noopener" href="http://tr0jan.top/index.php/archives/83/">http://tr0jan.top/index.php/archives/83/</a><br><a target="_blank" rel="noopener" href="https://shimo.im/docs/QrDQxTgDhWTrvgqc/read">https://shimo.im/docs/QrDQxTgDhWTrvgqc/read</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMDY5MzA4MA==&amp;mid=2247483714&amp;idx=1&amp;sn=e10c002b40f3233e331e30b9abd8c95d&amp;chksm=fa4caff5cd3b26e39093ebfb282f5fcc093ea1bb8042fcb9df44eb056eccf92f84cacc115183&amp;mpshare=1&amp;scene=22&amp;srcid=0927tI0wVZdm9EIxPmgfAt63&amp;sharer_sharetime=1601136193457&amp;sharer_shareid=26ae1a0b3b57d3280c9d7e4c14e0292e%23rd">https://mp.weixin.qq.com/s?__biz=MzUzMDY5MzA4MA==&amp;mid=2247483714&amp;idx=1&amp;sn=e10c002b40f3233e331e30b9abd8c95d&amp;chksm=fa4caff5cd3b26e39093ebfb282f5fcc093ea1bb8042fcb9df44eb056eccf92f84cacc115183&amp;mpshare=1&amp;scene=22&amp;srcid=0927tI0wVZdm9EIxPmgfAt63&amp;sharer_sharetime=1601136193457&amp;sharer_shareid=26ae1a0b3b57d3280c9d7e4c14e0292e%23rd</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN"><span class="toc-number">1.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bheap"><span class="toc-number">1.1.</span> <span class="toc-text">bheap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Misc"><span class="toc-number">2.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#baby-forensics"><span class="toc-number">2.1.</span> <span class="toc-text">baby_forensics</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&text=极客巅峰 Writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&is_video=false&description=极客巅峰 Writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=极客巅峰 Writeup&body=Check out this article: http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&title=极客巅峰 Writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&name=极客巅峰 Writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/&t=极客巅峰 Writeup"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

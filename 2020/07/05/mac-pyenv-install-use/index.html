@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="virtualenv是一个非常流行的工具，它为Python库创建独立的Python环境。 pyenv用于隔离python版本。例如，您可能想用python 2.6、2.7、3.3、3.4和3.5测试代码，因此您需要一种在它们之间切换的方法。 pyvenv是随python 3一起提供的脚本，但在python3.6中已弃用，因为它存在问题(更不用说混淆的名称)。在python 3.6+中，确切的等价">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python｜virtual">
+<meta property="og:url" content="http://ybm911.work/2020/07/05/mac-pyenv-install-use/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="virtualenv是一个非常流行的工具，它为Python库创建独立的Python环境。 pyenv用于隔离python版本。例如，您可能想用python 2.6、2.7、3.3、3.4和3.5测试代码，因此您需要一种在它们之间切换的方法。 pyvenv是随python 3一起提供的脚本，但在python3.6中已弃用，因为它存在问题(更不用说混淆的名称)。在python 3.6+中，确切的等价">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-04T20:48:09.000Z">
+<meta property="article:modified_time" content="2020-12-30T09:23:32.694Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>python｜virtual</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/05/JupyterLab%EF%BD%9C%E5%AE%89%E8%A3%85/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/02/%E2%98%81%EF%B8%8F%E4%BA%91%E8%A7%A3%E6%9E%90-DNS/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/05/mac-pyenv-install-use/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&text=python｜virtual"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&is_video=false&description=python｜virtual"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python｜virtual&body=Check out this article: http://ybm911.work/2020/07/05/mac-pyenv-install-use/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&name=python｜virtual&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&t=python｜virtual"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pyenv"><span class="toc-number">1.</span> <span class="toc-text">pyenv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#install"><span class="toc-number">1.0.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#use"><span class="toc-number">1.0.2.</span> <span class="toc-text">use</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#venv"><span class="toc-number">2.</span> <span class="toc-text">venv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        python｜virtual
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-04T20:48:09.000Z" itemprop="datePublished">2020-07-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>virtualenv是一个非常流行的工具，它为Python库创建独立的Python环境。</p>
+<p>pyenv用于隔离python版本。例如，您可能想用python 2.6、2.7、3.3、3.4和3.5测试代码，因此您需要一种在它们之间切换的方法。</p>
+<p>pyvenv是随python 3一起提供的脚本，但在python3.6中已弃用，因为它存在问题(更不用说混淆的名称)。在python 3.6+中，确切的等价物是python3 -m venv。</p>
+<p>pyenv-virtualenv是pyenv的插件，与pyenv的作者相同，可以方便地同时使用pyenv和virtualenv。但是，如果您使用的是python 3.3或更高版本，如果有可用的话，pyenv-virtualenv将尝试运行python -m venv，而不是virtualenv。</p>
+<p>venv是随python 3一起提供的一个包，您可以使用python3 -m venv运行它(尽管出于某些原因，一些发行版将它分离成一个单独的发行版包，如ubuntu/debian上的python3-venv)。它的用途与virtualenv相似，工作方式也非常相似，但不需要复制周围的python二进制文件(在Windows上除外)。如果不需要支持python 2，可以使用这个。</p>
+<p>这些工具中的大多数是相互补充的。</p>
+</blockquote>
+<h2 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h2><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><p><a target="_blank" rel="noopener" href="https://github.com/pyenv/pyenv-installer">pyenv-installer</a></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl https://pyenv.run | bash</span><br><span class="line">$ <span class="built_in">exec</span> <span class="variable">$SHELL</span></span><br></pre></td></tr></table></figure>
+<h4 id="use"><a href="#use" class="headerlink" title="use"></a>use</h4><p>基本用法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list  #查看可安装的 python version</span><br><span class="line">pyenv install &lt;version&gt;  #安装特定的 python version</span><br><span class="line">pyenv versions  #查看 pyenv 已经安装的 python version</span><br><span class="line">pyenv local &lt;version&gt;  #设置当前路径使用的版本</span><br><span class="line">pyenv global &lt;version&gt;  #设置全局使用的版本</span><br><span class="line">pyenv activate &lt;名称&gt;  #手动激活指定 virtualenv</span><br><span class="line">pyenv deactivate  #手动反激活当前已被激活的 virtualenv</span><br><span class="line">pyenv virtualenv-delete &lt;名称&gt;  #使用virtualenv-delete命令删除指定virtualenv</span><br></pre></td></tr></table></figure>
+<p>使用virtualenv安装虚拟环境</p>
+<p>创建一个使用3.8.1版本Python的virtualenv，名为<code>hello_world</code></p>
+<p><code>pyenv virtualenv 3.8.1 hello_world</code></p>
+<p>这条命令会在<code>$(pyenv root)/versions</code>目录下创建一个<code>hello_world</code>目录。</p>
+<p>然后，实现名为<code>hello_world</code>的virtualenv的自动激活。</p>
+<p>新建存放项目代码的目录，我把它放在<code>$HOME</code>下的<code>hello_world</code>目录，并进入。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">mkdir hello_world</span><br><span class="line">cd hello_world</span><br></pre></td></tr></table></figure>
+<p>创建<code>.python-version</code>文件，在其中写上当前virtualenv的名字（可通过<code>pyenv versions</code>命令查看所有可用virtualenv）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pyenv versions</span><br><span class="line">echo &#x27;hello_world&#x27; &gt;&gt; .python-version</span><br><span class="line">pyenv activate </span><br></pre></td></tr></table></figure>
+<p>现在，你的命令行开头应该会显示<code>(hello_world)</code>字样，表示当前virtualenv环境已激活。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">╭─ybm911@Mr ~/project1</span><br><span class="line">╰─$ pyenv activate hello_world</span><br><span class="line">pyenv-virtualenv: prompt changing will be removed from future release. configure `export PYENV_VIRTUALENV_DISABLE_PROMPT=1&#x27; to simulate the behavior.</span><br><span class="line">(hello_world) ╭─ybm911@Mr ~/project1</span><br><span class="line">╰─$</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir test &amp;&amp; cd test</span><br><span class="line">python3 -m venv project_venv</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">╭─ybm911@Mr ~/project1</span><br><span class="line">╰─$ python3 -m venv project_env                                                            2 ↵</span><br><span class="line">╭─ybm911@Mr ~/project1</span><br><span class="line">╰─$ ls</span><br><span class="line">project_env</span><br><span class="line">╭─ybm911@Mr ~/project1</span><br><span class="line">╰─$ cd project_env</span><br><span class="line">╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ ls</span><br><span class="line">bin        include    lib        pyvenv.cfg</span><br><span class="line">╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ source bin/activate</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ which python</span><br><span class="line">/Users/ybm911/project1/project_env/bin/python</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ pip list</span><br><span class="line">Package    Version</span><br><span class="line">---------- -------</span><br><span class="line">pip        19.2.3</span><br><span class="line">setuptools 41.2.0</span><br><span class="line">WARNING: You are using pip version 19.2.3, however version 20.1.1 is available.</span><br><span class="line">You should consider upgrading via the &#x27;pip install --upgrade pip&#x27; command.</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ pip freeze</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ pip install requests</span><br><span class="line">Collecting requests</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/45/1e/0c169c6a5381e241ba7404532c16a21d86ab872c9bed8bdcd4c423954103/requests-2.24.0-py2.py3-none-any.whl (61kB)</span><br><span class="line">     |████████████████████████████████| 71kB 522kB/s</span><br><span class="line">Collecting chardet&lt;4,&gt;=3.0.2 (from requests)</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl (133kB)</span><br><span class="line">     |████████████████████████████████| 143kB 691kB/s</span><br><span class="line">Collecting idna&lt;3,&gt;=2.5 (from requests)</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl (58kB)</span><br><span class="line">     |████████████████████████████████| 61kB 444kB/s</span><br><span class="line">Collecting urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 (from requests)</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/e1/e5/df302e8017440f111c11cc41a6b432838672f5a70aa29227bf58149dc72f/urllib3-1.25.9-py2.py3-none-any.whl (126kB)</span><br><span class="line">     |████████████████████████████████| 133kB 570kB/s</span><br><span class="line">Collecting certifi&gt;=2017.4.17 (from requests)</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/5e/c4/6c4fe722df5343c33226f0b4e0bb042e4dc13483228b4718baf286f86d87/certifi-2020.6.20-py2.py3-none-any.whl (156kB)</span><br><span class="line">     |████████████████████████████████| 163kB 827kB/s</span><br><span class="line">Installing collected packages: chardet, idna, urllib3, certifi, requests</span><br><span class="line">Successfully installed certifi-2020.6.20 chardet-3.0.4 idna-2.10 requests-2.24.0 urllib3-1.25.9</span><br><span class="line">WARNING: You are using pip version 19.2.3, however version 20.1.1 is available.</span><br><span class="line">You should consider upgrading via the &#x27;pip install --upgrade pip&#x27; command.</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ pip freeze</span><br><span class="line">certifi==2020.6.20</span><br><span class="line">chardet==3.0.4</span><br><span class="line">idna==2.10</span><br><span class="line">requests==2.24.0</span><br><span class="line">urllib3==1.25.9</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ pip freeze &gt; requirements.txt</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ cat requirements.txt</span><br><span class="line">certifi==2020.6.20</span><br><span class="line">chardet==3.0.4</span><br><span class="line">idna==2.10</span><br><span class="line">requests==2.24.0</span><br><span class="line">urllib3==1.25.9</span><br><span class="line">(project_env) ╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ deactivate</span><br><span class="line">╭─ybm911@Mr ~/project1/project_env</span><br><span class="line">╰─$ </span><br><span class="line"><span class="meta">#</span><span class="bash">最后删除虚拟环境删除文件夹就行了</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>Whoever said money can’t solve your problems?</p>
+<p>Must not have had enough money to solve ‘em</p>
+<p>They say “Which one?” I say “Nah, I want all of ‘em”</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/104006925">https://zhuanlan.zhihu.com/p/104006925</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Lazybones_3/article/details/106587801">https://blog.csdn.net/Lazybones_3/article/details/106587801</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pyenv"><span class="toc-number">1.</span> <span class="toc-text">pyenv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#install"><span class="toc-number">1.0.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#use"><span class="toc-number">1.0.2.</span> <span class="toc-text">use</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#venv"><span class="toc-number">2.</span> <span class="toc-text">venv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/05/mac-pyenv-install-use/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&text=python｜virtual"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&is_video=false&description=python｜virtual"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python｜virtual&body=Check out this article: http://ybm911.work/2020/07/05/mac-pyenv-install-use/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&title=python｜virtual"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&name=python｜virtual&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/05/mac-pyenv-install-use/&t=python｜virtual"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

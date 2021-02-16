@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="寄存器 64bit: rax,rbx,rcx,rdx,rsi,rdi 32bit: eax,ebx,ecx,edx,esi,edi 16bit: ax,bx,cx,dx,si,di 像 r8,r9,…,r15 这样的寄存器不经常遇到  64位：  rsp: 栈顶寄存器 rbp: 栈基址寄存器 rip: 指令寄存器    注意⚠️：栈有高地址向低地址生长 参数 32位：参数通过栈传递 64位：参数先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN study 0x02">
+<meta property="og:url" content="http://ybm911.work/2020/04/08/PWN-study-0x02/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="寄存器 64bit: rax,rbx,rcx,rdx,rsi,rdi 32bit: eax,ebx,ecx,edx,esi,edi 16bit: ax,bx,cx,dx,si,di 像 r8,r9,…,r15 这样的寄存器不经常遇到  64位：  rsp: 栈顶寄存器 rbp: 栈基址寄存器 rip: 指令寄存器    注意⚠️：栈有高地址向低地址生长 参数 32位：参数通过栈传递 64位：参数先">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011719.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011731.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011744.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011802.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011812.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011821.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011837.png">
+<meta property="article:published_time" content="2020-04-08T11:50:51.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:18:56.319Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011719.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PWN study 0x02</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/03/BUU%EF%BD%9C-De1CTF-2019-Giftbox/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/08/PWN-study-0x02/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&text=PWN study 0x02"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&is_video=false&description=PWN study 0x02"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN study 0x02&body=Check out this article: http://ybm911.work/2020/04/08/PWN-study-0x02/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&name=PWN study 0x02&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/08/PWN-study-0x02/&t=PWN study 0x02"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">汇编指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">函数调用栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%9D%E6%8A%A4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">基本保护方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ASLR"><span class="toc-number">4.0.1.</span> <span class="toc-text">ASLR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RELRO"><span class="toc-number">4.0.2.</span> <span class="toc-text">RELRO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Canary"><span class="toc-number">4.0.3.</span> <span class="toc-text">Canary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NX"><span class="toc-number">4.0.4.</span> <span class="toc-text">NX</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PIE"><span class="toc-number">4.0.5.</span> <span class="toc-text">PIE</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">4.0.5.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PWN study 0x02
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-08T11:50:51.000Z" itemprop="datePublished">2020-04-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><ul>
+<li>64bit: rax,rbx,rcx,rdx,rsi,rdi</li>
+<li>32bit: eax,ebx,ecx,edx,esi,edi</li>
+<li>16bit: ax,bx,cx,dx,si,di<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011719.png" alt="rax"></li>
+<li>像 r8,r9,…,r15 这样的寄存器不经常遇到</li>
+</ul>
+<p>64位：</p>
+<ul>
+<li>rsp: 栈顶寄存器</li>
+<li>rbp: 栈基址寄存器</li>
+<li>rip: 指令寄存器</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011731.png" alt="stack"></p>
+<ul>
+<li>注意⚠️：栈有高地址向低地址生长</li>
+<li>参数<ul>
+<li>32位：参数通过栈传递</li>
+<li>64位：参数先通过寄存器传递，寄存器不够用了才用栈传递<ul>
+<li>寄存器使用顺序：rdi,rsi,rdx,…</li>
+</ul>
+</li>
+<li>例如：puts(“hello world”);<ul>
+<li>32位：hello world 字符串地址在栈上</li>
+<li>64位：字符串地址存在 rdi 寄存器中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><ul>
+<li>push &amp; pop<ul>
+<li>函数开始的时候会保存 rbp (push rbp)，之后会 pop 出来恢复 rbp</li>
+</ul>
+</li>
+<li>add,sub,mul,xor,… 运算指令<ul>
+<li>sub rsp,0x20 开辟栈空间</li>
+</ul>
+</li>
+<li>lea 取地址</li>
+<li>leave ⚠️<ul>
+<li>维护栈帧，相当于 mov rsp,rbp;pop rbp; 维护 rsp,rbp 指针</li>
+</ul>
+</li>
+<li>syscall（64位）,int（32位）<ul>
+<li>系统中断，配合寄存器也可以调用函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数调用栈"><a href="#函数调用栈" class="headerlink" title="函数调用栈"></a>函数调用栈</h2><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011744.png" alt="foo"></p>
+<h2 id="基本保护方式"><a href="#基本保护方式" class="headerlink" title="基本保护方式"></a>基本保护方式</h2><p>通过 checksec 工具可以检查二进制文件开启了哪些保护机制</p>
+<h4 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h4><p>操作系统给的一个保护机制</p>
+<ul>
+<li>每次执行时，stack,heap,libc 的位置都不一样，<strong>但是 code 段不变</strong></li>
+<li>本地调试的时候可以关闭系统的 ASLR</li>
+<li>查看是否开启 ASLR<ul>
+<li>cat /proc/sys/kernel/randomize_va_space</li>
+</ul>
+</li>
+<li>通过 ldd 指令可以看看 libc 地址的变化<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011802.png" alt="ldd"></li>
+<li>开启和关闭 ASLR:<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011812.png" alt="ASLR"></li>
+</ul>
+<h4 id="RELRO"><a href="#RELRO" class="headerlink" title="RELRO"></a>RELRO</h4><p>分成三种状态</p>
+<ul>
+<li>Disabled<ul>
+<li>got 表和 plt 表都可写</li>
+<li>fini_arry 也可写 ⚠️</li>
+</ul>
+</li>
+<li>Partial（默认）<ul>
+<li>只有 got 表可写</li>
+<li>考虑劫持 got 表</li>
+</ul>
+</li>
+<li>Fulled<ul>
+<li>load time 的时候全部函数的地址就已经 resolve 完成，got 表和 plt 表都不可写</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011821.png" alt="checksec"></p>
+<h4 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h4><p>金丝雀</p>
+<ul>
+<li>函数调用在栈中保存一个随机值，返回时检查这个随机值是否被篡改</li>
+<li>开启时一般可以放弃栈溢出了</li>
+<li>为了防止泄漏，canary 的低字节是 ‘\x00’<br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011837.png" alt="canary"></li>
+</ul>
+<h4 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h4><ul>
+<li>堆栈不可执行</li>
+<li>NX 关闭时，堆栈上的数据可以被当成代码来执行<ul>
+<li>找到 rxw 的段，写入 shellcode 然后跳转到 shellcode</li>
+</ul>
+</li>
+<li>NX 开启时，考虑 ROP<blockquote>
+<p>ROP: 我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码(也就是gadgets),这就是我们所要说的rop。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h4><ul>
+<li>地址随机化</li>
+<li>gcc 默认不开启</li>
+<li>PIE 开启后，code 段和 data 段都会变动</li>
+<li>IDA 中显示的是偏移而不是真实地址</li>
+</ul>
+<blockquote>
+<p>ASLR 不负责代码段以及数据段的随机化工作，这项工作由 PIE 负责。但是只有在开启 ASLR 之后，PIE 才会生效。开启ASLR+PIE的一个直接的困扰就是，你会发现没有地方可以写，所有的got表、plt表、bss段地址都是不确定的。只有通过泄漏才可以确定地址。</p>
+</blockquote>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="http://www.freebuf.com/">www.freebuf.com</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/gyhgx/article/details/53439417">https://blog.csdn.net/gyhgx/article/details/53439417</a><br>Pwn学习历程（1）–基本工具、交互、调试<br><a target="_blank" rel="noopener" href="https://pwntools.readthedocs.io/en/stable/">https://pwntools.readthedocs.io/en/stable/</a><br>（pwntools 官网介绍）</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">汇编指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">函数调用栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%9D%E6%8A%A4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">基本保护方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ASLR"><span class="toc-number">4.0.1.</span> <span class="toc-text">ASLR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RELRO"><span class="toc-number">4.0.2.</span> <span class="toc-text">RELRO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Canary"><span class="toc-number">4.0.3.</span> <span class="toc-text">Canary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NX"><span class="toc-number">4.0.4.</span> <span class="toc-text">NX</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PIE"><span class="toc-number">4.0.5.</span> <span class="toc-text">PIE</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">4.0.5.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/08/PWN-study-0x02/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&text=PWN study 0x02"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&is_video=false&description=PWN study 0x02"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN study 0x02&body=Check out this article: http://ybm911.work/2020/04/08/PWN-study-0x02/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&title=PWN study 0x02"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/08/PWN-study-0x02/&name=PWN study 0x02&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/08/PWN-study-0x02/&t=PWN study 0x02"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

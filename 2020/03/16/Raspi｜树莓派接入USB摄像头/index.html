@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="使用连接并测试USB摄像头查看当前usb设备lsusbSSH终端会显示树莓派当前接入的USB设备列表，我们可以先不插摄像头，lsusb，然后插上摄像头lsusb，就可以看到USB摄像头对应的是哪个设备了。查看设备文件ls &#x2F;dev&#x2F;video*查找到摄像头，我们可以使用fswebcam命令测试抓图：apt-get install fswebcamfswebcam &#x2F;dev&#x2F;video0 &#x2F;usr&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspi｜树莓派接入USB摄像头">
+<meta property="og:url" content="http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="使用连接并测试USB摄像头查看当前usb设备lsusbSSH终端会显示树莓派当前接入的USB设备列表，我们可以先不插摄像头，lsusb，然后插上摄像头lsusb，就可以看到USB摄像头对应的是哪个设备了。查看设备文件ls &#x2F;dev&#x2F;video*查找到摄像头，我们可以使用fswebcam命令测试抓图：apt-get install fswebcamfswebcam &#x2F;dev&#x2F;video0 &#x2F;usr&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004819.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004838.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004855.png">
+<meta property="article:published_time" content="2020-03-15T22:07:55.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:49:16.998Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="RaspberryPi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004819.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Raspi｜树莓派接入USB摄像头</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/18/Raspi%EF%BD%9Copencv2%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/16/Raspi%EF%BD%9C%E5%AE%89%E8%A3%85LNMP/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&text=Raspi｜树莓派接入USB摄像头"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&is_video=false&description=Raspi｜树莓派接入USB摄像头"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi｜树莓派接入USB摄像头&body=Check out this article: http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&name=Raspi｜树莓派接入USB摄像头&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&t=Raspi｜树莓派接入USB摄像头"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#motion-%E4%BC%A0%E8%BE%93%E8%A7%86%E9%A2%91%E5%B8%A7"><span class="toc-number">2.</span> <span class="toc-text">motion 传输视频帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%F0%9F%A4%94"><span class="toc-number">3.</span> <span class="toc-text">思考🤔</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Raspi｜树莓派接入USB摄像头
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-15T22:07:55.000Z" itemprop="datePublished">2020-03-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/RaspberryPi/" rel="tag">RaspberryPi</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>连接并测试USB摄像头<br>查看当前usb设备<br><code>lsusb</code><br>SSH终端会显示树莓派当前接入的USB设备列表，我们可以先不插摄像头，lsusb，然后插上摄像头lsusb，就可以看到USB摄像头对应的是哪个设备了。<br>查看设备文件<br><code>ls /dev/video*</code><br>查找到摄像头，我们可以使用fswebcam命令测试抓图：<br><code>apt-get install fswebcam</code><br><code>fswebcam /dev/video0 /usr/share/html/1.jpg</code><br>fswebcam最简单的用法，第一个参数是摄像头对应的设备文件路径，第二个参数是保存截图的路径。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004819.png" alt="fswebcam"></p>
+<p>如果不满足于抓图，我们还可以看看摄像头的效果。只需要登录VNC，启动树莓派上的终端，使用luvcview即可：<br><code>apt-get install luvcview</code><br><code>luvcview -s 384x288</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004838.png" alt="luvcview"></p>
+<h2 id="motion-传输视频帧"><a href="#motion-传输视频帧" class="headerlink" title="motion 传输视频帧"></a>motion 传输视频帧</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apt-get install motion</span><br><span class="line">vi /etc/default/motion  #把“start_motion_daemon=no”的选项改为yes</span><br><span class="line">vi /etc/motion/motion.conf</span><br><span class="line"></span><br><span class="line">daemon on</span><br><span class="line">width 640</span><br><span class="line">height 480</span><br><span class="line">framerate 100</span><br><span class="line">stream_localhost off</span><br><span class="line">stream_maxrate 100</span><br><span class="line">主要把上面这几项修改了</span><br></pre></td></tr></table></figure>
+<p>然后启动motion：<code>sudo motion</code><br>然后打开浏览器<br>ip：8081即可访问。</p>
+<p>如果要关闭，可以：<br><code>sudo killall -TERM motion</code></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010900754/article/details/53097626?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3.nonecase">使用 motion 和 mjpg 做视频监控器</a></p>
+<h2 id="思考🤔"><a href="#思考🤔" class="headerlink" title="思考🤔"></a>思考🤔</h2><p>低效率的记录方式：<br>查看了一下，正常下来一张照片占用的是119KB。<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004855.png" alt="3.jpg">假设，两秒钟拍一张的频率拍一天的话，就占用内存<code>119*30*60*24/1024/1024=4.9GB</code>；一分钟一张的频率则占用内存<code>119*60*24/1024=167.3MB</code>。可以写一个脚本让它以两秒钟一张的频率拍记录两天的数据，再删除，然后再接着进行新一轮的记录。<br>较好的记录方式：<br>红外感应+拍照。<a target="_blank" rel="noopener" href="https://github.com/BabyWrassler/PiLarm">国外的为了教育5岁小孩写的一个脚本</a>只有感应到有物体移动了，才会进行拍照。</p>
+<p>摄像头感应+拍照。这是之前我在书上看到的，应该可以通过检测摄像头中物体的移动来进行拍照（但是不建议在室外进行，因为有风）。</p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yjp19871013/article/details/80147803">https://blog.csdn.net/yjp19871013/article/details/80147803</a><br>便携式树莓派警报器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/w565911788/article/details/42080937">https://blog.csdn.net/w565911788/article/details/42080937</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#motion-%E4%BC%A0%E8%BE%93%E8%A7%86%E9%A2%91%E5%B8%A7"><span class="toc-number">2.</span> <span class="toc-text">motion 传输视频帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%F0%9F%A4%94"><span class="toc-number">3.</span> <span class="toc-text">思考🤔</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&text=Raspi｜树莓派接入USB摄像头"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&is_video=false&description=Raspi｜树莓派接入USB摄像头"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi｜树莓派接入USB摄像头&body=Check out this article: http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&title=Raspi｜树莓派接入USB摄像头"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&name=Raspi｜树莓派接入USB摄像头&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/16/Raspi%EF%BD%9C%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8E%A5%E5%85%A5USB%E6%91%84%E5%83%8F%E5%A4%B4/&t=Raspi｜树莓派接入USB摄像头"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

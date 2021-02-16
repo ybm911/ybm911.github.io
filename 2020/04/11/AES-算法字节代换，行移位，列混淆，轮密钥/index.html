@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这里解释一下字的概念，因为最近在看汇编，8086机器的字是16比特，但是密码学中却变成了32比特。一个字等于多少个字节，与系统硬件（总线、cpu命令字位数等）有关，不应该毫无前提地说一个字等于多少位。正确的说法：①：1字节（byte） &#x3D; 8位（bit）②：在16位的系统中（比如8086微机） 1字 （word）&#x3D; 2字节（byte）&#x3D; 16（bit）       在32位的系统中（比如win3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AES 算法 字节代换，行移位，列混淆，轮密钥加">
+<meta property="og:url" content="http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="这里解释一下字的概念，因为最近在看汇编，8086机器的字是16比特，但是密码学中却变成了32比特。一个字等于多少个字节，与系统硬件（总线、cpu命令字位数等）有关，不应该毫无前提地说一个字等于多少位。正确的说法：①：1字节（byte） &#x3D; 8位（bit）②：在16位的系统中（比如8086微机） 1字 （word）&#x3D; 2字节（byte）&#x3D; 16（bit）       在32位的系统中（比如win3">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011924.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011938.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011950.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012005.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012022.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012037.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012051.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012103.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012114.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012125.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012142.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012339.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012409.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012422.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012438.png">
+<meta property="article:published_time" content="2020-04-11T09:59:05.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:24:53.010Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Crypto">
+<meta property="article:tag" content="大二下">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011924.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>AES 算法 字节代换，行移位，列混淆，轮密钥加</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/12/WEB%EF%BD%9CAWD-%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/08/PWN-study-0x02/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&text=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&is_video=false&description=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AES 算法 字节代换，行移位，列混淆，轮密钥加&body=Check out this article: http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&name=AES 算法 字节代换，行移位，列混淆，轮密钥加&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&t=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">AES简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">AES的基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2"><span class="toc-number">2.0.1.</span> <span class="toc-text">字节代换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E7%A7%BB%E4%BD%8D"><span class="toc-number">2.0.2.</span> <span class="toc-text">行移位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E6%B7%B7%E6%B7%86"><span class="toc-number">2.0.3.</span> <span class="toc-text">列混淆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AE%E5%AF%86%E9%92%A5%E5%8A%A0"><span class="toc-number">2.0.4.</span> <span class="toc-text">轮密钥加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95"><span class="toc-number">2.0.5.</span> <span class="toc-text">密钥扩展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E8%A7%A3%E5%AF%86"><span class="toc-number">3.</span> <span class="toc-text">AES解密</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        AES 算法 字节代换，行移位，列混淆，轮密钥加
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-11T09:59:05.000Z" itemprop="datePublished">2020-04-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Crypto/" rel="tag">Crypto</a>, <a class="tag-link-link" href="/tags/%E5%A4%A7%E4%BA%8C%E4%B8%8B/" rel="tag">大二下</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>这里解释一下字的概念，因为最近在看汇编，8086机器的字是16比特，但是密码学中却变成了32比特。一个字等于多少个字节，与系统硬件（总线、cpu命令字位数等）有关，不应该毫无前提地说一个字等于多少位。<br>正确的说法：<br>①：1字节（byte） = 8位（bit）<br>②：在16位的系统中（比如8086微机） 1字 （word）= 2字节（byte）= 16（bit）<br>       在32位的系统中（比如win32） 1字（word）= 4字节（byte）=32（bit）<br>       在64位的系统中（比如win64）1字（word）= 8字节（byte）=64（bit）</p>
+</blockquote>
+<h2 id="AES简介"><a href="#AES简介" class="headerlink" title="AES简介"></a>AES简介</h2><p>高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)。对称加密算法也就是加密和解密用相同的密钥，具体的加密流程如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011924.png" alt="aes2"></p>
+<h2 id="AES的基本结构"><a href="#AES的基本结构" class="headerlink" title="AES的基本结构"></a>AES的基本结构</h2><p>AES为分组密码，分组密码也就是把明文分成一组一组的，每组长度相等，每次加密一组数据，直到加密完整个明文。在AES标准规范中，分组长度只能是128位，也就是说，每个分组为16个字节（每个字节8位）。密钥的长度可以使用128位、192位或256位。密钥的长度不同，推荐加密轮数也不同，如下表所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011938.png" alt="AES-128"></p>
+<p>这里实现的是AES-128，也就是密钥的长度为128位，加密轮数为10轮。AES的加密公式为C = E(K,P)，在加密函数E中，会执行一个轮函数，并且执行10次这个轮函数，这个轮函数的前9次执行的操作是一样的，只有第10次有所不同。也就是说，一个明文分组会被加密10轮。AES的核心就是实现一轮中的所有操作。</p>
+<p>AES的处理单位是字节，128位的输入明文分组P和输入密钥K都被分成16个字节，分别记为P = P0 P1 … P15 和 K = K0 K1 … K15。如，明文分组为P = abcdefghijklmnop,其中的字符a对应P0，p对应P15。一般地，明文分组用字节为单位的正方形矩阵描述，称为状态矩阵。在算法的每一轮中，状态矩阵的内容不断发生变化，最后的结果作为密文输出。该矩阵中字节的排列顺序为从上到下、从左至右依次排列，如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011950.png" alt="aes3"></p>
+<p>现在假设明文分组P为”abcdefghijklmnop”，则对应上面生成的状态矩阵图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012005.png" alt="aes4"></p>
+<p>上图中，0x61为字符a的十六进制表示。可以看到，明文经过AES加密后，已经面目全非。</p>
+<p>类似地，128位密钥也是用字节为单位的矩阵表示，矩阵的每一列被称为1个32位比特字。通过<strong>密钥编排函数</strong>该密钥矩阵被扩展成一个44个字组成的序列W[0],W[1], … ,W[43],该序列的前4个元素W[0],W[1],W[2],W[3]是原始密钥，用于加密运算中的初始密钥加（下面介绍）;后面40个字分为10组，每组4个字（128比特）分别用于10轮加密运算中的轮密钥加，如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012022.jpeg" alt="aes5"></p>
+<p>上图中，设K = “abcdefghijklmnop”，则K0 = a, K15 = p, W[0] = K0 K1 K2 K3 = “abcd”。<br><strong>密钥的拓展后面会讲</strong></p>
+<p>AES的整体结构如下图所示，其中的W[0,3]是指W[0]、W[1]、W[2]和W[3]串联组成的128位密钥。加密的第1轮到第9轮的轮函数一样，包括4个操作：字节代换、行位移、列混合和轮密钥加。最后一轮迭代不执行列混合。另外，在第一轮迭代之前，先将明文和原始密钥进行一次异或加密操作。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012037.jpg" alt="aes"></p>
+<p>上图也展示了AES解密过程，解密过程仍为10轮，每一轮的操作是加密操作的逆操作。由于AES的4个轮操作都是可逆的，因此，解密操作的一轮就是顺序执行逆行移位、逆字节代换、轮密钥加和逆列混合。同加密操作类似，最后一轮不执行逆列混合，在第1轮解密之前，要执行1次密钥加操作。</p>
+<p>下面分别介绍AES中一轮的4个操作阶段，这4分操作阶段使输入位得到充分的混淆。</p>
+<h4 id="字节代换"><a href="#字节代换" class="headerlink" title="字节代换"></a>字节代换</h4><p>AES的字节代换其实就是一个简单的查表操作。AES定义了一个S盒和一个逆S盒。状态矩阵中的元素按照下面的方式映射为一个新的字节：把该字节的高4位作为行值，低4位作为列值，取出S盒或者逆S盒中对应的行的元素作为输出。例如，加密时，输出的字节S1为0x12,则查S盒的第0x01行和0x02列，得到值0xc9,然后替换S1原有的0x12为0xc9。</p>
+<h4 id="行移位"><a href="#行移位" class="headerlink" title="行移位"></a>行移位</h4><p>行移位是一个简单的左循环移位操作。当密钥长度为128比特时，状态矩阵的第0行左移0字节，第1行左移1字节，第2行左移2字节，第3行左移3字节，如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012051.jpeg" alt="hyw"></p>
+<ul>
+<li>行移位的逆变换<br>行移位的逆变换是将状态矩阵中的每一行执行相反的移位操作，例如AES-128中，状态矩阵的第0行右移0字节，第1行右移1字节，第2行右移2字节，第3行右移3字节。<h4 id="列混淆"><a href="#列混淆" class="headerlink" title="列混淆"></a>列混淆</h4>列混合变换是通过矩阵相乘来实现的，经行移位后的状态矩阵与固定的矩阵相乘，得到混淆后的状态矩阵，如下图的公式所示：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012103.png" alt="lhx"></p>
+<p>01 相乘为本身，<br>02 相乘为：先左移一位，如果溢出第8位，则再异或 1B<br>03 相乘为：(03* X ) == (02* X )^ X ；X是其本身</p>
+<p>状态矩阵中的第j列(0 ≤j≤3)的列混合可以表示为下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012114.png" alt="lhx2"></p>
+<p>例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012125.png" alt="lhx3"></p>
+<ul>
+<li>逆向列混合变换可由下图的矩阵乘法定义：<br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012142.png" alt="aes4"><br>可以验证，逆变换矩阵同正变换矩阵的乘积恰好为单位矩阵。<h4 id="轮密钥加"><a href="#轮密钥加" class="headerlink" title="轮密钥加"></a>轮密钥加</h4>轮密钥加是将128位轮密钥Ki同状态矩阵中的数据进行逐位异或操作，如下图所示。其中，密钥Ki中每个字W[4i],W[4i+1],W[4i+2],W[4i+3]为32位比特字，包含4个字节，他们的生成算法下面在下面介绍。轮密钥加过程可以看成是字逐位异或的结果，也可以看成字节级别或者位级别的操作。也就是说，可以看成S0 S1 S2 S3 组成的32位字与W[4i]的异或运算。 </li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012339.png" alt="lmyj"></p>
+<p>轮密钥加的逆运算同正向的轮密钥加运算完全一致，这是因为异或的逆操作是其自身。轮密钥加非常简单，但却能够影响S数组中的每一位。</p>
+<h4 id="密钥扩展"><a href="#密钥扩展" class="headerlink" title="密钥扩展"></a>密钥扩展</h4><p>AES首先将初始密钥输入到一个4*4的状态矩阵中，如下图所示。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012409.png" alt="mytz1"></p>
+<p>这个4*4矩阵的每一列的4个字节组成一个字，矩阵4列的4个字依次命名为W[0]、W[1]、W[2]和W[3]，它们构成一个以字为单位的数组W。例如，设密钥K为”abcdefghijklmnop”,则K0 = ‘a’,K1 = ‘b’, K2 = ‘c’,K3 = ‘d’,W[0] = “abcd”。 </p>
+<p>接着，对W数组扩充40个新列，构成总共44列的扩展密钥数组。新列以如下的递归方式产生：<br>1.如果i不是4的倍数，那么第i列由如下等式确定：<br>W[i]=W[i-4]⨁W[i-1]<br>2.如果i是4的倍数，那么第i列由如下等式确定：<br>W[i]=W[i-4]⨁T(W[i-1])<br>其中，T是一个有点复杂的函数。 </p>
+<p>函数T由3部分组成：字循环、字节代换和轮常量异或，这3部分的作用分别如下。<br>a.字循环：将1个字中的4个字节循环左移1个字节。即将输入字[b0, b1, b2, b3]变换成[b1,b2,b3,b0]。<br>b.字节代换：对字循环的结果使用S盒进行字节代换。<br>c.轮常量异或：将前两步的结果同轮常量Rcon[j]进行异或，其中j表示轮数。<br>轮常量Rcon[j]是一个字，其值见下表。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012422.png" alt="mytz2"></p>
+<p>下面举个例子：<br>设初始的128位密钥为：<br>3C A1 0B 21 57 F0 19 16 90 2E 13 80 AC C1 07 BD<br>那么4个初始值为：<br>W[0] = 3C A1 0B 21<br>W[1] = 57 F0 19 16<br>W[2] = 90 2E 13 80<br>W[3] = AC C1 07 BD<br>下面求扩展的第1轮的子密钥(W[4],W[5],W[6],W[7])。<br>由于4是4的倍数，所以：<br>W[4] = W[0] ⨁ T(W[3])<br>T(W[3])的计算步骤如下： </p>
+<ol>
+<li>循环地将W[3]的元素移位：AC C1 07 BD变成C1 07 BD AC; </li>
+<li>将 C1 07 BD AC 作为S盒的输入，输出为78 C5 7A 91; </li>
+<li>将78 C5 7A 91与第一轮轮常量Rcon[1]进行异或运算，将得到79 C5 7A 91，因此，T(W[3])=79 C5 7A 91，故<br>W[4] = 3C A1 0B 21 ⨁ 79 C5 7A 91 = 45 64 71 B0<br>其余的3个子密钥段的计算如下：<br>W[5] = W[1] ⨁ W[4] = 57 F0 19 16 ⨁ 45 64 71 B0 = 12 94 68 A6<br>W[6] = W[2] ⨁ W[5] =90 2E 13 80 ⨁ 12 94 68 A6 = 82 BA 7B 26<br>W[7] = W[3] ⨁ W[6] = AC C1 07 BD ⨁ 82 BA 7B 26 = 2E 7B 7C 9B<br>所以，第一轮的密钥为 45 64 71 B0 12 94 68 A6 82 BA 7B 26 2E 7B 7C 9B。</li>
+</ol>
+<h2 id="AES解密"><a href="#AES解密" class="headerlink" title="AES解密"></a>AES解密</h2><p>在文章开始的图中，有AES解密的流程图，可以对应那个流程图来进行解密。下面介绍的是另一种等价的解密模式，流程图如下图所示。这种等价的解密模式使得解密过程各个变换的使用顺序同加密过程的顺序一致，只是用逆变换取代原来的变换。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012438.png" alt="aesjm"></p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Akatsuki__Itachi/article/details/94396771">https://blog.csdn.net/Akatsuki__Itachi/article/details/94396771</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1y7411Z75U?from=search&amp;seid=6775048096749327116">https://www.bilibili.com/video/BV1y7411Z75U?from=search&amp;seid=6775048096749327116</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/gulang03/article/details/81175854">https://blog.csdn.net/gulang03/article/details/81175854</a><br><a target="_blank" rel="noopener" href="https://boxueio.com/series/let-us-build-an-apn-provider/ebook/564">https://boxueio.com/series/let-us-build-an-apn-provider/ebook/564</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/fabulous1111/article/details/79525384">https://blog.csdn.net/fabulous1111/article/details/79525384</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">AES简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">AES的基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2"><span class="toc-number">2.0.1.</span> <span class="toc-text">字节代换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E7%A7%BB%E4%BD%8D"><span class="toc-number">2.0.2.</span> <span class="toc-text">行移位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E6%B7%B7%E6%B7%86"><span class="toc-number">2.0.3.</span> <span class="toc-text">列混淆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AE%E5%AF%86%E9%92%A5%E5%8A%A0"><span class="toc-number">2.0.4.</span> <span class="toc-text">轮密钥加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95"><span class="toc-number">2.0.5.</span> <span class="toc-text">密钥扩展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AES%E8%A7%A3%E5%AF%86"><span class="toc-number">3.</span> <span class="toc-text">AES解密</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&text=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&is_video=false&description=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AES 算法 字节代换，行移位，列混淆，轮密钥加&body=Check out this article: http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&title=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&name=AES 算法 字节代换，行移位，列混淆，轮密钥加&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/11/AES-%E7%AE%97%E6%B3%95%E5%AD%97%E8%8A%82%E4%BB%A3%E6%8D%A2%EF%BC%8C%E8%A1%8C%E7%A7%BB%E4%BD%8D%EF%BC%8C%E5%88%97%E6%B7%B7%E6%B7%86%EF%BC%8C%E8%BD%AE%E5%AF%86%E9%92%A5/&t=AES 算法 字节代换，行移位，列混淆，轮密钥加"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

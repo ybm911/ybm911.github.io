@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="我本来是想着为了简便和可移植性用 docker 就可以了，结果用 docker 不知道改转发哪几个端口（因为官网的镜像星星不是最高，所以就没下。用了全部映射，服务又开不起来），配置的时候只配置 8123 和 51828 端口（也不知道有哪些端口），导致网络内很多设备找不到。。。 还是老老实实用这个办法吧，没想到的是异常通畅：在Raspberry Pi OS上安装Home Assistant htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smart home｜智能家居全屋设计（Home Assistant）">
+<meta property="og:url" content="http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="我本来是想着为了简便和可移植性用 docker 就可以了，结果用 docker 不知道改转发哪几个端口（因为官网的镜像星星不是最高，所以就没下。用了全部映射，服务又开不起来），配置的时候只配置 8123 和 51828 端口（也不知道有哪些端口），导致网络内很多设备找不到。。。 还是老老实实用这个办法吧，没想到的是异常通畅：在Raspberry Pi OS上安装Home Assistant htt">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T12:16:10.000Z">
+<meta property="article:modified_time" content="2021-01-02T02:41:43.399Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="电子">
+<meta property="article:tag" content="Smart_Home">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Smart home｜智能家居全屋设计（Home Assistant）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/22/%E4%B8%AD%E8%8D%89%E9%A1%B9%E7%9B%AE%E5%BC%80%E6%BA%90%EF%BD%9CHerbal-medicine-for-Poverty-alleviation/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/16/Smart-home%EF%BD%9C%E4%B8%89%E6%9E%81%E7%AE%A1%E7%94%B5%E5%AD%90%E5%BC%80%E5%85%B3%E4%B8%8E%E6%A0%91%E8%8E%93%E6%B4%BE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&text=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&is_video=false&description=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Smart home｜智能家居全屋设计（Home Assistant）&body=Check out this article: http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&name=Smart home｜智能家居全屋设计（Home Assistant）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&t=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E7%BD%91%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">演示网址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%96%99"><span class="toc-number">2.</span> <span class="toc-text">资料</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">制作准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E8%AF%81%E4%B9%A6%E8%B4%AD%E4%B9%B0%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">外网证书购买与安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%95%E8%84%9A%E6%8E%A5%E5%85%A5-homeassistant"><span class="toc-number">5.</span> <span class="toc-text">树莓派引脚接入 homeassistant</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%86%85%E7%9A%84-homeassistant-%E5%8D%87%E7%BA%A7"><span class="toc-number">6.</span> <span class="toc-text">docker 内的 homeassistant 升级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B"><span class="toc-number">7.</span> <span class="toc-text">进阶教程</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Smart home｜智能家居全屋设计（Home Assistant）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-16T12:16:10.000Z" itemprop="datePublished">2020-07-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Smart-Home/" rel="tag">Smart_Home</a>, <a class="tag-link-link" href="/tags/%E7%94%B5%E5%AD%90/" rel="tag">电子</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>我本来是想着为了简便和可移植性用 docker 就可以了，结果用 docker 不知道改转发哪几个端口（因为官网的镜像星星不是最高，所以就没下。用了全部映射，服务又开不起来），配置的时候只配置 8123 和 51828 端口（也不知道有哪些端口），导致网络内很多设备找不到。。。</p>
+<p>还是老老实实用这个办法吧，没想到的是异常通畅：<a target="_blank" rel="noopener" href="https://community.home-assistant.io/t/installing-home-assistant-supervised-on-raspberry-pi-os/201836">在Raspberry Pi OS上安装Home Assistant</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.home-assistant.io/docs/installation/raspberry-pi/">https://www.home-assistant.io/docs/installation/raspberry-pi/</a></p>
+<h4 id="演示网址"><a href="#演示网址" class="headerlink" title="演示网址"></a>演示网址</h4><p><a target="_blank" rel="noopener" href="https://demo.home-assistant.io/#/lovelace/0">https://demo.home-assistant.io/#/lovelace/0</a></p>
+<h4 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h4><p>Homeassistant 官网（美国）🌟🌟🌟🌟🌟</p>
+<p><a target="_blank" rel="noopener" href="https://www.home-assistant.io/">https://www.home-assistant.io/</a></p>
+<p>Homeassistant （中国）🌟🌟🌟🌟</p>
+<p><a target="_blank" rel="noopener" href="https://home-assistant.cc/">https://home-assistant.cc/</a></p>
+<p>Homeassistant 教程（中文）</p>
+<p><a target="_blank" rel="noopener" href="http://cxlwill.cn/categories/Home-Assistant/page/3/">http://cxlwill.cn/categories/Home-Assistant/page/3/</a></p>
+<p>HomeAssistant 论坛（中国）🌟🌟</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.hassbian.com/forum.php">https://bbs.hassbian.com/forum.php</a></p>
+<p>继电器</p>
+<p><a target="_blank" rel="noopener" href="https://www.hachina.io/7187.html">https://www.hachina.io/7187.html</a></p>
+<p>设计图网站🌟🌟🌟🌟</p>
+<p><a target="_blank" rel="noopener" href="https://floorplanner.com/">https://floorplanner.com/</a></p>
+<p>教学视频网址🌟🌟🌟</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ">https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ</a></p>
+<h4 id="制作准备"><a href="#制作准备" class="headerlink" title="制作准备"></a>制作准备</h4><p>小米设备支持列表：<a target="_blank" rel="noopener" href="https://www.jianguoyun.com/p/DbzdYzoQp5HMBhjZ4IkB">https://www.jianguoyun.com/p/DbzdYzoQp5HMBhjZ4IkB</a></p>
+<p>学习之路：<a target="_blank" rel="noopener" href="https://www.hachina.io/docs/321.html">https://www.hachina.io/docs/321.html</a></p>
+<p>docker 安装（不推荐）：<a target="_blank" rel="noopener" href="https://www.home-assistant.io/docs/installation/docker/">https://www.home-assistant.io/docs/installation/docker/</a></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> -d --name=<span class="string">&quot;home-assistant&quot;</span> -e <span class="string">&quot;TZ=Asia/Shanghai&quot;</span> -v /root/Homeassistant/config:/config -p 8123:8123 --restart=always homeassistant/home-assistant</span></span><br></pre></td></tr></table></figure>
+<p>Home assistant 手机客户端文档：<a target="_blank" rel="noopener" href="https://companion.home-assistant.io/docs/getting_started/getting-started/">https://companion.home-assistant.io/docs/getting_started/getting-started/</a></p>
+<p>中途少添加了 51828 端口导致 homekit 的连接出了点问题添加了端口转发解决了，参考（<a target="_blank" rel="noopener" href="https://blog.csdn.net/chouzhou9701/article/details/86725203%EF%BC%89">https://blog.csdn.net/chouzhou9701/article/details/86725203）</a></p>
+<h4 id="外网证书购买与安装"><a href="#外网证书购买与安装" class="headerlink" title="外网证书购买与安装"></a>外网证书购买与安装</h4><p><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/av7k64nn/">https://post.smzdm.com/p/av7k64nn/</a></p>
+<h4 id="树莓派引脚接入-homeassistant"><a href="#树莓派引脚接入-homeassistant" class="headerlink" title="树莓派引脚接入 homeassistant"></a>树莓派引脚接入 homeassistant</h4><p><a target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/rpi_gpio#switch">https://www.home-assistant.io/integrations/rpi_gpio#switch</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.home-assistant.io/integrations/rpi_gpio#binary-sensor">https://www.home-assistant.io/integrations/rpi_gpio#binary-sensor</a></p>
+<h4 id="docker-内的-homeassistant-升级"><a href="#docker-内的-homeassistant-升级" class="headerlink" title="docker 内的 homeassistant 升级"></a>docker 内的 homeassistant 升级</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install homeassistant --upgrade</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=XJ38-OvkR08">https://www.youtube.com/watch?v=XJ38-OvkR08</a></p>
+<h4 id="进阶教程"><a href="#进阶教程" class="headerlink" title="进阶教程"></a>进阶教程</h4><p><a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCf8MbF6J9xWf1m9guutozlw/videos">https://www.youtube.com/channel/UCf8MbF6J9xWf1m9guutozlw/videos</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hass --config path/to/config</span><br><span class="line"><span class="meta">#</span><span class="bash">使用其它目录作为配置文件所在地</span></span><br><span class="line">hass --script check_config</span><br><span class="line"><span class="meta">#</span><span class="bash">在不启动Home Assistant的情况下，测试配置文件的有效性</span></span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E7%BD%91%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">演示网址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%96%99"><span class="toc-number">2.</span> <span class="toc-text">资料</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">制作准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E8%AF%81%E4%B9%A6%E8%B4%AD%E4%B9%B0%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">外网证书购买与安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%95%E8%84%9A%E6%8E%A5%E5%85%A5-homeassistant"><span class="toc-number">5.</span> <span class="toc-text">树莓派引脚接入 homeassistant</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%86%85%E7%9A%84-homeassistant-%E5%8D%87%E7%BA%A7"><span class="toc-number">6.</span> <span class="toc-text">docker 内的 homeassistant 升级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B"><span class="toc-number">7.</span> <span class="toc-text">进阶教程</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&text=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&is_video=false&description=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Smart home｜智能家居全屋设计（Home Assistant）&body=Check out this article: http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&title=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&name=Smart home｜智能家居全屋设计（Home Assistant）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/16/Smart-home%EF%BD%9C%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%85%A8%E5%B1%8B%E5%BB%BA%E8%AE%BE%E8%AE%BE%E8%AE%A1%EF%BC%88Home-Assistant%EF%BC%89/&t=Smart home｜智能家居全屋设计（Home Assistant）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

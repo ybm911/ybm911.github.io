@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="C 语言手册下载：12apt-get install manualman 3 函数名 示例： 12345678910111213141516171819man 3 printf输出：PRINTF(3)                                     Linux Programmer&amp;#x27;s Manual">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C 语言老大哥">
+<meta property="og:url" content="http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="C 语言手册下载：12apt-get install manualman 3 函数名 示例： 12345678910111213141516171819man 3 printf输出：PRINTF(3)                                     Linux Programmer&amp;#x27;s Manual">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012517.png">
+<meta property="article:published_time" content="2020-06-11T17:54:40.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:25:32.534Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="计算机语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012517.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>C 语言老大哥</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/06/14/DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/06/11/Tmux%EF%BD%9C%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&text=C 语言老大哥"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&is_video=false&description=C 语言老大哥"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C 语言老大哥&body=Check out this article: http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&name=C 语言老大哥&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&t=C 语言老大哥"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#C-%E8%AF%AD%E8%A8%80%E6%89%8B%E5%86%8C%E4%B8%8B%E8%BD%BD%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">C 语言手册下载：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">一些常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#printf"><span class="toc-number">2.0.1.</span> <span class="toc-text">printf</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#metset"><span class="toc-number">2.0.2.</span> <span class="toc-text">metset</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#setvbuf"><span class="toc-number">2.0.3.</span> <span class="toc-text">setvbuf</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#strtol"><span class="toc-number">2.0.4.</span> <span class="toc-text">strtol</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#strcmp"><span class="toc-number">2.0.5.</span> <span class="toc-text">strcmp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#getchar"><span class="toc-number">2.0.6.</span> <span class="toc-text">getchar</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number"></span> <span class="toc-text">指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#C-C-%E4%B8%AD-%E5%92%8C-amp-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">C&#x2F;C++ 中*和&amp;的用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E4%B8%8E%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">数组指针与指针数组</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#void"><span class="toc-number">2.0.1.</span> <span class="toc-text">void *</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93-struct"><span class="toc-number">3.</span> <span class="toc-text">结构体 struct</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        C 语言老大哥
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-11T17:54:40.000Z" itemprop="datePublished">2020-06-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/C/" rel="tag">C</a>, <a class="tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/" rel="tag">计算机语言</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="C-语言手册下载："><a href="#C-语言手册下载：" class="headerlink" title="C 语言手册下载："></a>C 语言手册下载：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install manual</span><br><span class="line">man 3 函数名</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">man 3 printf</span><br><span class="line">输出：</span><br><span class="line">PRINTF(3)                                     Linux Programmer&#x27;s Manual                                    PRINTF(3)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       printf,  fprintf,  dprintf,  sprintf,  snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted</span><br><span class="line">       output conversion</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">       int printf(const char *format, ...);</span><br><span class="line">       int fprintf(FILE *stream, const char *format, ...);</span><br><span class="line">       int dprintf(int fd, const char *format, ...);</span><br><span class="line">       int sprintf(char *str, const char *format, ...);</span><br><span class="line">       int snprintf(char *str, size_t size, const char *format, ...);</span><br><span class="line"></span><br><span class="line">       #include &lt;stdarg.h&gt;</span><br><span class="line">       …</span><br></pre></td></tr></table></figure>
+<h4 id="一些常用函数"><a href="#一些常用函数" class="headerlink" title="一些常用函数"></a>一些常用函数</h4><h6 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h6><ul>
+<li><p>%d 按十进制整型数据的实际长度输出</p>
+</li>
+<li><p>%u 输出无符号整型（unsigned）</p>
+</li>
+<li><p>%c 用来输出一个字符</p>
+</li>
+<li><p>%f 用来输出实数，包括单精度和双精度，以小数形式输出。不指定字段宽度，由系统自动指定，整数部分全部输出，小数部分输出 6 位，超过 6 位的四舍五入</p>
+<ul>
+<li>%.mf 输出实数时小数点后保留 m 位，注意 m 前面有个点</li>
+</ul>
+</li>
+<li><p>%o 以八进制整数形式输出</p>
+</li>
+<li><p>%s 用来输出字符串</p>
+</li>
+<li><p>%x（或 %X 或 %#x 或 %#X）以十六进制形式输出整数，这个很重要</p>
+</li>
+<li><blockquote>
+<p>%x、%X、%#x、%#X 的区别</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">47</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, i);   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%X\n&quot;</span>, i);   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%#x\n&quot;</span>, i);   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%#X\n&quot;</span>, i);   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：<br>2f<br>2F<br>0x2f<br>0X2F</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="metset"><a href="#metset" class="headerlink" title="metset"></a>metset</h6><p> copies</p>
+<h6 id="setvbuf"><a href="#setvbuf" class="headerlink" title="setvbuf"></a>setvbuf</h6><p>Changes the the buffering mode of the given file stream stream as indicated by the argument mode.</p>
+<h6 id="strtol"><a href="#strtol" class="headerlink" title="strtol"></a>strtol</h6><p>long int strtol(const char *str, char **endptr, int base)  把参数 <strong>str</strong> 所指向的字符串根据给定的 <strong>base</strong> 转换为一个长整数（类型为 long int 型），base 必须介于 2 和 36（包含）之间，或者是特殊值 0</p>
+<blockquote>
+<p>setbuf()和setvbuf()函数的实际意义在于：用户打开一个文件后，可以建立自己的文件缓冲区，而不必使用fopen()函数打开文件时设定的默认缓冲区。这样就可以让用户自己来控制缓冲区，包括改变缓冲区大小、定时刷新缓冲区、改变缓冲区类型、删除流中默认的缓冲区、为不带缓冲区的流开辟缓冲区等。</p>
+</blockquote>
+<h6 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h6><p>int strncmp( const char *lhs, const char *rhs, [size_t](dfile:///Users/ybm911/Library/Application Support/Dash/DocSets/C/C.docset/Contents/Resources/Documents/en.cppreference.com/w/c/types/size_t.html) count );</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012517.png" alt="image"></p>
+<h6 id="getchar"><a href="#getchar" class="headerlink" title="getchar"></a>getchar</h6><p>char a;a=getchar();</p>
+<p>当你在键盘上输入一个字符(如输入g)后按回车，那么字符变量a的值就是’g’了。</p>
+<p>注意事项：</p>
+<p>1、当程序调用getchar时，程序就等着用户按键，用户输入的字符被存放在键盘缓冲区中，直到用户按回车为止(回车字符也放在缓冲区中)。</p>
+<p>当用户键入回车之后，getchar才开始从stdio流中每次读入一个字符。</p>
+<p>如果用户在按回车之前输入了不止一个字符，其他字符会保留在键盘缓存区中，等待后续getchar调用读取.也就是说，后续的getchar调用不会等待用户按键，而直接读取缓冲区中的字符，直到缓冲区中的字符读完为后，才等待用户按键。<br>2、getchar有一个int型的返回值，当用户键入回车之后，getchar才开始从stdio流中每次读入一个字符。getchar函数的返回值是用户输入的第一个字符的ASCII码，如出错返回-1，且将用户输入的字符回显到屏幕。</p>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h4 id="C-C-中-和-amp-的用法"><a href="#C-C-中-和-amp-的用法" class="headerlink" title="C/C++ 中*和&amp;的用法"></a>C/C++ 中*和&amp;的用法</h4><p>C中*的用法</p>
+<ul>
+<li>乘法运算：x=y*z;</li>
+<li>乘法赋值运算：x*=y;相当于x=x*y</li>
+<li>注释：/<em>这里是你的注释</em>/</li>
+<li>指针的声明：int <em>p 或 int</em> p; 读法：p 是指向一个整数类型的指针</li>
+<li>复合指针： int **p; 或 int ** p; 读法 p 是一个指向一个指向整数类型的指针的指针。（同样道理， int***p等等）</li>
+<li>解引用： x=*p 把指针 p 指向的值赋值给 x</li>
+</ul>
+<p>&amp;在C语言中的用法（解引用）</p>
+<ul>
+<li>逻辑与：if((a&gt;1)&amp;&amp;(b&lt;0))</li>
+<li>位运算与：x=a&b;</li>
+<li>逻辑与赋值：x&amp;=y; 与 x=x&amp;y 含义相同</li>
+<li>求地址运算符：p=&x; 读法：把 x 的地址赋给 p（指针）</li>
+</ul>
+<blockquote>
+<p>(char *)a的意思是：将 a 强制类型转换为字符指针类型</p>
+</blockquote>
+<h4 id="数组指针与指针数组"><a href="#数组指针与指针数组" class="headerlink" title="数组指针与指针数组"></a>数组指针与指针数组</h4><h6 id="void"><a href="#void" class="headerlink" title="void *"></a>void *</h6><p>void *是一种无类型指针，任何类型指针都可以转为<code>void\*</code>，它无条件接受各种类型。实际上我们在很多接口中都会发现它们的参数类型都是void <em>。为何要如此设计？因为对于这种通用型接口，你不知道用户的数据类型是什么，但是你必须能够处理用户的各种类型数据，因而会使用 void \</em>。void *能包容地接受各种类型的指针。也就是说，如果你期望接口能够接受任何类型的参数，你可以使用void*类型。但是在具体使用的时候，你必须转换为具体的指针类型。例如，你传入接口的是int*，那么你在使用的时候就应该按照int*使用。</p>
+<p>数组指针（也称行指针）<br>定义 int (*p)[n];<br>( )优先级高，首先说明 p 是一个指针，指向一个整型的一维数组，这个一维数组的长度是 n，也可以说是 p 的步长。也就是说执行 p+1 时，p 要跨过 n 个整型数据的长度。</p>
+<p>如要将二维数组赋给一指针，应这样赋值：<br>int a [3] [4];<br>int (*p) [4];  // 该语句是定义一个数组指针，指向含4个元素的一维数组。<br> p=a;    // 将该二维数组的首地址赋给 p，也就是 a[0] 或 &amp;a[0][0]<br> p++;    // 该语句执行过后，也就是 p=p+1;p 跨过行 a[0] [ ]指向了行 a[1] [ ]</p>
+<p>所以数组指针也称指向一维数组的指针，亦称行指针。</p>
+<p>指针数组<br>定义 int *p[n];<br>[ ]优先级高，先与 p 结合成为一个数组，再由 int * 说明这是一个整型指针数组，它有n个指针类型的数组元素。这里执行 p+1 是错误的，这样赋值也是错误的：p=a；因为 p 是个不可知的表示，只存在 p[0]、p[1]、p[2]…p[n-1],而且它们分别是指针变量可以用来存放变量地址。但可以这样 *p=a; 这里 *p表示指针数组第一个元素的值，a 的首地址的值。<br>如要将二维数组赋给一指针数组:<br>int *p[3];<br>int a[3] [4];<br>for(i=0;i&lt;3;i++)<br>p[ i ]=a[ i ];<br>这里int *p[3] 表示一个一维数组内存放着三个指针变量，分别是 p[0]、p[1]、p[2]<br>所以要分别赋值。</p>
+<p>这样两者的区别就豁然开朗了，数组指针只是一个指针变量，似乎是C语言里专门用来指向二维数组的，它占有内存中一个指针的存储空间。指针数组是多个指针变量，以数组形式存在内存当中，占有多个指针的存储空间。<br>还需要说明的一点就是，同时用来指向二维数组时，其引用和用数组名引用都是一样的。<br>比如要表示数组中i行j列一个元素：<br>*(p[i]+j)、*(*(p+i)+j)、(*(p+i))[j]、p[i] [j]</p>
+<p>优先级：( ) &gt; [ ] &gt; *</p>
+<h4 id="结构体-struct"><a href="#结构体-struct" class="headerlink" title="结构体 struct"></a>结构体 struct</h4><p>定义结构体有两种定义方式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> 结构名</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	类型 变量名;</span><br><span class="line">	类型 变量名;</span><br><span class="line">&#125; 结构别名<span class="number">1</span>, 结构别名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p><code>结构名</code> 和 <code>结构别名</code> 都不能直接用，因为它们是结构体这种数据类型的名称，这种方式定义的结构体使用时，需要先声明 <code>结构变量</code>。</p>
+<p>另一种定义方式为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构名</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	类型 变量名;</span><br><span class="line">	类型 变量名;</span><br><span class="line">&#125; 结构变量;</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/caozixuan98724/article/details/73395598/">https://blog.csdn.net/caozixuan98724/article/details/73395598/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tongye/p/9650573.html">https://www.cnblogs.com/tongye/p/9650573.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongcha717/archive/2010/10/24/1859780.html">https://www.cnblogs.com/hongcha717/archive/2010/10/24/1859780.html</a></p>
+<p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongcha717/archive/2010/10/24/1859780.html">数组指针和指针数组的区别</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#C-%E8%AF%AD%E8%A8%80%E6%89%8B%E5%86%8C%E4%B8%8B%E8%BD%BD%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">C 语言手册下载：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">一些常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#printf"><span class="toc-number">2.0.1.</span> <span class="toc-text">printf</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#metset"><span class="toc-number">2.0.2.</span> <span class="toc-text">metset</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#setvbuf"><span class="toc-number">2.0.3.</span> <span class="toc-text">setvbuf</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#strtol"><span class="toc-number">2.0.4.</span> <span class="toc-text">strtol</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#strcmp"><span class="toc-number">2.0.5.</span> <span class="toc-text">strcmp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#getchar"><span class="toc-number">2.0.6.</span> <span class="toc-text">getchar</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number"></span> <span class="toc-text">指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#C-C-%E4%B8%AD-%E5%92%8C-amp-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">C&#x2F;C++ 中*和&amp;的用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E4%B8%8E%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">数组指针与指针数组</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#void"><span class="toc-number">2.0.1.</span> <span class="toc-text">void *</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93-struct"><span class="toc-number">3.</span> <span class="toc-text">结构体 struct</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&text=C 语言老大哥"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&is_video=false&description=C 语言老大哥"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C 语言老大哥&body=Check out this article: http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&title=C 语言老大哥"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&name=C 语言老大哥&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/12/C-%E8%AF%AD%E8%A8%80%E8%80%81%E5%A4%A7%E5%93%A5/&t=C 语言老大哥"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

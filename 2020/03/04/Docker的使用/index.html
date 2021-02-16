@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="安装kali所有的工具则运行 apt-get install kali-linux-all 直接一套带走，10G左右。  创建容器相关参数12345678910docker run -d \    --rm \    -h $&amp;#123;ctf_name&amp;#125; \    -w &#x2F;pwn --name $&amp;#123;ctf_name&amp;#125; \    -v $(pwd)&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker的使用">
+<meta property="og:url" content="http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="安装kali所有的工具则运行 apt-get install kali-linux-all 直接一套带走，10G左右。  创建容器相关参数12345678910docker run -d \    --rm \    -h $&amp;#123;ctf_name&amp;#125; \    -w &#x2F;pwn --name $&amp;#123;ctf_name&amp;#125; \    -v $(pwd)&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003805.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003819.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003830.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003902.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003844.png">
+<meta property="article:published_time" content="2020-03-04T12:19:45.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:39:13.894Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003805.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Docker的使用</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/07/i%E6%98%A5%E7%A7%8B%E6%9D%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%81%94%E8%B5%9BWriteUp%E2%80%94%E4%B8%BA%E9%80%86%E8%A1%8C%E8%80%85%E5%8A%A0%E6%B2%B9/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&text=Docker的使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=Docker的使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker的使用&body=Check out this article: http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&name=Docker的使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&t=Docker的使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">创建容器相关参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E6%8C%82%E8%BD%BD%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95%E5%9C%A8%E4%B8%BB%E6%9C%BA%E4%B8%8A"><span class="toc-number">2.</span> <span class="toc-text">创建容器并挂载相关目录在主机上:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-raw-%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E8%BE%83%E5%A4%A7"><span class="toc-number">3.</span> <span class="toc-text">Docker.raw 占用空间较大</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8DockerFile"><span class="toc-number">4.</span> <span class="toc-text">使用DockerFile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-docker-%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">其他 docker 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Docker的使用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-04T12:19:45.000Z" itemprop="datePublished">2020-03-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003805.png" alt="image-20200508222859444"></p>
+<blockquote>
+<p>安装kali所有的工具则运行 apt-get install kali-linux-all 直接一套带走，10G左右。</p>
+</blockquote>
+<h4 id="创建容器相关参数"><a href="#创建容器相关参数" class="headerlink" title="创建容器相关参数"></a>创建容器相关参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --rm \</span><br><span class="line">    -h $&#123;ctf_name&#125; \</span><br><span class="line">    -w &#x2F;pwn --name $&#123;ctf_name&#125; \</span><br><span class="line">    -v $(pwd)&#x2F;$&#123;ctf_name&#125;:&#x2F;ctf&#x2F;work \</span><br><span class="line">    -p 23946:23946 \</span><br><span class="line">    --cap-add&#x3D;SYS_PTRACE \</span><br><span class="line">    skysider&#x2F;pwndocker</span><br><span class="line">启动：</span><br><span class="line">docker exec -it $&#123;ctf_name&#125; &#x2F;bin&#x2F;zsh</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003819.png" alt="itd"></p>
+<p>docker container update xxxxx+容器号 更新容器配置</p>
+<p>–restart=always : docker 重启就打开此容器</p>
+<p>–name ：生成容器名称<br>–rm ：exit 之后就销毁容器，不储存用户数据<br>-v ：挂载本地文件夹到容器<br>-p ：端口映射<br>-d ：后台运行<br>-w /app</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -dp 3000:3000 \</span><br><span class="line">    -w &#x2F;app -v $&#123;PWD&#125;:&#x2F;app \</span><br><span class="line">    node:12-alpine \</span><br><span class="line">    sh -c &quot;yarn install &amp;&amp; yarn run dev&quot;</span><br></pre></td></tr></table></figure>
+<p><code>sh -c &quot;yarn install &amp;&amp; yarn run dev&quot;</code>- 命令。我们正在使用sh（没有alpine bash）启动shell 并运行yarn install以安装所有依赖项，然后运行<code>yarn run dev</code>。如果查看<code>package.json</code>，我们将看到 dev 脚本正在启动 nodemon。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003830.png" alt="cap-add"></p>
+<h4 id="创建容器并挂载相关目录在主机上"><a href="#创建容器并挂载相关目录在主机上" class="headerlink" title="创建容器并挂载相关目录在主机上:"></a>创建容器并挂载相关目录在主机上:</h4><p><code>docker run -it -v /Users/ybm911/Documents/attach_docker_kali:/home/mac kali-linux/ybm_kali:1.0 /bin/bash</code><br>冒号前的是主机目录。</p>
+<ul>
+<li>启动容器:<br><code>docker start XXXXXXXXX</code></li>
+<li>进入容器:<br><code>docker attach XXXXXXXXX</code><br><code>docker exec -it XXXXXXXX /bin/bash</code></li>
+<li>查看容器:<br><code>docker ps -a</code></li>
+<li>删除容器:<br><code>docker rm XXXXXXXX</code></li>
+<li>删除image:<br><code>docker rmi XXXXXXXX</code></li>
+<li>容器生成镜像:<br><code>docker commit -a &quot;Eli0t&quot;-m &quot;kali_all&quot; 6c80830ee487 kali-linux/Y_kali:1.0</code></li>
+<li>镜像导出:<br><code>docker save XXXXXXXX &gt; /root/lsf_jdk8.tar</code></li>
+<li>容器导出:<br><code>docker export 9ff8e203b25e &gt; docker20190123export.tar</code></li>
+<li>将容器在另一台机器导入:<br><code>cat ./docker20190123export.tar | sudo docker import - dockertest:1.0</code><blockquote>
+<p>简单普及一下，docker的save保存镜像(load与其对应)，docker的export导出容器(import与其对应)，但是两者load/import的时候都是生成镜像。</p>
+</blockquote>
+</li>
+</ul>
+<dl><dt>-a 作者名字<br>-m 说明</dt><dd>指的是tag</dd></dl><p>在<code>docker</code>容器中使用<code>Ctrl+D</code>即可退出容器，但是这样会让容器停止运行。</p>
+<p>如果想退出容器但又不想让容器停止，使用<code>Ctrl+P+Q</code>即可</p>
+<h4 id="Docker-raw-占用空间较大"><a href="#Docker-raw-占用空间较大" class="headerlink" title="Docker.raw 占用空间较大"></a>Docker.raw 占用空间较大</h4><p>最近电脑空间吃紧，经过查询之后，发现Docker.raw 文件特别大。<br>该文件为docker的逻辑磁盘的文件。属于预占用文件。<br>进入docker Preferences…，设置Disk image size</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003902.png" alt="images-size"></p>
+<p><strong>注意：调整会导致镜像与容器丢失。</strong><br>其实我发现调了也没有卵用，重启一下 docker 又成了原来的大小</p>
+<h4 id="使用DockerFile"><a href="#使用DockerFile" class="headerlink" title="使用DockerFile"></a>使用DockerFile</h4><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003844.png" alt="dockerfile"></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在centos上安装nginx</span></span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="comment">#标明著作人的名称和邮箱</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> jiabuli <span class="number">649917837</span>@qq.com</span><br><span class="line"><span class="comment">#测试一下网络环境</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ping -c 1 www.baidu.com</span></span><br><span class="line"><span class="comment">#安装nginx必要的一些软件</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install gcc make pcre-devel zlib-devel tar zlib</span></span><br><span class="line"><span class="comment">#把nginx安装包复制到/usr/src/目录下</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> nginx-1.15.8.tar.gz /usr/src/</span></span><br><span class="line"><span class="comment">#切换到/usr/src/nginx-1.15.8编译并且安装nginx</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /usr/src/nginx-1.15.8 \</span></span><br><span class="line"><span class="bash">    &amp;&amp; mkdir /usr/<span class="built_in">local</span>/nginx \</span></span><br><span class="line"><span class="bash">    &amp;&amp; ./configure --prefix=/usr/<span class="built_in">local</span>/nginx &amp;&amp; make &amp;&amp; make install \</span></span><br><span class="line"><span class="bash">    &amp;&amp; ln -s /usr/<span class="built_in">local</span>/nginx/sbin/nginx /usr/<span class="built_in">local</span>/sbin/ \</span></span><br><span class="line"><span class="bash">    &amp;&amp; nginx</span></span><br><span class="line"><span class="comment">#删除安装nginx安装目录</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> rm -rf /usr/src/nginx-nginx-1.15.8</span></span><br><span class="line"><span class="comment">#对外暴露80端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"><span class="comment">#启动nginx</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">12</span>-alpine</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .  <span class="comment"># same as copy ./ /app/</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yarn install --production</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;/app/src/index.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+
+<p><code>docker build -t getting-started .</code>使用 Dockerfile 构建容器</p>
+<h4 id="其他-docker-命令"><a href="#其他-docker-命令" class="headerlink" title="其他 docker 命令"></a>其他 docker 命令</h4><p>您可以使用查看日志<code>docker logs -f  xxxxxxxx</code></p>
+<p>看完日志后，请按<code>Ctrl</code>+ 退出<code>C</code>。</p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/talkxin/article/details/83061973">https://blog.csdn.net/talkxin/article/details/83061973</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">创建容器相关参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E6%8C%82%E8%BD%BD%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95%E5%9C%A8%E4%B8%BB%E6%9C%BA%E4%B8%8A"><span class="toc-number">2.</span> <span class="toc-text">创建容器并挂载相关目录在主机上:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-raw-%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E8%BE%83%E5%A4%A7"><span class="toc-number">3.</span> <span class="toc-text">Docker.raw 占用空间较大</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8DockerFile"><span class="toc-number">4.</span> <span class="toc-text">使用DockerFile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-docker-%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">其他 docker 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&text=Docker的使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=Docker的使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker的使用&body=Check out this article: http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&title=Docker的使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&name=Docker的使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/04/Docker%E7%9A%84%E4%BD%BF%E7%94%A8/&t=Docker的使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

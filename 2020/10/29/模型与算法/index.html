@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="独立思考能力，对于从事科学研究或其他任何工作，都是十分必要的。在历史上，任何科学上的重大发明创造，都是由于发明者充分发挥了这种独创精神。 過去屬於死神，未來屬於你自己 為了生活中努力發揮自己的作用，熱愛人生吧  实验二蛮力算法 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型与算法">
+<meta property="og:url" content="http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="独立思考能力，对于从事科学研究或其他任何工作，都是十分必要的。在历史上，任何科学上的重大发明创造，都是由于发明者充分发挥了这种独创精神。 過去屬於死神，未來屬於你自己 為了生活中努力發揮自己的作用，熱愛人生吧  实验二蛮力算法 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-29T15:45:10.000Z">
+<meta property="article:modified_time" content="2020-11-18T12:55:49.204Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>模型与算法</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/10/31/arp-%E6%8A%93%E5%8F%96%E5%AF%86%E7%A0%81/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/10/26/%E8%AE%B0%E7%AC%AC%E4%B8%80%E6%AC%A1-HVV-%E7%BB%8F%E5%8E%86/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&text=模型与算法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&is_video=false&description=模型与算法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=模型与算法&body=Check out this article: http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&name=模型与算法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&t=模型与算法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C"><span class="toc-number">1.</span> <span class="toc-text">实验二</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        模型与算法
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-29T15:45:10.000Z" itemprop="datePublished">2020-10-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/C/" rel="tag">C++</a>, <a class="tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>独立思考能力，对于从事科学研究或其他任何工作，都是十分必要的。在历史上，任何科学上的重大发明创造，都是由于发明者充分发挥了这种独创精神。</p>
+<p>過去屬於死神，未來屬於你自己</p>
+<p>為了生活中努力發揮自己的作用，熱愛人生吧</p>
+</blockquote>
+<h2 id="实验二"><a href="#实验二" class="headerlink" title="实验二"></a>实验二</h2><p>蛮力算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;  main.cpp</span><br><span class="line">&#x2F;&#x2F;  算法设计作业</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;  Created by Elli0t on 2020&#x2F;10&#x2F;25.</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;math.h&gt;</span><br><span class="line">&#x2F;*</span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    &#x2F;&#x2F; insert code here...</span><br><span class="line">    std::cout &lt;&lt; &quot;test&quot;;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double ClosestPoints(int x[], int y[], int length) &#123;</span><br><span class="line">    double MAX_DISTANCE &#x3D; 0;</span><br><span class="line">    if (length &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        cout&lt;&lt; &quot;请输入两个或者两个以上点&quot; &lt;&lt; endl;</span><br><span class="line">        return MAX_DISTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (length &#x3D;&#x3D; 2)&#123;</span><br><span class="line">        MAX_DISTANCE &#x3D; pow(pow(x[0] - x[1], 2) + pow(y[0]-y[1], 2), 0.5);   &#x2F;&#x2F;  两个点的情况</span><br><span class="line">        cout&lt;&lt; &quot;最近的两个点是: 0  1&quot; &lt;&lt; endl;</span><br><span class="line">        return MAX_DISTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        double mindis;</span><br><span class="line">        int minPoint_1[2], minPoint_2[2];   &#x2F;&#x2F;  每个数组第一位储存 x , 第二位储存 y , 用的都是一维数组</span><br><span class="line">        minPoint_1[0] &#x3D; x[0];</span><br><span class="line">        minPoint_1[1] &#x3D; y[0];</span><br><span class="line">        minPoint_2[0] &#x3D; x[1];</span><br><span class="line">        minPoint_2[1] &#x3D; y[1];</span><br><span class="line">        mindis &#x3D; pow(pow(x[0] - x[1], 2) + pow(y[0]-y[1], 2), 0.5);</span><br><span class="line">        int i &#x3D; 0, j &#x3D; 1;</span><br><span class="line">        double temp &#x3D; 0;</span><br><span class="line">        for (i &#x3D; 0; i &lt; length - 1; i++) &#123;</span><br><span class="line">            for (j &#x3D; i + 1; j &lt; length; j++) &#123;</span><br><span class="line">                temp &#x3D; pow(pow(x[i] - x[j], 2) + pow(y[i]-y[j], 2), 0.5);</span><br><span class="line">                if (temp &lt; mindis) &#123;</span><br><span class="line">                    temp &#x3D; mindis;</span><br><span class="line">                    minPoint_1[0] &#x3D; x[i];</span><br><span class="line">                    minPoint_1[1] &#x3D; y[i];</span><br><span class="line">                    minPoint_2[0] &#x3D; x[j];</span><br><span class="line">                    minPoint_2[1] &#x3D; y[j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt; &quot;最近的两个点分别是: (&quot; &lt;&lt; minPoint_1[0] &lt;&lt; &quot;, &quot; &lt;&lt; minPoint_1[1] &lt;&lt; &quot;) 和 (&quot; &lt;&lt; minPoint_2[0] &lt;&lt; &quot;, &quot; &lt;&lt; minPoint_2[1] &lt;&lt; &quot;)&quot; &lt;&lt; endl;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;蛮力法</span><br><span class="line">&#x2F;*</span><br><span class="line">double BruteForceMethod(Node p[], int length)</span><br><span class="line">&#123;</span><br><span class="line">    if (length &#x3D;&#x3D; 1)        &#x2F;&#x2F;点数为1输出无穷大</span><br><span class="line">        return MAX_DISTANCE;</span><br><span class="line">    else if (length &#x3D;&#x3D; 2)    &#x2F;&#x2F;点数为2直接输出点距</span><br><span class="line">        return ((p[0].x - p[1].x)*(p[0].x - p[1].x) + (p[0].y - p[1].y)*(p[0].y - p[1].y));</span><br><span class="line">    else&#123;</span><br><span class="line">        int i, j;</span><br><span class="line">        double mindis, temp;</span><br><span class="line">        mindis &#x3D; (p[0].x - p[1].x)*(p[0].x - p[1].x) + (p[0].y - p[1].y)*(p[0].y - p[1].y);    &#x2F;&#x2F;先取前两个点的点距为最小距离</span><br><span class="line">        minPoint1 &#x3D; p[0];</span><br><span class="line">        minPoint2 &#x3D; p[1];</span><br><span class="line">        for (i &#x3D; 0; i &lt; length - 1; i++)&#123;</span><br><span class="line">            for (j &#x3D; i + 1; j &lt; length; j++)&#123;</span><br><span class="line">                temp &#x3D; (p[i].x - p[j].x)*(p[i].x - p[j].x) + (p[i].y - p[j].y)*(p[i].y - p[j].y);    &#x2F;&#x2F;算出每两个点的点距</span><br><span class="line">                if (temp &lt; mindis)&#123;                &#123;</span><br><span class="line">                    mindis &#x3D; temp;            &#x2F;&#x2F;当发现更小的距离时，替换最小点距，并记录两个点的信息</span><br><span class="line">                    minPoint1 &#x3D; p[i];</span><br><span class="line">                    minPoint2 &#x3D; p[j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mindis;            &#x2F;&#x2F;直到返回结果时才求sqrt得到真正距离，减少运算量</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cout&lt;&lt;&quot;请输入集合中点的个数（0-100):&quot;;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    int x[100];</span><br><span class="line">    int y[100];</span><br><span class="line">    cout&lt;&lt;&quot;请输入集合中所有点的x坐标:&quot;&lt;&lt;endl;</span><br><span class="line">    double res &#x3D; 0;</span><br><span class="line">    for (int i&#x3D;0; i&lt;n; i++) cin&gt;&gt;x[i];</span><br><span class="line">        cout&lt;&lt;&quot;请输入集合中所有点的y坐标:&quot;&lt;&lt;endl;</span><br><span class="line">        for (int j&#x3D;0; j&lt;n; j++) cin&gt;&gt;y[j];</span><br><span class="line">            res &#x3D; ClosestPoints( x, y, n);</span><br><span class="line">    cout&lt;&lt;&quot;result: &quot; &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenxianqin2/article/details/79068975">https://blog.csdn.net/chenxianqin2/article/details/79068975</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C"><span class="toc-number">1.</span> <span class="toc-text">实验二</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&text=模型与算法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&is_video=false&description=模型与算法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=模型与算法&body=Check out this article: http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&title=模型与算法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&name=模型与算法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/29/%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/&t=模型与算法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

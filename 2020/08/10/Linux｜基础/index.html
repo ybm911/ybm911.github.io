@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="The Code: Story of Linux documentary Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux｜ubuntu 基础">
+<meta property="og:url" content="http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="The Code: Story of Linux documentary Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123134234Options.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123123htacess.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/32452345require.png">
+<meta property="article:published_time" content="2020-08-10T10:08:49.000Z">
+<meta property="article:modified_time" content="2021-02-14T09:05:06.801Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123134234Options.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Linux｜ubuntu 基础</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/08/10/Ubuntu%EF%BD%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8-ctags/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/08/08/%E8%93%9D%E5%B8%BD%E6%9D%AF%EF%BD%9Cwriteup/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&text=Linux｜ubuntu 基础"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&is_video=false&description=Linux｜ubuntu 基础"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux｜ubuntu 基础&body=Check out this article: http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&name=Linux｜ubuntu 基础&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&t=Linux｜ubuntu 基础"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#apt"><span class="toc-number">1.0.1.</span> <span class="toc-text">apt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.0.2.</span> <span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.3.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E6%89%A7%E8%A1%8C"><span class="toc-number">1.0.4.</span> <span class="toc-text">计划执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#amp-etc"><span class="toc-number">1.0.5.</span> <span class="toc-text">&amp; .etc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-yum%EF%BC%88%E8%BF%99%E4%B8%80%E8%88%AC%E6%98%AF%E5%9C%A8-redhat-%E7%B3%BB%E7%BB%9F%E4%B8%8B%EF%BC%8C%E5%A6%82-Centos%EF%BC%89"><span class="toc-number">1.0.6.</span> <span class="toc-text">安装使用 yum（这一般是在 redhat 系统下，如 Centos）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vim"><span class="toc-number">1.0.7.</span> <span class="toc-text">Vim</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E6%96%87%E4%BB%B6%E8%AF%AF%E5%88%A0%E9%99%A4%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.8.</span> <span class="toc-text">Linux文件误删除恢复操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#screen%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88ssh%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C-or-nohup%EF%BC%89"><span class="toc-number">1.0.9.</span> <span class="toc-text">screen的使用（ssh后台运行 or nohup）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">1.0.10.</span> <span class="toc-text">系统中创建新用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2samba"><span class="toc-number">1.0.11.</span> <span class="toc-text">部署samba</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.12.</span> <span class="toc-text">系统环境变量的改变，设置环境变量的两种方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9A-ip"><span class="toc-number">1.0.13.</span> <span class="toc-text">设置固定 ip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apache%E6%9C%89%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">apache有关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A1%B5"><span class="toc-number">2.0.1.</span> <span class="toc-text">修改默认主页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95%E8%A7%A3%E5%86%B3403%F0%9F%A4%93"><span class="toc-number">2.0.2.</span> <span class="toc-text">配置网站目录解决403🤓</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%8D%E5%90%8C%E7%AB%AF%E5%8F%A3%E5%A4%9A%E4%B8%AA%E7%BD%91%E7%AB%99"><span class="toc-number">2.0.3.</span> <span class="toc-text">建立不同端口多个网站</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95"><span class="toc-number">2.0.4.</span> <span class="toc-text">设置禁止访问网站目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apache2-conf%E7%9B%AE%E5%BD%95%E9%85%8D%E7%BD%AE"><span class="toc-number">2.0.5.</span> <span class="toc-text">apache2.conf目录配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95"><span class="toc-number">2.0.6.</span> <span class="toc-text">禁止访问某些文件&#x2F;目录</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Linux｜ubuntu 基础
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-10T10:08:49.000Z" itemprop="datePublished">2020-08-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-link-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="https://youtu.be/XMm0HsmOTFI">The Code: Story of Linux documentary</a></p>
+<p><a target="_blank" rel="noopener" href="https://wiki.ubuntu.org.cn/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">Ubuntu 服务器入门指南</a></p>
+<p><code>lsb_release -a</code> 查看 ubuntu 版本</p>
+<blockquote>
+<p>为什么可以利用GPU加速？</p>
+<p>在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。<br>那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其强大。而GPU的核数远超CPU,但每个核的运算能力与CPU的核相比就相差甚远了。<br>我们可以简单的举个例子，解一道题，CPU 就是博士生，GPU就是小学生，CPU负责理解题目并且整理出解题的步骤以及解法，而GPU负责其中很简单但是数量又很大的简单运算就行了。<br>因此理论上在破解密码的过程中，我们完全可以使用GPU来加速这一过程。<br>事实上，这样的工具也已经出现了，Hashcat便是最出名的一个，它号称是世界上最快的密码恢复工具，可以基于CPU/GPU等工作。有兴趣的可以访问他的官网hashcat.net/hashcat/进行了解。</p>
+</blockquote>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apt-get install package</span><br><span class="line">apt-get remove package</span><br><span class="line"></span><br><span class="line">apt-cache search package	# 搜索</span><br><span class="line">apt-cache show package	# 获取包的相关信息</span><br><span class="line">apt-get install package --reinstall	# 重新安装</span><br><span class="line"></span><br><span class="line">apt-get -f install	# 修复安装</span><br><span class="line">apt-get remove package --purge	# 删除包和配置文件</span><br><span class="line">apt-get build-dep package	# 安装相关的编译环境</span><br><span class="line">apt-cache depends package	# 了解该包依赖哪些包</span><br><span class="line">apt-cache rdepends package	# 查看该包被哪些包依赖</span><br><span class="line">apt-get source package	# 下载该包的源代码</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">CTRL + U -剪切光标前的内容</span><br><span class="line"></span><br><span class="line">CTRL + K -剪切光标至行末的内容</span><br><span class="line"></span><br><span class="line">CTRL + Y -粘贴</span><br><span class="line"></span><br><span class="line">CTRL + E -移动光标到行末</span><br><span class="line"></span><br><span class="line">CTRL + A -移动光标到行首</span><br><span class="line"></span><br><span class="line">ALT + F -跳向下一个空格</span><br><span class="line"></span><br><span class="line">ALT + B -跳回上一个空格</span><br><span class="line"></span><br><span class="line">ALT + Backspace -删除前一个单词</span><br><span class="line"></span><br><span class="line">CTRL + W -剪切光标后一个单词</span><br><span class="line"></span><br><span class="line">Shift + Insert -向终端内粘贴文本</span><br></pre></td></tr></table></figure>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html">Linux 命令大全</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在终端显示系统&#x2F;主题信息的命令行脚本</span><br><span class="line">screenfetch 更常用</span><br><span class="line">neofetch 高度可定制化</span><br></pre></td></tr></table></figure>
+<p>卸载已经安装的程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get purge libreoffice* #删除已安装包（不保留配置文件)。</span><br><span class="line">apt-get --purge autoremove xxxxxxxx</span><br><span class="line">apt-get remove libreoffice* #删除已安装的软件包（保留配置文件）。</span><br><span class="line">apt-get clean #删除包缓存中的所有包。</span><br><span class="line">apt-get autoremove #删除为了满足其他软件包的依赖而安装的，但现在不再需要的软件包。</span><br></pre></td></tr></table></figure>
+<p>ifconfig<code>apt-get install net-tools  #ifconfig</code></p>
+<p>查看在线用户<code>w</code></p>
+<p>一键搭建LAMP环境<code>apt-get install lamp-server^  #一键搭建LAMP环境</code></p>
+<p>ping端口的方法<code>telnet 47.115.46.6 800  #ping端口的方法</code></p>
+<p>将目录里所有jpg文件打包成tar.jpg<code>tar –cvf jpg.tar *.jpg</code></p>
+<p>将目录里所有jpg文件打包成jpg.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz<code>tar –czf jpg.tar.gz *.jpg</code> </p>
+<p>解压 tar包<code>tar –xvf file.tar</code></p>
+<p>解压tar.gz<code>tar -zxvf file.tar.gz</code></p>
+<p>sort排序命令将fsociety.txt排序<code>cat fsociety.txt | sort -u &gt; dict.txt</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Linux wc命令用于计算字数。</span><br><span class="line">利用wc指令我们可以计算文件的Byte数、字数、或是列数，若不指定文件名称、或是所给予的文件名为&quot;-&quot;，则wc指令会从标准输入设备读取数据。</span><br><span class="line">wc [-clw][--help][--version][文件...]</span><br><span class="line">-c或--bytes或--chars 只显示Bytes数。</span><br><span class="line">-l或--lines 只显示行数。</span><br><span class="line">-w或--words 只显示字数。</span><br><span class="line">--help 在线帮助。</span><br><span class="line">--version 显示版本信息。</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-b参数用来向服务器发送 Cookie</span><br><span class="line">curl -b &#39;foo&#x3D;bar&#39; https:&#x2F;&#x2F;google.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="计划执行"><a href="#计划执行" class="headerlink" title="计划执行"></a>计划执行</h4><p><code>at</code>：一次性定时任务计划执行</p>
+<p><code>crontab</code> ：每天定时任务计划执行</p>
+<h4 id="amp-etc"><a href="#amp-etc" class="headerlink" title="&amp; .etc"></a>&amp; .etc</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/csuliujia/p/9939502.html">https://www.cnblogs.com/csuliujia/p/9939502.html</a></p>
+<blockquote>
+<p>管理后台进程</p>
+<p>nohup 命令</p>
+<p>用途：不挂断地运行命令</p>
+<p><code>jobs</code> 命令可以显示当前终端正在运行的进程，包括前台运行和后台运行的进程。它对每个正在执行中的进程任务分配了一个序号（这个序号不是进程 ID），可以使用这些序号来引用各个进程任务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">$ <span class="built_in">jobs</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">[1]- Running cp -i -R original/dir/* backup/dir/ &amp;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">[2]+ Running find . -iname <span class="string">&quot;*jpg&quot;</span> &gt; backup/dir/images.txt &amp;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>fg</code> 命令可以将后台运行的进程任务放到前台运行，这样可以比较方便地进行交互。根据 <code>jobs</code> 命令提供的进程任务序号，再在前面加上 <code>%</code> 符号，就可以把相应的进程任务放到前台运行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">$ <span class="built_in">fg</span> %1 <span class="comment"># 将上面序号为 1 的 cp 任务放到前台运行</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">cp -i -R original/dir/* backup/dir/</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>ctrl+z</code> 组合键可以将前台运行的任务暂停，仅仅是暂停，而不是将任务终止。当使用 <code>fg</code> 或者 <code>bg</code> 命令将任务重新启动起来的时候，任务会从被暂停的位置开始执行。但 <a target="_blank" rel="noopener" href="https://ss64.com/bash/sleep.html">sleep</a>[4] 命令是一个特例，<code>sleep</code> 任务被暂停的时间会计算在 <code>sleep</code> 时间之内。因为 <code>sleep</code> 命令依据的是系统时钟的时间，而不是实际运行的时间。也就是说，如果运行了 <code>sleep 30</code>，然后将任务暂停 30 秒以上，那么任务恢复执行的时候会立即终止并退出。</p>
+<p><code>bg</code> 命令会将任务放置到后台执行，如果任务是暂停状态，也会被启动起来。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">$ <span class="built_in">bg</span> %1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">[1]+ cp -i -R original/dir/* backup/dir/ &amp;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想要把暂停了的进程启动起来，可以对进程发出 <code>CONT</code> 信号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"><span class="built_in">kill</span> -s CONT 14444</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想要终止一个进程，可以发送 <code>TERM</code> 信号：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014636245/article/details/92596602">kill 用法</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"><span class="comment">## 直接杀死进程</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"><span class="built_in">kill</span> -9 14444</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"><span class="comment">## 温柔的杀死进程</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"><span class="built_in">kill</span> -15 14444</span></span><br></pre></td></tr></table></figure>
+<p>( &gt; ) 重定向输出符号<br>特性：覆盖</p>
+</blockquote>
+<p>( &gt;&gt; ) 输出重定向<br>特性：追加</p>
+<p>( 2&gt; ) 错误重定向<br>特性：覆盖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ./test.sh  2&gt; test.error（将执行./test.sh输出的错误信息存入test.error中，如ls /root 2&gt; xian）</span><br></pre></td></tr></table></figure>
+<p>( 2&gt;&gt; ) 错误重定向输出符号<br>特性：错误信息的追加</p>
+<p>( | ) 管道符号<br>特性：上一个的命令输出作为下一个命令的输入（ls | grep xian）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ps -ef | grep root</span><br></pre></td></tr></table></figure>
+<p>( * ) 匹配任意字符</p>
+<p>( ? ) 匹配任意一个字符</p>
+<p>( &amp; ) 后台运行命令(守护程序)<br>特性：关闭当前终端窗口，程序仍在运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ./test.sh &amp;</span><br></pre></td></tr></table></figure>
+<p>( &amp;&amp; ) 连接多条命令<br>特性：如果命令1执行成功，继续执行命令2；否则，不执行命令2.</p>
+<p>( || ) 逻辑或<br>用法：命令1 || 命令2<br>特性：如果命令1执行成功，不执行命令2；否则，才执行命令2.</p>
+<p>( `` ) 倒引号<br>特性：执行它所包含的内容</p>
+<p>( ; ) 命令分隔符<br>用法：命令1 ; 命令2<br>特性：一行语句中，顺次执行各命令</p>
+<h4 id="安装使用-yum（这一般是在-redhat-系统下，如-Centos）"><a href="#安装使用-yum（这一般是在-redhat-系统下，如-Centos）" class="headerlink" title="安装使用 yum（这一般是在 redhat 系统下，如 Centos）"></a>安装使用 yum（这一般是在 redhat 系统下，如 Centos）</h4><p>参考：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1178310982181858059.html">https://zhidao.baidu.com/question/1178310982181858059.html</a></p>
+<p><code>sudo apt-get install yum</code></p>
+<p>安装完毕但是没有源，不能直接使用yum安装软件，于是尝试着把fedora上的源放到ubuntu上使用。</p>
+<p>163 源地址：<a target="_blank" rel="noopener" href="http://mirrors.163.com/.help/fedora.html">http://mirrors.163.com/.help/fedora.html</a></p>
+<p>首先下载fedora-163.repo和fedora-updates-163.repo两个文件, 并放入/etc/yum/repos.d/目录下(这里需要看清楚，不是/etc/yum.repos.d/目录）。<br>然后编辑这两个文件将$releasever全部替换成17（其他的数字也可以，这个表示fedora的发行版本）</p>
+<p>运行yum makecache生成缓存。<br>这样就可以使用yum了，但是如何你想直接使用yum安装软件可要小心点，因为你的系统并不是fedora，最多相当于一个没有安装任何软件的fedora。<br>比如你想通过yum安装yum：sudo yum install yum，这样你需要安装87个包，而且包含像glibc这些比较关键的软件包。**<em>这样可能会造成和ubuntu冲突。**</em></p>
+<h4 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h4><p><code>set nu #显示行数</code><br><code>%!xxd -r #16进制转正常</code><br><code>%!xxd #转16进制显示</code><br><code>:u #撤销最近一次操作</code><br><code>:dd #删除光标所在一行</code><br><code>:8,17d #删除8～17行</code></p>
+<p>用vim写代码时，经常遇到这样的场景，复制多行，然后粘贴。<br> 这样做：</p>
+<ol>
+<li>将光标移动到要复制的文本开始的地方，按v进入可视模式。</li>
+<li>将光标移动到要复制的文本的结束的地方(hjkl)，按y复制，按d进行剪切。此时vim会自动将光标定位到选中文本的开始的地方，并退出可视模式。</li>
+<li>我移动光标到文本结束的地方，按p粘贴。</li>
+</ol>
+<h4 id="Linux文件误删除恢复操作"><a href="#Linux文件误删除恢复操作" class="headerlink" title="Linux文件误删除恢复操作"></a>Linux文件误删除恢复操作</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiftle/p/10966636.html">https://www.cnblogs.com/jiftle/p/10966636.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df &#x2F;home&#x2F;everyone</span><br><span class="line"></span><br><span class="line">debugfs</span><br><span class="line">open &#x2F;dev&#x2F;sdd1</span><br><span class="line">ls -d &#x2F;home&#x2F;everyone</span><br><span class="line">logdump –I  &lt;19662057&gt;</span><br><span class="line">quit</span><br><span class="line"></span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;sdd1 of&#x3D;test.txt bs&#x3D;1024 count&#x3D;1 slip&#x3D;78643271</span><br></pre></td></tr></table></figure>
+<h4 id="screen的使用（ssh后台运行-or-nohup）"><a href="#screen的使用（ssh后台运行-or-nohup）" class="headerlink" title="screen的使用（ssh后台运行 or nohup）"></a>screen的使用（ssh后台运行 or nohup）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt-get install screen  <span class="comment">#安装screen</span></span><br><span class="line">screen -S terminal1</span><br><span class="line">screen -ls</span><br><span class="line">screen -r termainal1  <span class="comment">#进入terminal1</span></span><br><span class="line"><span class="built_in">exit</span>  <span class="comment">#结束并退出terminal1</span></span><br><span class="line">crtl +a +d  <span class="comment">#退出terminal1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup wget https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;-fzzVY-m7NI &amp; </span><br></pre></td></tr></table></figure>
+
+
+<h4 id="系统中创建新用户"><a href="#系统中创建新用户" class="headerlink" title="系统中创建新用户"></a>系统中创建新用户</h4><p>这种方式只能在控制台中互相切换用户，一旦重启系统，用该用户还是无法登陆（只能用原来的用户或root登陆）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">useradd csdn  <span class="comment">#加一个新用户（如用户名为csdn）</span></span><br><span class="line">passwd csdn  <span class="comment">#为该用户设定登录密码</span></span><br><span class="line">usermod -s /bin/bash csdn  <span class="comment">#为该用户指定命令解释程序（通常为/bin/bash）</span></span><br><span class="line">usermod -d /home/csdn csdn  <span class="comment">#为该用户指定用户主目录</span></span><br><span class="line">cat /etc/passwd  <span class="comment">#查看用户的属性</span></span><br><span class="line">可以看到，已经存在csdn这个用户。/etc/passwd中一行记录对应着一个用户，每行记录又被冒号(:)分隔为7个字段，其格式和具体含义如下：</span><br><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:用户主目录:命令解释程序</span><br><span class="line">vi /etc/sudoers  <span class="comment">#允许该用户以管理员身份执行指令</span></span><br><span class="line">在“root ALL=(ALL:ALL) ALL”这一行下面加入一行：</span><br><span class="line">csdn ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
+<h4 id="部署samba"><a href="#部署samba" class="headerlink" title="部署samba"></a>部署samba</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">apt install samba</span><br><span class="line">vi /etc/samba/smb.conf  <span class="comment">#配置共享</span></span><br><span class="line">***</span><br><span class="line">在末尾添加以下内容</span><br><span class="line">[public]</span><br><span class="line">path=/home/public</span><br><span class="line">browseable=yes</span><br><span class="line"><span class="built_in">read</span> only=no</span><br><span class="line">guest ok=yes</span><br><span class="line">***</span><br><span class="line">创建文件夹配置写入权限</span><br><span class="line">mkdir /home/public</span><br><span class="line">chmod 777 /home/public</span><br><span class="line">至此匿名的文件读写权限已经设置好了</span><br><span class="line">添加系统用户到SAMBA账号</span><br><span class="line">smbpasswd -a msdn</span><br><span class="line">smbpasswd -e msdn  <span class="comment">#启用samba账户</span></span><br><span class="line">重启服务，致使配置生效</span><br><span class="line">systemctl restart smbd.service nmbd.service</span><br></pre></td></tr></table></figure>
+<h4 id="系统环境变量的改变，设置环境变量的两种方法"><a href="#系统环境变量的改变，设置环境变量的两种方法" class="headerlink" title="系统环境变量的改变，设置环境变量的两种方法"></a>系统环境变量的改变，设置环境变量的两种方法</h4><p>当前用户的全局设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">添加<span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>所有用户的全局设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">添加<span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+<h4 id="设置固定-ip"><a href="#设置固定-ip" class="headerlink" title="设置固定 ip"></a>设置固定 ip</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010039418/article/details/80934346">https://blog.csdn.net/u010039418/article/details/80934346</a></p>
+<p>编辑 <code>/etc/netplan/01-network-manager-all.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Let NetworkManager manage all devices on this system</span></span><br><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="comment"># renderer: NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">          <span class="comment"># ens33:</span></span><br><span class="line">          <span class="attr">enp4s0:</span></span><br><span class="line">                  <span class="attr">addresses:</span> [<span class="number">192.168</span><span class="number">.50</span><span class="number">.123</span><span class="string">/24</span>]</span><br><span class="line">                  <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.50</span><span class="number">.1</span></span><br><span class="line">                  <span class="attr">nameservers:</span></span><br><span class="line">                        <span class="attr">addresses:</span> [<span class="number">192.168</span><span class="number">.50</span><span class="number">.1</span>]</span><br></pre></td></tr></table></figure>
+<p>然后使用以下命令使配置即时生效，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netplan apply1</span><br></pre></td></tr></table></figure>
+<h2 id="apache有关配置"><a href="#apache有关配置" class="headerlink" title="apache有关配置"></a>apache有关配置</h2><blockquote>
+<p>apache下mods-enable和mods-available的链接关系<br>mods-enable里装的是apache已被启用的模块，mods-available里装的是当前系统可用的模 块，“LoadModule rewrite_module modules/mod_rewrite.so”这句一般是在mods-available目录下的rewrite.load文件里，所以要启用这个模块 只要在mods-enable目录里建一个rewrite.load的链接就行了。<br>另外还要保证根目录下的AllowOverride all。</p>
+</blockquote>
+<h4 id="修改默认主页"><a href="#修改默认主页" class="headerlink" title="修改默认主页"></a>修改默认主页</h4><p>输入这个命令 <code>grep -iR DirectoryIndex /etc/apache2</code>，查看 DirectoryIndex 在apache2文件夹的哪个文件里面。<br>修改默认主页：一般在 <code>sudo vi /etc/apache2/apache2.conf</code>里面<br>找到 DirectoryIndex 在后面添加 如index.php等<br>然后重启apache2</p>
+<h4 id="配置网站目录解决403🤓"><a href="#配置网站目录解决403🤓" class="headerlink" title="配置网站目录解决403🤓"></a>配置网站目录解决403🤓</h4><p>修改/etc/apache2/apache2.conf<br>添加如下所示：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Directory /home/public/&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="建立不同端口多个网站"><a href="#建立不同端口多个网站" class="headerlink" title="建立不同端口多个网站"></a>建立不同端口多个网站</h4><p>在apache2.conf添加新网站源码位置，在port.conf添加Listen端口，在site-available中添加apache-web.conf，再在site-enable中建立软连接就行了。</p>
+<blockquote>
+<p>linux(ubuntu)安装apache2和php7后浏览器无法解析php<br>安装php对于apache的模块<code>sudo apt install php libapache2-mod-php</code></p>
+</blockquote>
+<h4 id="设置禁止访问网站目录"><a href="#设置禁止访问网站目录" class="headerlink" title="设置禁止访问网站目录"></a>设置禁止访问网站目录</h4><p>如何操作禁止显示apache网站根目录,修改/etc/apache2/apache2.conf<br>将<code>Options Indexes FollowSymLinks</code>改为<code>Options FollowSymLinks</code><br>或者在</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Directory /home/public/&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<p>中添加</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Directory /home/public/&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> FollowSymLinks</span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后<code>service apache2 restart</code></p>
+<h4 id="apache2-conf目录配置"><a href="#apache2-conf目录配置" class="headerlink" title="apache2.conf目录配置"></a>apache2.conf目录配置</h4><p>默认</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Directory /home/&gt;</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>Options Indexes FollowSymLinks</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123134234Options.png" alt="Options"></p>
+<p><code>AllowOverride None</code>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。<a target="_blank" rel="noopener" href="https://htaccess.iapolo.com/#a_fileList">在线生成htacess</a><br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123123htacess.png" alt="htacess"><br><code>Require all granted</code><br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/32452345require.png" alt="require"></p>
+<h4 id="禁止访问某些文件-目录"><a href="#禁止访问某些文件-目录" class="headerlink" title="禁止访问某些文件/目录"></a>禁止访问某些文件/目录</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqiiqi/article/details/72802082">https://blog.csdn.net/caiqiiqi/article/details/72802082</a></p>
+<p>增加Files选项来控制，比如要不允许访问 .inc 扩展名的文件，保护php类库：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Files ~ “.inc$”&gt;</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Order</span></span> <span class="literal">allow</span>,<span class="literal">deny</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Deny</span></span> from <span class="literal">all</span></span><br><span class="line"><span class="section">&lt;/Files&gt;</span></span><br></pre></td></tr></table></figure>
+<p>禁止访问某些指定的目录：（可以用 <DirectoryMatch>   来进行正则匹配）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Directory ~ “^/var/www/(.+/)*[0-9]&#123;3&#125;”&gt;</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Order</span></span> <span class="literal">allow</span>,<span class="literal">deny</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Deny</span></span> from <span class="literal">all</span></span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过文件匹配来进行禁止，比如禁止所有针对图片的访问：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;FilesMatch .(?i:gif|jpeg|png)$&gt;</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Order</span></span> <span class="literal">allow</span>,<span class="literal">deny</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Deny</span></span> from <span class="literal">all</span></span><br><span class="line"><span class="section">&lt;/FilesMatch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>针对URL相对路径的禁止访问：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;Location /dir/&gt;</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Order</span></span> <span class="literal">allow</span>,<span class="literal">deny</span></span><br><span class="line">     <span class="attribute"><span class="nomarkup">Deny</span></span> from <span class="literal">all</span></span><br><span class="line"><span class="section">&lt;/Location&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>关于 Linux 的一些想法：</p>
+<p>使用配置</p>
+<p><a target="_blank" rel="noopener" href="http://blog.binchen.org/posts/linux-zhuo-mian-shi-yong-zhi-dao.html">http://blog.binchen.org/posts/linux-zhuo-mian-shi-yong-zhi-dao.html</a></p>
+<p>用什么好。其实 mac win linux 没有什么绝对的好与不好，各有优点。没有一款平台是绝对适合编程的。</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19687895/answer/33098614">https://www.zhihu.com/question/19687895/answer/33098614</a></p>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xccjmpc/p/6034850.html">https://www.cnblogs.com/xccjmpc/p/6034850.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011068475/article/details/60767984">关于Mac和Ubuntu共享文件解决问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VpAD6dKEdWyD1Ae8JnqBRw">Linux 中实用但很小众的 11 个炫酷终端命令</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#apt"><span class="toc-number">1.0.1.</span> <span class="toc-text">apt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.0.2.</span> <span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.3.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E6%89%A7%E8%A1%8C"><span class="toc-number">1.0.4.</span> <span class="toc-text">计划执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#amp-etc"><span class="toc-number">1.0.5.</span> <span class="toc-text">&amp; .etc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-yum%EF%BC%88%E8%BF%99%E4%B8%80%E8%88%AC%E6%98%AF%E5%9C%A8-redhat-%E7%B3%BB%E7%BB%9F%E4%B8%8B%EF%BC%8C%E5%A6%82-Centos%EF%BC%89"><span class="toc-number">1.0.6.</span> <span class="toc-text">安装使用 yum（这一般是在 redhat 系统下，如 Centos）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vim"><span class="toc-number">1.0.7.</span> <span class="toc-text">Vim</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E6%96%87%E4%BB%B6%E8%AF%AF%E5%88%A0%E9%99%A4%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.8.</span> <span class="toc-text">Linux文件误删除恢复操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#screen%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88ssh%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C-or-nohup%EF%BC%89"><span class="toc-number">1.0.9.</span> <span class="toc-text">screen的使用（ssh后台运行 or nohup）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">1.0.10.</span> <span class="toc-text">系统中创建新用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2samba"><span class="toc-number">1.0.11.</span> <span class="toc-text">部署samba</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.12.</span> <span class="toc-text">系统环境变量的改变，设置环境变量的两种方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9A-ip"><span class="toc-number">1.0.13.</span> <span class="toc-text">设置固定 ip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apache%E6%9C%89%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">apache有关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A1%B5"><span class="toc-number">2.0.1.</span> <span class="toc-text">修改默认主页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95%E8%A7%A3%E5%86%B3403%F0%9F%A4%93"><span class="toc-number">2.0.2.</span> <span class="toc-text">配置网站目录解决403🤓</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%8D%E5%90%8C%E7%AB%AF%E5%8F%A3%E5%A4%9A%E4%B8%AA%E7%BD%91%E7%AB%99"><span class="toc-number">2.0.3.</span> <span class="toc-text">建立不同端口多个网站</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%E7%9B%AE%E5%BD%95"><span class="toc-number">2.0.4.</span> <span class="toc-text">设置禁止访问网站目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apache2-conf%E7%9B%AE%E5%BD%95%E9%85%8D%E7%BD%AE"><span class="toc-number">2.0.5.</span> <span class="toc-text">apache2.conf目录配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95"><span class="toc-number">2.0.6.</span> <span class="toc-text">禁止访问某些文件&#x2F;目录</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&text=Linux｜ubuntu 基础"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&is_video=false&description=Linux｜ubuntu 基础"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux｜ubuntu 基础&body=Check out this article: http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&title=Linux｜ubuntu 基础"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&name=Linux｜ubuntu 基础&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/&t=Linux｜ubuntu 基础"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

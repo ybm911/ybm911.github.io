@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="源自互联网人的开源精神  因为正常的外网地址总是在不断变化的，如果想从外面接入家中设备则需要提前知道外网地址。于是此项目就诞生了！此项目只适用HUAWEI路由器ws5102或其他相近机型项目源码1.0不是树莓派的可以使用项目1.0。项目修改1.1加上了树莓派引脚控制，可随时观察到项目是否正常运行😎。若访问失败页面底部有源码。 项目展示   项目分析定义了4个函数，作用分别是spider_wan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspi+Python内网穿透1.0">
+<meta property="og:url" content="http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="源自互联网人的开源精神  因为正常的外网地址总是在不断变化的，如果想从外面接入家中设备则需要提前知道外网地址。于是此项目就诞生了！此项目只适用HUAWEI路由器ws5102或其他相近机型项目源码1.0不是树莓派的可以使用项目1.0。项目修改1.1加上了树莓派引脚控制，可随时观察到项目是否正常运行😎。若访问失败页面底部有源码。 项目展示   项目分析定义了4个函数，作用分别是spider_wan">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-17T10:53:19.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:27:25.887Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="RaspberryPi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Raspi+Python内网穿透1.0</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/02/18/Markdown-%E8%AF%AD%E6%B3%95/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/17/RaspberryPi/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&text=Raspi+Python内网穿透1.0"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&is_video=false&description=Raspi+Python内网穿透1.0"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi+Python内网穿透1.0&body=Check out this article: http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&name=Raspi+Python内网穿透1.0&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&t=Raspi+Python内网穿透1.0"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA"><span class="toc-number">1.</span> <span class="toc-text">项目展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">项目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%96%BD"><span class="toc-number">3.</span> <span class="toc-text">项目实施</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Raspi+Python内网穿透1.0
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-17T10:53:19.000Z" itemprop="datePublished">2020-02-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-link-link" href="/tags/RaspberryPi/" rel="tag">RaspberryPi</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>源自互联网人的开源精神</p>
+</blockquote>
+<p>因为正常的外网地址总是在不断变化的，如果想从外面接入家中设备则需要提前知道外网地址。于是此项目就诞生了！<br><strong>此项目只适用HUAWEI路由器ws5102或其他相近机型</strong><br><a target="_blank" rel="noopener" href="https://github.com/ybm911/Python/blob/master/test/HUAWEI_1.py" title="项目源码">项目源码1.0</a>不是树莓派的可以使用项目1.0。<br><a target="_blank" rel="noopener" href="https://github.com/ybm911/Raspi/blob/master/test/HUAWEI.py">项目修改1.1</a>加上了树莓派引脚控制，可随时观察到项目是否正常运行😎。<br>若访问失败页面底部有源码。</p>
+<h4 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h4><iframe width="100%" height="500" src="//player.bilibili.com/player.html?aid=89113219&cid=152210574&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<h4 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h4><p>定义了4个函数，作用分别是spider_wanip()树莓派从路由器爬取外网地址、email_send(ip)树莓派将爬取到的外网地址、judge(ip_deliver)判断外网地址是否变化、hey()调用其他函数的总函数。</p>
+<p>项目最后，每半小时执行一次项目。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">schedule.every(<span class="number">30</span>).minutes.do(hey)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span> :</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="项目实施"><a href="#项目实施" class="headerlink" title="项目实施"></a>项目实施</h4><p>树莓派接入网线24小时开机。<br>安装selenium+chrome<br>安装selenium<code>pip3 install selenium</code><br>安装chromedriver<code>sudo apt-get install chromium-chromedriver</code><br>按照代码中的注释将代码补充完整。<br><code>python3 HUAWEI_1.py</code><br>开始你的快乐之旅吧！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#YBM911---外网ip自动爬取</span></span><br><span class="line"><span class="keyword">import</span> requests </span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver <span class="comment">#爬取网页</span></span><br><span class="line"><span class="keyword">import</span> time <span class="comment">#延时代码</span></span><br><span class="line"><span class="keyword">import</span> schedule <span class="comment">#定时执行</span></span><br><span class="line"><span class="keyword">import</span> smtplib <span class="comment">#连接邮件服务器</span></span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText <span class="comment">#邮件发送内容</span></span><br><span class="line"><span class="keyword">from</span> email.header <span class="keyword">import</span> Header <span class="comment">#邮件头文件</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://192.168.1.1&#x27;</span> <span class="comment">#爬取的路由器管理网页</span></span><br><span class="line">wifi_password = <span class="string">&#x27;XXXXXXXX&#x27;</span> <span class="comment">#wifi密码</span></span><br><span class="line">email_send_name = <span class="string">&#x27;XXXXXXXX&#x27;</span> <span class="comment">#发送人</span></span><br><span class="line">email_password = <span class="string">&#x27;XXXXXXXX&#x27;</span> <span class="comment">#email的smtp授权码</span></span><br><span class="line">email_to_name = <span class="string">&#x27;XXXXXXXX&#x27;</span> <span class="comment">#收件人</span></span><br><span class="line">smtp_server = <span class="string">&#x27;smtp.qq.com&#x27;</span> <span class="comment">#qqsmtp服务器</span></span><br><span class="line">ip_YBM911 = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">judge_number = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">password=<span class="string">&#x27;&#x27;</span></span><br><span class="line">loginbtn_1=<span class="string">&#x27;&#x27;</span></span><br><span class="line">btn_2=<span class="string">&#x27;&#x27;</span></span><br><span class="line">ip_1=<span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spider_wanip</span>() :</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        <span class="keyword">global</span> ip_YBM911</span><br><span class="line">        <span class="keyword">global</span> password</span><br><span class="line">        <span class="keyword">global</span> loginbtn_1</span><br><span class="line">        <span class="keyword">global</span> btn_2</span><br><span class="line">        <span class="keyword">global</span> ip_1</span><br><span class="line">        print(<span class="string">&#x27; run spider_wanip now ! &#x27;</span>)</span><br><span class="line">        driver = webdriver.Chrome()</span><br><span class="line">        driver.get(url)</span><br><span class="line">        time.sleep(<span class="number">8</span>)</span><br><span class="line">        password = driver.find_element_by_id(<span class="string">&#x27;userpassword_ctrl&#x27;</span>).send_keys(wifi_password)</span><br><span class="line">        loginbtn_1 = driver.find_element_by_id(<span class="string">&#x27;loginbtn&#x27;</span>).click()</span><br><span class="line">        time.sleep(<span class="number">8</span>)</span><br><span class="line">        print(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">        btn_2 = driver.find_element_by_id(<span class="string">&#x27;more&#x27;</span>).click()</span><br><span class="line">        time.sleep(<span class="number">4</span>)</span><br><span class="line">        wan_ip = driver.find_element_by_id(<span class="string">&#x27;deviceinfo_view_data_edit_deviceinfo_IPAddress_label_ctrl&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">        ip_1 = wan_ip.text</span><br><span class="line">        print(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">        driver.close()</span><br><span class="line">        print(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27; last ip is &#x27;</span>+ip_YBM911)</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        if ip_YBM911==&#x27;0&#x27;:</span></span><br><span class="line"><span class="string">            print(&#x27;5&#x27;)</span></span><br><span class="line"><span class="string">            ip_YBM911=ip_1</span></span><br><span class="line"><span class="string">        else:</span></span><br><span class="line"><span class="string">            pass</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        print(<span class="string">&#x27;***spider_wanip success***&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;**************************&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;*wan_ip is &#x27;</span>+ip_1+<span class="string">&#x27; *&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;**************************&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> ip_1</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        print(<span class="string">&#x27;  spider_wanip fail !!!  &#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;0&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">email_send</span>(<span class="params">ip</span>) :</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        print(<span class="string">&#x27; run email_send now ! &#x27;</span>)</span><br><span class="line">        msg = MIMEText(ip,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        msg[<span class="string">&#x27;From&#x27;</span>] = Header(<span class="string">&#x27;intelnet_Raspi3B+&#x27;</span>)</span><br><span class="line">        msg[<span class="string">&#x27;To&#x27;</span>] = Header(email_to_name)</span><br><span class="line">        msg[<span class="string">&#x27;Subject&#x27;</span>] = Header(<span class="string">&#x27;wifi_send_ip 1.0&#x27;</span>) <span class="comment">#丰富邮件</span></span><br><span class="line">        server = smtplib.SMTP()</span><br><span class="line">        server.connect(host = smtp_server,port = <span class="string">&#x27;25&#x27;</span>) <span class="comment">#连接服务器,端口25</span></span><br><span class="line">        server.login(email_send_name,email_password) <span class="comment">#登陆</span></span><br><span class="line">        print(<span class="string">&#x27;  email 登陆成功 ！ &#x27;</span>)</span><br><span class="line">        server.sendmail(email_send_name,email_to_name,msg.as_string())</span><br><span class="line">        server.quit()</span><br><span class="line">        print(<span class="string">&#x27;**************************&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;*** email_send success ***&#x27;</span>)</span><br><span class="line">        print(<span class="string">&#x27;**************************&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        print(<span class="string">&#x27;  email_send Fail !!!  &#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">judge</span>(<span class="params">ip_deliver</span>) :</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">global</span> ip_YBM911</span><br><span class="line">        <span class="keyword">global</span> judge_number</span><br><span class="line">        print(ip_deliver)</span><br><span class="line">        <span class="keyword">if</span> ip_YBM911==ip_deliver:</span><br><span class="line">            judge_number=<span class="string">&#x27;0&#x27;</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            ip_YBM911=ip_deliver</span><br><span class="line">            judge_number=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(<span class="string">&#x27; error in judge &#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hey</span>() :</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        <span class="keyword">global</span> ip_YBM911</span><br><span class="line">        <span class="keyword">global</span> judge_number</span><br><span class="line">        judge(spider_wanip())</span><br><span class="line">        print(judge_number)</span><br><span class="line">        <span class="keyword">if</span> judge_number==<span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">            email_send(ip_YBM911)</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            print(<span class="string">&#x27;situation is same&#x27;</span>)</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        print(<span class="string">&#x27; error in HEY !!!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">schedule.every(<span class="number">30</span>).minutes.do(hey)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span> :</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA"><span class="toc-number">1.</span> <span class="toc-text">项目展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">项目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%96%BD"><span class="toc-number">3.</span> <span class="toc-text">项目实施</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&text=Raspi+Python内网穿透1.0"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&is_video=false&description=Raspi+Python内网穿透1.0"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi+Python内网穿透1.0&body=Check out this article: http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&title=Raspi+Python内网穿透1.0"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&name=Raspi+Python内网穿透1.0&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/17/Python%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/&t=Raspi+Python内网穿透1.0"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

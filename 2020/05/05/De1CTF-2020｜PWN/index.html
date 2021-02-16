@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Life is like a box of chocolates:you never know what you are gonna get.  这道题目第一步是用脚本爆破出一个三位字符串，但是后面发现还含有不可见字符，所以脚本如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:type" content="article">
+<meta property="og:title" content="De1CTF 2020｜PWN">
+<meta property="og:url" content="http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Life is like a box of chocolates:you never know what you are gonna get.  这道题目第一步是用脚本爆破出一个三位字符串，但是后面发现还含有不可见字符，所以脚本如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013322.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013342.png">
+<meta property="article:published_time" content="2020-05-05T12:12:26.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:33:47.744Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013322.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>De1CTF 2020｜PWN</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/06/PWN-study-0x04/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/05/WIFI%EF%BD%9C%E8%B7%AF%E7%94%B1%E5%99%A8%E6%9C%89%E7%BA%BF%E6%A1%A5%E6%8E%A5/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&text=De1CTF 2020｜PWN"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&is_video=false&description=De1CTF 2020｜PWN"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020｜PWN&body=Check out this article: http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&name=De1CTF 2020｜PWN&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&t=De1CTF 2020｜PWN"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#binary-dump"><span class="toc-number">1.</span> <span class="toc-text">binary dump</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        De1CTF 2020｜PWN
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-05T12:12:26.000Z" itemprop="datePublished">2020-05-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>Life is like a box of chocolates:you never know what you are gonna get.</p>
+</blockquote>
+<p>这道题目第一步是用脚本爆破出一个三位字符串，但是后面发现还含有不可见字符，所以脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">context.terminal=[<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;sp&quot;</span>,<span class="string">&quot;-h&quot;</span>]</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">DEBUG = <span class="number">0</span></span><br><span class="line">LOCAL = <span class="literal">True</span></span><br><span class="line"><span class="comment">#BIN = &#x27;bin&#x27;</span></span><br><span class="line">HOST = <span class="string">&#x27;106.53.114.216&#x27;</span></span><br><span class="line">PORT = <span class="number">9999</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span>(<span class="params">fuck,guess_all</span>):</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> guess_all:</span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> guess_all:</span><br><span class="line">            <span class="keyword">for</span> c <span class="keyword">in</span> guess_all:</span><br><span class="line">                guess = a + b + c</span><br><span class="line">                result = hashlib.sha256(guess).hexdigest()</span><br><span class="line">                <span class="keyword">if</span> fuck == result:</span><br><span class="line">                    <span class="built_in">print</span> hexdump(guess)</span><br><span class="line">                    <span class="keyword">return</span> guess</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span>(<span class="params">sh</span>):</span></span><br><span class="line">    sh.recvuntil(<span class="string">&quot;=========Pow========\n&quot;</span>)</span><br><span class="line">    hash_value = sh.recvuntil(<span class="string">&quot;\&quot;\n&quot;</span>, drop=<span class="literal">True</span>).split(<span class="string">&quot;== \&quot;&quot;</span>)[<span class="number">1</span>]</span><br><span class="line">    length = <span class="built_in">int</span>(sh.recvuntil(<span class="string">&quot;\n&quot;</span>, drop=<span class="literal">True</span>).split(<span class="string">&quot;== &quot;</span>)[<span class="number">1</span>])</span><br><span class="line">    sh.recvuntil(<span class="string">&quot;&gt;&quot;</span>)</span><br><span class="line">    guess_all = <span class="built_in">list</span>(<span class="built_in">chr</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x0</span>, <span class="number">0x100</span>))</span><br><span class="line">    guess = loop(hash_value,guess_all)</span><br><span class="line">    sh.sendline(guess)</span><br><span class="line">    sh.interactive()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"><span class="comment">#    elf = ELF(BIN)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        LOCAL = <span class="literal">False</span></span><br><span class="line">        sh = remote(HOST,PORT)</span><br><span class="line">        exploit(sh)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        LOCAL = <span class="literal">True</span></span><br><span class="line"><span class="comment">#        sh = process(BIN)</span></span><br><span class="line">        log.info(<span class="string">&#x27;PID: &#x27;</span> + <span class="built_in">str</span>(proc.pidof(sh)[<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># pause</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            gdb.attach(sh)</span><br><span class="line">        exploit(sh)</span><br></pre></td></tr></table></figure>
+<h4 id="binary-dump"><a href="#binary-dump" class="headerlink" title="binary dump"></a>binary dump</h4><p>dump 的时候一直出错，后面知道了，原来是要将所有（题目分了好几次发的）的题目发过来的 b64 编码的字符串都放到 test 文件中，然后再<br><code>base64 -d test &gt; output</code><br><code>file output</code><br>知道了它是 .gz 文件，再解压即可得到 binary</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013322.jpg" alt="binary"></p>
+<p>开始以为只有后面一段才是 base64 编码的，导致没有复制完整，一直报错</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013342.png" alt="base64"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#binary-dump"><span class="toc-number">1.</span> <span class="toc-text">binary dump</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&text=De1CTF 2020｜PWN"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&is_video=false&description=De1CTF 2020｜PWN"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020｜PWN&body=Check out this article: http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&title=De1CTF 2020｜PWN"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&name=De1CTF 2020｜PWN&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/05/05/De1CTF-2020%EF%BD%9CPWN/&t=De1CTF 2020｜PWN"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

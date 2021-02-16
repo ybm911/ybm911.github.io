@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="ldd 命令查看当前正在使用的链接库 1234567891011root@pwn:&#x2F;ctf&#x2F;work# ldd program	linux-vdso.so.1 (0x00007ffe3fb86000)	libc.so.6 &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so.6 (0x00007fa1ff6e3000)	&#x2F;lib64&#x2F;ld-linux-x86-64.so.2 (0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF 更换 glibc">
+<meta property="og:url" content="http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="ldd 命令查看当前正在使用的链接库 1234567891011root@pwn:&#x2F;ctf&#x2F;work# ldd program	linux-vdso.so.1 (0x00007ffe3fb86000)	libc.so.6 &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so.6 (0x00007fa1ff6e3000)	&#x2F;lib64&#x2F;ld-linux-x86-64.so.2 (0">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201008210703.png">
+<meta property="article:published_time" content="2020-10-08T20:09:49.000Z">
+<meta property="article:modified_time" content="2020-10-08T23:44:33.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201008210703.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>ELF 更换 glibc</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/10/09/ArduPilot%EF%BD%9C%E8%87%AA%E5%8A%A8%E9%A3%9E%E8%A1%8C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/10/07/%E6%B5%AA%E6%BC%AB-Saturn-V-%EF%BC%88%E5%9C%9F%E6%98%9F5%E5%8F%B7%E8%BF%90%E8%BD%BD%E7%81%AB%E7%AE%AD%EF%BC%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&text=ELF 更换 glibc"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&is_video=false&description=ELF 更换 glibc"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ELF 更换 glibc&body=Check out this article: http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&name=ELF 更换 glibc&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&t=ELF 更换 glibc"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#patchelf"><span class="toc-number">1.</span> <span class="toc-text">patchelf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LIEF%EF%BC%88%E6%B2%A1%E7%94%A8%E8%BF%87%EF%BC%8C%E4%B8%8D%E7%86%9F%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">LIEF（没用过，不熟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn-debug%EF%BC%88%E4%B8%8D%E5%A4%AA%E5%A5%BD%E7%94%A8%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">pwn_debug（不太好用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LD-PRELOAD%EF%BC%88%E5%A6%82%E6%9E%9C-libc-%E7%9A%84%E7%89%88%E6%9C%AC%E5%B7%AE%E5%A4%AA%E5%A4%9A%E7%9A%84%E8%AF%9D%E5%B0%B1%E6%B2%A1%E5%8A%9E%E6%B3%95%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">LD_PRELOAD（如果 libc 的版本差太多的话就没办法使用）</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ELF 更换 glibc
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-08T20:09:49.000Z" itemprop="datePublished">2020-10-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nzjdsds/article/details/86759843?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase">ldd 命令</a>查看当前正在使用的链接库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@pwn:/ctf/work# ldd program</span><br><span class="line">	linux-vdso.so.1 (0x00007ffe3fb86000)</span><br><span class="line">	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fa1ff6e3000)</span><br><span class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007fa1ff8df000)</span><br><span class="line"></span><br><span class="line">root@pwn:/ctf/work# ldd /lib64/ld-linux-x86-64.so.2</span><br><span class="line">	statically linked</span><br><span class="line"></span><br><span class="line">root@pwn:/ctf/work# ldd  /lib/x86_64-linux-gnu/libc.so.6</span><br><span class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007f854e770000)</span><br><span class="line">	linux-vdso.so.1 (0x00007ffe957b9000)</span><br></pre></td></tr></table></figure>
+<p>ldd 输出第一行 <code>linux-vdso.so.1 (0x00007ffe3fb86000)</code> 不是实际的库文件，你是找不到的，它是一个虚拟库文件用于和 kernel 交互。</p>
+<p>libc.so.6 动态链接库</p>
+<p>ld-linux-x86-64.so.2 负责动态加载。它们通过读取可执行文件的头部信息来确定哪些库文件是必须的，以及哪些需要加载。加载完成后，它会通过修正执行文件里的相关的地址指针来和加载的库文件完成动态链接，此时程序就可以运行了。</p>
+<p>ld-linux.so 是专门负责寻找库文件的库。以 cat 为例，cat 首先告诉 ld-linux.so 它需要 libc.so.6 这个库文件，ld-linux.so 将按一定顺序找到 libc.so.6 库再给 cat 调用。ld-linux.so 的位置是写死在程序中的，gcc 在编译程序时就写死在里面了。</p>
+<h2 id="patchelf"><a href="#patchelf" class="headerlink" title="patchelf"></a>patchelf</h2><p><a target="_blank" rel="noopener" href="https://github.com/NixOS/patchelf">https://github.com/NixOS/patchelf</a></p>
+<p>如果题目给了 libc.so.6 用 IDA 或者啥打开看看  glibc 版本，然后更换相应版本的 ld 和 libc</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201008210703.png" alt="tesafdsasfaew"></p>
+<blockquote>
+<p>图中 libc 版本为 2.23</p>
+</blockquote>
+<p>修改 ELF 中硬编码的 ld 和 libc 的路径。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@pwn:/ctf/work# ldd mmutag </span><br><span class="line">	linux-vdso.so.1 (0x00007fff3734e000)</span><br><span class="line">	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f002c5b7000)</span><br><span class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007f002c7b3000)</span><br><span class="line">root@pwn:/ctf/work# patchelf --set-interpreter /glibc/2.23/64/lib/ld-2.23.so ./mmutag </span><br><span class="line">root@pwn:/ctf/work# patchelf --replace-needed libc.so.6 /glibc/2.23/64/lib/libc-2.23.so ./mmutag </span><br><span class="line">root@pwn:/ctf/work# ldd mmutag </span><br><span class="line">	linux-vdso.so.1 (0x00007ffd833d9000)</span><br><span class="line">	/glibc/2.23/64/lib/libc-2.23.so (0x00007f9077b82000)</span><br><span class="line">	/glibc/2.23/64/lib/ld-2.23.so =&gt; /lib64/ld-linux-x86-64.so.2 (0x00007f9077f25000)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="LIEF（没用过，不熟）"><a href="#LIEF（没用过，不熟）" class="headerlink" title="LIEF（没用过，不熟）"></a>LIEF（没用过，不熟）</h2><p><a target="_blank" rel="noopener" href="https://www.ayrx.me/using-a-non-system-libc">https://www.ayrx.me/using-a-non-system-libc</a></p>
+<h2 id="pwn-debug（不太好用）"><a href="#pwn-debug（不太好用）" class="headerlink" title="pwn_debug（不太好用）"></a>pwn_debug（不太好用）</h2><p><a target="_blank" rel="noopener" href="https://github.com/ray-cp/pwn_debug">https://github.com/ray-cp/pwn_debug</a></p>
+<p>**pwn_debug-**基于pwntools的ctf pwns的辅助调试工具</p>
+<p>使用 <strong>pwn_debug</strong> 共有四个步骤：</p>
+<ol>
+<li>导入工具<code>from pwn_debug*</code>。</li>
+<li>声明一个pwn_debug对象：<code>pdbg=pwn_debug(&quot;binary&quot;)</code>。</li>
+<li>将模式参数，共有三个模式：<code>debug</code>，<code>local</code>和<code>remote</code>。</li>
+<li>运行模式。</li>
+<li>使用pwntools做过去的事情。</li>
+</ol>
+<p>一个典型的例子如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn_debug <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">## step 1</span></span><br><span class="line">pdbg=pwn_debug(<span class="string">&quot;binary&quot;</span>)</span><br><span class="line"></span><br><span class="line">pdbg.context.terminal=[<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">## step 2</span></span><br><span class="line">pdbg.local(<span class="string">&quot;libc.so.6&quot;</span>)</span><br><span class="line">pdbg.debug(<span class="string">&quot;2.23&quot;</span>)</span><br><span class="line">pdbg.remote(<span class="string">&#x27;34.92.96.238&#x27;</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="comment">## step 3</span></span><br><span class="line"><span class="comment">#p=pdbg.run(&quot;local&quot;)</span></span><br><span class="line"><span class="comment">#p=pdbg.run(&quot;debug&quot;)</span></span><br><span class="line">p=pdbg.run(<span class="string">&quot;remote&quot;</span>)</span><br><span class="line"></span><br><span class="line">pdbg.bp(<span class="number">0x80489aa</span>)</span><br><span class="line"></span><br><span class="line">elf=pdbg.elf</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">hex</span>(elf.got[<span class="string">&#x27;printf&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">hex</span>(elf.plt[<span class="string">&#x27;printf&#x27;</span>])</span><br><span class="line"></span><br><span class="line">libc=pdbg.libc</span><br><span class="line"><span class="built_in">print</span> libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="LD-PRELOAD（如果-libc-的版本差太多的话就没办法使用）"><a href="#LD-PRELOAD（如果-libc-的版本差太多的话就没办法使用）" class="headerlink" title="LD_PRELOAD（如果 libc 的版本差太多的话就没办法使用）"></a>LD_PRELOAD（如果 libc 的版本差太多的话就没办法使用）</h2><p><code>LD_PRELOAD=/lib/x86_64-linux-gnu/libc-2.19.so ./program</code></p>
+<p>LD_PRELOAD 只是告诉 ld.so 该去哪儿加载 libc, 可是 ld.so 也没有办法去加载不同版本的 libc</p>
+<p>Link<br><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-254868.htm">https://bbs.pediy.com/thread-254868.htm</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ee1ad4044ef7">https://www.jianshu.com/p/ee1ad4044ef7</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/feixiaoxing/article/details/79888886">https://blog.csdn.net/feixiaoxing/article/details/79888886</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sun-frederick/p/4763460.html">https://www.cnblogs.com/sun-frederick/p/4763460.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#patchelf"><span class="toc-number">1.</span> <span class="toc-text">patchelf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LIEF%EF%BC%88%E6%B2%A1%E7%94%A8%E8%BF%87%EF%BC%8C%E4%B8%8D%E7%86%9F%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">LIEF（没用过，不熟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn-debug%EF%BC%88%E4%B8%8D%E5%A4%AA%E5%A5%BD%E7%94%A8%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">pwn_debug（不太好用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LD-PRELOAD%EF%BC%88%E5%A6%82%E6%9E%9C-libc-%E7%9A%84%E7%89%88%E6%9C%AC%E5%B7%AE%E5%A4%AA%E5%A4%9A%E7%9A%84%E8%AF%9D%E5%B0%B1%E6%B2%A1%E5%8A%9E%E6%B3%95%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">LD_PRELOAD（如果 libc 的版本差太多的话就没办法使用）</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&text=ELF 更换 glibc"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&is_video=false&description=ELF 更换 glibc"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ELF 更换 glibc&body=Check out this article: http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&title=ELF 更换 glibc"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&name=ELF 更换 glibc&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/09/Fastbin-attack%EF%BD%9C%E6%9B%B4%E6%8D%A2glibc/&t=ELF 更换 glibc"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="建立密钥：https:&#x2F;&#x2F;blog.csdn.net&#x2F;lhb_11&#x2F;article&#x2F;details&#x2F;90217640 使用git和github进行协同开发流程https:&#x2F;&#x2F;github.com&#x2F;livoras&#x2F;blog&#x2F;issues&#x2F;7 提交上传文件 先在 github 上新建一个库，然后下载下来。再把文件复制进去。  再 git add .  git commit -m &quot;更新情况说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="github｜学习记录 📝">
+<meta property="og:url" content="http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="建立密钥：https:&#x2F;&#x2F;blog.csdn.net&#x2F;lhb_11&#x2F;article&#x2F;details&#x2F;90217640 使用git和github进行协同开发流程https:&#x2F;&#x2F;github.com&#x2F;livoras&#x2F;blog&#x2F;issues&#x2F;7 提交上传文件 先在 github 上新建一个库，然后下载下来。再把文件复制进去。  再 git add .  git commit -m &quot;更新情况说">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB18E7QPSzqK1RjSZFpq6ykSXXaK.jpg">
+<meta property="article:published_time" content="2020-06-07T23:34:10.000Z">
+<meta property="article:modified_time" content="2020-12-30T09:38:38.543Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Github">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/HTB18E7QPSzqK1RjSZFpq6ykSXXaK.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>github｜学习记录 📝</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/06/11/Tmux%EF%BD%9C%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/06/05/CTFwiki-for-PWN%EF%BD%9CFormat-String-Vulnerability-Principle/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&text=github｜学习记录 📝"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&is_video=false&description=github｜学习记录 📝"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=github｜学习记录 📝&body=Check out this article: http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&name=github｜学习记录 📝&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&t=github｜学习记录 📝"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8git%E5%92%8Cgithub%E8%BF%9B%E8%A1%8C%E5%8D%8F%E5%90%8C%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">使用git和github进行协同开发流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4"><span class="toc-number"></span> <span class="toc-text">提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">上传文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">合并文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%AAGitHub%E5%B8%90%E5%8F%B7%E4%B8%8B%E6%B7%BB%E5%8A%A0%E5%A4%9A%E4%B8%AAGitHub-Pages%E7%9A%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">单个GitHub帐号下添加多个GitHub Pages的相关问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github%E8%B6%85%E8%BF%87100M%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">4.</span> <span class="toc-text">Github超过100M的大文件上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nothing-to-commit-working-tree-clean-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">nothing to commit, working tree clean 解决办法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%E6%90%9C%E7%B4%A2%E5%88%B0%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E4%B8%9C%E8%A5%BF%EF%BC%88%E6%B7%98%E5%AE%9D%E8%B4%AD%E7%89%A9%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">如何在GitHub搜索到你想要的东西（淘宝购物）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%EF%BC%88%E6%89%BE%E5%88%B0%E4%BD%A0%E6%83%B3%E4%B9%B0%E7%9A%84%EF%BC%89"><span class="toc-number">0.1.</span> <span class="toc-text">高级搜索（找到你想买的）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explore%EF%BC%88%E6%B2%A1%E4%BA%8B%E5%B0%B1%E9%80%9B%E9%80%9B%EF%BC%8C%E5%8F%8D%E6%AD%A3%E4%B8%8D%E8%8A%B1%E9%92%B1%EF%BC%89"><span class="toc-number">0.2.</span> <span class="toc-text">Explore（没事就逛逛，反正不花钱）</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        github｜学习记录 📝
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-07T23:34:10.000Z" itemprop="datePublished">2020-06-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Git/" rel="tag">Git</a>, <a class="tag-link-link" href="/tags/Github/" rel="tag">Github</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>建立密钥：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lhb_11/article/details/90217640">https://blog.csdn.net/lhb_11/article/details/90217640</a></p>
+<h2 id="使用git和github进行协同开发流程"><a href="#使用git和github进行协同开发流程" class="headerlink" title="使用git和github进行协同开发流程"></a>使用git和github进行协同开发流程</h2><p><a target="_blank" rel="noopener" href="https://github.com/livoras/blog/issues/7">https://github.com/livoras/blog/issues/7</a></p>
+<h1 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h1><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><ul>
+<li>先在 github 上新建一个库，然后下载下来。再把文件复制进去。<br>  再 <code>git add .</code><br>  <code>git commit -m &quot;更新情况说明&quot;</code><br>  <code>git push origin master</code> 向远程库提交代码</li>
+<li>git文件 取消init初始化<br>  cd 到文件目录里面<br>  执行 <code>rm -rf .git</code> 即可，再执行 <code>git remote -v</code> 查看是否将之前仓库地址清理干净    然后指定自己的仓库地址即可</li>
+</ul>
+<h2 id="合并文件"><a href="#合并文件" class="headerlink" title="合并文件"></a>合并文件</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lincyang/article/details/21519333">参考链接</a></p>
+<p>遇到 git pull 报错</p>
+<p>两种解决办法；一，放弃本地的更改；二，将本地更改暂时放在远程储存</p>
+<h2 id="单个GitHub帐号下添加多个GitHub-Pages的相关问题"><a href="#单个GitHub帐号下添加多个GitHub-Pages的相关问题" class="headerlink" title="单个GitHub帐号下添加多个GitHub Pages的相关问题"></a>单个GitHub帐号下添加多个GitHub Pages的相关问题</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34402090/article/details/89487829">https://blog.csdn.net/weixin_34402090/article/details/89487829</a></p>
+<h2 id="Github超过100M的大文件上传"><a href="#Github超过100M的大文件上传" class="headerlink" title="Github超过100M的大文件上传"></a>Github超过100M的大文件上传</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wujakf/article/details/99713636">https://blog.csdn.net/wujakf/article/details/99713636</a></p>
+<h2 id="nothing-to-commit-working-tree-clean-解决办法"><a href="#nothing-to-commit-working-tree-clean-解决办法" class="headerlink" title="nothing to commit, working tree clean 解决办法"></a>nothing to commit, working tree clean 解决办法</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fb5a271d2cc0">https://www.jianshu.com/p/fb5a271d2cc0</a></p>
+<h1 id="如何在GitHub搜索到你想要的东西（淘宝购物）"><a href="#如何在GitHub搜索到你想要的东西（淘宝购物）" class="headerlink" title="如何在GitHub搜索到你想要的东西（淘宝购物）"></a>如何在GitHub搜索到你想要的东西（淘宝购物）</h1><h3 id="高级搜索（找到你想买的）"><a href="#高级搜索（找到你想买的）" class="headerlink" title="高级搜索（找到你想买的）"></a>高级搜索（找到你想买的）</h3><table>
+<thead>
+<tr>
+<th align="left">options</th>
+<th align="left">commit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">location:</td>
+<td align="left">location:china,搜索中国区域的开发者</td>
+</tr>
+<tr>
+<td align="left">followers:</td>
+<td align="left">followers:&gt;100,搜索超过100粉丝的开发者</td>
+</tr>
+<tr>
+<td align="left">stars:</td>
+<td align="left">stars:&gt;100,搜索 star 超过 100 的仓库</td>
+</tr>
+<tr>
+<td align="left">language:</td>
+<td align="left">language:c++,搜索 c++ 项目仓库</td>
+</tr>
+<tr>
+<td align="left">Awesome:</td>
+<td align="left">Awesome python,搜索优秀的 python 仓库</td>
+</tr>
+</tbody></table>
+<h3 id="Explore（没事就逛逛，反正不花钱）"><a href="#Explore（没事就逛逛，反正不花钱）" class="headerlink" title="Explore（没事就逛逛，反正不花钱）"></a>Explore（没事就逛逛，反正不花钱）</h3><p>除了直接搜索外，GitHub 面板也有一个 explore （勘探）选项卡，点进去就可以发现更大的世界了，比如最近有什么火起来的新项目或大佬。</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB18E7QPSzqK1RjSZFpq6ykSXXaK.jpg"></p>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://szukevin.site/2019/04/07/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%E6%90%9C%E7%B4%A2%E5%88%B0%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E4%B8%9C%E8%A5%BF/">https://szukevin.site/2019/04/07/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%E6%90%9C%E7%B4%A2%E5%88%B0%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E4%B8%9C%E8%A5%BF/</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8git%E5%92%8Cgithub%E8%BF%9B%E8%A1%8C%E5%8D%8F%E5%90%8C%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">使用git和github进行协同开发流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4"><span class="toc-number"></span> <span class="toc-text">提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">上传文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">合并文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%AAGitHub%E5%B8%90%E5%8F%B7%E4%B8%8B%E6%B7%BB%E5%8A%A0%E5%A4%9A%E4%B8%AAGitHub-Pages%E7%9A%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">单个GitHub帐号下添加多个GitHub Pages的相关问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github%E8%B6%85%E8%BF%87100M%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">4.</span> <span class="toc-text">Github超过100M的大文件上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nothing-to-commit-working-tree-clean-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">nothing to commit, working tree clean 解决办法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%E6%90%9C%E7%B4%A2%E5%88%B0%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E4%B8%9C%E8%A5%BF%EF%BC%88%E6%B7%98%E5%AE%9D%E8%B4%AD%E7%89%A9%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">如何在GitHub搜索到你想要的东西（淘宝购物）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%EF%BC%88%E6%89%BE%E5%88%B0%E4%BD%A0%E6%83%B3%E4%B9%B0%E7%9A%84%EF%BC%89"><span class="toc-number">0.1.</span> <span class="toc-text">高级搜索（找到你想买的）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explore%EF%BC%88%E6%B2%A1%E4%BA%8B%E5%B0%B1%E9%80%9B%E9%80%9B%EF%BC%8C%E5%8F%8D%E6%AD%A3%E4%B8%8D%E8%8A%B1%E9%92%B1%EF%BC%89"><span class="toc-number">0.2.</span> <span class="toc-text">Explore（没事就逛逛，反正不花钱）</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&text=github｜学习记录 📝"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&is_video=false&description=github｜学习记录 📝"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=github｜学习记录 📝&body=Check out this article: http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&title=github｜学习记录 📝"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&name=github｜学习记录 📝&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/08/github%EF%BD%9C%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%F0%9F%93%83/&t=github｜学习记录 📝"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

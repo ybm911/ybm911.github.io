@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这次给的文件有两个，一个是 RAW 系统备份文件，这个恢复了之后也没有很大用，这个后面说  解压后进入数据库文件夹，发现还是用 xtrabackup 进行备份的。这次比上次好的是，数据库版本和 xtrabackup 的版本都写在了 xtrabackup_info 中了。  数据库文件夹中分别有两个最主要的文件： *.frm 储存表的结构 *.ibd 储存表的数据  通过 *.raw 文件进行恢复V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RDS_MYSQL_备份文件恢复启动">
+<meta property="og:url" content="http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="这次给的文件有两个，一个是 RAW 系统备份文件，这个恢复了之后也没有很大用，这个后面说  解压后进入数据库文件夹，发现还是用 xtrabackup 进行备份的。这次比上次好的是，数据库版本和 xtrabackup 的版本都写在了 xtrabackup_info 中了。  数据库文件夹中分别有两个最主要的文件： *.frm 储存表的结构 *.ibd 储存表的数据  通过 *.raw 文件进行恢复V">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121163928.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121164050.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121164228.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121174732.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121183019.jpg">
+<meta property="article:published_time" content="2020-11-21T16:29:59.000Z">
+<meta property="article:modified_time" content="2020-12-20T08:45:16.894Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="WEB">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121163928.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>RDS_MYSQL_备份文件恢复启动</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/11/23/%E5%85%B3%E4%BA%8E%E9%80%89%E6%8B%A9%E4%B8%BB%E5%8A%9B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/11/19/Elli0t-s-Blog-%E5%BD%92%E7%B1%BB%E6%96%B9%E6%A1%88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&text=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&is_video=false&description=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RDS_MYSQL_备份文件恢复启动&body=Check out this article: http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&name=RDS_MYSQL_备份文件恢复启动&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&t=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-raw-%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-number">1.</span> <span class="toc-text">通过 *.raw 文件进行恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%9C%A8-Windows-%E4%B8%8B%E6%89%93%E5%BC%80"><span class="toc-number">2.</span> <span class="toc-text">直接在 Windows 下打开</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        RDS_MYSQL_备份文件恢复启动
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-21T16:29:59.000Z" itemprop="datePublished">2020-11-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>, <a class="tag-link-link" href="/tags/mysql/" rel="tag">mysql</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>这次给的文件有两个，一个是 RAW 系统备份文件，这个恢复了之后也没有很大用，这个后面说</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121163928.jpg" alt="文件"></p>
+<p>解压后进入数据库文件夹，发现还是用 xtrabackup 进行备份的。这次比上次好的是，数据库版本和 xtrabackup 的版本都写在了 xtrabackup_info 中了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121164050.jpg" alt="整个数据"></p>
+<p>数据库文件夹中分别有两个最主要的文件：</p>
+<p>*.frm 储存表的结构</p>
+<p>*.ibd 储存表的数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121164228.jpg" alt="要恢复数据库"></p>
+<h2 id="通过-raw-文件进行恢复"><a href="#通过-raw-文件进行恢复" class="headerlink" title="通过 *.raw 文件进行恢复"></a>通过 *.raw 文件进行恢复</h2><p>VMware 是不认识 raw 文件的，所以 raw to vmdk</p>
+<p><code>qemu-img convert -p -f raw .\xxxxxx.raw -O vmdk .\xxxxxx.vmdk</code></p>
+<p>转换后还是不能直接打开，VMware启动应该还需要一个 vmdx 文件。所以先自己创建一个空的虚拟机，然后再将其导入（注意选择虚拟机文件的时候要记得选择单个文件，因为我们只有单个文件进行替换）</p>
+<p>然后打开虚拟机后，<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014132947/article/details/79969695">重置其 root 密码</a></p>
+<p>进入 recovery mode 模式，然后按 e ，删除 <code>recovery nomodeset</code>，在行尾加 <code>quiet splash rw init=/bin/bash</code>。F10 保存退出即可。开始一直卡在启动界面，后面直接都删除了，删到了 root=UUID=88xxxxxxxxxxxx or再加的 quiet xxx 就可以正常启动修改密码了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121174732.png" alt="root"></p>
+<p>修改好密码后就是<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuotto/p/9682400.html">重置 mysql 密码</a>了。在 <code>/etc/my.cnf</code> 中添加 <code>skip-grant-tables</code> 然后无密码进入 mysql ，再修改密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">Reading table information <span class="keyword">for</span> completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"> </span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update mysql.user <span class="built_in">set</span> authentication_string=password(<span class="string">&#x27;root_password&#x27;</span>) <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">Query OK, 1 row affected, 1 warning (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 1</span><br><span class="line"> </span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"> </span><br><span class="line">mysql&gt; <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">[root@mytestlnx02 ~]<span class="comment"># service mysql start</span></span><br><span class="line">[root@mytestlnx02 ~]<span class="comment">#</span></span><br><span class="line">[root@mytestlnx02 ~]<span class="comment"># mysql -u root -p</span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br></pre></td></tr></table></figure>
+<p>远程连接数据库，结果搞了半天连不上。原来是 iptable 没有删除规则，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wucg/p/3333588.html">修改规则</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@server ~]<span class="comment"># iptables -L</span></span><br><span class="line">Chain INPUT (policy DROP)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination         </span><br><span class="line">ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  anywhere             anywhere            </span><br><span class="line">ACCEPT     all  --  anywhere             anywhere            </span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh</span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination         </span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination </span><br><span class="line">Notice the last line <span class="keyword">in</span> chain INPUT. There are now five Rules <span class="keyword">in</span> that chain.</span><br><span class="line">[root@server ~]<span class="comment"># iptables -D INPUT 5</span></span><br><span class="line">[root@server ~]<span class="comment"># iptables -L</span></span><br><span class="line">Chain INPUT (policy DROP)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination         </span><br><span class="line">ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  anywhere             anywhere            </span><br><span class="line">ACCEPT     all  --  anywhere             anywhere            </span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination         </span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination</span><br></pre></td></tr></table></figure>
+<p>然后 Navicat 连接后发现数据库是之前的，和我们要恢复的数据库不是同一个时间的。是什么个情况呢，就是他们那边给的 raw 镜像是之前备份的，tar.gz 数据库才是我们要恢复的，但是这个数据库是后面备份的。那我寻思这个 raw 文件不就没用了吗，但是由于 xtrabackup 很要求版本这个特性，拿数据过来的人可能是想给我们一个参考，告诉我们用的服务器是 ubuntu 16.04 之类的。</p>
+<p>如果要在 Linux 下恢复的话，流程有两个：</p>
+<ul>
+<li>用对应的 xtrabackup 软件将数据库恢复，然后再将要的数据库导出成 <code>.sql</code> 文件</li>
+<li>直接放在 mysql 对应的存放数据的地方，替换掉原来数据直接启动（这个在 Linux 下没试过，但是也应该是可以的）。或者你在 my.ini 中修改数据位置也行，但是我怕会有遇到一些文件夹权限的问题</li>
+</ul>
+<p>要导出文件的话，这里就涉及到一个 VM 共享文件夹的操作了。我一般在现在的 Linux 系统中共享文件都是可以直接出来的，但是这个没有，应该是系统版本比较早了。需要下载一个软件</p>
+<p><code>apt-get install open-vm-dkms</code></p>
+<p>然后挂载磁盘，一般选择挂载在 <code>/mnt/hgfs/</code> 目录</p>
+<p><code>vmhgfs-fuse .host:/ /mnt/hgfs/</code></p>
+<p>搞这个的时候，下面的这个思路正好成功了，也就没搞了</p>
+<h2 id="直接在-Windows-下打开"><a href="#直接在-Windows-下打开" class="headerlink" title="直接在 Windows 下打开"></a>直接在 Windows 下打开</h2><p>本来看到<a target="_blank" rel="noopener" href="http://blog.itpub.net/15498/viewspace-2113337/">一篇文章</a>说是使用 windows 下的 xtrabackup 恢复数据库，可以这篇文章是很早的而且 windows 下的  xtrabackup 是 beta 版，现在已经找不到了，所以这个思路就停止了。</p>
+<p>后面经过搞过这个的人提醒，这个格式的 mysql 数据文件可以直接在 windows 下打开。那我直接下载一个 phpstudy ，使用相应版本的 mysql ，替换掉它的 data 。然后直接启动报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] InnoDB: Your database may be corrupt or you may have copied the InnoDB tablespace but not the InnoDB log files.</span><br></pre></td></tr></table></figure>
+<p>百度了一下，添加参数 <code>innodb_force_recovery=4</code> 重启 mysql 然后成功。直接好家伙……</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121183019.jpg" alt="轻轻跪下"></p>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jacke121/article/details/80456046?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control">https://blog.csdn.net/jacke121/article/details/80456046?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuotto/p/9682400.html">https://www.cnblogs.com/wuotto/p/9682400.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-raw-%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-number">1.</span> <span class="toc-text">通过 *.raw 文件进行恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%9C%A8-Windows-%E4%B8%8B%E6%89%93%E5%BC%80"><span class="toc-number">2.</span> <span class="toc-text">直接在 Windows 下打开</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&text=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&is_video=false&description=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RDS_MYSQL_备份文件恢复启动&body=Check out this article: http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&title=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&name=RDS_MYSQL_备份文件恢复启动&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/11/22/RDS-MYSQL-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%90%AF%E5%8A%A8/&t=RDS_MYSQL_备份文件恢复启动"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

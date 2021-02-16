@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="github 链接在文末 使用说明使用前安装 PyYaml 库  python3 -m pip install PyYaml 目前一些信息需要自己填写在 config.yaml 中：  编号 X-CSRF-Token Cookie 高德地图 API 的 key（可选，作用是获取位置和经纬度，高德给 eli0t 的 API 使用配额应该足够学校所有人打卡。调用量上限（次&#x2F;日）300000、并发量上限">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动健康打卡｜FUCK_jiankangdaka 官方文档">
+<meta property="og:url" content="http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="github 链接在文末 使用说明使用前安装 PyYaml 库  python3 -m pip install PyYaml 目前一些信息需要自己填写在 config.yaml 中：  编号 X-CSRF-Token Cookie 高德地图 API 的 key（可选，作用是获取位置和经纬度，高德给 eli0t 的 API 使用配额应该足够学校所有人打卡。调用量上限（次&#x2F;日）300000、并发量上限">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/0712000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/Stream_all.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/0711test.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/middl.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/time20200713.png">
+<meta property="article:published_time" content="2020-07-12T11:21:02.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:05:51.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="自动打卡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/0712000.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>自动健康打卡｜FUCK_jiankangdaka 官方文档</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/14/%E5%9F%BA%E6%9C%AC%E9%9B%BB%E8%B7%AF%E8%A3%BD%E9%80%A0%EF%BD%9C%E7%B0%A1%E4%BB%8B%E8%88%87EAGLE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/05/YouTube%EF%BD%9CThe-23-minutes-Britain-was-ruled-by-another-queen/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&text=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&is_video=false&description=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=自动健康打卡｜FUCK_jiankangdaka 官方文档&body=Check out this article: http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&name=自动健康打卡｜FUCK_jiankangdaka 官方文档&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&t=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-%E5%92%8C-X-CSRF-Token%EF%BC%88%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96%E5%BC%80%E5%8F%91%E4%B8%AD%EF%BC%89"><span class="toc-number">1.0.1.</span> <span class="toc-text">Cookie 和 X-CSRF-Token（自动获取开发中）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.2.</span> <span class="toc-text">位置信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">脚本编写过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%82%B9%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.</span> <span class="toc-text">一点建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E4%BA%BA%E5%91%98%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.1.</span> <span class="toc-text">任意人员打卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E6%97%B6%E9%97%B4%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.2.</span> <span class="toc-text">任意时间打卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BF%E8%B6%8A%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.3.</span> <span class="toc-text">穿越打卡</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">项目源码</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        自动健康打卡｜FUCK_jiankangdaka 官方文档
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-12T11:21:02.000Z" itemprop="datePublished">2020-07-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-link-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="tag">自动打卡</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>github 链接在文末</p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>使用前安装 PyYaml 库</p>
+<p><code> python3 -m pip install PyYaml</code></p>
+<p>目前一些信息需要自己填写在 <code>config.yaml</code> 中：</p>
+<ul>
+<li>编号</li>
+<li>X-CSRF-Token</li>
+<li>Cookie</li>
+<li>高德地图 API 的 key（可选，作用是获取位置和经纬度，高德给 eli0t 的 API 使用配额应该足够学校所有人打卡。调用量上限（次/日）300000、并发量上限（次/秒）200）</li>
+</ul>
+<p>API 调用：</p>
+<ul>
+<li>高德 API</li>
+<li>ipify API</li>
+</ul>
+<h4 id="Cookie-和-X-CSRF-Token（自动获取开发中）"><a href="#Cookie-和-X-CSRF-Token（自动获取开发中）" class="headerlink" title="Cookie 和 X-CSRF-Token（自动获取开发中）"></a>Cookie 和 X-CSRF-Token（自动获取开发中）</h4><p>由于一直未找到第一个和简道云通信的数据包（找到的最开始的数据包也是包含 Cookie 的，而且这个 Cookie 一直用到打卡完成），所以在使用前需抓包知道自己的 Cookie 和 X-CXRF-Token。</p>
+<h4 id="位置信息"><a href="#位置信息" class="headerlink" title="位置信息"></a>位置信息</h4><p>位置信息是通过使用者 IP (ipify API)，结合高德 API 获取的，所以会有很大误差。而且当使用者开了代理，位置会直接变为代理服务器位置。</p>
+<p>使用者可以通过参数 <code>-c</code> 使用自己在 <code>config.yaml</code> 中配制的的准确位置或者使用参数 <code>-i</code> 使用当前 <code>ip</code> 所在位置。</p>
+<h2 id="脚本编写过程"><a href="#脚本编写过程" class="headerlink" title="脚本编写过程"></a>脚本编写过程</h2><p>首先用手机抓包，查看所有交互信息</p>
+<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/0712000.png" alt="0712000" style="zoom:50%;" />
+
+<p>使用多个用户的包进行分析，发现规律</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/Stream_all.png" alt="Stream_all"></p>
+<p>进行测试编写</p>
+<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/0711test.png" alt="Cybm91 elry-Mac ~LibraryMobile Docum" style="zoom:67%;" />
+
+<p>慢慢完善，地理编码用的是高德的 API。 <a target="_blank" rel="noopener" href="https://lbs.amap.com/api/webservice/guide/api/georegeo">开发指南</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/middl.png" alt="middl"></p>
+<h2 id="一点建议"><a href="#一点建议" class="headerlink" title="一点建议"></a>一点建议</h2><p>由于🦑填报信息的记录仅仅只是根据一个数值来的，而且这个数值未经过加密🔐，所以很容易通过修改去穿越填报信息以及给任意的人员打卡。</p>
+<h4 id="任意人员打卡"><a href="#任意人员打卡" class="headerlink" title="任意人员打卡"></a>任意人员打卡</h4><p>一个人可以给全寝室、全班甚至全校打卡😓，而且打卡的内容可以随意改变。意思就是张三可以给李四打卡，打卡的信息用的却是王五的。</p>
+<h4 id="任意时间打卡"><a href="#任意时间打卡" class="headerlink" title="任意时间打卡"></a>任意时间打卡</h4><p>健康打卡管理员设置了只能每日下午两点之前进行健康打卡，这个判断是通过一个时间戳进行的。我们可以通过修改提交的时间戳伪造打卡时间</p>
+<p>demo: 我在下午三点进行打卡，打卡提交的时间戳是今天上午的七点</p>
+<h4 id="穿越打卡"><a href="#穿越打卡" class="headerlink" title="穿越打卡"></a>穿越打卡</h4><p>可以一天打完以后所有的卡</p>
+<p>穿越打卡和任意人员打卡都测试成功了，下图是将后天的卡给打了（因为不能泄露个人信息，所以两个情况看起来都是一样的，我就只放一张图了）</p>
+<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/time20200713.png" alt="time" style="zoom:67%;" />
+
+<h2 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h2><p>github : <a target="_blank" rel="noopener" href="https://github.com/ybm911/FUCK_jiankangdaka">FUCK_jiankangdaka</a></p>
+<p>演示视频</p>
+<iframe width="100%" height="500" src="//player.bilibili.com/player.html?aid=668793651&bvid=BV1Da4y1h7Sq&cid=212493629&page=1" scrolling="yes" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-%E5%92%8C-X-CSRF-Token%EF%BC%88%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96%E5%BC%80%E5%8F%91%E4%B8%AD%EF%BC%89"><span class="toc-number">1.0.1.</span> <span class="toc-text">Cookie 和 X-CSRF-Token（自动获取开发中）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.2.</span> <span class="toc-text">位置信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">脚本编写过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%82%B9%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.</span> <span class="toc-text">一点建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E4%BA%BA%E5%91%98%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.1.</span> <span class="toc-text">任意人员打卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E6%97%B6%E9%97%B4%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.2.</span> <span class="toc-text">任意时间打卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BF%E8%B6%8A%E6%89%93%E5%8D%A1"><span class="toc-number">3.0.3.</span> <span class="toc-text">穿越打卡</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">项目源码</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&text=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&is_video=false&description=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=自动健康打卡｜FUCK_jiankangdaka 官方文档&body=Check out this article: http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&title=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&name=自动健康打卡｜FUCK_jiankangdaka 官方文档&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/&t=自动健康打卡｜FUCK_jiankangdaka 官方文档"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

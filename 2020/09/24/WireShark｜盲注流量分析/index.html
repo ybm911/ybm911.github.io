@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="分析流量首先筛选出 http 协议流量,盲注爆破 flag 的第一个流量应该是从904行开始的。 &#x2F;index.php?id&#x3D;1 AND ORD(MID((SELECT IFNULL(CAST(flag_here AS CHAR),0x20) FROM sqltest.flag ORDER BY flag_here LIMIT 0,1),1,1))&gt;64 库名：sqltest 表名：flag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WireShark｜盲注流量分析">
+<meta property="og:url" content="http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="分析流量首先筛选出 http 协议流量,盲注爆破 flag 的第一个流量应该是从904行开始的。 &#x2F;index.php?id&#x3D;1 AND ORD(MID((SELECT IFNULL(CAST(flag_here AS CHAR),0x20) FROM sqltest.flag ORDER BY flag_here LIMIT 0,1),1,1))&gt;64 库名：sqltest 表名：flag">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020-09-24-12.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092423.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020-0924.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092412.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202009242132.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092434.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202009247.png">
+<meta property="article:published_time" content="2020-09-24T08:55:02.000Z">
+<meta property="article:modified_time" content="2020-10-13T03:16:42.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Misc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020-09-24-12.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>WireShark｜盲注流量分析</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/26/%E6%9E%81%E5%AE%A2%E5%B7%85%E5%B3%B0-PWN%EF%BD%9CWriteup/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/19/%E6%B5%AA%E6%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BD%9CCentOs-7-X-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&text=WireShark｜盲注流量分析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&is_video=false&description=WireShark｜盲注流量分析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WireShark｜盲注流量分析&body=Check out this article: http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&name=WireShark｜盲注流量分析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&t=WireShark｜盲注流量分析"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%B5%81%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">分析流量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="toc-number">2.</span> <span class="toc-text">脚本编写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.</span> <span class="toc-text">分析语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL-%E5%9F%BA%E7%A1%80%E8%AF%AD%E5%8F%A5"><span class="toc-number"></span> <span class="toc-text">MYSQL 基础语句</span></a>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        WireShark｜盲注流量分析
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-24T08:55:02.000Z" itemprop="datePublished">2020-09-24</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Misc/" rel="tag">Misc</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="分析流量"><a href="#分析流量" class="headerlink" title="分析流量"></a>分析流量</h4><p>首先筛选出 <code>http</code> 协议流量,盲注爆破 flag 的第一个流量应该是从904行开始的。</p>
+<p><code>/index.php?id=1 AND ORD(MID((SELECT IFNULL(CAST(flag_here AS CHAR),0x20) FROM sqltest.flag ORDER BY flag_here LIMIT 0,1),1,1))&gt;64</code></p>
+<p>库名：sqltest</p>
+<p>表名：flag</p>
+<p>列名：flag_here</p>
+<p>Length: 944(943) or 866</p>
+<p>944: 正常返回</p>
+<p>866: 报错</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020-09-24-12.png" alt="2020-09-24-12"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092423.png" alt="截屏2020-09-24 20.39.45"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020-0924.png" alt="2020-0924"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092412.png" alt="截屏2020-09-24 20.38.28"></p>
+<p>正常返回的值在900以上<br><code>http.response_for.uri contains &quot;%200%2C1%29%2C1%2C1%29%29%3E&quot; &amp;&amp; http.content_length &gt;= 900</code><br>测试一下第一个值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202009242132.png" alt="截屏2020-09-24 20.49.03"></p>
+<p>数值分别为 64、96、100、101，所以只一个字符串的值是102，ASCII: f，依法可得，下一位是 l。</p>
+<p>最终的查询语句：<br><code> http.response_for.uri contains &quot;IFNULL%28CAST%28flag_here%20AS%20CHAR%29%2C0x20%29%20FROM%20sqltest.flag%20ORDER%20BY%20flag_here%20LIMIT%200%2C1%29%2C&quot; &amp;&amp; http.content_length &gt;= 900</code></p>
+<p>文件-&gt;导出分组解析结果-&gt;为纯文本</p>
+<h4 id="脚本编写"><a href="#脚本编写" class="headerlink" title="脚本编写"></a>脚本编写</h4><p>整理流量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;mangzhu.txt&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>)</span><br><span class="line">fa = <span class="built_in">open</span>(<span class="string">&#x27;sqlmap.txt&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>)</span><br><span class="line">regex = re.<span class="built_in">compile</span>(<span class="string">&#x27;C[\w]+%2C1%29%29%3E(.+?)]&#x27;</span>)</span><br><span class="line">line = f.readline();</span><br><span class="line"><span class="keyword">while</span> line:</span><br><span class="line">    m = regex.search(line)</span><br><span class="line">    <span class="keyword">if</span> m:</span><br><span class="line">        fa.writelines(m.group(<span class="number">0</span>)+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span> m.group(<span class="number">0</span>)</span><br><span class="line">    line = f.readline()</span><br><span class="line">f.close()</span><br><span class="line">fa.close()</span><br></pre></td></tr></table></figure>
+<p>找出 flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;sqlmap.txt&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">34</span>):</span><br><span class="line">    regex = re.<span class="built_in">compile</span>(<span class="built_in">str</span>(i)+<span class="string">&#x27;%2C1%29%29%3E(.+?)]&#x27;</span>)</span><br><span class="line">    tmp = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> line:</span><br><span class="line">        m = regex.findall(line)</span><br><span class="line">        <span class="keyword">if</span> m:</span><br><span class="line">            <span class="built_in">print</span> m</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">int</span>(m[<span class="number">0</span>]) &gt;= tmp:</span><br><span class="line">                tmp = <span class="built_in">int</span>(m[<span class="number">0</span>])+<span class="number">1</span></span><br><span class="line">            line = f.readline()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    flag = flag + <span class="built_in">chr</span>(tmp)</span><br><span class="line"><span class="built_in">print</span> flag</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/2020092434.png" alt="截屏2020-09-24 21.09.37"></p>
+<p><code>flag&#123;sql_test&#125;</code></p>
+<h4 id="分析语句"><a href="#分析语句" class="headerlink" title="分析语句"></a>分析语句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">AND</span> ORD(	# 字符串 <span class="operator">-</span><span class="operator">&gt;</span> ASCII</span><br><span class="line">	MID(	# 取出 n 位字符串</span><br><span class="line">		(</span><br><span class="line">			<span class="keyword">SELECT</span> IFNULL(	# 如果为 <span class="keyword">NULL</span> 则返回<span class="number">0x20</span></span><br><span class="line">				<span class="built_in">CAST</span>(</span><br><span class="line">					flag_here <span class="keyword">AS</span> <span class="type">CHAR</span></span><br><span class="line">					),<span class="number">0x20</span></span><br><span class="line">				) <span class="keyword">FROM</span> sqltest.flag <span class="keyword">ORDER</span> <span class="keyword">BY</span> flag_here LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">			),<span class="number">1</span>,<span class="number">1</span></span><br><span class="line">		)</span><br><span class="line">	)<span class="operator">&gt;</span><span class="number">101</span></span><br></pre></td></tr></table></figure>
+
+
+<p>ORD( )    str -&gt; number</p>
+<p>MID( )    字符串从1开始，而非0，Length是可选项，如果没有提供，MID()函数将返回余下的字符串</p>
+<p>IFNULL( )    如果为 NULL 则返回第二个参数的值</p>
+<p>CAST( )    类型转换</p>
+<p>ORDER BY( )</p>
+<p>LIMIT( )</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202009247.png" alt="截屏2020-09-24 20.21.34"></p>
+<p>mid((select IFNULL(CAST(flag AS CHAR),0x20) from flag_here ORDER BY flag LIMIT 0,3),1,1);</p>
+<h2 id="MYSQL-基础语句"><a href="#MYSQL-基础语句" class="headerlink" title="MYSQL 基础语句"></a>MYSQL 基础语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">新建库: create database 库名;</span><br><span class="line">删除库: drop database 库名;</span><br><span class="line">使用数据库: use 库名;</span><br><span class="line">展示所有库: show databases;</span><br><span class="line">查看当前库名: select database();</span><br><span class="line"></span><br><span class="line">创建表格: create table</span><br><span class="line">显示数据库下所有数据表:show tables</span><br><span class="line">显示数据表结构:desc 表名</span><br><span class="line">对数据表进行重命名:rename 表名 to 新表名</span><br><span class="line">删除数据表:drop table</span><br><span class="line">查询表里所有数据:select * from 表名</span><br><span class="line">添加字段:alter table 表名 add 字段类型 属性</span><br><span class="line">修改字段:alter table 表名 change 类型 属性</span><br><span class="line">删除字段:alter table 表名 drop</span><br><span class="line"></span><br><span class="line">主键: primary key</span><br><span class="line">自增: auto_increment</span><br><span class="line">非空: not null</span><br><span class="line">增: insert into 表名() values ()</span><br><span class="line">查: select * from 表名 where 条件</span><br><span class="line">修: update 表名 set 字段&#x3D;值 where 条件</span><br><span class="line">删: delete from 表名 where 条件</span><br><span class="line">中文乱码: set names gbk</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">区间查询: select * from 表名 where 字段 between 值1 and 值2</span><br><span class="line">模糊查询: select * from 表名 where 条件 like &#39;%关键字%&#39;(%一个或多个,_一个)</span><br><span class="line">分段查询: select * from 表名 where 条件 limit 开始值 个数</span><br><span class="line">排序:select * from 表名 order by 字段 asc(降序)||desc(升序)</span><br><span class="line"></span><br><span class="line">赋予权限: grant all on 库名.* to &#39;用户名&#39;@&#39;localhost&#39;</span><br><span class="line">剥夺权限: revoke all on 库名.* from &#39;用户名&#39;@&#39;localhost&#39;</span><br><span class="line"></span><br><span class="line">聚合函数</span><br><span class="line">计数: select count(字段或*) from 表名</span><br><span class="line">求和: select sum(字段) from 表名</span><br><span class="line">平均: select avg(字段) from 表名</span><br><span class="line">最大值: select max(字段) from 表名</span><br><span class="line">最小值: select min(字段) from 表名</span><br><span class="line"></span><br><span class="line">分组查询: select 字段 from 表名 group by 字段</span><br><span class="line">select 字段,字段 from 表名 group by 字段 having 条件</span><br><span class="line"></span><br><span class="line">两表联查:</span><br><span class="line">内连接:select 字段 from 表名1 inner join 表名2 on 连接条件 where 条件</span><br><span class="line">隐式内连接:select 字段 from 表1,表2 where 表1.条件&#x3D;表2.条件</span><br><span class="line">左外连接: select 字段 from 表1 lift join 表2 on 连接条件 where 条件</span><br><span class="line">右外连接: select 字段 from 表1 right join 表2 on 连接条件 where 条件</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">克隆(数据蠕虫): insert into 表名(字段,字段) select 字段, 字段 from 表名</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>题目链接</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ybm911/JXJC-xy--CTF/tree/master/Misc/sql_stream_analyse">https://github.com/ybm911/JXJC-xy--CTF/tree/master/Misc/sql_stream_analyse</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%B5%81%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">分析流量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="toc-number">2.</span> <span class="toc-text">脚本编写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.</span> <span class="toc-text">分析语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL-%E5%9F%BA%E7%A1%80%E8%AF%AD%E5%8F%A5"><span class="toc-number"></span> <span class="toc-text">MYSQL 基础语句</span></a>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&text=WireShark｜盲注流量分析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&is_video=false&description=WireShark｜盲注流量分析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WireShark｜盲注流量分析&body=Check out this article: http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&title=WireShark｜盲注流量分析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&name=WireShark｜盲注流量分析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/09/24/WireShark%EF%BD%9C%E7%9B%B2%E6%B3%A8%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/&t=WireShark｜盲注流量分析"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

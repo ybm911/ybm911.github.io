@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="原文链接：http:&#x2F;&#x2F;ufo.stealien.com&#x2F;r&amp;d&#x2F;2020&#x2F;09&#x2F;25&#x2F;bug_hunting.html 这是我这辈子第一次寻宝。许多初级黑客学会了使用CTF进行黑客攻击。我还参加了许多CTF，并发展了自己的技能。CTF是很好的“游戏”，您可以在有限的时间内学习很多知识。但是，我认为与现实世界之间存在很大差距。当我在CTF中成为所谓的死者时开始进行Bug狩猎时，这确实是毁灭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="이번생에 버그헌팅은 처음이라（转载）">
+<meta property="og:url" content="http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="原文链接：http:&#x2F;&#x2F;ufo.stealien.com&#x2F;r&amp;d&#x2F;2020&#x2F;09&#x2F;25&#x2F;bug_hunting.html 这是我这辈子第一次寻宝。许多初级黑客学会了使用CTF进行黑客攻击。我还参加了许多CTF，并发展了自己的技能。CTF是很好的“游戏”，您可以在有限的时间内学习很多知识。但是，我认为与现实世界之间存在很大差距。当我在CTF中成为所谓的死者时开始进行Bug狩猎时，这确实是毁灭">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005123615.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005123615.png">
+<meta property="og:image" content="http://ufo.stealien.com/assets/2020-09-25-bug_hunting/chrome.png">
+<meta property="article:published_time" content="2020-10-05T12:35:24.000Z">
+<meta property="article:modified_time" content="2020-10-05T04:37:15.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005123615.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>이번생에 버그헌팅은 처음이라（转载）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/10/07/%E6%B5%AA%E6%BC%AB-Saturn-V-%EF%BC%88%E5%9C%9F%E6%98%9F5%E5%8F%B7%E8%BF%90%E8%BD%BD%E7%81%AB%E7%AE%AD%EF%BC%89/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/10/02/Brushless-Motor-with-Arduino/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&text=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&is_video=false&description=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=이번생에 버그헌팅은 처음이라（转载）&body=Check out this article: http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&name=이번생에 버그헌팅은 처음이라（转载）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&t=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%88%91%E8%BF%99%E8%BE%88%E5%AD%90%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AF%BB%E5%AE%9D%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">这是我这辈子第一次寻宝。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BA%E8%B7%AF%E7%9F%B3"><span class="toc-number">1.1.</span> <span class="toc-text">铺路石</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%80%9A"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">三通</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%8D%E6%A4%8D%E8%B1%86%E7%B1%BB%E6%97%B6%E4%BC%9A%E4%BA%A7%E7%94%9F%E8%B1%86%E7%B1%BB%EF%BC%8C%E7%A7%8D%E6%A4%8D%E7%BA%A2%E8%B1%86%E6%97%B6%E4%BC%9A%E4%BA%A7%E7%94%9F%E7%BA%A2%E8%B1%86%E7%B1%BB"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">种植豆类时会产生豆类，种植红豆时会产生红豆类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%B8%8E%E6%AD%BB"><span class="toc-number">1.2.</span> <span class="toc-text">生与死</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">评论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">跳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%9C%BA%E5%89%8D"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">登场前</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E6%97%B6%E6%98%AF%E5%81%B6%E7%84%B6%E7%9A%84"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">有时是偶然的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%90%8C%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-number">1.2.0.6.</span> <span class="toc-text">查找同一张图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">倒数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA"><span class="toc-number">1.4.</span> <span class="toc-text">重建</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        이번생에 버그헌팅은 처음이라（转载）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-05T12:35:24.000Z" itemprop="datePublished">2020-10-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>原文链接：<a target="_blank" rel="noopener" href="http://ufo.stealien.com/r&amp;d/2020/09/25/bug_hunting.html">http://ufo.stealien.com/r&amp;d/2020/09/25/bug_hunting.html</a></p>
+<h1 id="这是我这辈子第一次寻宝。"><a href="#这是我这辈子第一次寻宝。" class="headerlink" title="这是我这辈子第一次寻宝。"></a>这是我这辈子第一次寻宝。</h1><p>许多初级黑客学会了使用CTF进行黑客攻击。我还参加了许多CTF，并发展了自己的技能。CTF是很好的“游戏”，您可以在有限的时间内学习很多知识。但是，我认为与现实世界之间存在很大差距。当我在CTF中成为所谓的死者时开始进行Bug狩猎时，这确实是毁灭性的。我不知道目标软件是什么，而且很难选择是制造模糊测试还是通过纯粹的审计找到它。与CTF不同，寻找错误没有明确的目标和方法。</p>
+<p>在互联网上，只有一日的分析文章和与剥削有关的技术理论。它在寻找bug方面大有帮助，但我认为寻找bug的故事比起这些文章对初学者来说更有用。</p>
+<p>在本文中，我将讨论从2019年到现在我做了哪些工作来寻找bug，以及如何学习，而不是技术内容。</p>
+<h2 id="铺路石"><a href="#铺路石" class="headerlink" title="铺路石"></a>铺路石</h2><p>在巴杜克（Baduk），最初放置石头的方法统称为<a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%ED%8F%AC%EC%84%9D">铺路</a>石。这是从游戏的中部引导游戏的重要关键，因此我会谨慎使用。当我第一次开始寻找错误时，我想了很多事情以奠定良好的基础。首先，我考虑了自己的优点和缺点。从我做CTF的那一刻起，我的反转技能就比其他动机要低，但在我看来，我很快又轻松地发现了缺点。因此，我决定将目标对准具有<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Open-source_software">开放源</a>代码的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Open-source_software">开放源代码软件</a>，而不是需要大量反向操作的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Proprietary_software">封闭源代码软件</a>。</p>
+<p>开源有相当高的进入门槛。通常会提供赏金的开源程序已成为许多黑客的攻击目标，并且已经发现了许多漏洞。其中，Web浏览器是Red Ocean本身。但是，由于财富和名誉紧随其后，所以我想用Web浏览器漏洞来装饰我的第一个漏洞。</p>
+<h4 id="三通"><a href="#三通" class="headerlink" title="三通"></a>三通</h4><p>Web浏览器通常是Firefox，Safari，Chrome和Edge。其中，Edge当前使用Chromium代码，但是当我开始寻找错误时，使用了Mshtml和ChakraCore引擎。</p>
+<p>FireFox和Chrome的特点是比其他浏览器更快地应用了最新的Web平台功能。此外，在Chrome方面，公开提供了各种参考资料，这有助于我们了解整体架构。因此，Chrome中已报告了许多错误，而现在，许多关键错误已得到减少。通常称为不可渗透的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005123615.png" alt="chrome-vrp"></p>
+<p>但是，<a target="_blank" rel="noopener" href="https://www.google.com/about/appsecurity/chrome-rewards/">错误赏金数额</a>很高，所以我认为尝试挑战。而且，正如我之前所说的，这是一个很好的条件，可以独自学习，因为有许多已发表的参考文献。</p>
+<h4 id="种植豆类时会产生豆类，种植红豆时会产生红豆类"><a href="#种植豆类时会产生豆类，种植红豆时会产生红豆类" class="headerlink" title="种植豆类时会产生豆类，种植红豆时会产生红豆类"></a>种植豆类时会产生豆类，种植红豆时会产生红豆类</h4><p>当我做CTF时，有时会突然想到在高中时解决数学问题。有一个固定的答案，我所需要的只是一支铅笔和一支橡皮。同样对于CTF，当出现系统黑客问题时，可以执行问题二进制代码的VM环境和用于反转的IDA就足够了，并且足以根据作者的“意图”查找漏洞。</p>
+<p>但是寻找错误是不同的。要创建一个环境，在其中可以轻松地分析最初并不存在且比CTF更大的二进制文件，这比看起来要困难得多。</p>
+<p>我的目标是Chromium，并且由于它是一个非常大的开源项目，因此我不可避免地需要一个具有足够性能来进行分析的台式机（如果性能不佳，则会浪费大量的构建时间）。</p>
+<p>Google已详细记录了构建构建环境的信息。（文档看起来可能比预期的要长，但是上面写了很多有用的技巧，因此您应该仔细阅读。例如，减少构建时间的技巧）</p>
+<p>起初，它很难构建并且很难调试。但是，通过各种试验和错误，我开发了专有技术，并能够构建适合我的环境。</p>
+<p>（我了解到高效地构建，调试和构建漏洞利用开发环境也是一项技能和资产。）</p>
+<h2 id="生与死"><a href="#生与死" class="headerlink" title="生与死"></a>生与死</h2><p>Chromium的Attack Surface通常是JavaScript引擎v8和网络平台引擎Blink。就我而言，我在2017年见过ChakraCore引擎，因此我决定首先研究V8。如果您现在考虑一下，到目前为止，这种选择似乎已经为您找到Chromium中的漏洞奠定了良好的基础。（Web浏览器的远程漏洞有很多组件，但是其中大多数是由Javascript触发的。因此，了解javascript引擎非常有帮助。）</p>
+<h4 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h4><p>模糊测试是一种非常吸引人的技术。许多黑客已经开始模糊不清，甚至在此刻都会发现漏洞。当每个人都开始寻找bug时，就会想到制造模糊器的想法，我对此进行了很多思考。但是，现在我可以通过制造一个模糊器来取得有意义的结果的想法更为普遍。当然，想到一个创意的模糊主意会产生好的结果，但是我并没有想到一个特别好的主意。因此，直到我想到一个好主意之前，我决定不使用模糊测试就进行审核。（我仍在进行源审计。）</p>
+<p>一开始，我不计后果地阅读了代码，并辛苦工作了6个月以上，但没有发现任何漏洞。经历了这一点之后，我意识到通过源审计进行搜索将效率低下。这是因为很久以前就对Javascript进行了许多模糊的研究。这种认识可能看起来并不多，但这是我进行Bug狩猎的一个重大转折点。</p>
+<p>之后，我继续思考如何赢得与Fuzzing的对抗，并且通过各种试验和错误，我得出了一些结果。</p>
+<h4 id="跳"><a href="#跳" class="headerlink" title="跳"></a>跳</h4><p>在努力与v8代码战斗时，我偶然发现了“零项目”博客上的一则帖子。内容大致与WebAssembly漏洞有关。错误类并不是特别有趣，但是我仔细研究了WebAssembly的未来和兴趣。要了解我为什么要考虑这一点，我必须回溯相当一段时间。</p>
+<p>ChakraCore于2016年首次发布时，存在很多漏洞。它通常是与ECMAScript 6相关的漏洞。为什么会出现这么多漏洞？当然，这可能是因为ChakraCore不久之后发布了。但是我认为基本问题是ECMAScript 6标准的实现。将标准实现为代码非常困难。V8，SpiderMonkey和JavascriptCore使用称为ECMAscript的相同标准，但是看一下实现代码却完全不同。在草稿完成后不久，不仅发布了ChakraCore，而且还实施了ECMAScript 6，因此它会非常不稳定。ChakraCore的众多漏洞证明了这一点。</p>
+<p>我认为这也将适用于WebAssembly。WebAssembly还具有ECMAscript之类的标准，并且当前正在添加许多功能。最重要的是，V8和SpiderMonkey的实现标准比其他JavaScript引擎快得多。由于该标准刚刚实施并继续开发，因此我肯定会存在漏洞。</p>
+<p>另外，在研究WebAssembly漏洞时，我发现了一些有趣的东西。WebAssembly的问题和承诺发布于2018年8月，在2018年至2017年之间发现了10多个Webassembly漏洞。这意味着自2018年以来未发现WebAssembly漏洞。如上所述，WebAssembly一直在积极开发，因此自2018年以来有很多新功能。这些功能并没有在黑客感兴趣的是，这样他们足够<strong>的蓝海</strong>。</p>
+<h4 id="登场前"><a href="#登场前" class="headerlink" title="登场前"></a>登场前</h4><p>我的第二个漏洞来自WebAssembly，并证明上述策略有效。</p>
+<p>我的第一个漏洞是<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=964607">问题964607</a>，它<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=964607">出现</a>在WebAssembly参考表实现代码中。此功能正在积极开发中（试验性），因此安全性很差。从报告中可以看到，漏洞本身非常简单。但是，在这里我们应该注意此漏洞<strong>是如何产生的，</strong>而不是该漏洞的复杂性和创造性。</p>
+<p>最初，WebAssembly仅具有功能表，但是新创建了任何引用表。此<strong>对象类型</strong>的<strong>扩展</strong>不可避免地会合并新旧功能实现代码。先前实现的代码中使用的模块可能需要根据新添加的功能进行更改。在此过程中，可能会出现意外情况。例如，增加数组的长度，更改数组的类型，以及用户回调（副作用）。<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=964607">问题964607</a>是由于未预期更改后的阵列长度增加而引起的。</p>
+<p>第二个漏洞（<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=980475">问题980475</a>）也与WebAssembly参考表密切相关。与第一个漏洞的不同之处在于，它还与WebAssembly的新功能大容量存储器有关。发生此漏洞的原因是，预期新添加的功能不会影响现有模块。</p>
+<p>我的处子秀比赛就这样结束了。尽管由于不稳定的实验漏洞而未收到CVE，但很明显，这导致了很大的增长。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201005123615.png" alt="评论"></p>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>当我是应试者时，历史老师总是说一些话。历史总是重演。这意味着上一代发生的事情也可以在当代发生。在调查1天漏洞时，我认为这可能适用于错误。</p>
+<p><a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=1024758">问题782145</a>是2017年11月发生的一个漏洞。RegExp对象有快速类型和慢速类型。Replace函数可以接收RegExp对象作为参数，并且函数流根据类型而有所不同。但是，在此功能中，无法正确检查类型，并且可能会导致类型混乱。</p>
+<p>以下是pwn2own 2019中使用的<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=944971">Issue 944971</a>。该漏洞与问题782145非常相似。查看poc代码，不仅看起来更相似，而且根本原因也是相同的模式。就像看到生命周期。不仅有类似现象的一两个漏洞。</p>
+<p>我从中学到了一课。</p>
+<ol>
+<li>1天的分析可以为将来的漏洞以及整体代码流做准备。</li>
+<li>即使是安全的代码也可以通过更正而变得脆弱。</li>
+</ol>
+<h4 id="有时是偶然的"><a href="#有时是偶然的" class="headerlink" title="有时是偶然的"></a>有时是偶然的</h4><p>找到WebAssembly漏洞后，由于我的学校生活，我几个月都无法进行寻错活动。它于2020年2月再次开始，当时发生了Chrome Mojo（沙盒逃逸漏洞）热潮。最初，我想回顾一下Javascript漏洞，但随着趋势的发展，我开始关注Mojo漏洞。</p>
+<p>关于Mojo的引用比我想象的要多，<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/list?q=reporter:markbrand@google.com&can=1">Mark Brand</a>和<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/list?can=1&q=reporter:mmo@semmle.com">Man Yue Mo</a>发现的Mojo漏洞非常有帮助。在学习Mojo大约一个月之后，我开始了源审计。Mojo热潮已经持续了一年多，因此是时候从蓝海变成红海了。我带着甚至想要抓住稻草的感觉看了一下代码。但是，两周以上没有收获。</p>
+<p>到我放弃的时候，我不小心看到了一个<a target="_blank" rel="noopener" href="https://chromium.googlesource.com/chromium/src/+/307321d474256f41b12b53220e4dec1f2d6fdba8">承诺</a>。这个提交是我一周前看到的WebSocket Mojo Service的一部分，它是一个添加了一些功能的提交。</p>
+<p>最初，我没有考虑就对其进行了审查，但是花了很长时间才意识到此提交可能导致空前的<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065704">UAF漏洞</a>。发现此漏洞后，我养成了不断查看提交的习惯。这个习惯为我将来的寻虫生活的发展做出了很大的贡献。如果我只能给那些将捕猎作为副业的人一个建议，我会告诉他们养成阅读提交的习惯。</p>
+<p>有时，该漏洞可以归因于单个小的提交。</p>
+<h4 id="查找同一张图片"><a href="#查找同一张图片" class="headerlink" title="查找同一张图片"></a>查找同一张图片</h4><p>《星际争霸》具有多种作弊键。您可以通过键入Show me the money获得矿物和天然气，并且通过击倒Power Overwhelming可以立于不败之地。当然，没有用于寻找错误的作弊键。但是有类似的东西！那是Bug类。如果您发现一个好的Bug类，则仅此一个就可以发现很多漏洞。我也从一些Bug类中获得了很多乐趣。</p>
+<p>什么是好的错误类？我认为我们需要两个条件。</p>
+<ol>
+<li>这是我没有其他黑客才知道的错误类。</li>
+<li>开发人员不知道，只有黑客知道。</li>
+</ol>
+<p>实际上，如果满足第一个条件，则也将满足第二个条件。但是，如果您满足第二个条件，您将可以享受很多乐趣。一旦报告了错误类别，黑客就知道了它只是时间问题，而且我必须在其他黑客找到它之前更快地找到它。</p>
+<p>查看<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=931640">问题931640</a>报告，有一个有趣的技巧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__defineGetter__(&quot;then&quot;, function() &#123;</span><br><span class="line"></span><br><span class="line">  if (++then_counter &#x3D;&#x3D; 1) &#123;</span><br><span class="line"></span><br><span class="line">   controller.close();</span><br><span class="line"></span><br><span class="line">   performMicrotaskCheckpoint();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<p>此技巧归因于<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=663476#c10">2016年</a>的<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=663476#c10">UXSS漏洞</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var thenable &#x3D; &#123;get then() &#123; console.log(2); &#125;&#125;</span><br><span class="line"></span><br><span class="line">console.log(1); Promise.resolve(thenable); console.log(3)</span><br></pre></td></tr></table></figure>
+<p>Promise.resolve在接收到对象作为参数时会得到一个名为then的属性。这时，用户可以在使用getter进行获取时执行用户定义的功能。本文的大多数读者可能都不知道。即使是一般的开发人员也不会知道这些规格。这些副作用可能会导致许多漏洞。</p>
+<p>当我意识到并开始寻找“ Thenable Obejct”技巧时，其他黑客并没有引起太多关注。因此，发现了许多漏洞。但是，经过3-4个月后，黑客意识到了这种欺骗手段，并杀死了许多错误。</p>
+<p>另一个有趣的错误类是称为render_frame_host的原始指针的生命周期问题。此类作为格子CTF问题提出。这引起了黑客的广泛关注。因此，我迅速找到了漏洞，并立即进行了报告。</p>
+<p>要满足上述好的bug类的第一个条件是非常困难的。因此，我认为这是一种选择和查找已经发布的错误类的更有效的方法。</p>
+<h2 id="倒数"><a href="#倒数" class="headerlink" title="倒数"></a>倒数</h2><p>在Chrome浏览器中进行错误查找时，我经常发现一个不是稳定版本的漏洞。老实说，我以稳定的姿态找到漏洞，发现漏洞想要获得CVE积分。当（稳定或CVE积分高昂）我发现这些漏洞时，有时我会<a target="_blank" rel="noopener" href="https://namu.wiki/w/%EC%B4%88%EC%9D%BD%EA%B8%B0">倒数</a>。Chrome通常每个月进行升级。该计划非常系统化，并且Beta和开发人员版本中消除了许多漏洞。因此，要使漏洞成为正式版本并不容易。计数错误确实非常压力。现在，我倾向于自我诊断并计算是否真的很难发现我的错误。</p>
+<p>我的诊断是查看chrome版本的安全更新。Chrome每周都会更新其安全性，并会发布该周修复的错误ID。通过这样，可以通过分析修补的错误的根本原因来找出错误类。</p>
+<p>错误类非常流行，因此您应该停止计数并报告与发现的错误相同的类。</p>
+<p><a target="_blank" rel="noopener" href="https://chromestatus.com/features/schedule">您</a>可以在<a target="_blank" rel="noopener" href="https://chromestatus.com/features/schedule">Chrome平台状态</a>网站上查看Chrome的发布时间表。让我们看看这个并祈祷</p>
+<h2 id="重建"><a href="#重建" class="headerlink" title="重建"></a>重建</h2><p>直到发现错误的第二年，结果才逐渐出现。我并不是像其他人一样有才华的黑客，所以我认为我一直在以“变得熟悉”而不是“阅读”代码的感觉。每天吃完早餐，查看代码和提交后，我逐渐习惯了我不理解的Chrome架构。随着结构的逐渐熟悉，可以快速读取代码，并开始出现漏洞。</p>
+<p>发现错误的那一刻不是试图减少睡眠的夜晚，而是早晨睡个好觉并简单地检查了代码的早晨。Bughunting并不是像CTF那样在短时间内完成的游戏。<strong>我意识到，移开视线并一致地阅读代码很重要。</strong></p>
+<p>当然，我也缺少一些要点。我对参考文献的了解不佳。有时，代码中的某些结构可以通过读取需要读取数千行的单个引用来使其易于理解。通过这种反复试验，最近，我正在认真阅读参考资料。</p>
+<p><strong>本文仅是我的意见，不是正确的答案。：D</strong></p>
+<p><img src="http://ufo.stealien.com/assets/2020-09-25-bug_hunting/chrome.png" alt="img"></p>
+<p>宇珍</p>
+<p><a href="mailto:&#119;&#x6f;&#x68;&#x40;&#115;&#x74;&#101;&#97;&#x6c;&#105;&#x65;&#x6e;&#x2e;&#x63;&#111;&#x6d;">&#119;&#x6f;&#x68;&#x40;&#115;&#x74;&#101;&#97;&#x6c;&#105;&#x65;&#x6e;&#x2e;&#x63;&#111;&#x6d;</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%88%91%E8%BF%99%E8%BE%88%E5%AD%90%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AF%BB%E5%AE%9D%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">这是我这辈子第一次寻宝。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BA%E8%B7%AF%E7%9F%B3"><span class="toc-number">1.1.</span> <span class="toc-text">铺路石</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%80%9A"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">三通</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%8D%E6%A4%8D%E8%B1%86%E7%B1%BB%E6%97%B6%E4%BC%9A%E4%BA%A7%E7%94%9F%E8%B1%86%E7%B1%BB%EF%BC%8C%E7%A7%8D%E6%A4%8D%E7%BA%A2%E8%B1%86%E6%97%B6%E4%BC%9A%E4%BA%A7%E7%94%9F%E7%BA%A2%E8%B1%86%E7%B1%BB"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">种植豆类时会产生豆类，种植红豆时会产生红豆类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%B8%8E%E6%AD%BB"><span class="toc-number">1.2.</span> <span class="toc-text">生与死</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">评论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">跳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%9C%BA%E5%89%8D"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">登场前</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E6%97%B6%E6%98%AF%E5%81%B6%E7%84%B6%E7%9A%84"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">有时是偶然的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%90%8C%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-number">1.2.0.6.</span> <span class="toc-text">查找同一张图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">倒数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA"><span class="toc-number">1.4.</span> <span class="toc-text">重建</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&text=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&is_video=false&description=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=이번생에 버그헌팅은 처음이라（转载）&body=Check out this article: http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&title=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&name=이번생에 버그헌팅은 처음이라（转载）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/10/05/%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3%E1%84%92%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B5%E1%86%BC%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8E%E1%85%A5%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/&t=이번생에 버그헌팅은 처음이라（转载）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

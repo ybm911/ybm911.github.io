@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="官网 环境搭建配件： 树莓派4B USB 摄像头 USB 台灯 uhubctl 重新编译安装（仅限4B）这个出了点问题，我设置后会导致不确定的重启 123456789sudo apt install libusb-1.0-0-devgit clone https:&#x2F;&#x2F;github.com&#x2F;mvp&#x2F;uhubctlcd uhubctlmakesudo make">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspi homebridge｜方便的智能家居实现">
+<meta property="og:url" content="http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="官网 环境搭建配件： 树莓派4B USB 摄像头 USB 台灯 uhubctl 重新编译安装（仅限4B）这个出了点问题，我设置后会导致不确定的重启 123456789sudo apt install libusb-1.0-0-devgit clone https:&#x2F;&#x2F;github.com&#x2F;mvp&#x2F;uhubctlcd uhubctlmakesudo make">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118102225.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118102720.PNG">
+<meta property="article:published_time" content="2021-01-15T21:44:44.000Z">
+<meta property="article:modified_time" content="2021-02-06T06:45:05.704Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="RaspberryPi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118102225.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Raspi homebridge｜方便的智能家居实现</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/01/26/pwn%EF%BD%9C%E5%87%BA%E9%A2%98-note/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/01/13/CTFd-%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&text=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&is_video=false&description=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi homebridge｜方便的智能家居实现&body=Check out this article: http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&name=Raspi homebridge｜方便的智能家居实现&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&t=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#uhubctl-%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%85%E9%99%904B%EF%BC%89"><span class="toc-number">1.0.1.</span> <span class="toc-text">uhubctl 重新编译安装（仅限4B）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux-%E4%BF%AE%E6%94%B9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="toc-number">1.0.2.</span> <span class="toc-text">linux 修改普通用户权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Homebridge-%E5%B9%B6%E6%8E%A5%E5%85%A5-HomeKit"><span class="toc-number">1.0.3.</span> <span class="toc-text">安装 Homebridge 并接入 HomeKit</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%95%86%E5%BA%97"><span class="toc-number">2.</span> <span class="toc-text">插件商店</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#homebridge-script2-%E4%BD%BF%E7%94%A8"><span class="toc-number">2.0.1.</span> <span class="toc-text">homebridge-script2 使用</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Raspi homebridge｜方便的智能家居实现
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-01-15T21:44:44.000Z" itemprop="datePublished">2021-01-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/RaspberryPi/" rel="tag">RaspberryPi</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="https://homebridge.io/">官网</a></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>配件：</p>
+<p>树莓派4B</p>
+<p>USB 摄像头</p>
+<p>USB 台灯</p>
+<h4 id="uhubctl-重新编译安装（仅限4B）"><a href="#uhubctl-重新编译安装（仅限4B）" class="headerlink" title="uhubctl 重新编译安装（仅限4B）"></a>uhubctl 重新编译安装（仅限4B）</h4><p><strong>这个出了点问题，我设置后会导致不确定的重启</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libusb-1.0-0-dev</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;mvp&#x2F;uhubctl</span><br><span class="line">cd uhubctl</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line">测试是否成功</span><br><span class="line">uhubctl -a 0 -l 2</span><br><span class="line">uhubctl -a 1 -l 2</span><br></pre></td></tr></table></figure>
+<p>在 Linux 上，需要配置 udev USB 权限，否则必须使用 <code>sudo</code> 来以 root 权限运行 uhubctl，而默认情况下 Home­bridge 不会以 root 运行。</p>
+<p>将下列 udev 规则添加至 <code>/etc/udev/rules.d/52-usb.rules</code> 。文件在树莓派 4 上（USB2 和 USB3 各一条）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SUBSYSTEM&#x3D;&#x3D;&quot;usb&quot;, ATTR&#123;idVendor&#125;&#x3D;&#x3D;&quot;2109&quot;, MODE&#x3D;&quot;0666&quot;</span><br><span class="line">SUBSYSTEM&#x3D;&#x3D;&quot;usb&quot;, ATTR&#123;idVendor&#125;&#x3D;&#x3D;&quot;1d6b&quot;, MODE&#x3D;&quot;0666&quot;</span><br></pre></td></tr></table></figure>
+<p>要使 udev 规则生效，执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo udevadm trigger --attr-match=subsystem=usb</span><br></pre></td></tr></table></figure>
+<h4 id="linux-修改普通用户权限"><a href="#linux-修改普通用户权限" class="headerlink" title="linux 修改普通用户权限"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38333529/article/details/79608224?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-6.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-6.control">linux 修改普通用户权限</a></h4><h4 id="安装-Homebridge-并接入-HomeKit"><a href="#安装-Homebridge-并接入-HomeKit" class="headerlink" title="安装 Homebridge 并接入 HomeKit"></a>安装 Homebridge 并接入 HomeKit</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">安装 Node.js</span><br><span class="line"># setup repo</span><br><span class="line">curl -sL https:&#x2F;&#x2F;deb.nodesource.com&#x2F;setup_14.x | sudo bash -</span><br><span class="line"></span><br><span class="line"># install Node.js</span><br><span class="line">sudo apt install -y nodejs gcc g++ make python net-tools</span><br><span class="line"></span><br><span class="line"># test node is working</span><br><span class="line">node -v</span><br><span class="line"></span><br><span class="line"># upgrade npm (version 6.13.4 has issues with git dependencies)</span><br><span class="line">sudo npm install -g npm</span><br><span class="line">curl https:&#x2F;&#x2F;www.npmjs.com&#x2F;install.sh | sudo sh</span><br><span class="line"></span><br><span class="line">安装 Homebridge 主程序与管理后台界面</span><br><span class="line">sudo npm install -g --unsafe-perm homebridge homebridge-config-ui-x</span><br><span class="line"></span><br><span class="line">sudo hb-service install --user homebridge</span><br><span class="line"></span><br><span class="line">上述命令将创建一个名为 homebridge 的用户来运行 Homebridge，同时生成配置文件并保存在 &#x2F;var&#x2F;lib&#x2F;homebridge&#x2F;config.json。</span><br><span class="line"></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable homebridge</span><br><span class="line">sudo systemctl restart homebridge</span><br><span class="line">重载配置文件，开机自启，重启服务（此时可用 homekit 配对）</span><br></pre></td></tr></table></figure>
+<p>访问 http://<IP address>:8581 进入管理后台。默认用户名为 admin，密码为 admin。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118102225.png" alt="截屏2021-01-18 上午10.21.45"></p>
+<h2 id="插件商店"><a href="#插件商店" class="headerlink" title="插件商店"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/search?q=homebridge-plugin">插件商店</a></h2><p>推荐几个插件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/oznu/homebridge-config-ui-x">homebridge-config-ui-x</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/homebridge-rpi">树莓派专用插件</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/homebridge-http-switch">http-switch插件</a></p>
+<h4 id="homebridge-script2-使用"><a href="#homebridge-script2-使用" class="headerlink" title="homebridge-script2 使用"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/homebridge-script2">homebridge-script2 使用</a></h4><p>Home­bridge 的 <a target="_blank" rel="noopener" href="https://www.jeddd.com/go/aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaG9tZWJyaWRnZS1zY3JpcHQy">Homebridge Script2</a> 插件支持通过 Home­Kit 执行自定义脚本。在 Web 管理后台的【插件 (Plu­g­ins)】选项卡中搜索 “Script2”，或执行以下命令安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g homebridge-script2</span><br></pre></td></tr></table></figure>
+<p>进入 Home­bridge 管理后台的【配置 (Con­fig)】选项卡，在配置文件中添加一个配件（ac­ces­sory）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;accessory&quot;</span>: <span class="string">&quot;Script2&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;LED Light&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;on&quot;</span>: <span class="string">&quot;uhubctl -a 1 -l 2 &amp;&amp; touch /opt/uhubctl/state_open&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;off&quot;</span>: <span class="string">&quot;uhubctl -a 0 -l 2 &amp;&amp; rm -f /opt/uhubctl/state_open &amp;&amp; sudo killall -TERM motion&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;fileState&quot;</span>: <span class="string">&quot;/opt/uhubctl/state_open&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体配置的意义查看<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/homebridge-script2">官网指导</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118102720.PNG" alt="IMG_3266"></p>
+<p>Link</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/homebridge/homebridge-raspbian-image">homebridge镜像</a></p>
+<p><a target="_blank" rel="noopener" href="https://benjenq.pixnet.net/blog/post/45202620">https://benjenq.pixnet.net/blog/post/45202620</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Raspbian">https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Raspbian</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#uhubctl-%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%85%E9%99%904B%EF%BC%89"><span class="toc-number">1.0.1.</span> <span class="toc-text">uhubctl 重新编译安装（仅限4B）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux-%E4%BF%AE%E6%94%B9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="toc-number">1.0.2.</span> <span class="toc-text">linux 修改普通用户权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Homebridge-%E5%B9%B6%E6%8E%A5%E5%85%A5-HomeKit"><span class="toc-number">1.0.3.</span> <span class="toc-text">安装 Homebridge 并接入 HomeKit</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%95%86%E5%BA%97"><span class="toc-number">2.</span> <span class="toc-text">插件商店</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#homebridge-script2-%E4%BD%BF%E7%94%A8"><span class="toc-number">2.0.1.</span> <span class="toc-text">homebridge-script2 使用</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&text=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&is_video=false&description=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Raspi homebridge｜方便的智能家居实现&body=Check out this article: http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&title=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&name=Raspi homebridge｜方便的智能家居实现&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2021/01/16/RaspberryPi-homebridge%EF%BD%9C%E6%96%B9%E4%BE%BF%E7%9A%84%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E5%AE%9E%E7%8E%B0/&t=Raspi homebridge｜方便的智能家居实现"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

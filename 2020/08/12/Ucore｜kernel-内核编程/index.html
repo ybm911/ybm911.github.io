@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="技术文档 ucore_os_docs 准备知识虚拟地址经过分段化为线性地址，线性地址经过分页转为物理地址。 intel 80386 寄存器（它们的宽度都是32位），参考链接 12345678EAX:累加器 EBX:基址寄存器 ECX:计数器 EDX:数据寄存器 ESI:源地址指针寄存器 EDI:目的地址指针寄存器 EBP:基址指针寄存器 ESP:堆栈指针寄存器 Segment Register(段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elli0t&#39;s Blog">
+<meta property="og:url" content="http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="技术文档 ucore_os_docs 准备知识虚拟地址经过分段化为线性地址，线性地址经过分页转为物理地址。 intel 80386 寄存器（它们的宽度都是32位），参考链接 12345678EAX:累加器 EBX:基址寄存器 ECX:计数器 EDX:数据寄存器 ESI:源地址指针寄存器 EDI:目的地址指针寄存器 EBP:基址指针寄存器 ESP:堆栈指针寄存器 Segment Register(段">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/4578753446153412643.jpg">
+<meta property="article:published_time" content="2020-08-12T09:43:49.000Z">
+<meta property="article:modified_time" content="2020-08-13T08:54:10.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="kernel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/4578753446153412643.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Elli0t&#39;s Blog</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/08/12/c-%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/08/10/Ubuntu%EF%BD%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8-ctags/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">准备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lab-1"><span class="toc-number">2.</span> <span class="toc-text">Lab-1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A01"><span class="toc-number">2.0.1.</span> <span class="toc-text">练习1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A02"><span class="toc-number">2.0.2.</span> <span class="toc-text">练习2</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-12T09:43:49.000Z" itemprop="datePublished">2020-08-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/kernel/" rel="tag">kernel</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="http://cdn.jsdelivr.net/gh/ybm911/some_book/pwn/ucore_os_docs.pdf">技术文档 ucore_os_docs</a></p>
+<h2 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h2><p>虚拟地址经过分段化为线性地址，线性地址经过分页转为物理地址。</p>
+<p>intel 80386 寄存器（它们的宽度都是32位），<a target="_blank" rel="noopener" href="https://blog.csdn.net/stephenkung1/article/details/8184759">参考链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EAX:累加器 </span><br><span class="line">EBX:基址寄存器 </span><br><span class="line">ECX:计数器 </span><br><span class="line">EDX:数据寄存器 </span><br><span class="line">ESI:源地址指针寄存器 </span><br><span class="line">EDI:目的地址指针寄存器 </span><br><span class="line">EBP:基址指针寄存器 </span><br><span class="line">ESP:堆栈指针寄存器</span><br></pre></td></tr></table></figure>
+<p>Segment Register(段寄存器16位，也称 Segment Selector，段选择符，段选择子):除了8086的4 个段外(CS,DS,ES,SS)，80386还增加了两个段FS，GS,这些段寄存器都是16位的，用于不同 属性内存段的寻址，它们的含义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CS:代码段(Code Segment) </span><br><span class="line">DS:数据段(Data Segment) </span><br><span class="line">ES:附加数据段(Extra Segment) </span><br><span class="line">SS:堆栈段(Stack Segment) </span><br><span class="line">FS:附加段</span><br><span class="line">GS 附加段</span><br></pre></td></tr></table></figure>
+<p>Flag Register(标志寄存器):EFLAGS,和8086的16位标志寄存器相比，增加了4个控制位，这 20位控制/标志位的位置如下图所示:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/4578753446153412643.jpg" alt="4578753446153412643"></p>
+<p>相关的控制/标识位含义是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CF(Carry Flag):进位标志位; </span><br><span class="line">PF(Parity Flag):奇偶标志位; </span><br><span class="line">AF(Assistant Flag):辅助进位标志位; </span><br><span class="line">ZF(Zero Flag):零标志位;</span><br><span class="line">SF(Singal Flag):符号标志位;</span><br><span class="line">IF(Interrupt Flag):中断允许标志位,由CLI，STI两条指令来控制;设置IF位使CPU可识别外部(可屏蔽 )中断请求，复位IF位则禁止中断，IF位对不可屏蔽外部中断和故障中断的识别没有任何作用;</span><br><span class="line">DF(Direction Flag):向量标志位，由CLD，STD两条指令来控制;</span><br><span class="line">OF(Overflow Flag):溢出标志位;</span><br><span class="line">IOPL(I&#x2F;O Privilege Level):I&#x2F;O特权级字段，它的宽度为2位,它指定了I&#x2F;O指令的特权级。如果当前的特权级别在数值上小于或等于IOPL，那么I&#x2F;O指令可执行。否则，将发生一个保护性故障中断;</span><br><span class="line">NT(Nested Task):控制中断返回指令IRET，它宽度为1位。若NT&#x3D;0，则用堆栈中保存的值恢复EFLAGS，CS和EIP从而实现中断返回;若NT&#x3D;1，则通过任务切换实现中断返回。在ucore中，设置NT为0。</span><br></pre></td></tr></table></figure>
+<h2 id="Lab-1"><a href="#Lab-1" class="headerlink" title="Lab-1"></a>Lab-1</h2><h4 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h4><p>理解通过<strong>make</strong>生成执行文件的过程。</p>
+<p>\1. 操作系统镜像文件ucore.img是如何一步一步生成的?(需要比较详细地解释Makefile中每 一条相关命令和命令参数的含义，以及说明命令导致的结果)</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create ucore.img</span></span><br><span class="line">UCOREIMG	:= <span class="variable">$(<span class="built_in">call</span> totarget,ucore.img)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(UCOREIMG)</span>: <span class="variable">$(kernel)</span> <span class="variable">$(bootblock)</span></span><br><span class="line">	<span class="variable">$(V)</span>dd if=/dev/zero of=<span class="variable">$@</span> count=10000</span><br><span class="line">	<span class="variable">$(V)</span>dd if=<span class="variable">$(bootblock)</span> of=<span class="variable">$@</span> conv=notrunc</span><br><span class="line">	<span class="variable">$(V)</span>dd if=<span class="variable">$(kernel)</span> of=<span class="variable">$@</span> seek=1 conv=notrunc</span><br><span class="line"></span><br><span class="line"><span class="variable">$(<span class="built_in">call</span> create_target,ucore.img)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">build 512 bytes boot sector: <span class="string">&#x27;bin/bootblock&#x27;</span> success!</span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=bin/ucore.img count=10000</span><br><span class="line">10000+0 records <span class="keyword">in</span></span><br><span class="line">10000+0 records out</span><br><span class="line">5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0167135 s, 306 MB/s</span><br><span class="line">dd <span class="keyword">if</span>=bin/bootblock of=bin/ucore.img conv=notrunc</span><br><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">512 bytes copied, 8.5709e-05 s, 6.0 MB/s</span><br><span class="line">dd <span class="keyword">if</span>=bin/kernel of=bin/ucore.img seek=1 conv=notrunc</span><br><span class="line">146+1 records <span class="keyword">in</span></span><br><span class="line">146+1 records out</span><br><span class="line">74828 bytes (75 kB, 73 KiB) copied, 0.000251427 s, 298 MB/s</span><br></pre></td></tr></table></figure>
+<p>count = blocks: 仅拷贝 blocks 这个块，块大小等于 ibs 制定的字节数；cone = notrunc;不截断输出文件</p>
+<p>先创建一个大小为 10000 字节的块，然后再将 bootblack、kernel 拷贝过去</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(bootblock)</span>: <span class="variable">$(<span class="built_in">call</span> toobj,<span class="variable">$(bootfiles)</span>)</span> | <span class="variable">$(<span class="built_in">call</span> totarget,sign)</span></span><br><span class="line">	@echo + ld <span class="variable">$@</span></span><br><span class="line">	<span class="variable">$(V)</span><span class="variable">$(LD)</span> <span class="variable">$(LDFLAGS)</span> -N -e start -Ttext 0x7C00 <span class="variable">$^</span> -o <span class="variable">$(<span class="built_in">call</span> toobj,bootblock)</span></span><br><span class="line">	@<span class="variable">$(OBJDUMP)</span> -S <span class="variable">$(<span class="built_in">call</span> objfile,bootblock)</span> &gt; <span class="variable">$(<span class="built_in">call</span> asmfile,bootblock)</span></span><br><span class="line">	@<span class="variable">$(OBJCOPY)</span> -S -O binary <span class="variable">$(<span class="built_in">call</span> objfile,bootblock)</span> <span class="variable">$(<span class="built_in">call</span> outfile,bootblock)</span></span><br><span class="line">	@<span class="variable">$(<span class="built_in">call</span> totarget,sign)</span> <span class="variable">$(<span class="built_in">call</span> outfile,bootblock)</span> <span class="variable">$(bootblock)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(<span class="built_in">call</span> create_target,bootblock)</span></span><br></pre></td></tr></table></figure>
+<p>生成bootasm.o、bootmain.o、sign的相关代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -Itools/ -g -Wall -O2 -c tools/sign.c -o obj/sign/tools/sign.o</span><br><span class="line">gcc -g -Wall -O2 obj/sign/tools/sign.o -o bin/sign</span><br></pre></td></tr></table></figure>
+<p>ggdb 生成可供 gdb 使用的调试信息</p>
+<p>-m32 生成适用于32位环境的代码</p>
+<p>-gstabs 生成 stabs 格式的调试信息</p>
+<p>-nostdinc 不使用标准库</p>
+<p>-fno-stack-protector 不生成用于检测缓冲区溢出的代码</p>
+<p>-0s 为减小代码长度进行优化</p>
+<p>\2. 一个被系统认为是符合规范的硬盘主引导扇区的特征是什么?</p>
+<p>sign.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">buf[<span class="number">510</span>] = <span class="number">0x55</span>;</span><br><span class="line">buf[<span class="number">511</span>] = <span class="number">0xAA</span>;</span><br><span class="line">FILE *ofp = fopen(argv[<span class="number">2</span>], <span class="string">&quot;wb+&quot;</span>);</span><br><span class="line">size = fwrite(buf, <span class="number">1</span>, <span class="number">512</span>, ofp);</span><br><span class="line"><span class="keyword">if</span> (size != <span class="number">512</span>) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;write &#x27;%s&#x27; error, size is %d.\n&quot;</span>, argv[<span class="number">2</span>], size);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要求硬盘主引导扇区大小是512字节，还需要510、511个字节处分别是0x55 0xAA</p>
+<h4 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h4><p>使用<strong>qemu</strong>执行并调试<strong>lab1</strong>中的软件。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">准备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lab-1"><span class="toc-number">2.</span> <span class="toc-text">Lab-1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A01"><span class="toc-number">2.0.1.</span> <span class="toc-text">练习1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A02"><span class="toc-number">2.0.2.</span> <span class="toc-text">练习2</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/12/Ucore%EF%BD%9Ckernel-%E5%86%85%E6%A0%B8%E7%BC%96%E7%A8%8B/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

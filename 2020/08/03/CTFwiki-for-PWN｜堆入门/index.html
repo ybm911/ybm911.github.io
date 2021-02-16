@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="每个进程可访问的虚拟内存空间为3G，但在程序编译时，不可能也没必要为程序分配这么大的空间，只分配并不大的数据段空间，程序中动态分配的空间就是从这一块分配的。如果这块空间不够，malloc函数族（realloc，calloc等）就调用sbrk函数将数据段的下界移动，sbrk函数在内核的管理下将虚拟地址空间映射到内存，供malloc函数使用。 概念brksbrk 用来改变 “program break">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN｜Heap 堆入门">
+<meta property="og:url" content="http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="每个进程可访问的虚拟内存空间为3G，但在程序编译时，不可能也没必要为程序分配这么大的空间，只分配并不大的数据段空间，程序中动态分配的空间就是从这一块分配的。如果这块空间不够，malloc函数族（realloc，calloc等）就调用sbrk函数将数据段的下界移动，sbrk函数在内核的管理下将虚拟地址空间映射到内存，供malloc函数使用。 概念brksbrk 用来改变 “program break">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/space.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626085358744.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626090349149.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626160226184.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626172529196.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200627081704575.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200627084418769.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202008031553.png">
+<meta property="article:published_time" content="2020-08-03T10:37:59.000Z">
+<meta property="article:modified_time" content="2020-08-18T01:21:40.000Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/space.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PWN｜Heap 堆入门</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/08/04/Heap%EF%BD%9C%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/26/Reverse-%E5%85%A5%E9%97%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&text=PWN｜Heap 堆入门"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&is_video=false&description=PWN｜Heap 堆入门"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜Heap 堆入门&body=Check out this article: http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&name=PWN｜Heap 堆入门&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&t=PWN｜Heap 堆入门"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#brk"><span class="toc-number">1.0.1.</span> <span class="toc-text">brk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptmalloc2%EF%BC%88%E6%94%AF%E6%8C%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">ptmalloc2（支持多线程）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#glibc-%E5%A0%86%E7%AE%A1%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.3.</span> <span class="toc-text">glibc 堆管理的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Arena-%E5%A4%B4%E9%83%A8%E7%BB%93%E6%9E%84%EF%BC%9Amalloc-state"><span class="toc-number">1.0.4.</span> <span class="toc-text">Arena 头部结构：malloc_state</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Main-Arena-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.5.</span> <span class="toc-text">Main Arena 概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B2%E5%86%85%E5%AD%98%E5%9D%97%EF%BC%88free-chunk%EF%BC%89%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.6.</span> <span class="toc-text">空闲内存块（free chunk）结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E5%9D%97%EF%BC%88allocated-chunk%EF%BC%89%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.7.</span> <span class="toc-text">分配内存块（allocated chunk）结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E5%8F%82%E6%95%B0%E4%B8%8E-chunk-%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.8.</span> <span class="toc-text">malloc 参数与 chunk 大小的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bins-%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.9.</span> <span class="toc-text">Bins 结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fast-bins"><span class="toc-number">1.0.10.</span> <span class="toc-text">Fast bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Small-bins"><span class="toc-number">1.0.11.</span> <span class="toc-text">Small bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Large-bins"><span class="toc-number">1.0.12.</span> <span class="toc-text">Large bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unsorted-bin%EF%BC%88%E5%9E%83%E5%9C%BE%E6%A1%B6%F0%9F%9A%AE%EF%BC%89"><span class="toc-number">1.0.13.</span> <span class="toc-text">Unsorted bin（垃圾桶🚮）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unsorted-bins-%E4%B8%8E-small-bins-%E4%BA%8B%E4%BE%8B"><span class="toc-number">1.0.14.</span> <span class="toc-text">Unsorted bins 与 small bins 事例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-chunk"><span class="toc-number">1.0.15.</span> <span class="toc-text">其他 chunk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.0.16.</span> <span class="toc-text">malloc( ) 的工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Free-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.0.17.</span> <span class="toc-text">Free( ) 的工作流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attack"><span class="toc-number">2.</span> <span class="toc-text">Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Fastbin-attack"><span class="toc-number">2.0.1.</span> <span class="toc-text">Fastbin attack</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PWN｜Heap 堆入门
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-03T10:37:59.000Z" itemprop="datePublished">2020-08-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PWN/" rel="tag">PWN</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>每个进程可访问的虚拟内存空间为3G，但在程序编译时，不可能也没必要为程序分配这么大的空间，只分配并不大的数据段空间，程序中动态分配的空间就是从这一块分配的。如果这块空间不够，malloc函数族（realloc，calloc等）就调用sbrk函数将数据段的下界移动，sbrk函数在内核的管理下将虚拟地址空间映射到内存，供malloc函数使用。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h4 id="brk"><a href="#brk" class="headerlink" title="brk"></a>brk</h4><p>sbrk 用来改变 “program break” (程序间断点)的位置，这个位置可参考下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/space.png" alt="hello"></p>
+<blockquote>
+<p>sbrk(0) gives current program break location</p>
+</blockquote>
+<h4 id="ptmalloc2（支持多线程）"><a href="#ptmalloc2（支持多线程）" class="headerlink" title="ptmalloc2（支持多线程）"></a>ptmalloc2（支持多线程）</h4><ul>
+<li>不同的线程维护不同的堆，称为<code>per thread arena</code></li>
+<li>主线程创建的堆称之为<code>main arena</code></li>
+<li>Arena 收到 CPU 核数的限制<ul>
+<li>对于32位：arena 数量上限 = 2 * 核数</li>
+<li>对于64位：arena 数量上限 = 8 * 核数</li>
+</ul>
+</li>
+</ul>
+<h4 id="glibc-堆管理的实现"><a href="#glibc-堆管理的实现" class="headerlink" title="glibc 堆管理的实现"></a>glibc 堆管理的实现</h4><ul>
+<li>arena<ul>
+<li>指的是堆区域本身，并非结构</li>
+<li>主线程的 main arena 通过 sbrk 创建</li>
+<li>其他线程的 arena 通过 mmap 创建</li>
+</ul>
+</li>
+<li>malloc_state<ul>
+<li>管理 arena 的核心结构，包含堆的状态信息、bins 链表等</li>
+<li> <strong>main arena 对应的 malloc_state 结构储存在 glibc 的全局变量中</strong></li>
+<li>其他线程 arena 对应的 malloc_state 储存在 arena 本身当中</li>
+</ul>
+</li>
+<li>bins<ul>
+<li>bins 用来管理空闲内存块，通常使用链表结构来进行组织</li>
+</ul>
+</li>
+<li>chunks<ul>
+<li>内存块的结构</li>
+</ul>
+</li>
+</ul>
+<p><strong>以下介绍的堆管理环境为 glibc 2.26以下（不含2.26），即出现 tcache 之前的堆管理方式，以下央视的环境均是64位程序及操作系统</strong></p>
+<h4 id="Arena-头部结构：malloc-state"><a href="#Arena-头部结构：malloc-state" class="headerlink" title="Arena 头部结构：malloc_state"></a>Arena 头部结构：malloc_state</h4><p>malloc_state 储存了 Arena 的状态，其中包括了很多用于管理空闲块的 bins 链表⌚️</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">/* Serialize access.  */</span></span><br><span class="line">  __libc_lock_define (, mutex);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Flags (formerly in max_fast).  */</span></span><br><span class="line">  <span class="keyword">int</span> flags;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Set if the fastbin chunks contain recently inserted free blocks.  */</span></span><br><span class="line">  <span class="comment">/* Note this is a bool but not all targets support atomics on booleans.  */</span></span><br><span class="line">  <span class="keyword">int</span> have_fastchunks;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Fastbins */</span></span><br><span class="line">  mfastbinptr fastbinsY[NFASTBINS];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Base of the topmost chunk -- not otherwise kept in a bin */</span></span><br><span class="line">  mchunkptr top;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* The remainder from the most recent split of a small request */</span></span><br><span class="line">  mchunkptr last_remainder;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Normal bins packed as described above */</span></span><br><span class="line">  mchunkptr bins[NBINS * <span class="number">2</span> - <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Bitmap of bins */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> binmap[BINMAPSIZE];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Linked list */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Linked list for free arenas.  Access to this field is serialized</span></span><br><span class="line"><span class="comment">     by free_list_lock in arena.c.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next_free</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Number of threads attached to this arena.  0 if the arena is on</span></span><br><span class="line"><span class="comment">     the free list.  Access to this field is serialized by</span></span><br><span class="line"><span class="comment">     free_list_lock in arena.c.  */</span></span><br><span class="line">  INTERNAL_SIZE_T attached_threads;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Memory allocated from the system in this arena.  */</span></span><br><span class="line">  INTERNAL_SIZE_T system_mem;</span><br><span class="line">  INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> <span class="title">main_arena</span>;</span> <span class="comment">/* global variable in libc.so */</span></span><br></pre></td></tr></table></figure>
+<h4 id="Main-Arena-概念"><a href="#Main-Arena-概念" class="headerlink" title="Main Arena 概念"></a>Main Arena 概念</h4><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626085358744.png" alt="image-20200626085358744"></p>
+<h4 id="空闲内存块（free-chunk）结构"><a href="#空闲内存块（free-chunk）结构" class="headerlink" title="空闲内存块（free chunk）结构"></a>空闲内存块（free chunk）结构</h4><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626090349149.png" alt="image-20200626090349149" style="zoom:50%;" />
+
+<p>在64位平台下，free chunk 的第一个字段 prev_size （8字节）储存了前一个 chunk 的大小</p>
+<p>free chunk 的第二个字段记录了当前 chunk 的大小，该字段最低三个 bit 被用作其他含义。</p>
+<ul>
+<li>P 代表 PREV_INUSE，即代表前一个 chunk 是否被使用。</li>
+<li>M 代表 IS_MMAPPED，代表当前 chunk 是否是 mmap 出来的。</li>
+<li>N 代表 NON_MAIN_ARENA，代表改 chunk 是否属于非 Main Arena。</li>
+</ul>
+<blockquote>
+<p>64位系统，堆的大小是以 0x10 的大小递进的，这就是 N、M、P 能够放在低三位而不影响  size 的原因（计算 size 前会将低三位与操作）</p>
+</blockquote>
+<p>第三字段 fd 和第四字段 bk （8字节）前向指针和后向指针，这两个字段用于 bin 链表当中，用来链接大小相同或者相近的 free chunk ，便于后续分配时查找。</p>
+<h4 id="分配内存块（allocated-chunk）结构"><a href="#分配内存块（allocated-chunk）结构" class="headerlink" title="分配内存块（allocated chunk）结构"></a>分配内存块（allocated chunk）结构</h4><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626160226184.png" alt="image-20200626160226184" style="zoom:50%;" />
+
+<p>allocated chunk 的前两个字段和 free chunk 相通。</p>
+<p>第三个字段开始到最后，chunk 中储存的都是用户数据。甚至下一个 chunk 的第一个字段 prev_size，也可以被用来存放数据，原因是这个 prev_size 字段只有当“前一个” chunk 是 free 的时候才有意义，如果“前一个” chunk 是已经分配的，堆管理器并不关心。</p>
+<p>所以对一个 chunk 来说，用户可用大小从偏移 +8 开始（即 size 的位置），一直到下一个 chunk 的 prev_size 字段。</p>
+<p>在64位平台下，chunk 的大小一定是 0x10 字节的整数倍。 malloc 返回🔙的指针为图中 mem 指向的位置，即数据开头。</p>
+<h4 id="malloc-参数与-chunk-大小的关系"><a href="#malloc-参数与-chunk-大小的关系" class="headerlink" title="malloc 参数与 chunk 大小的关系"></a>malloc 参数与 chunk 大小的关系</h4><ul>
+<li>malloc 参数为用户申请的内存大小</li>
+<li>chunk 包含数据和 metadata</li>
+<li>返回的 chunk 只要保证其中可用数据大小大于等于用户申请即可</li>
+<li>在 x86 32位平台下，chunk 的大小一定是8字节的整数倍；x64 平台下，chunk 的大小一定是16字节是整数倍</li>
+</ul>
+<h4 id="Bins-结构"><a href="#Bins-结构" class="headerlink" title="Bins 结构"></a>Bins 结构</h4><ul>
+<li><p>Bins 是用来管理和组织空闲内存块的链表结构，根据 chunk 的大小和状态，有许多不同的 Bins 结构</p>
+</li>
+<li><p>Fast bins</p>
+<ul>
+<li><p>用于管理小的 chunk</p>
+</li>
+<li><p>mfastbinptr fastbinsY[NFASTBINS];</p>
+</li>
+</ul>
+</li>
+<li><p>Bins</p>
+<ul>
+<li><p>small bins - 用于管理中等大小的 chunk</p>
+</li>
+<li><p>large bins - 用于管理较大的 chunk</p>
+</li>
+<li><p>unsorted bins - 用于存放未整理的 chunk</p>
+</li>
+<li><p>mchunkptr bins[NBINS * 2 - 2];</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Fast-bins"><a href="#Fast-bins" class="headerlink" title="Fast bins"></a>Fast bins</h4><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200626172529196.png" alt="image-20200626172529196" style="zoom:50%;" />
+
+<ul>
+<li><p>大小（chunk 的大小）</p>
+<ul>
+<li>x86_32：16～64字节</li>
+<li>x64：32～128字节</li>
+</ul>
+</li>
+<li><p>相同大小的 chunk 放在一个 bin 中</p>
+</li>
+<li><p>单向链表</p>
+</li>
+<li><p>后进先出（First in last out）</p>
+</li>
+<li><p>相邻的空闲 fast bin chunk 不会被合并</p>
+</li>
+<li><p>当 chunk 被 free 时，不会清理 PREV_INUSE 标志✅</p>
+</li>
+</ul>
+<h4 id="Small-bins"><a href="#Small-bins" class="headerlink" title="Small bins"></a>Small bins</h4><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200627081704575.png" alt="image-20200627081704575" style="zoom:50%;" />
+
+<ul>
+<li>chunk 大小 &lt; 1024 bytes (64 位)</li>
+<li>相同大小的 chunk 放在一个 bin 中</li>
+<li>双向循环♻️链表</li>
+<li>先进先出（First in first out）</li>
+<li>当有空闲块相邻时，chunk 会被合并成一个更大的 chunk</li>
+<li>bins[2], bins[3], …, bins[124], bins[125] 共62组 samllbin，大小范围[0x20, 0x3f0]（64位）</li>
+</ul>
+<blockquote>
+<p>bins[2]~bins[3] 为一组</p>
+</blockquote>
+<h4 id="Large-bins"><a href="#Large-bins" class="headerlink" title="Large bins"></a>Large bins</h4><p>Large bins 图片和 Small bins 是一样的</p>
+<ul>
+<li>chunk 大小 &gt;= 1024 bytes (64 位)</li>
+<li><strong>每组 bin 表示一组 size 范围而不是具体的 size</strong> ，例如 bins[126]，bins[127] 的链表中保存长度在 [0x400, 0x440] 的 chunk</li>
+<li>双向循环♻️链表</li>
+<li>先进先出（First in first out）</li>
+<li>chunk 按照大小<strong>从大到小在一个 bins 里面排序</strong></li>
+<li>当有空闲块相邻，chunk 会被合并</li>
+<li>bins[126], bins[127], …, bins[250], bins[251] 共63组 largebin，大小范围 [0x400, X]（64位）</li>
+</ul>
+<blockquote>
+<p>每组 bins 🀄️中的 chunk 大小不一定相同，只是在一个☝️范围内，按由大到小的顺序在链表中排列（是为了更好的检索）。bins[126]，bins[127] 的链表中保存长度在 [0x400, 0x440] </p>
+</blockquote>
+<h4 id="Unsorted-bin（垃圾桶🚮）"><a href="#Unsorted-bin（垃圾桶🚮）" class="headerlink" title="Unsorted bin（垃圾桶🚮）"></a>Unsorted bin（垃圾桶🚮）</h4><ul>
+<li>64位平台中：chunk 大小 &gt; 128 字节</li>
+<li>只存在唯一一个 unsorted bin</li>
+<li>双向循环♻️链表</li>
+<li>当一个 chunk （非 fast bin）被 free，它首先被放入 unsorted bin，等后续整理时才会放入对应的 small bin/large bin</li>
+<li>bins[0], bins[1] 一组</li>
+</ul>
+<h4 id="Unsorted-bins-与-small-bins-事例"><a href="#Unsorted-bins-与-small-bins-事例" class="headerlink" title="Unsorted bins 与 small bins 事例"></a>Unsorted bins 与 small bins 事例</h4><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/image-20200627084418769.png" alt="image-20200627084418769" style="zoom:;" />
+
+<h4 id="其他-chunk"><a href="#其他-chunk" class="headerlink" title="其他 chunk"></a>其他 chunk</h4><ul>
+<li><p>Top chunk</p>
+<ul>
+<li><p>不属于任何 bin</p>
+</li>
+<li><p>在 arena 中处于最高地址</p>
+</li>
+<li><p>当没有其他空闲块时，top chunk 就会被用于分配</p>
+</li>
+<li><p>分裂时</p>
+<ul>
+<li><p>一块是请求大小的 chunk</p>
+</li>
+<li><p>另一块余下 chunk 将成为新的 top chunk</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Last_remainder</p>
+<ul>
+<li>当请求 small chunk 大小的内存时，如发生分裂，则剩余的 chunk 保存为 last_remainder</li>
+</ul>
+</li>
+</ul>
+<h4 id="malloc-的工作流程"><a href="#malloc-的工作流程" class="headerlink" title="malloc( ) 的工作流程"></a>malloc( ) 的工作流程</h4><ol>
+<li>如果 size &lt; max fast，在 fast bins 中寻找 fast chunk，如果找到则结束🔚</li>
+<li>如果 size in_samllbin_range，在 small bins 中寻找 small chunk，如找到则结束🔚</li>
+<li>如果 size not in_smallbin_range，合并所有 fastbin 的 chunk</li>
+<li>循环♻️<ol>
+<li>检查 unsorted bin 中的 last_remainder <ol>
+<li>如果满足一定的条件，则分裂之，将剩余的 chunk 标记为新的 last_remainder</li>
+</ol>
+</li>
+<li>在 unsorted bin 中搜索，同时进行整理<ol>
+<li>如遇到精确大小，则返回，否则就把当前 chunk 整理到 small/large bin 中去</li>
+</ol>
+</li>
+<li>在 small bin 和 large bin 中搜索最适合的 chunk （不一定是精确大小）</li>
+</ol>
+</li>
+<li>使用 top chunk</li>
+</ol>
+<h4 id="Free-的工作流程"><a href="#Free-的工作流程" class="headerlink" title="Free( ) 的工作流程"></a>Free( ) 的工作流程</h4><ol>
+<li>如果 size &lt; max fast，放入 fast bin，结束🔚</li>
+<li>如果前一个 chunk 是 free 的<ol>
+<li>unlink 前面的 chunk</li>
+<li>合并两个 chunk，并放入 unsorted bin</li>
+</ol>
+</li>
+<li>如果后一个 chunk 是 top chunk ，则将当前 chunk 并入 top chunk</li>
+<li>如果后一个 chunk 是 free 的<ol>
+<li>unlink 后面的 chunk</li>
+<li>合并两个 chunk ，并放入 unsorted bin</li>
+</ol>
+</li>
+<li>前后 chunk 都不是 free 的，放入 unsorted bin</li>
+</ol>
+<blockquote>
+<p>free( ) 的去向只有三个：</p>
+<ol>
+<li>fast bin</li>
+<li>top chunk</li>
+<li>unsorted bin</li>
+</ol>
+</blockquote>
+<h2 id="Attack"><a href="#Attack" class="headerlink" title="Attack"></a>Attack</h2><h4 id="Fastbin-attack"><a href="#Fastbin-attack" class="headerlink" title="Fastbin attack"></a>Fastbin attack</h4><ul>
+<li><p>Fast bin 利用技术</p>
+<ul>
+<li>Fast bin 为单向链表，结构简单，容易伪造</li>
+<li>为了提高效率，安全检查较少</li>
+<li>只针对 Fast bin 大小的 chunk，small/large chunk 不适用</li>
+</ul>
+</li>
+<li><p>利用思路</p>
+<ul>
+<li>空闲 Fast chunk 如果发生溢出被覆盖，则链表指针 fd 可以被修改</li>
+<li>可以通过修改链表指针 fd，在Fast bin 链表中引入伪造的空间 Fast chunk</li>
+<li>下次分配时分配出伪造的 Fast chunk</li>
+<li>伪造的 Fast chunk 可以在 .bss 全局变量处，也可以在栈上</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202008031553.png" alt="202008031553"></p>
+<p>利用后造成影响</p>
+<ul>
+<li>在栈上伪造 Fast bin<ul>
+<li>覆盖返回地址</li>
+</ul>
+</li>
+<li>在 bss 上伪造 Fast bin<ul>
+<li> 修改全局变量</li>
+</ul>
+</li>
+<li>在堆上伪造 Fast bin<ul>
+<li>修改堆上数据</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#brk"><span class="toc-number">1.0.1.</span> <span class="toc-text">brk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptmalloc2%EF%BC%88%E6%94%AF%E6%8C%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">ptmalloc2（支持多线程）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#glibc-%E5%A0%86%E7%AE%A1%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.3.</span> <span class="toc-text">glibc 堆管理的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Arena-%E5%A4%B4%E9%83%A8%E7%BB%93%E6%9E%84%EF%BC%9Amalloc-state"><span class="toc-number">1.0.4.</span> <span class="toc-text">Arena 头部结构：malloc_state</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Main-Arena-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.5.</span> <span class="toc-text">Main Arena 概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B2%E5%86%85%E5%AD%98%E5%9D%97%EF%BC%88free-chunk%EF%BC%89%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.6.</span> <span class="toc-text">空闲内存块（free chunk）结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E5%9D%97%EF%BC%88allocated-chunk%EF%BC%89%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.7.</span> <span class="toc-text">分配内存块（allocated chunk）结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E5%8F%82%E6%95%B0%E4%B8%8E-chunk-%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.8.</span> <span class="toc-text">malloc 参数与 chunk 大小的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bins-%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.9.</span> <span class="toc-text">Bins 结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fast-bins"><span class="toc-number">1.0.10.</span> <span class="toc-text">Fast bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Small-bins"><span class="toc-number">1.0.11.</span> <span class="toc-text">Small bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Large-bins"><span class="toc-number">1.0.12.</span> <span class="toc-text">Large bins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unsorted-bin%EF%BC%88%E5%9E%83%E5%9C%BE%E6%A1%B6%F0%9F%9A%AE%EF%BC%89"><span class="toc-number">1.0.13.</span> <span class="toc-text">Unsorted bin（垃圾桶🚮）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unsorted-bins-%E4%B8%8E-small-bins-%E4%BA%8B%E4%BE%8B"><span class="toc-number">1.0.14.</span> <span class="toc-text">Unsorted bins 与 small bins 事例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-chunk"><span class="toc-number">1.0.15.</span> <span class="toc-text">其他 chunk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.0.16.</span> <span class="toc-text">malloc( ) 的工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Free-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.0.17.</span> <span class="toc-text">Free( ) 的工作流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attack"><span class="toc-number">2.</span> <span class="toc-text">Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Fastbin-attack"><span class="toc-number">2.0.1.</span> <span class="toc-text">Fastbin attack</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&text=PWN｜Heap 堆入门"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&is_video=false&description=PWN｜Heap 堆入门"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜Heap 堆入门&body=Check out this article: http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&title=PWN｜Heap 堆入门"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&name=PWN｜Heap 堆入门&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/08/03/CTFwiki-for-PWN%EF%BD%9C%E5%A0%86%E5%85%A5%E9%97%A8/&t=PWN｜Heap 堆入门"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49627206-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-49627206-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?4cc1f2d8f3067386cc5cdb626a202900";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
