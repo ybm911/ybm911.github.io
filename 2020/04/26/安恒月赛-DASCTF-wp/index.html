@@ -9,7 +9,7 @@
     <meta name="description" content="题目链接🔗  👴学到了什么？  printf 泄漏真实地址的参数使用，以及地址接收的处理 one_gadget 神器的了解。这题不知道为啥在 libc 中找的 system 执行会报错 当符号表被删除时（stripped），返回函数就不能用 elf.plt 了 当栈溢出执行了一些操作后，会影响到本身的函数这题也就是 4006D2，所以返回地址直接写程序的头部     因为我自己还是不能很好的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安恒月赛 DASCTF wp">
-<meta property="og:url" content="http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/index.html">
+<meta property="og:url" content="http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="题目链接🔗  👴学到了什么？  printf 泄漏真实地址的参数使用，以及地址接收的处理 one_gadget 神器的了解。这题不知道为啥在 libc 中找的 system 执行会报错 当符号表被删除时（stripped），返回函数就不能用 elf.plt 了 当栈溢出执行了一些操作后，会影响到本身的函数这题也就是 4006D2，所以返回地址直接写程序的头部     因为我自己还是不能很好的">
 <meta property="og:locale" content="en_US">
@@ -105,17 +105,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -229,17 +229,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&text=安恒月赛 DASCTF wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&is_video=false&description=安恒月赛 DASCTF wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安恒月赛 DASCTF wp&body=Check out this article: http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&title=安恒月赛 DASCTF wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&name=安恒月赛 DASCTF wp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/04/26/%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9B-DASCTF-wp/&t=安恒月赛 DASCTF wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

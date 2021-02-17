@@ -9,7 +9,7 @@
     <meta name="description" content="宽字节注入是因为数据库使用了GBK编码，不过现在大都使用unicode国际编码，大多数网站都使用了utf-8的编码 ?id&#x3D;&#39;进行注入，但是后端有一个转义将注入语句变成了?id&#x3D;\&#39;使用?id&#x3D;%df&#39;进行注入结果被转义后的\&#39;和%df结合成为%df\&#39;即%df%5c%27——–&gt;id&#x3D;1運’。这样就组成了一个单引号，成功 以下为URL编码： %27—">
 <meta property="og:type" content="article">
 <meta property="og:title" content="宽字节注入">
-<meta property="og:url" content="http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:url" content="http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="宽字节注入是因为数据库使用了GBK编码，不过现在大都使用unicode国际编码，大多数网站都使用了utf-8的编码 ?id&#x3D;&#39;进行注入，但是后端有一个转义将注入语句变成了?id&#x3D;\&#39;使用?id&#x3D;%df&#39;进行注入结果被转义后的\&#39;和%df结合成为%df\&#39;即%df%5c%27——–&gt;id&#x3D;1運’。这样就组成了一个单引号，成功 以下为URL编码： %27—">
 <meta property="og:locale" content="en_US">
@@ -96,17 +96,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&text=宽字节注入"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&is_video=false&description=宽字节注入"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=宽字节注入&body=Check out this article: http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&name=宽字节注入&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&t=宽字节注入"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&text=宽字节注入"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&is_video=false&description=宽字节注入"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=宽字节注入&body=Check out this article: http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&name=宽字节注入&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&t=宽字节注入"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -195,17 +195,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&text=宽字节注入"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&is_video=false&description=宽字节注入"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=宽字节注入&body=Check out this article: http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&name=宽字节注入&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&t=宽字节注入"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&text=宽字节注入"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&is_video=false&description=宽字节注入"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=宽字节注入&body=Check out this article: http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&title=宽字节注入"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&name=宽字节注入&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/23/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/&t=宽字节注入"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

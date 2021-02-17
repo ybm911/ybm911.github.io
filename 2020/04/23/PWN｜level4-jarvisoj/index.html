@@ -9,7 +9,7 @@
     <meta name="description" content="这道题和 level3 的程序是一样的，就是没有给 libc 版本用 DynELF 函数自动判断 libc，然后可以自动地resolve出所有的函数、数据地址d &#x3D; DynELF(leak, elf&#x3D;ELF(“.&#x2F;level4”))DynELF 配合 leak 使用，leak 模版是: 123456def leak(address):        payload&#x3D;&amp;#x27;a&amp;#x27;*14">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PWN｜level4 jarvisoj">
-<meta property="og:url" content="http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/index.html">
+<meta property="og:url" content="http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="这道题和 level3 的程序是一样的，就是没有给 libc 版本用 DynELF 函数自动判断 libc，然后可以自动地resolve出所有的函数、数据地址d &#x3D; DynELF(leak, elf&#x3D;ELF(“.&#x2F;level4”))DynELF 配合 leak 使用，leak 模版是: 123456def leak(address):        payload&#x3D;&amp;#x27;a&amp;#x27;*14">
 <meta property="og:locale" content="en_US">
@@ -98,17 +98,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&text=PWN｜level4 jarvisoj"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&is_video=false&description=PWN｜level4 jarvisoj"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PWN｜level4 jarvisoj&body=Check out this article: http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&name=PWN｜level4 jarvisoj&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&t=PWN｜level4 jarvisoj"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&text=PWN｜level4 jarvisoj"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&is_video=false&description=PWN｜level4 jarvisoj"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜level4 jarvisoj&body=Check out this article: http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&name=PWN｜level4 jarvisoj&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&t=PWN｜level4 jarvisoj"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -198,17 +198,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&text=PWN｜level4 jarvisoj"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&is_video=false&description=PWN｜level4 jarvisoj"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PWN｜level4 jarvisoj&body=Check out this article: http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&name=PWN｜level4 jarvisoj&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&t=PWN｜level4 jarvisoj"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&text=PWN｜level4 jarvisoj"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&is_video=false&description=PWN｜level4 jarvisoj"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PWN｜level4 jarvisoj&body=Check out this article: http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&title=PWN｜level4 jarvisoj"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&name=PWN｜level4 jarvisoj&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/04/23/PWN%EF%BD%9Clevel4-jarvisoj/&t=PWN｜level4 jarvisoj"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

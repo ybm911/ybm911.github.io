@@ -9,7 +9,7 @@
     <meta name="description" content="ASP.NET漏洞，第一次接触。不过在实际中Windows 的服务器和用 ASP.NET 编写的应用程序并不少（我们学校图书馆的网站） 知识点：  任意文件读取 ASP.NET VIEWSTATE 反序列化有回显RCE Windows命令基本操作     源代码中有VIEWSTATE等值  查看一下文件路径，判断有任意文件读取。  根据 uri 的 .aspx 后缀，目标读取 web.config">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BJDCTF 2nd EasyAspDotNet">
-<meta property="og:url" content="http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/index.html">
+<meta property="og:url" content="http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="ASP.NET漏洞，第一次接触。不过在实际中Windows 的服务器和用 ASP.NET 编写的应用程序并不少（我们学校图书馆的网站） 知识点：  任意文件读取 ASP.NET VIEWSTATE 反序列化有回显RCE Windows命令基本操作     源代码中有VIEWSTATE等值  查看一下文件路径，判断有任意文件读取。  根据 uri 的 .aspx 后缀，目标读取 web.config">
 <meta property="og:locale" content="en_US">
@@ -105,17 +105,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&text=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&is_video=false&description=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=BJDCTF 2nd EasyAspDotNet&body=Check out this article: http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&name=BJDCTF 2nd EasyAspDotNet&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&t=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&text=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&is_video=false&description=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BJDCTF 2nd EasyAspDotNet&body=Check out this article: http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&name=BJDCTF 2nd EasyAspDotNet&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&t=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -226,17 +226,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&text=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&is_video=false&description=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=BJDCTF 2nd EasyAspDotNet&body=Check out this article: http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&name=BJDCTF 2nd EasyAspDotNet&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&t=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&text=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&is_video=false&description=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BJDCTF 2nd EasyAspDotNet&body=Check out this article: http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&title=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&name=BJDCTF 2nd EasyAspDotNet&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/24/BJDCTF-2nd-EasyAspDotNet/&t=BJDCTF 2nd EasyAspDotNet"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -9,7 +9,7 @@
     <meta name="description" content="最近不管是国内还是国外的比赛，对于 NodeJS 或者是 Ruby 等语言知识点的考察都越来越多，即便以前没有学习过这些语言，也还是要有能在接到任务时简单学习语法之后能上手审计的能力。  NodeJS等语言接触的少（基本没有）。。。多练练知识点：  NodeJS代码审计（主要） SSRF 请求夹带（请求路径中包含精心选择的unicode字符，攻击者可以欺骗Node.js将HTTP协议控制字符写入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUU｜[GYCTF2020]Node Game">
-<meta property="og:url" content="http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/index.html">
+<meta property="og:url" content="http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="最近不管是国内还是国外的比赛，对于 NodeJS 或者是 Ruby 等语言知识点的考察都越来越多，即便以前没有学习过这些语言，也还是要有能在接到任务时简单学习语法之后能上手审计的能力。  NodeJS等语言接触的少（基本没有）。。。多练练知识点：  NodeJS代码审计（主要） SSRF 请求夹带（请求路径中包含精心选择的unicode字符，攻击者可以欺骗Node.js将HTTP协议控制字符写入">
 <meta property="og:locale" content="en_US">
@@ -102,17 +102,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&text=BUU｜[GYCTF2020]Node Game"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&is_video=false&description=BUU｜[GYCTF2020]Node Game"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Node Game&body=Check out this article: http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&name=BUU｜[GYCTF2020]Node Game&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&t=BUU｜[GYCTF2020]Node Game"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&text=BUU｜[GYCTF2020]Node Game"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&is_video=false&description=BUU｜[GYCTF2020]Node Game"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Node Game&body=Check out this article: http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&name=BUU｜[GYCTF2020]Node Game&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&t=BUU｜[GYCTF2020]Node Game"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -217,17 +217,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&text=BUU｜[GYCTF2020]Node Game"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&is_video=false&description=BUU｜[GYCTF2020]Node Game"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Node Game&body=Check out this article: http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&name=BUU｜[GYCTF2020]Node Game&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&t=BUU｜[GYCTF2020]Node Game"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&text=BUU｜[GYCTF2020]Node Game"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&is_video=false&description=BUU｜[GYCTF2020]Node Game"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BUU｜[GYCTF2020]Node Game&body=Check out this article: http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&title=BUU｜[GYCTF2020]Node Game"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&name=BUU｜[GYCTF2020]Node Game&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/24/BUU%EF%BD%9C-GYCTF2020-Node-Game/&t=BUU｜[GYCTF2020]Node Game"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

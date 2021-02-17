@@ -9,7 +9,7 @@
     <meta name="description" content="start Just a start.  ROP类型的题 writeup 这道题注意的一个点就是 ret 的时候 esp 向下移动了一下，别忘了 劫持程序流的时候ret指令相当于pop eip。然后执行完ret后的esp指向的就是下一个栈地址了 下一个栈地址中保存着栈地址信息 1234567891011121314151617181920212223242526272829303132333435">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwnable 做题记录">
-<meta property="og:url" content="http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:url" content="http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="start Just a start.  ROP类型的题 writeup 这道题注意的一个点就是 ret 的时候 esp 向下移动了一下，别忘了 劫持程序流的时候ret指令相当于pop eip。然后执行完ret后的esp指向的就是下一个栈地址了 下一个栈地址中保存着栈地址信息 1234567891011121314151617181920212223242526272829303132333435">
 <meta property="og:locale" content="en_US">
@@ -95,17 +95,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable 做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable 做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable 做题记录&body=Check out this article: http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable 做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&t=pwnable 做题记录"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable 做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable 做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable 做题记录&body=Check out this article: http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable 做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&t=pwnable 做题记录"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -211,17 +211,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable 做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable 做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable 做题记录&body=Check out this article: http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable 做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&t=pwnable 做题记录"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable 做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable 做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable 做题记录&body=Check out this article: http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable 做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable 做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/3007/01/09/pwnable-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&t=pwnable 做题记录"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

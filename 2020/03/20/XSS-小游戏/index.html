@@ -9,7 +9,7 @@
     <meta name="description" content="在BUU上做了一道关于前端的题目，完全看不懂wp。赶紧恶补一下前端的漏洞   这种前端的题目，建议直接看网络传过来的html源码，（浏览器有一定的容错能力，他会补足不完整的标签）查看器会自动作出改变。    常见的xss payloadalert(document.cookie) 123456&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;svg&amp;#x">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS 小游戏">
-<meta property="og:url" content="http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:url" content="http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="在BUU上做了一道关于前端的题目，完全看不懂wp。赶紧恶补一下前端的漏洞   这种前端的题目，建议直接看网络传过来的html源码，（浏览器有一定的容错能力，他会补足不完整的标签）查看器会自动作出改变。    常见的xss payloadalert(document.cookie) 123456&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;svg&amp;#x">
 <meta property="og:locale" content="en_US">
@@ -104,17 +104,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -229,17 +229,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&text=XSS 小游戏"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&is_video=false&description=XSS 小游戏"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS 小游戏&body=Check out this article: http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&title=XSS 小游戏"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&name=XSS 小游戏&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/03/20/XSS-%E5%B0%8F%E6%B8%B8%E6%88%8F/&t=XSS 小游戏"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

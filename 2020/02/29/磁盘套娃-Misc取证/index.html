@@ -9,7 +9,7 @@
     <meta name="description" content="原题下载  是2020i春秋杯网络安全联赛的一道Misc题目，以前这种类型的接触比较少，在此简单记录一下。夏风师傅的wp、官方的wp  用Winhex打开文件题目文件。选择“将镜像文件转换为磁盘”，可以看到文件目录。进入分区1…   这里介绍一下偏移量的概念：汇编语言中的定义为：把存储单元的实际地址与其所在段的段地址之间的距离称为段内偏移，也称为“有效地址或偏移量”。 亦： 存储单元的实际地址与其">
 <meta property="og:type" content="article">
 <meta property="og:title" content="磁盘套娃-Misc取证">
-<meta property="og:url" content="http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/index.html">
+<meta property="og:url" content="http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
 <meta property="og:description" content="原题下载  是2020i春秋杯网络安全联赛的一道Misc题目，以前这种类型的接触比较少，在此简单记录一下。夏风师傅的wp、官方的wp  用Winhex打开文件题目文件。选择“将镜像文件转换为磁盘”，可以看到文件目录。进入分区1…   这里介绍一下偏移量的概念：汇编语言中的定义为：把存储单元的实际地址与其所在段的段地址之间的距离称为段内偏移，也称为“有效地址或偏移量”。 亦： 存储单元的实际地址与其">
 <meta property="og:locale" content="en_US">
@@ -113,17 +113,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&text=磁盘套娃-Misc取证"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&is_video=false&description=磁盘套娃-Misc取证"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=磁盘套娃-Misc取证&body=Check out this article: http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&name=磁盘套娃-Misc取证&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&t=磁盘套娃-Misc取证"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&text=磁盘套娃-Misc取证"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&is_video=false&description=磁盘套娃-Misc取证"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=磁盘套娃-Misc取证&body=Check out this article: http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&name=磁盘套娃-Misc取证&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&t=磁盘套娃-Misc取证"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -196,7 +196,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003511.jpg" alt="UsnJrnl2Csv"></p>
 <p>得到的csv文件如下</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003528.png" alt="csv"></p>
-<p>可以发现，在日志中，除了以上提到过的文件外，还有对新建文本文档.txt和<a href="mailto:&#x39;&#111;&#x37;&#64;&#88;&#x73;&#55;&#56;&#73;&#x30;&#x2e;&#116;&#x78;&#x74;">&#x39;&#111;&#x37;&#64;&#88;&#x73;&#55;&#56;&#73;&#x30;&#x2e;&#116;&#x78;&#x74;</a>的操作，猜测是修改了文件名。使用<code>9o7@Xs78I0</code>进行加密磁盘的解密，成功了。</p>
+<p>可以发现，在日志中，除了以上提到过的文件外，还有对新建文本文档.txt和<a href="mailto:&#x39;&#x6f;&#55;&#x40;&#x58;&#115;&#x37;&#56;&#73;&#x30;&#x2e;&#116;&#120;&#116;">&#x39;&#x6f;&#55;&#x40;&#x58;&#115;&#x37;&#56;&#73;&#x30;&#x2e;&#116;&#120;&#116;</a>的操作，猜测是修改了文件名。使用<code>9o7@Xs78I0</code>进行加密磁盘的解密，成功了。</p>
 <p>但是打开之后提示磁盘格式错误，需要格式化（点击取消）。应该是引导分区出了问题，在Winhex中打开，在winhex使用快捷键F9打开此磁盘。<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003541.png" alt="winhex快捷键"><br>根据DBR可以发现扇区偏移16进制数的00-10被擦写为0，残余DBR可以看出文件系统是FAT16。<br>在此处有两个方法获得flag，一是直接在打开的16进制中查找关于flag的字段。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003557.png" alt="winhex_flag1"></p>
 <p>二是手动修复FAT16磁盘。手动修复又有两种方法：1、用工具Dekart Private Disk创建一个相同的加密磁盘然后进行分析。2、依据FAT分区的磁盘结构，手动恢复被擦除的DBR引导记录的字节。（第二种方法细节可以查看文章开头的链接🔗）</p>
@@ -246,17 +246,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&text=磁盘套娃-Misc取证"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&is_video=false&description=磁盘套娃-Misc取证"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=磁盘套娃-Misc取证&body=Check out this article: http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&name=磁盘套娃-Misc取证&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://ybm911.work/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&t=磁盘套娃-Misc取证"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&text=磁盘套娃-Misc取证"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&is_video=false&description=磁盘套娃-Misc取证"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=磁盘套娃-Misc取证&body=Check out this article: http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&title=磁盘套娃-Misc取证"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&name=磁盘套娃-Misc取证&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2020/02/29/%E7%A3%81%E7%9B%98%E5%A5%97%E5%A8%83-Misc%E5%8F%96%E8%AF%81/&t=磁盘套娃-Misc取证"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
