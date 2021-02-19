@@ -60,10 +60,6 @@
     {
         position:relative;
     }
-    .move_up
-    {
-        position:relative;
-    }
 </style>
 
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
@@ -72,15 +68,6 @@
 $(document).ready(function(){
        $("#logo").animate({right:'250px'});
        $("#logo").animate({left:'0px'});
-});
-</script>
-
-<script>
-$(document).ready(function(){
-       //$(".move").animate({opacity:'0.5'});
-       $(".move_up").animate({bottom:'250px'});
-       //$(".move").animate({opacity:'1'});
-       $(".move_up").animate({top:'0'});
 });
 </script>
 
@@ -160,10 +147,10 @@ $(document).ready(function(){
   
 </section>
 
-<section id="writing" class="fade">
+<section id="writing">
   <span class="h1"><a href="/archives/">Writing</a></span>
   
-  <ul class="post-list">
+  <ul class="post-list fade">
     
     
       
@@ -273,14 +260,23 @@ $(document).ready(function(){
   
 </section>
 
-<section id="projects" class="fade">
-    <center><span class="h1">SpaceX</span></center>
-    <ul class="project-list">
+<section id="projects">
+    <span class="h1">SpaceX</span>
+    <ul class="project-list fade">
         <li class="project-item">
-            <center>
-                <img width="100" src="https://i.imgur.com/BrW201S.png"/>
-            </center>
-            <p id="api_data"></p>
+            <p id="api_data1" class="fade">SpaceX api data loading…</p>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <li class="project-item">
+            <p id="api_data2" class="fade">SpaceX api data loading…</p>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <center><li class="project-item" id="api_data_img"></li>
+        </center>
         </li>
     </ul>
   </section>
@@ -314,12 +310,17 @@ $(document).ready(function(){
     </script>
 
 <script>
-$(document).ready(function(){
-        // latest lunch
-		$("#api_data").load("https://api.spacexdata.com/v4/launches/latest");
-        $("#api_data").fadeIn(3000);
-        $("#api_data").slideDown("slow");
-});
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    document.getElementById("api_data1").innerHTML = "static fire date: " + myObj.static_fire_date_utc;
+    document.getElementById("api_data2").innerHTML = "name: " + myObj.name;
+    document.getElementById("api_data_img").innerHTML = "<img width=100px src=" + myObj.links.patch.small + "><br><p>mission logo</p>";
+  }
+};
+xmlhttp.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
+xmlhttp.send();
 </script>
 
 
