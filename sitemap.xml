@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://spacey.top/2021/02/19/Blog-Theme-Change/</loc>
+    
+    <lastmod>2021-02-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://spacey.top/2020/12/18/%E4%BA%92%E8%81%94%E7%BD%91%E6%AD%A3%E5%9C%A8%E6%94%B9%E5%8F%98%E4%BD%A0%E7%9A%84%E6%80%9D%E6%83%B3%EF%BD%9Cthe-social-dilemma/</loc>
     
     <lastmod>2021-02-17</lastmod>
@@ -1103,6 +1110,20 @@
   </url>
   
   <url>
+    <loc>http://spacey.top/tags/Blog/</loc>
+    <lastmod>2021-02-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://spacey.top/tags/JavaScript/</loc>
+    <lastmod>2021-02-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://spacey.top/tags/%E5%88%A9%E5%99%A8/</loc>
     <lastmod>2021-02-19</lastmod>
     <changefreq>daily</changefreq>
@@ -1215,13 +1236,6 @@
   </url>
   
   <url>
-    <loc>http://spacey.top/tags/JavaScript/</loc>
-    <lastmod>2021-02-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://spacey.top/tags/python/</loc>
     <lastmod>2021-02-19</lastmod>
     <changefreq>daily</changefreq>
@@ -1236,13 +1250,6 @@
   </url>
   
   <url>
-    <loc>http://spacey.top/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85/</loc>
-    <lastmod>2021-02-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://spacey.top/tags/CentOS/</loc>
     <lastmod>2021-02-19</lastmod>
     <changefreq>daily</changefreq>
@@ -1250,14 +1257,14 @@
   </url>
   
   <url>
-    <loc>http://spacey.top/tags/Mac/</loc>
+    <loc>http://spacey.top/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85/</loc>
     <lastmod>2021-02-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://spacey.top/tags/Blog/</loc>
+    <loc>http://spacey.top/tags/Mac/</loc>
     <lastmod>2021-02-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
