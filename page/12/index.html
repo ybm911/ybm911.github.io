@@ -242,6 +242,28 @@
   
 </section>
 
+<section id="projects">
+    <center><span class="h1">SpaceX</span></center>
+    <ul class="project-list">
+        <li class="project-item">
+            <center>
+                <img width="100" src="https://i.imgur.com/BrW201S.png"/>
+            </center>
+            <p id='p1' style="display:none;">show data</p>
+        </li>
+    </ul>
+  </section>
+
+ <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+ </script>
+
+<script>
+$(document).ready(function(){
+		$("#p1").load("https://api.spacexdata.com/v4/launches/latest");
+        $("#p1").fadeIn();
+});
+</script>
+
 
 
         
