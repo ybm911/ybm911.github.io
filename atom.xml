@@ -78,15 +78,15 @@
     <link href="http://spacey.top/2021/02/19/Blog-Theme-Change/"/>
     <id>http://spacey.top/2021/02/19/Blog-Theme-Change/</id>
     <published>2021-02-19T11:49:04.000Z</published>
-    <updated>2021-02-19T03:50:00.579Z</updated>
+    <updated>2021-02-19T03:55:19.329Z</updated>
     
-    <content type="html"><![CDATA[<p>logo -&gt; header.ejs</p>]]></content>
+    <content type="html"><![CDATA[<p>logo -&gt; header.ejs</p><p><code>baidu_analytics</code> and <code>google_analytics</code>  option in <code>_config.yml</code> make the website slow.</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;logo -&amp;gt; header.ejs&lt;/p&gt;
-</summary>
+&lt;p&gt;&lt;code&gt;baidu_analytics&lt;/code&gt; and &lt;code&gt;google_analytics&lt;/code&gt;  option in &lt;code&gt;_config.yml&lt;/code&gt; make the </summary>
       
     
     

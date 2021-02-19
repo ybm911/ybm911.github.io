@@ -54,6 +54,24 @@
     <div class="content index py4">
         
           <header id="header">
+
+  <style type="text/css">
+    #logo
+    {
+        position:relative;
+    }
+</style>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+       $("#logo").animate({right:'250px'});
+       $("#logo").animate({left:'0px'});
+});
+</script>
+
+
   <a href="/">
   
     
@@ -143,7 +161,7 @@
     <div class="meta">
       
         
-          <time datetime="2021-02-19T03:50:00.579Z" itemprop="dateModified">2021-02-19</time>
+          <time datetime="2021-02-19T03:55:19.329Z" itemprop="dateModified">2021-02-19</time>
         
       
     </div>
@@ -249,7 +267,7 @@
             <center>
                 <img width="100" src="https://i.imgur.com/BrW201S.png"/>
             </center>
-            <p id='api_data'></p>
+            <p id="api_data"></p>
         </li>
     </ul>
   </section>
@@ -259,14 +277,12 @@
 
 
 
-  
+
 
   <style type="text/css">
     #api_data
     {
-        padding:50px;
-        position:absolute;
-        /*display:none;*/
+        display:none;
     }
 </style>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
@@ -276,8 +292,8 @@
 $(document).ready(function(){
         // latest lunch
 		$("#api_data").load("https://api.spacexdata.com/v4/launches/latest");
-        //$("#api_data").slideDown("slow");
-        $("#api_data").animate({left:'250px'});
+        $("#api_data").fadeIn(3000);
+        $("#api_data").slideDown("slow");
 });
 </script>
 
