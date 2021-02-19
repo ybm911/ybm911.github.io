@@ -262,28 +262,62 @@ $(document).ready(function(){
 
 <section id="projects">
     <span class="h1">SpaceX</span>
+    <div class="api_slow_fade">
     <ul class="project-list fade">
         <li class="project-item">
-            <p id="api_data1" class="fade">SpaceX api data loading…</p>
+            <p class="fade" style="font-size: 20px;">launches upcoming</p>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <li class="project-item" id="api_data_upcoming_small_logo"></li>
         </li>
     </ul>
 
     <ul class="project-list fade">
         <li class="project-item">
-            <p id="api_data2" class="fade">SpaceX api data loading…</p>
+            <p id="api_data_upcoming_name" class="fade">SpaceX api data loading…</p>
         </li>
     </ul>
 
     <ul class="project-list fade">
-        <center><li class="project-item" id="api_data_img"></li>
-        </center>
+        <li class="project-item">
+            <p id="api_data_upcoming_static_fire" class="fade">SpaceX api data loading…</p>
         </li>
     </ul>
+
+
+    <ul class="project-list fade">
+        <li class="project-item">
+            <p class="fade" style="font-size: 20px;">launches latest</p>
+        </li>
+    </ul>
+
+
+    <ul class="project-list fade">
+        <li class="project-item" id="api_data_latest_small_logo"></li>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <li class="project-item">
+            <p id="api_data_latest_name" class="fade">SpaceX api data loading…</p>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <li class="project-item">
+            <p id="api_data_latest_date" class="fade">SpaceX api data loading…</p>
+        </li>
+    </ul>
+
+    <ul class="project-list fade">
+        <li class="project-item">
+            <p id="api_data_latest_landing_success" class="fade">SpaceX api data loading…</p>
+        </li>
+    </ul>
+</div>
   </section>
-
-
-
-
 
 
 
@@ -292,7 +326,7 @@ $(document).ready(function(){
     {
         display:none;
     }
-    .fade
+    .fade, .api_slow_fade
     {
         position:relative;
         display:none;
@@ -306,28 +340,56 @@ $(document).ready(function(){
             // latest lunch
             $(".fade").fadeIn(1000);
             $(".fade").slideDown("slow");
+            $(".api_slow_fade").fadeIn(5000);
+            $(".api_slow_fade").slideDown("slow");
     });
     </script>
 
+
 <script>
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
+    Date.prototype.Format = function (fmt) {
+    var o = {
+            "M+": this.getMonth() + 1, // 月份
+            "d+": this.getDate(), // 日
+            "h+": this.getHours(), // 小时
+            "m+": this.getMinutes(), // 分
+            "s+": this.getSeconds(), // 秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+            "S": this.getMilliseconds() // 毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + ""));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+    
+    var xmlhttp_upcoming = new XMLHttpRequest();
+    xmlhttp_upcoming.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        document.getElementById("api_data_upcoming_name").innerHTML = "name: " + myObj[0].name;
+        document.getElementById("api_data_upcoming_static_fire").innerHTML = "date: " + new Date((myObj[0].date_unix) * 1000).Format('yy-MM-dd hh:mm:ss');
+        document.getElementById("api_data_upcoming_small_logo").innerHTML = "<img width=100px src=" + myObj[0].links.patch.small + ">";
+      }
+    };
+    xmlhttp_upcoming.open("GET", "https://api.spacexdata.com/v4/launches/upcoming", true);
+    xmlhttp_upcoming.send();
+
+
+var xmlhttp_latest = new XMLHttpRequest();
+xmlhttp_latest.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var myObj = JSON.parse(this.responseText);
-    document.getElementById("api_data1").innerHTML = "static fire date: " + myObj.static_fire_date_utc;
-    document.getElementById("api_data2").innerHTML = "name: " + myObj.name;
-    document.getElementById("api_data_img").innerHTML = "<img width=100px src=" + myObj.links.patch.small + "><br><p>mission logo</p>";
+    document.getElementById("api_data_latest_name").innerHTML = "name: " + myObj.name;
+    document.getElementById("api_data_latest_date").innerHTML = "date: " + new Date(parseInt(myObj.date_unix) * 1000).Format('yy-MM-dd hh:mm:ss');
+    document.getElementById("api_data_latest_small_logo").innerHTML = "<img width=100px src=" + myObj.links.patch.small + ">";
+    document.getElementById("api_data_latest_landing_success").innerHTML = "landing success: " + myObj.cores[0].landing_success;
   }
 };
-xmlhttp.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
-xmlhttp.send();
+xmlhttp_latest.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
+xmlhttp_latest.send();
 </script>
-
-
-
-
-
-
 
 
 
