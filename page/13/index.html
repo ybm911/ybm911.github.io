@@ -60,6 +60,10 @@
     {
         position:relative;
     }
+    .move_up
+    {
+        position:relative;
+    }
 </style>
 
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
@@ -71,6 +75,15 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+$(document).ready(function(){
+       //$(".move").animate({opacity:'0.5'});
+       $(".move_up").animate({bottom:'250px'});
+       //$(".move").animate({opacity:'1'});
+       $(".move_up").animate({top:'0'});
+});
+</script>
+
 
   <a href="/">
   
@@ -78,7 +91,7 @@ $(document).ready(function(){
       <div id="logo" style="background-image: url(/images/logo.png);"></div>
     
   
-    <div id="title">
+    <div id="title" class="move_up">
       <h1>Elli0t&#39;s Blog</h1>
     </div>
   </a>
@@ -147,7 +160,7 @@ $(document).ready(function(){
   
 </section>
 
-<section id="writing">
+<section id="writing" class="fade">
   <span class="h1"><a href="/archives/">Writing</a></span>
   
   <ul class="post-list">
@@ -161,7 +174,7 @@ $(document).ready(function(){
     <div class="meta">
       
         
-          <time datetime="2021-02-19T03:55:19.329Z" itemprop="dateModified">2021-02-19</time>
+          <time datetime="2021-02-19T05:43:17.888Z" itemprop="dateModified">2021-02-19</time>
         
       
     </div>
@@ -260,7 +273,7 @@ $(document).ready(function(){
   
 </section>
 
-<section id="projects">
+<section id="projects" class="fade">
     <center><span class="h1">SpaceX</span></center>
     <ul class="project-list">
         <li class="project-item">
@@ -278,15 +291,27 @@ $(document).ready(function(){
 
 
 
-
   <style type="text/css">
     #api_data
     {
         display:none;
     }
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
 </style>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
  </script>
+
+<script>
+    $(document).ready(function(){
+            // latest lunch
+            $(".fade").fadeIn(1000);
+            $(".fade").slideDown("slow");
+    });
+    </script>
 
 <script>
 $(document).ready(function(){

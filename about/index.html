@@ -67,6 +67,10 @@
     {
         position:relative;
     }
+    .move_up
+    {
+        position:relative;
+    }
 </style>
 
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
@@ -78,6 +82,15 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+$(document).ready(function(){
+       //$(".move").animate({opacity:'0.5'});
+       $(".move_up").animate({bottom:'250px'});
+       //$(".move").animate({opacity:'1'});
+       $(".move_up").animate({top:'0'});
+});
+</script>
+
 
   <a href="/">
   
@@ -85,7 +98,7 @@ $(document).ready(function(){
       <div id="logo" style="background-image: url(/images/logo.png);"></div>
     
   
-    <div id="title">
+    <div id="title" class="move_up">
       <h1>Elli0t&#39;s Blog</h1>
     </div>
   </a>
