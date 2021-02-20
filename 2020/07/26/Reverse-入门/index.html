@@ -66,6 +66,8 @@
          
           <li><a href="/about/">About</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
@@ -117,7 +119,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -155,6 +157,23 @@
   <div class="content" itemprop="articleBody">
     
   </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
 </article>
 
 
@@ -169,6 +188,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -226,6 +247,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          

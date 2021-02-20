@@ -75,6 +75,8 @@
          
           <li><a href="/about/">About</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
@@ -126,7 +128,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -202,6 +204,23 @@
 <p>演示视频</p>
 <iframe width="100%" height="500" src="//player.bilibili.com/player.html?aid=668793651&bvid=BV1Da4y1h7Sq&cid=212493629&page=1" scrolling="yes" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
   </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
 </article>
 
 
@@ -216,6 +235,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -273,6 +294,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          

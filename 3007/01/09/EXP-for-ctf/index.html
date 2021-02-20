@@ -71,6 +71,8 @@
          
           <li><a href="/about/">About</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
@@ -122,7 +124,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -174,6 +176,23 @@
 <h3 id="base64-to-str"><a href="#base64-to-str" class="headerlink" title="base64 to str"></a>base64 to str</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">base = <span class="built_in">open</span>(<span class="string">&quot;base.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">resu = <span class="built_in">open</span>(<span class="string">&quot;resu.txt&quot;</span>, <span class="string">&quot;a&quot;</span>)</span><br><span class="line">line = base.readline()</span><br><span class="line"><span class="keyword">while</span> line:</span><br><span class="line">    resu_line = base64.b64decode(line)</span><br><span class="line">    resu_line = resu_line.decode()</span><br><span class="line">    resu.write(resu_line)</span><br><span class="line">    line = base.readline()</span><br><span class="line">base.close()</span><br><span class="line">resu.close()</span><br></pre></td></tr></table></figure>
 
   </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
 </article>
 
 
@@ -188,6 +207,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -245,6 +266,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          

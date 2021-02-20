@@ -551,7 +551,7 @@ body {
   }
 }
 .max-width {
-  max-width: 48rem;
+  max-width: 70rem;
 }
 @media (max-width: 480px) {
   .px3 {
@@ -594,10 +594,10 @@ body {
   display: inline-block;
   float: left;
   margin-right: 20px;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border-radius: 5px;
-  background-size: 50px 50px;
+  background-size: 75px 75px;
   background-repeat: no-repeat;
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
@@ -650,7 +650,7 @@ body {
   #header #title {
     display: table;
     margin-right: 5rem;
-    min-height: 50px;
+    min-height: 75px;
   }
   #header #title h1 {
     display: table-cell;
@@ -674,7 +674,7 @@ body {
   }
   #header #nav li:not(:first-child) {
     padding-top: 1rem;
-    padding-left: 70px;
+    padding-left: 95px;
     font-size: 1rem;
   }
 }
@@ -1487,67 +1487,82 @@ article .content .caption {
   content: ")";
 }
 .highlight {
-  background: #474949;
-  color: #d1d9e1;
+  background: #232323;
+  color: #e6e1dc;
 }
 .highlight .code .comment,
 .highlight .code .quote {
-  color: #969896;
+  color: #bc9458;
   font-style: italic;
 }
 .highlight .code .keyword,
-.highlight .code .selector-tag,
-.highlight .code .literal,
-.highlight .code .type,
-.highlight .code .addition {
-  color: #c9c;
-}
-.highlight .code .number,
-.highlight .code .selector-attr,
-.highlight .code .selector-pseudo {
-  color: #f99157;
+.highlight .code .selector-tag {
+  color: #c26230;
 }
 .highlight .code .string,
-.highlight .code .doctag,
-.highlight .code .regexp {
-  color: #8abeb7;
-}
-.highlight .code .title,
-.highlight .code .name,
-.highlight .code .section,
-.highlight .code .built_in {
-  color: #b5bd68;
-}
+.highlight .code .number,
+.highlight .code .regexp,
 .highlight .code .variable,
-.highlight .code .template-variable,
-.highlight .code .selector-id,
-.highlight .code .class .title {
-  color: #fc6;
+.highlight .code .template-variable {
+  color: #a5c261;
 }
-.highlight .code .section,
-.highlight .code .name,
-.highlight .code .strong {
-  font-weight: bold;
+.highlight .code .subst {
+  color: #519f50;
+}
+.highlight .code .tag,
+.highlight .code .name {
+  color: #e8bf6a;
+}
+.highlight .code .type {
+  color: #da4939;
 }
 .highlight .code .symbol,
 .highlight .code .bullet,
-.highlight .code .subst,
-.highlight .code .meta,
+.highlight .code .built_in,
+.highlight .code .builtin-name,
+.highlight .code .attr,
 .highlight .code .link {
-  color: #f99157;
+  color: #6d9cbe;
+}
+.highlight .code .params {
+  color: #d0d0ff;
+}
+.highlight .code .attribute {
+  color: #cda869;
+}
+.highlight .code .meta {
+  color: #9b859d;
+}
+.highlight .code .title,
+.highlight .code .section {
+  color: #ffc66d;
+}
+.highlight .code .addition {
+  display: inline-block;
+  width: 100%;
+  background-color: #144212;
+  color: #e6e1dc;
 }
 .highlight .code .deletion {
-  color: #dc322f;
+  display: inline-block;
+  width: 100%;
+  background-color: #600;
+  color: #e6e1dc;
 }
-.highlight .code .formula {
-  background: #eee8d5;
+.highlight .code .selector-class {
+  color: #9b703f;
 }
-.highlight .code .attr,
-.highlight .code .attribute {
-  color: #81a2be;
+.highlight .code .selector-id {
+  color: #8b98ab;
 }
 .highlight .code .emphasis {
   font-style: italic;
+}
+.highlight .code .strong {
+  font-weight: bold;
+}
+.highlight .code .link {
+  text-decoration: underline;
 }
 pre {
   overflow-x: auto;

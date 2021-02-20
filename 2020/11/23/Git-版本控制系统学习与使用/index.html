@@ -75,6 +75,8 @@
          
           <li><a href="/about/">About</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
@@ -126,7 +128,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -179,6 +181,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:starfishing&#x2F;learngit.git</span><br><span class="line">把上面的starfishing替换成你自己的GitHub账户名，后面为你刚刚自己创建的仓库名</span><br><span class="line"></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 
   </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
 </article>
 
 
@@ -193,6 +212,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -250,6 +271,8 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
+         
+          <li><a href="/space/">space</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
