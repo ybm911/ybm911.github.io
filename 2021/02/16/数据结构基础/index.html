@@ -6,14 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构基础">
+    <meta name="description" content="Abstract data typesData Structures (DS) is a way of organizing data so that it can be used effectively.  Why Data Structures? They are essential (基本要素) ingredients (因素) in creating fast and powerful a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Structures (DS) 基础">
 <meta property="og:url" content="http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="Abstract data typesData Structures (DS) is a way of organizing data so that it can be used effectively.  Why Data Structures? They are essential (基本要素) ingredients (因素) in creating fast and powerful a">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-16T10:39:17.000Z">
-<meta property="article:modified_time" content="2021-02-16T02:39:17.292Z">
+<meta property="article:modified_time" content="2021-02-22T04:00:23.661Z">
 <meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="Data_Structures">
 <meta name="twitter:card" content="summary">
     
     
@@ -34,7 +37,7 @@
       
     
     <!-- title -->
-    <title>数据结构基础</title>
+    <title>Data Structures (DS) 基础</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -96,21 +99,21 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&text=数据结构基础"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&is_video=false&description=数据结构基础"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=数据结构基础&body=Check out this article: http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&name=数据结构基础&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&t=数据结构基础"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&text=Data Structures (DS) 基础"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&is_video=false&description=Data Structures (DS) 基础"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Data Structures (DS) 基础&body=Check out this article: http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&name=Data Structures (DS) 基础&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&t=Data Structures (DS) 基础"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract-data-types"><span class="toc-number">1.</span> <span class="toc-text">Abstract data types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Big-O"><span class="toc-number">2.</span> <span class="toc-text">Big-O</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -122,7 +125,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        数据结构基础
+        Data Structures (DS) 基础
     </h1>
 
 
@@ -143,13 +146,56 @@
       
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Data-Structures/" rel="tag">Data_Structures</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    
+    <h2 id="Abstract-data-types"><a href="#Abstract-data-types" class="headerlink" title="Abstract data types"></a>Abstract data types</h2><p>Data Structures (DS) is a way of organizing data so that it can be used effectively.</p>
+<blockquote>
+<p>Why Data Structures?</p>
+<p>They are essential (基本要素) ingredients (因素) in creating fast and powerful algorithms.</p>
+<p>They help to manage and organize data.</p>
+<p>They make code cleaner and easier to understand.</p>
+</blockquote>
+<p>Abstract (理论) Data Type (ADT)</p>
+<blockquote>
+<p>An abstract data type (ADT) is an abstraction of a data structure which provides only the interface to which a data structure must adhere (遵守) to.</p>
+<p>The interface does not give any specific (具体的) details about how something should be implemented (工具) or in what programming language.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Abstraction (ADT)</th>
+<th align="center">Implementation (实施) (DS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">List</td>
+<td align="center">Dynamic Array or Linked List</td>
+</tr>
+<tr>
+<td align="center">queue (队列)</td>
+<td align="center">Linked List based Queue or Array based Queue or Stack based Queue</td>
+</tr>
+<tr>
+<td align="center">Map</td>
+<td align="center">Tree Map or Hash Map / Hash Table</td>
+</tr>
+<tr>
+<td align="center">Vehicle (工具\交通工具)</td>
+<td align="center">Golf Cart or Bicycle or Smart Car</td>
+</tr>
+</tbody></table>
+<h2 id="Big-O"><a href="#Big-O" class="headerlink" title="Big-O"></a>Big-O</h2><p>Complexity Analysis: time and space in my program.</p>
+<p>Big-O Notation gives an upper bound of the complexity in the worst case, helping to quantify (量化) performance as the input size becomes arbitrarily (武断地) large.</p>
+
   </div>
   <style type="text/css">
     .fade
@@ -195,22 +241,22 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract-data-types"><span class="toc-number">1.</span> <span class="toc-text">Abstract data types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Big-O"><span class="toc-number">2.</span> <span class="toc-text">Big-O</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&text=数据结构基础"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&is_video=false&description=数据结构基础"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=数据结构基础&body=Check out this article: http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=数据结构基础"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&name=数据结构基础&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&t=数据结构基础"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&text=Data Structures (DS) 基础"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&is_video=false&description=Data Structures (DS) 基础"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Data Structures (DS) 基础&body=Check out this article: http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&title=Data Structures (DS) 基础"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&name=Data Structures (DS) 基础&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/02/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/&t=Data Structures (DS) 基础"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
