@@ -74,6 +74,34 @@
   </entry>
   
   <entry>
+    <title>pwn 环境 init</title>
+    <link href="http://spacey.top/2021/03/21/pwn-%E7%8E%AF%E5%A2%83-init/"/>
+    <id>http://spacey.top/2021/03/21/pwn-%E7%8E%AF%E5%A2%83-init/</id>
+    <published>2021-03-20T21:55:44.000Z</published>
+    <updated>2021-03-22T11:12:38.821Z</updated>
+    
+    <content type="html"><![CDATA[<p>list:</p><ul><li>pwntools</li><li>pwndbg</li><li><a href="https://github.com/scwuaptx/Pwngdb">pwngdb</a></li><li>gcc</li><li>Vim 插件<ul><li><a href="https://github.com/SirVer/ultisnips">ultisnips</a></li><li><a href="https://github.com/VundleVim/Vundle.vim">Vundle.vim</a></li><li><a href="https://github.com/amix/vimrc">vimrc</a></li><li><a href="https://github.com/altercation/vim-colors-solarized">vim-colors-solarized</a></li></ul></li><li>ROPgadget:</li><li>one_gadget</li></ul><blockquote><p>16.04安装 one_gadget 由于默认 apt 安装的<a href="https://askubuntu.com/questions/1175693/how-to-upgrade-ruby-to-version-2-4-4-on-ubuntu-16-04-for-wpscan"> ruby 版本太老遇到问题</a>。</p><p>使用<a href="https://www.brightbox.com/docs/ruby/ubuntu/"> brightbox 软件包获得新 ruby</a></p></blockquote><p>libc 版本查询：<a href="https://github.com/blukat29/search-libc">search-libc</a></p><blockquote><p>原理：虽然 libc 在动态装载，但是 glibc 后3位是固定的（为零），每个版本的 libc 内部函数偏移是不同的，所以根据泄露出的地址后三位可以查找到 libc 版本</p><p><a href="https://libc.blukat.me/">查询网址1</a> <a href="https://libc.nullbyte.cat/">镜像网址</a></p></blockquote><ul><li><a href="https://rizin.re/">rizin</a>: 逆向工程框架</li></ul><p><a href="https://cutter.re/">https://cutter.re/</a></p><p><a href="http://taqini.space/2020/05/02/cutter-intro/">https://cutter.re/ 教程</a></p><p><a href="https://www.youtube.com/watch?v=w8Bl5ZSmmZM&list=PLjIhlLNy_Y9Po69BDCTEnrKvwLneSkG26&index=5">视频教程</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pwntools&lt;/li&gt;
+&lt;li&gt;pwndbg&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/scwuaptx/Pwngdb&quot;&gt;pwngdb&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;li&gt;Vim 插件</summary>
+      
+    
+    
+    
+    
+    <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数字货币</title>
     <link href="http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/"/>
     <id>http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/</id>
@@ -488,29 +516,6 @@
     
     
     <category term="Linux" scheme="http://spacey.top/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>个人学习方法和资料💾</title>
-    <link href="http://spacey.top/2020/12/21/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%92%8C%E8%B5%84%E6%96%99%F0%9F%92%BE/"/>
-    <id>http://spacey.top/2020/12/21/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%92%8C%E8%B5%84%E6%96%99%F0%9F%92%BE/</id>
-    <published>2020-12-20T16:33:20.000Z</published>
-    <updated>2021-02-24T15:55:49.082Z</updated>
-    
-    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="error" data-whm="wrong hash">  <script id="hbeData" type="hbeData" data-hmacdigest="2c98263b0e6fc7b10eaaa893ab20d3998aae8aa8cb218fd0e5aeceb12fa228ce">66407615c611b88c296c3e74925544f7dcb3f45697ab039ac15174fb82d03669b3ee64010f8f40e171e6c862310b88021a7cd0599b7c00ab22df3ee7e2d212ce6114172acdc5fc94cee53f28de73c1410e9e8deeafdb3bd5013d3fdada987ad09e962f80a2270cbb39830535724c1f2ff93022feec0ea352c287c916ffd085bbff21f7613cdb4d67d399891315a7af5113f83781b62e779cab2358c3f7f53fd0134c93db5b4f1e28714cb7e1507f2390c011d51fe1597cd246620c20af8ee672a8bc4fea1f31b5cdbc9b5839714a9dad6fa2a584d718addaf934a02175277984031013e6341c9b240a88c4f2b3797294ae8193f47c5e47842a7d769aa444d773655ac000780f62b69bec051524d75adc75f8db2d73ae6885d320759e80be892939d697c5038b029cfffff623b82e616e451f51cf5153834226a3e95c549a320ccec2b3c2323a21d51b0f04593dda859989f6865ab9dbfb9bbd61159ef0c668ef8dc2fa636542735e869f1790ccdea6ffa1b8fa4206089e0406cdd05ea4edc1096018fda3a3771142f4a810e7c10a3946d009dcd155f799accfff27239fe451ea</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-up">      <input class="hbe hbe-input-field hbe-input-field-up" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-up" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-up">add sudo</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-    
-    
-    <summary type="html">encrypt</summary>
-    
-    
-    
-    
-    <category term="encrypt" scheme="http://spacey.top/tags/encrypt/"/>
-    
-    <category term="杂谈" scheme="http://spacey.top/tags/%E6%9D%82%E8%B0%88/"/>
-    
-    <category term="学习" scheme="http://spacey.top/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
