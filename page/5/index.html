@@ -98,6 +98,8 @@ $(document).ready(function(){
        
         <li><a href="/tags/">Tag</a></li>
        
+        <li><a href="/R-shell/">R-shell</a></li>
+       
         <li><a href="/search/">Search</a></li>
       
     </ul>
@@ -433,9 +435,50 @@ $(document).ready(function(){
         position:relative;
         display:none;
     }
+    *{  
+            margin: 0px;  
+            padding: 0px;  
+        }  
+        video{  
+            position: fixed;  
+            right: 0px;  
+            bottom: 0px;  
+            min-width: 100%;  
+            min-height: 100%;  
+            height: auto;  
+            width: auto;  
+            /*加滤镜*/
+            /*filter: blur(15px); //背景模糊设置 */
+            /*-webkit-filter: grayscale(100%);*/  
+            /*filter:grayscale(100%); //背景灰度设置*/  
+            z-index:-11
+        }  
+        source{  
+            min-width: 100%;  
+            min-height: 100%;  
+            height: auto;  
+            width: auto;  
+        }
+        body{
+            background-color:transparent;
+        }
 </style>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
  </script>
+
+<video autoplay loop muted>
+    <source src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/SN10.mp4" type="video/mp4"  />
+  Your browser does not support the video tag.
+</video>
+<!--
+<div id="container" style="z-index:0">
+    <video id="background_video" loop muted></video>
+    <div id="video_cover"></div>
+    <div id="overlay"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/other/bideo.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/other/main.js"></script>
+-->
 
 <script>
     $(document).ready(function(){
@@ -498,8 +541,6 @@ xmlhttp_latest.send();
 
 
 
-
-
         
         <footer id="footer">
   <div class="footer-left">
@@ -522,6 +563,8 @@ xmlhttp_latest.send();
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/R-shell/">R-shell</a></li>
          
           <li><a href="/search/">Search</a></li>
         
