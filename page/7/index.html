@@ -90,15 +90,15 @@ $(document).ready(function(){
        
         <li><a href="/">Home</a></li>
        
-        <li><a href="/about/">About</a></li>
-       
-        <li><a href="/space/">space</a></li>
-       
         <li><a href="/archives/">Writing</a></li>
        
         <li><a href="/tags/">Tag</a></li>
        
+        <li><a href="/space/">space</a></li>
+       
         <li><a href="/R-shell/">R-shell</a></li>
+       
+        <li><a href="/about/">About</a></li>
        
         <li><a href="/search/">Search</a></li>
       
@@ -459,17 +459,34 @@ $(document).ready(function(){
             height: auto;  
             width: auto;  
         }
+        .background{
+            opacity:0;
+            visibility:hidden
+        }
         body{
-            background-color:transparent;
+            background-color:rgba(0, 0, 0, 0.349);
         }
 </style>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
  </script>
 
+
+
+
+<div class="background" data-desktop="https://www.spacex.com/static/images/backgrounds-new/SN10-0F07.jpg" data-mobile="https://www.spacex.com/static/images/backgrounds-new/SN10-0F07-mobile.jpg" style="background-image: url(&quot;https://www.spacex.com/static/images/backgrounds-new/SN10-0F07.webp&quot;); visibility: inherit; opacity: 1;">
+    <video style="object-fit: cover" autoplay="" loop="" muted="" width="100%" height="100%" preload="auto" autobuffer="true" data-mobile-video="">
+      <source type="video/mp4" src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/SN10.mp4">
+      <source type="video/webm" src="https://www.spacex.com/static/images/backgrounds-new/SN10-0F07.webp">
+  </video>
+</div>
+
+
+<!--
 <video autoplay loop muted>
     <source src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/SN10.mp4" type="video/mp4"  />
   Your browser does not support the video tag.
 </video>
+-->
 
 <script>
     $(document).ready(function(){
@@ -547,15 +564,15 @@ xmlhttp_latest.send();
          
           <li><a href="/">Home</a></li>
          
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/space/">space</a></li>
-         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="/tags/">Tag</a></li>
          
+          <li><a href="/space/">space</a></li>
+         
           <li><a href="/R-shell/">R-shell</a></li>
+         
+          <li><a href="/about/">About</a></li>
          
           <li><a href="/search/">Search</a></li>
         

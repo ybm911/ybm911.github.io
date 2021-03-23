@@ -325,7 +325,7 @@ body .h1 {
   letter-spacing: 0.01em;
   font-weight: 700;
   font-style: normal;
-  font-size: 1.5em;
+  font-size: 2em;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -419,7 +419,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   overflow: auto;
   display: block;
 }
@@ -428,7 +428,7 @@ body th {
   border-bottom: 1px dashed #666;
   color: #eee;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
 }
 body td {
   padding: 0 8px;
@@ -459,8 +459,8 @@ body {
   color: #c9cacc;
   font-display: swap;
   font-weight: 400;
-  font-size: 14px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-size: 15px;
+  font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   flex: 1;
@@ -551,7 +551,7 @@ body {
   }
 }
 .max-width {
-  max-width: 70rem;
+  max-width: 65rem;
 }
 @media (max-width: 480px) {
   .px3 {
@@ -605,7 +605,7 @@ body {
 #header #nav {
   color: #f00;
   letter-spacing: 0.01em;
-  font-weight: 200;
+  font-weight: 500;
   font-style: normal;
   font-size: 0.8rem;
 }
@@ -750,7 +750,7 @@ body {
 #header-post #nav {
   color: #f00;
   letter-spacing: 0.01em;
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
   font-size: 0.8rem;
 }
@@ -826,11 +826,11 @@ body {
   content: "#";
 }
 #header-post #toc .toc-level-3 {
-  color: #666;
+  color: #fff;
   font-size: 0.7rem;
 }
 #header-post #toc .toc-level-4 {
-  color: #525252;
+  color: #ccc;
   font-size: 0.4rem;
 }
 #header-post #toc .toc-level-5 {
@@ -1006,7 +1006,7 @@ body {
   content: "#";
 }
 #footer-post #toc-footer .toc-level-3 {
-  color: #666;
+  color: #fff;
   font-size: 0.7rem;
   line-height: 15px;
 }
@@ -1039,7 +1039,7 @@ body {
   display: block;
   margin-right: 16px;
   min-width: 100px;
-  color: #666;
+  color: #fff;
   font-size: 14px;
 }
 @media (min-width: 480px) {
@@ -1137,16 +1137,16 @@ article .content blockquote:before {
 }
 article .content blockquote footer {
   margin: line-height 0;
-  color: #666;
+  color: #fff;
   font-size: 11px;
 }
 article .content blockquote footer a {
-  background-image: linear-gradient(transparent, transparent 5px, #666 5px, #666);
-  color: #666;
+  background-image: linear-gradient(transparent, transparent 5px, #fff 5px, #fff);
+  color: #fff;
 }
 article .content blockquote footer a:hover {
-  background-image: linear-gradient(transparent, transparent 4px, #858585 4px, #858585);
-  color: #858585;
+  background-image: linear-gradient(transparent, transparent 4px, #fff 4px, #fff);
+  color: #fff;
 }
 article .content blockquote footer cite:before {
   padding: 0 0.5em;
@@ -1169,7 +1169,7 @@ article .content .caption {
   position: relative;
   display: block;
   margin-top: 0.5em;
-  color: #666;
+  color: #fff;
   text-align: center;
   font-size: 0.9em;
 }
@@ -1215,7 +1215,7 @@ article .content .caption {
   display: block;
   margin-right: 16px;
   min-width: 100px;
-  color: #666;
+  color: #fff;
   font-size: 14px;
 }
 @media (min-width: 480px) {
@@ -1236,7 +1236,7 @@ article .content .caption {
   bottom: 0;
   margin-bottom: 10px;
   width: 100%;
-  color: #666;
+  color: #fff;
   vertical-align: top;
   text-align: center;
   font-size: 11px;
@@ -1264,12 +1264,12 @@ article .content .caption {
   margin-right: 0;
 }
 #footer a {
-  color: #666;
+  color: #fff;
   text-decoration: underline;
   background-image: none;
 }
 #footer a:hover {
-  color: #858585;
+  color: #fff;
 }
 #footer .footer-left {
   height: 20px;
@@ -1363,7 +1363,7 @@ article .content .caption {
   color: #c9cacc;
 }
 #tag-cloud .tag-cloud-title {
-  color: #666;
+  color: #fff;
 }
 #tag-cloud .tag-cloud-tags {
   clear: both;
@@ -1385,8 +1385,8 @@ article .content .caption {
   color: #1d1f21;
   font-display: swap;
   font-weight: 400;
-  font-size: 11.200000000000001px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-size: 12px;
+  font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   text-align: center;
@@ -1475,10 +1475,10 @@ article .content .caption {
   }
 }
 #categories .category-list-title {
-  color: #666;
+  color: #fff;
 }
 #categories .category-list .category-list-item .category-list-count {
-  color: #666;
+  color: #fff;
 }
 #categories .category-list .category-list-item .category-list-count:before {
   content: " (";
@@ -1570,8 +1570,8 @@ pre {
   padding-bottom: 0;
   border: 1px dotted #666;
   border-radius: 4px;
-  font-size: 13px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-size: 15px;
+  font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1592,7 +1592,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #212326;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
