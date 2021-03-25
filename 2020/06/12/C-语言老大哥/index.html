@@ -54,7 +54,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -165,6 +165,7 @@
     <h4 id="C-语言手册下载："><a href="#C-语言手册下载：" class="headerlink" title="C 语言手册下载："></a>C 语言手册下载：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install manual</span><br><span class="line">man 3 函数名</span><br></pre></td></tr></table></figure>
 <p>示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">man 3 printf</span><br><span class="line">输出：</span><br><span class="line">PRINTF(3)                                     Linux Programmer&#x27;s Manual                                    PRINTF(3)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       printf,  fprintf,  dprintf,  sprintf,  snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted</span><br><span class="line">       output conversion</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">       int printf(const char *format, ...);</span><br><span class="line">       int fprintf(FILE *stream, const char *format, ...);</span><br><span class="line">       int dprintf(int fd, const char *format, ...);</span><br><span class="line">       int sprintf(char *str, const char *format, ...);</span><br><span class="line">       int snprintf(char *str, size_t size, const char *format, ...);</span><br><span class="line"></span><br><span class="line">       #include &lt;stdarg.h&gt;</span><br><span class="line">       …</span><br></pre></td></tr></table></figure>
+
 <h4 id="一些常用函数"><a href="#一些常用函数" class="headerlink" title="一些常用函数"></a>一些常用函数</h4><h6 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h6><ul>
 <li><p>%d 按十进制整型数据的实际长度输出</p>
 </li>
@@ -233,9 +234,11 @@
 <p>优先级：( ) &gt; [ ] &gt; *</p>
 <h4 id="结构体-struct"><a href="#结构体-struct" class="headerlink" title="结构体 struct"></a>结构体 struct</h4><p>定义结构体有两种定义方式：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> 结构名</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	类型 变量名;</span><br><span class="line">	类型 变量名;</span><br><span class="line">&#125; 结构别名<span class="number">1</span>, 结构别名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
 <p><code>结构名</code> 和 <code>结构别名</code> 都不能直接用，因为它们是结构体这种数据类型的名称，这种方式定义的结构体使用时，需要先声明 <code>结构变量</code>。</p>
 <p>另一种定义方式为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构名</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	类型 变量名;</span><br><span class="line">	类型 变量名;</span><br><span class="line">&#125; 结构变量;</span><br></pre></td></tr></table></figure>
+
 
 
 <h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/caozixuan98724/article/details/73395598/">https://blog.csdn.net/caozixuan98724/article/details/73395598/</a></p>

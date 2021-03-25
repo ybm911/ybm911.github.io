@@ -59,7 +59,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -172,6 +172,7 @@
 <p>Clone the CTFd repository with <code>git clone https://github.com/CTFd/CTFd.git</code></p>
 <p>Modify the <code>docker-compose.yml</code> :</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">UPLOAD_FOLDER=/var/uploads</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">REDIS_URL=redis://cache:6379</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">WORKERS=8</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">LOG_FOLDER=/var/log/CTFd</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ACCESS_LOG=-</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ERROR_LOG=-</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">REVERSE_PROXY=true</span></span><br></pre></td></tr></table></figure>
+
 <p>在 <code>CTFd/config.py</code> 中修改 <code>DEBUG = False</code></p>
 <p>Run <code>docker-compose up -d</code></p>
 <p>You should now be able to access CTFd at <a target="_blank" rel="noopener" href="http://localhost:8000/">http://localhost:8000</a></p>
@@ -188,6 +189,7 @@
 <p>fonts.dev.css 和 fonts.min.css 引用了外网的 css。导致页面加载了二十多秒</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210118112819.png" alt="all.css"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F; -name fonts.dev.css</span><br><span class="line">find &#x2F; -name fonts.min.css</span><br><span class="line">vim 将找到文件中的</span><br><span class="line">https:&#x2F;&#x2F;use.fontawesome.com&#x2F;releases&#x2F;v5.9.0&#x2F;css&#x2F;all.css</span><br><span class="line">替换为</span><br><span class="line">https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;font-awesome&#x2F;5.13.0&#x2F;css&#x2F;all.css</span><br><span class="line">重启dockers</span><br></pre></td></tr></table></figure>
+
 <p>Link</p>
 <p><a target="_blank" rel="noopener" href="https://www.tjuscswyz.cn/2019/09/26/CTFd%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/#%E9%83%A8%E7%BD%B2">https://www.tjuscswyz.cn/2019/09/26/CTFd%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/#%E9%83%A8%E7%BD%B2</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43880435/article/details/107339592">https://blog.csdn.net/weixin_43880435/article/details/107339592</a></p>

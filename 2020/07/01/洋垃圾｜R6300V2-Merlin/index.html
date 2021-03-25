@@ -52,7 +52,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -171,8 +171,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">diskutil unmountdisk /dev/disk2s1</span><br><span class="line">sudo $(brew --prefix e2fsprogs)/sbin/mkfs.ext3 /dev/disk2s1</span><br></pre></td></tr></table></figure>
 
 
+
 <p>方法二：在路由器 ssh 下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">df -h #查看硬盘挂载的节点</span><br><span class="line">sudo umount  /dev/*** # （***挂载的节点）解除挂载</span><br><span class="line">sudo -i（sudo su）#切换到 root 用户下</span><br><span class="line">mkfs.ext4 /dev/*** #将硬盘格式化成 ext4 格式</span><br><span class="line">mount /dev/*** /media/*** # （mount /dev/sda /media/ubuntu）硬盘挂载</span><br><span class="line">格式化完成。（下一步，更改盘符名称）</span><br><span class="line">df -h #查看硬盘挂载的节点 （附录也可以实现）</span><br><span class="line">sudo umount /dev/*** # （***挂载的节点）解除挂载</span><br><span class="line">sudo e2label /dev/*** newname #更改盘符名称 eg：sudo e2label /dev/sda1 MKZ015</span><br><span class="line">mount /dev/*** /media/*** # （mount /dev/sda /media/ubuntu）硬盘挂载</span><br><span class="line">sudo blkid  #查看电脑上所有硬盘分区的卷标及uuid</span><br><span class="line">sudo fdisk -l #  查看硬盘所在路径，挂载的节点</span><br></pre></td></tr></table></figure>
+
 
 
 

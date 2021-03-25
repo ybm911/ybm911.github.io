@@ -52,7 +52,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -167,17 +167,23 @@
 </blockquote>
 <p>ctags可以用于在vim中的函数定义跳转。在ubuntu16.04下默认提供的ctags是很老很旧的ctags，快要发霉的版本（5.9~svn20110310-11），快扔掉它，安装universal-ctags吧！</p>
 <h2 id="发霉的exuberant-ctags"><a href="#发霉的exuberant-ctags" class="headerlink" title="发霉的exuberant-ctags"></a>发霉的exuberant-ctags</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aptcache search ctags</span><br><span class="line">其中只有exuberant-ctags是apt可安装ctags版本的正确名字</span><br><span class="line">看到其中版本号是5.9~svn20110310，已经9年没有更新了。这样的包，发霉7年了，扔了吧：</span><br><span class="line">apt --purgeautoremove exuberant-ctags</span><br></pre></td></tr></table></figure>
+
 <h2 id="安装新鲜的universal-ctags"><a href="#安装新鲜的universal-ctags" class="headerlink" title="安装新鲜的universal-ctags"></a>安装新鲜的universal-ctags</h2><p>universal-ctags是什么？A maintained ctags implementation, <a target="_blank" rel="noopener" href="https://ctags.io/">https://ctags.io</a>,一个负责的ctags实现，在github上开源并且持续更新和维护。</p>
 <p>不多说，快点安装吧：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install autoconf</span><br><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/universal-ctags/ctags</span><br><span class="line"><span class="built_in">cd</span> ctags</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure --prefix=/opt/software/universal-ctags  <span class="comment"># 我的安装路径。你按自己的情况调整。</span></span><br><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
 <p>把ctags可执行文件更新到系统PATH上？No,我选择创建链接的方式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你装了emacs-snapshot，那么现在的ctags命令实际上链接到了/usr/bin/ctags-snapshot，要先删除链接文件：</span></span><br><span class="line"><span class="comment"># sudo rm /usr/bin/ctags</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，把新编译安装的universal-ctags链接过来：</span></span><br><span class="line">sudo ln -s /opt/software/universal-ctags/bin/ctags /usr/bin/ctags</span><br></pre></td></tr></table></figure>
+
 <h2 id="在vim中配置ctags"><a href="#在vim中配置ctags" class="headerlink" title="在vim中配置ctags"></a>在vim中配置ctags</h2><p>关键配置是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set tags&#x3D;tags;</span><br><span class="line">set autochdir</span><br></pre></td></tr></table></figure>
+
 <p>放在vim配置文件中。</p>
 <p>可以直接用我的vim配置：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line"></span><br><span class="line">git  clone --depth=1  https://github.com/amix/vimrc.git  ~/.vim_runtime</span><br><span class="line">sh  ~/.vim_runtime/install_awesome_vimrc.sh</span><br><span class="line"></span><br><span class="line">git  clone  https://github.com/zchrissirhcz/dotfiles</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+
 <h2 id="使用ctags"><a href="#使用ctags" class="headerlink" title="使用ctags"></a>使用ctags</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;work&#x2F;opencv   # 随便进入到一个你的c++工程目录</span><br><span class="line">ctags -R .  #递归地生成.tags文件</span><br></pre></td></tr></table></figure>
+
 <p>然后在vim中用<strong>Ctrl+]</strong>(跳转到函数定义)和<strong>Ctrl+t</strong>(跳出定义)。注意，可以多层级嵌套使用，所以这两个操作相当于入栈和弹栈。</p>
 <p>参考链接</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lida2003/article/details/6959975?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare">https://blog.csdn.net/lida2003/article/details/6959975?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare</a></p>

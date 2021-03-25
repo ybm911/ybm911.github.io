@@ -52,7 +52,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -161,10 +161,12 @@
 
   <div class="content" itemprop="articleBody">
     <h4 id="shell-切换"><a href="#shell-切换" class="headerlink" title="shell 切换"></a>shell 切换</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apt-get install zsh</span><br><span class="line"></span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"></span><br><span class="line">cat /etc/shells</span><br><span class="line"></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line">echo $SHELL</span><br><span class="line"></span><br><span class="line">sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>修改主题</p>
 <p><a target="_blank" rel="noopener" href="https://zshthem.es/all/">https://zshthem.es/all/</a></p>
 <p>插件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在 ~&#x2F;.zshrc 中</span><br><span class="line">plugins&#x3D;(git zsh-autosuggestions zsh-syntax-highlighting extract python z zsh-history-substring-search)</span><br><span class="line"></span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;zsh-users&#x2F;zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~&#x2F;.oh-my-zsh&#x2F;custom&#125;&#x2F;plugins&#x2F;zsh-syntax-highlighting</span><br><span class="line">git clone git:&#x2F;&#x2F;github.com&#x2F;zsh-users&#x2F;zsh-autosuggestions $ZSH_CUSTOM&#x2F;plugins&#x2F;zsh-autosuggestions</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;zsh-users&#x2F;zsh-history-substring-search $&#123;ZSH_CUSTOM:-~&#x2F;.oh-my-zsh&#x2F;custom&#125;&#x2F;plugins&#x2F;zsh-history-substring-search</span><br></pre></td></tr></table></figure>
+
 
   </div>
   <style type="text/css">

@@ -54,7 +54,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -164,6 +164,7 @@
   <div class="content" itemprop="articleBody">
     <h4 id="32"><a href="#32" class="headerlink" title="32"></a>32</h4><p>32位程序，没开 PIE 和 canary 防护，可以栈溢出，程序的代码段和数据段地址是不会变的</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">vulnerable_function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+0h] [ebp-88h]</span></span><br><span class="line"></span><br><span class="line">  system(<span class="string">&quot;echo Input:&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>程序本身调用了system函数，那么PLT表里就一定有这个函数<br>很显然栈溢出<br>IDA 里面 shift+F12 查找字符串发现 <code>/bin/sh</code> 字符串，而且在程序的 data 段。由于没有开启PIE，那么这个字符串的首地址是不会变的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217012714.png" alt="bin"></p>
 <p>查找发现首地址是 0x0804A024<br>用上一篇文章的方法算一下，溢出点偏移是 140<br>所以 exp ：</p>

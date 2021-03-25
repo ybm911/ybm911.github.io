@@ -55,7 +55,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -215,8 +215,10 @@
 <p>实际上，如果满足第一个条件，则也将满足第二个条件。但是，如果您满足第二个条件，您将可以享受很多乐趣。一旦报告了错误类别，黑客就知道了它只是时间问题，而且我必须在其他黑客找到它之前更快地找到它。</p>
 <p>查看<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=931640">问题931640</a>报告，有一个有趣的技巧。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__defineGetter__(&quot;then&quot;, function() &#123;</span><br><span class="line"></span><br><span class="line">  if (++then_counter &#x3D;&#x3D; 1) &#123;</span><br><span class="line"></span><br><span class="line">   controller.close();</span><br><span class="line"></span><br><span class="line">   performMicrotaskCheckpoint();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
 <p>此技巧归因于<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=663476#c10">2016年</a>的<a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=663476#c10">UXSS漏洞</a>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var thenable &#x3D; &#123;get then() &#123; console.log(2); &#125;&#125;</span><br><span class="line"></span><br><span class="line">console.log(1); Promise.resolve(thenable); console.log(3)</span><br></pre></td></tr></table></figure>
+
 <p>Promise.resolve在接收到对象作为参数时会得到一个名为then的属性。这时，用户可以在使用getter进行获取时执行用户定义的功能。本文的大多数读者可能都不知道。即使是一般的开发人员也不会知道这些规格。这些副作用可能会导致许多漏洞。</p>
 <p>当我意识到并开始寻找“ Thenable Obejct”技巧时，其他黑客并没有引起太多关注。因此，发现了许多漏洞。但是，经过3-4个月后，黑客意识到了这种欺骗手段，并杀死了许多错误。</p>
 <p>另一个有趣的错误类是称为render_frame_host的原始指针的生命周期问题。此类作为格子CTF问题提出。这引起了黑客的广泛关注。因此，我迅速找到了漏洞，并立即进行了报告。</p>
@@ -231,7 +233,7 @@
 <p><strong>本文仅是我的意见，不是正确的答案。：D</strong></p>
 <p><img src="http://ufo.stealien.com/assets/2020-09-25-bug_hunting/chrome.png" alt="img"></p>
 <p>宇珍</p>
-<p><a href="mailto:&#119;&#x6f;&#x68;&#x40;&#x73;&#x74;&#x65;&#x61;&#x6c;&#105;&#101;&#x6e;&#46;&#99;&#111;&#x6d;">&#119;&#x6f;&#x68;&#x40;&#x73;&#x74;&#x65;&#x61;&#x6c;&#105;&#101;&#x6e;&#46;&#99;&#111;&#x6d;</a></p>
+<p><a href="mailto:&#119;&#111;&#104;&#x40;&#x73;&#116;&#x65;&#x61;&#x6c;&#105;&#x65;&#x6e;&#46;&#99;&#x6f;&#109;">&#119;&#111;&#104;&#x40;&#x73;&#116;&#x65;&#x61;&#x6c;&#105;&#x65;&#x6e;&#46;&#99;&#x6f;&#109;</a></p>
 
   </div>
   <style type="text/css">

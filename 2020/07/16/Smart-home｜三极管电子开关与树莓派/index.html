@@ -54,7 +54,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -170,9 +170,11 @@
 <p>start.py</p>
 <p>通电0.5秒开机</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> GPIO</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">GPIO.setmode(GPIO.BCM)</span><br><span class="line">GPIO.setup(<span class="number">14</span>, GPIO.OUT)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.LOW)</span><br><span class="line">time.sleep(<span class="number">0.5</span>)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.HIGH)</span><br><span class="line">time.sleep(<span class="number">0.5</span>)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.LOW)</span><br><span class="line">GPIO.cleanup()</span><br></pre></td></tr></table></figure>
+
 <p>shutdown.py</p>
 <p>通电5秒关机</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> GPIO</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">GPIO.setmode(GPIO.BCM)</span><br><span class="line">GPIO.setup(<span class="number">14</span>, GPIO.OUT)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.LOW)</span><br><span class="line">time.sleep(<span class="number">0.5</span>)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.HIGH)</span><br><span class="line">time.sleep(<span class="number">5</span>)</span><br><span class="line">GPIO.output(<span class="number">14</span>, GPIO.LOW)</span><br><span class="line">GPIO.cleanup()</span><br></pre></td></tr></table></figure>
+
 <p>在 Siri 快捷指令中设置好 ssh 控制树莓派运行脚本即可</p>
 <h2 id="演示视频"><a href="#演示视频" class="headerlink" title="演示视频"></a>演示视频</h2><iframe width="100%" height="500" src="//player.bilibili.com/player.html?aid=668793651&bvid=BV1fD4y1S7yR&cid=212493629&page=1" scrolling="yes" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
   </div>

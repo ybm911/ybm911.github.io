@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="uhubctl 控制一起控制树莓派3B +  主集线器1-1，所有4个 USB 组合在一起，均由端口控制2（也关闭辅助集线器端口）。端口1连接1-1.1下面的集线器，端口3在外部并已布线，端口4未布线。  12uhubctl -l 2 -a 0uhubctl -l 2 -a 1  次要集线器1-1.1（以菊花链方式连接到主集线器）：3个端口，该端口1用于以太网+ WiFi，端口2与3外部电缆连接。">
+    <meta name="description" content="uhubctl 控制一起控制树莓派3B +  主集线器1-1，所有4个 USB 组合在一起，均由端口控制2（也关闭辅助集线器端口）。端口1连接1-1.1下面的集线器，端口3在外部并已布线，端口4未布线。  12uhubctl -l 2 -a 0uhubctl -l 2 -a 1   次要集线器1-1.1（以菊花链方式连接到主集线器）：3个端口，该端口1用于以太网+ WiFi，端口2与3外部电缆连接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspi｜uhubctl &amp;&amp; Siri &amp;&amp; frp 外网控制（低配智能家居）">
 <meta property="og:url" content="http://spacey.top/2020/05/30/Raspi%EF%BD%9Cuhubctl-Siri-%E6%8E%A7%E5%88%B6-USB/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
-<meta property="og:description" content="uhubctl 控制一起控制树莓派3B +  主集线器1-1，所有4个 USB 组合在一起，均由端口控制2（也关闭辅助集线器端口）。端口1连接1-1.1下面的集线器，端口3在外部并已布线，端口4未布线。  12uhubctl -l 2 -a 0uhubctl -l 2 -a 1  次要集线器1-1.1（以菊花链方式连接到主集线器）：3个端口，该端口1用于以太网+ WiFi，端口2与3外部电缆连接。">
+<meta property="og:description" content="uhubctl 控制一起控制树莓派3B +  主集线器1-1，所有4个 USB 组合在一起，均由端口控制2（也关闭辅助集线器端口）。端口1连接1-1.1下面的集线器，端口3在外部并已布线，端口4未布线。  12uhubctl -l 2 -a 0uhubctl -l 2 -a 1   次要集线器1-1.1（以菊花链方式连接到主集线器）：3个端口，该端口1用于以太网+ WiFi，端口2与3外部电缆连接">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013758.PNG">
 <meta property="article:published_time" content="2020-05-29T22:44:34.000Z">
@@ -53,7 +53,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -166,12 +166,14 @@
 <li>主集线器1-1，所有4个 USB 组合在一起，均由端口控制2（也关闭辅助集线器端口）。端口1连接1-1.1下面的集线器，端口3在外部并已布线，端口4未布线。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uhubctl -l 2 -a 0</span><br><span class="line">uhubctl -l 2 -a 1</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>次要集线器1-1.1（以菊花链方式连接到主集线器）：3个端口，该端口1用于以太网+ WiFi，端口2与3外部电缆连接。</li>
 </ul>
 <p>树莓派4B</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/linux/issues/3079">4B 的 chubctl 需要重新编译</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libusb-1.0-0-dev</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;mvp&#x2F;uhubctl</span><br><span class="line">cd uhubctl</span><br><span class="line">make</span><br><span class="line">make install # 这里是个吭</span><br><span class="line"># off:</span><br><span class="line">sudo .&#x2F;uhubctl -a 0 -l 2</span><br><span class="line"># on:</span><br><span class="line">sudo .&#x2F;uhubctl -a 1 -l 2</span><br></pre></td></tr></table></figure>
+
 <h4 id="分别控制"><a href="#分别控制" class="headerlink" title="分别控制"></a>分别控制</h4><p><a target="_blank" rel="noopener" href="http://embeddedapocalypse.blogspot.com/2016/10/how-to-power-off-raspberry-pi-3-usb-or.html">http://embeddedapocalypse.blogspot.com/2016/10/how-to-power-off-raspberry-pi-3-usb-or.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/codazoda/hub-ctrl.c">https://github.com/codazoda/hub-ctrl.c</a></p>
 <h2 id="frp"><a href="#frp" class="headerlink" title="frp"></a>frp</h2><blockquote>

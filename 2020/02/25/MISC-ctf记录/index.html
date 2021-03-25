@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="工具binwalk 123-e 分解出压缩包-M 递归分解扫描出来的文件（得跟-e或者-D配合使用）binwalk -eM  pcat.bin &#x2F;&#x2F;要分解的文件名   模糊图片隐写可以看出 flag 就写在图片上，很明显看到 flag 的轮廓 watevr{} ，里面的字符串模糊不清，所以尝试用Ps的锐化功能。ps手动防抖工具（打开ps，打开模糊图片，如下依次点击滤镜-锐化-防">
+    <meta name="description" content="工具binwalk 123-e 分解出压缩包-M 递归分解扫描出来的文件（得跟-e或者-D配合使用）binwalk -eM  pcat.bin &#x2F;&#x2F;要分解的文件名    模糊图片隐写可以看出 flag 就写在图片上，很明显看到 flag 的轮廓 watevr{} ，里面的字符串模糊不清，所以尝试用Ps的锐化功能。ps手动防抖工具（打开ps，打开模糊图片，如下依次点击滤镜-锐化-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Misc_有点意思(持续更新)">
 <meta property="og:url" content="http://spacey.top/2020/02/25/MISC-ctf%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
-<meta property="og:description" content="工具binwalk 123-e 分解出压缩包-M 递归分解扫描出来的文件（得跟-e或者-D配合使用）binwalk -eM  pcat.bin &#x2F;&#x2F;要分解的文件名   模糊图片隐写可以看出 flag 就写在图片上，很明显看到 flag 的轮廓 watevr{} ，里面的字符串模糊不清，所以尝试用Ps的锐化功能。ps手动防抖工具（打开ps，打开模糊图片，如下依次点击滤镜-锐化-防">
+<meta property="og:description" content="工具binwalk 123-e 分解出压缩包-M 递归分解扫描出来的文件（得跟-e或者-D配合使用）binwalk -eM  pcat.bin &#x2F;&#x2F;要分解的文件名    模糊图片隐写可以看出 flag 就写在图片上，很明显看到 flag 的轮廓 watevr{} ，里面的字符串模糊不清，所以尝试用Ps的锐化功能。ps手动防抖工具（打开ps，打开模糊图片，如下依次点击滤镜-锐化-">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/blurry.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/logo.png">
@@ -60,7 +60,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -170,6 +170,7 @@
   <div class="content" itemprop="articleBody">
     <h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>binwalk</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-e 分解出压缩包</span><br><span class="line">-M 递归分解扫描出来的文件（得跟-e或者-D配合使用）</span><br><span class="line">binwalk -eM  pcat.bin &#x2F;&#x2F;要分解的文件名</span><br></pre></td></tr></table></figure>
+
 
 
 <h4 id="模糊图片隐写"><a href="#模糊图片隐写" class="headerlink" title="模糊图片隐写"></a>模糊图片隐写</h4><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/blurry.png" alt="blurry"><br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/logo.png" alt="logo"><br>可以看出 flag 就写在图片上，很明显看到 flag 的轮廓 watevr{} ，里面的字符串模糊不清，所以尝试用Ps的锐化功能。<br><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/4b07be3cb7694c48b280f37e.html">ps手动防抖工具</a><br>（打开ps，打开模糊图片，如下依次点击滤镜-锐化-防抖）<br>左上角第一个为自动调整防抖。第二个是手动调整，点击第二个<br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/fangdou.png" alt="fangdou">模糊识别矩形区域选择 logo 部分，取消选中“伪像抑制”，模糊描摹边界15左右。耐心慢慢调……flag就出来了。<br><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/blurry-%E6%81%A2%E5%A4%8D%E7%9A%84.png" alt="blurry-恢复的"></p>

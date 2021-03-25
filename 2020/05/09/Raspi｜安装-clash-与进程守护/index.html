@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="安装 clash1234mv .&#x2F;clash &#x2F;usr&#x2F;local&#x2F;binchmod 555 &#x2F;usr&#x2F;local&#x2F;bin这个时候需要编辑 &#x2F;root&#x2F;.config&#x2F;clash&#x2F;config.yamlpm2 start clash  # 推荐使用PM2守护进程 面板控制为了使用图形化的界面管理代理规则。我使用了yacd面板 1234567# install dependenciesyarn# s">
+    <meta name="description" content="安装 clash1234mv .&#x2F;clash &#x2F;usr&#x2F;local&#x2F;binchmod 555 &#x2F;usr&#x2F;local&#x2F;bin这个时候需要编辑 &#x2F;root&#x2F;.config&#x2F;clash&#x2F;config.yamlpm2 start clash  # 推荐使用PM2守护进程  面板控制为了使用图形化的界面管理代理规则。我使用了yacd面板 1234567# install dependenciesyarn#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspi｜安装 clash 与进程守护">
 <meta property="og:url" content="http://spacey.top/2020/05/09/Raspi%EF%BD%9C%E5%AE%89%E8%A3%85-clash-%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%AE%88%E6%8A%A4/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
-<meta property="og:description" content="安装 clash1234mv .&#x2F;clash &#x2F;usr&#x2F;local&#x2F;binchmod 555 &#x2F;usr&#x2F;local&#x2F;bin这个时候需要编辑 &#x2F;root&#x2F;.config&#x2F;clash&#x2F;config.yamlpm2 start clash  # 推荐使用PM2守护进程 面板控制为了使用图形化的界面管理代理规则。我使用了yacd面板 1234567# install dependenciesyarn# s">
+<meta property="og:description" content="安装 clash1234mv .&#x2F;clash &#x2F;usr&#x2F;local&#x2F;binchmod 555 &#x2F;usr&#x2F;local&#x2F;bin这个时候需要编辑 &#x2F;root&#x2F;.config&#x2F;clash&#x2F;config.yamlpm2 start clash  # 推荐使用PM2守护进程  面板控制为了使用图形化的界面管理代理规则。我使用了yacd面板 1234567# install dependenciesyarn#">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013421.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013438.png">
@@ -57,7 +57,7 @@
     <!-- rss -->
     
     
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
 </head>
 
 <body class="max-width mx-auto px3 ltr">
@@ -166,8 +166,10 @@
 
   <div class="content" itemprop="articleBody">
     <h4 id="安装-clash"><a href="#安装-clash" class="headerlink" title="安装 clash"></a>安装 clash</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mv ./clash /usr/local/bin</span><br><span class="line">chmod 555 /usr/local/bin</span><br><span class="line">这个时候需要编辑 /root/.config/clash/config.yaml</span><br><span class="line">pm2 start clash  # 推荐使用PM2守护进程</span><br></pre></td></tr></table></figure>
+
 <h4 id="面板控制"><a href="#面板控制" class="headerlink" title="面板控制"></a>面板控制</h4><p>为了使用图形化的界面管理代理规则。我使用了<a target="_blank" rel="noopener" href="https://github.com/haishanh/yacd">yacd面板</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> install dependencies</span></span><br><span class="line">yarn</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> start the dev server</span></span><br><span class="line">yarn start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> go to http://127.0.0.1:3000</span></span><br></pre></td></tr></table></figure>
+
 <p>使用方法：</p>
 <ul>
 <li>填入配置（<code>ip</code>为树莓派所在的内网地址，例如<code>192.168.2.14</code>,端口为<code>config.yaml</code>所设置的<code>9090</code>）</li>
@@ -175,18 +177,23 @@
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013421.png" alt="image"></p>
 <h4 id="linux-下安装-pm2"><a href="#linux-下安装-pm2" class="headerlink" title="linux 下安装 pm2"></a>linux 下安装 pm2</h4><p>全局安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure>
+
 <p>创建软连接（一般不需要）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /root/node-v10.14.2-linux-x64/bin/pm2 /usr/local/bin/</span><br></pre></td></tr></table></figure>
+
 <p>查看进程</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 list</span><br></pre></td></tr></table></figure>
+
 <p>启动</p>
 <p>引号内是线程名</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app_name</span><br><span class="line">pm2 stop app_name|app_id  # 停止线程</span><br><span class="line">pm2 stop all  # 停止所有线程</span><br><span class="line">pm2 restart app_name  # 重启线程</span><br><span class="line">pm2 delete my-nuxt  # 删除线程</span><br></pre></td></tr></table></figure>
+
 <h4 id="yarn的安装和使用"><a href="#yarn的安装和使用" class="headerlink" title="yarn的安装和使用"></a>yarn的安装和使用</h4><p><code>npm install -g yarn</code></p>
 <p>查看版本：yarn –version</p>
 <h4 id="Raspiberry-设置代理"><a href="#Raspiberry-设置代理" class="headerlink" title="Raspiberry 设置代理"></a>Raspiberry 设置代理</h4><p>参考官方文档</p>
 <p><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/documentation/configuration/use-a-proxy.md%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8">https://www.raspberrypi.org/documentation/configuration/use-a-proxy.md使用代理服务器</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export https_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export http_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export no_proxy=&quot;localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure>
+
 <h4 id="完工"><a href="#完工" class="headerlink" title="完工"></a>完工</h4><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217013438.png" alt="image"></p>
 <p>很多时候看官方文档会好很多</p>
 <h6 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h6><p><a target="_blank" rel="noopener" href="https://aaaab3n.co/technology/2019/01/30/raspberrypi-clash-tutor.html">https://aaaab3n.co/technology/2019/01/30/raspberrypi-clash-tutor.html</a></p>
