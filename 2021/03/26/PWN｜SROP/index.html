@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210325232242.png">
 <meta property="article:published_time" content="2021-03-25T22:35:56.000Z">
-<meta property="article:modified_time" content="2021-03-25T15:26:21.659Z">
+<meta property="article:modified_time" content="2021-03-25T15:35:40.552Z">
 <meta property="article:author" content="Elli0t">
 <meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,8 @@
 <p>题目为：echo_service</p>
 <p>只要理解了 signreturn 题目就挺好理解的。先控制 rax，再执行 signreturn 控制寄存器转移栈，跳到 read 函数写入 shellcode 再跳入 shellcode（内容为 0x600a10 的指针覆盖了返回地址）</p>
 <p>exp</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210325232242.png" alt="截屏2021-03-25 上午9.27.22"></p>
+<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210325232242.png" alt="exp" style="zoom:50%;" />
+
 <p>Link</p>
 <p><a target="_blank" rel="noopener" href="https://www.slideshare.net/AngelBoy1/sigreturn-ori">https://www.slideshare.net/AngelBoy1/sigreturn-ori</a></p>
 <p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/">https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/</a></p>

@@ -40,9 +40,9 @@
     
     <category term="WEB" scheme="http://spacey.top/tags/WEB/"/>
     
-    <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
-    
     <category term="Misc" scheme="http://spacey.top/tags/Misc/"/>
+    
+    <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
     
   </entry>
   
@@ -51,9 +51,9 @@
     <link href="http://spacey.top/2021/03/26/PWN%EF%BD%9CSROP/"/>
     <id>http://spacey.top/2021/03/26/PWN%EF%BD%9CSROP/</id>
     <published>2021-03-25T22:35:56.000Z</published>
-    <updated>2021-03-25T15:26:21.659Z</updated>
+    <updated>2021-03-25T15:35:40.552Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>SROP(Sigreturn Oriented Programming) 于 2014 年被 Vrije Universiteit Amsterdam 的 Erik Bosman 提出，其相关研究**<code>Framing Signals — A Return to Portable Shellcode</code>**发表在安全顶级会议 <a href="http://www.ieee-security.org/TC/SP2014">Oakland 2014</a> 上，被评选为当年的 <a href="http://www.ieee-security.org/TC/SP2014/awards.html">Best Student Papers</a>。</p></blockquote><p>原理</p><div class="row">    <embed src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/pwn/srop_1.pdf" width="100%" height="550" type="application/pdf"></div><p>题目为：echo_service</p><p>只要理解了 signreturn 题目就挺好理解的。先控制 rax，再执行 signreturn 控制寄存器转移栈，跳到 read 函数写入 shellcode 再跳入 shellcode（内容为 0x600a10 的指针覆盖了返回地址）</p><p>exp</p><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210325232242.png" alt="截屏2021-03-25 上午9.27.22"></p><p>Link</p><p><a href="https://www.slideshare.net/AngelBoy1/sigreturn-ori">https://www.slideshare.net/AngelBoy1/sigreturn-ori</a></p><p><a href="https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/">https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/</a></p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>SROP(Sigreturn Oriented Programming) 于 2014 年被 Vrije Universiteit Amsterdam 的 Erik Bosman 提出，其相关研究**<code>Framing Signals — A Return to Portable Shellcode</code>**发表在安全顶级会议 <a href="http://www.ieee-security.org/TC/SP2014">Oakland 2014</a> 上，被评选为当年的 <a href="http://www.ieee-security.org/TC/SP2014/awards.html">Best Student Papers</a>。</p></blockquote><p>原理</p><div class="row">    <embed src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/pwn/srop_1.pdf" width="100%" height="550" type="application/pdf"></div><p>题目为：echo_service</p><p>只要理解了 signreturn 题目就挺好理解的。先控制 rax，再执行 signreturn 控制寄存器转移栈，跳到 read 函数写入 shellcode 再跳入 shellcode（内容为 0x600a10 的指针覆盖了返回地址）</p><p>exp</p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210325232242.png" alt="exp" style="zoom:50%;" /><p>Link</p><p><a href="https://www.slideshare.net/AngelBoy1/sigreturn-ori">https://www.slideshare.net/AngelBoy1/sigreturn-ori</a></p><p><a href="https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/">https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/srop/</a></p>]]></content>
     
     
       
