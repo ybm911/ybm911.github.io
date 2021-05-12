@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="SDR 软件列表 gqrx 目前使用的 mac 端 gqrx install 中华人民共和国广播电台列表 国内机场部分塔台频率 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDR｜Listener">
+<meta property="og:url" content="http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/index.html">
+<meta property="og:site_name" content="Elli0t&#39;s Blog">
+<meta property="og:description" content="SDR 软件列表 gqrx 目前使用的 mac 端 gqrx install 中华人民共和国广播电台列表 国内机场部分塔台频率 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-11T11:19:02.000Z">
+<meta property="article:modified_time" content="2021-05-12T10:56:02.136Z">
+<meta property="article:author" content="Elli0t">
+<meta property="article:tag" content="SDR">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>SDR｜Listener</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Elli0t's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/space/">space</a></li>
+         
+          <li><a href="/R-shell/">R-shell</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/05/12/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/04/21/Flask/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&text=SDR｜Listener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&is_video=false&description=SDR｜Listener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SDR｜Listener&body=Check out this article: http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&name=SDR｜Listener&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&t=SDR｜Listener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post fade" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        SDR｜Listener
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Elli0t</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-11T11:19:02.000Z" itemprop="datePublished">2021-05-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/SDR/" rel="tag">SDR</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="http://blog.baohezi.cn/post/101.html">SDR 软件列表</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/csete/gqrx">gqrx 目前使用的 mac 端</a></p>
+<p><a target="_blank" rel="noopener" href="https://stealingthe.network/rtlsdr-up-and-running-in-mac-osx-yosemite-with-gqrx-gnuradio/">gqrx install</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%B9%BF%E6%92%AD%E7%94%B5%E5%8F%B0%E5%88%97%E8%A1%A8">中华人民共和国广播电台列表</a></p>
+<p>国内机场部分塔台频率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">上海虹桥机场（ZSSS)</span><br><span class="line">上海近进区调1 A 120.3M B 120.8M</span><br><span class="line">上海近进区调2 A 119.75M B 120.8M</span><br><span class="line">上海近进区调3 A 121.3M B 119.2M C 119.75M D 120.8M</span><br><span class="line">上海近进区调4 A 123.7M B 119.2M</span><br><span class="line">行情通播 132.25M</span><br><span class="line">放行频率 121.75M</span><br><span class="line">地面频率 A 121.6M B 118.1M</span><br><span class="line">塔台频率 A 118.1Ｍ B 124.3M</span><br><span class="line"></span><br><span class="line">上海浦东机场（ZSPD）</span><br><span class="line">上海近进区调1 A 120.3M B 120.8M</span><br><span class="line">上海近进区调2 A 119.75M B 120.8M</span><br><span class="line">上海近进区调3 A 121.3M B 119.2M C 119.75M D 120.8M</span><br><span class="line">上海近进区调4 A 123.7M B 119.2M</span><br><span class="line">行情通播 127.85M</span><br><span class="line">放行频率 A 121.95M B 121.7M</span><br><span class="line">地面（东）频率 A 121.8M B 121.7M C</span><br><span class="line">地面（西）频率 A 121.65M B 121.7M</span><br><span class="line">塔台（东）频率）A 118.4M B 124.35M</span><br><span class="line">塔台（西）频率）A 118.8M B 124.35M</span><br><span class="line"></span><br><span class="line">北京首都机场（ZABB）</span><br><span class="line">近进频率【区域1】A 119.6M B 125.05M</span><br><span class="line">近进频率【区域2】A 126.1M B 129.0M</span><br><span class="line">近进频率【区域3】A 120.6M B 125.05M</span><br><span class="line">近进频率【区域4】A 119.7M B 129.0M</span><br><span class="line">近进频率【区域5】A 127.75M B 126.5M</span><br><span class="line">近进频率【区域6】 A 121.1M B 126.5M</span><br><span class="line">行情通播127.6M</span><br><span class="line">离场频率 A 121.6M B 121.9M</span><br><span class="line">地面频率【东】121.7M</span><br><span class="line">地面频率【西】121.9M</span><br><span class="line">塔台频率【东】A 118.5M B 118.3M</span><br><span class="line">塔台频率【西】A 124.3M B 118.3M</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">杭州萧山机场（ZSHC）</span><br><span class="line">近进频率【区域2】A 126.05M B 119.15M</span><br><span class="line">近进频率【区域1】A 125.55M B 119.15M</span><br><span class="line">行情通播127.25M</span><br><span class="line">地面频率 121.75M</span><br><span class="line">塔台频率A 118.3M B 130.0M</span><br><span class="line"></span><br><span class="line">河南新郑机场（ZHCC）</span><br><span class="line">行情通播128.45M</span><br><span class="line">地面频率 121.75M</span><br><span class="line">塔台频率 A 130.0M B 118.3M</span><br><span class="line"></span><br><span class="line">深圳宝安机场（ZGSZ）</span><br><span class="line">珠海近进 A 120.35M B 124.25M</span><br><span class="line">行情通播 127.45Ｍ</span><br><span class="line">CLD FREQ1 127.95Ｍ</span><br><span class="line">地面频率 A 121.65M B 121.875M</span><br><span class="line">塔台频率 A 118.45M B 118.05M</span><br><span class="line"></span><br><span class="line">福州长乐机场（ZSFZ）</span><br><span class="line">福州近进 A 119.45M B 133.05M</span><br><span class="line">行情通播 126.4M</span><br><span class="line">地面频率 121.9M</span><br><span class="line">塔台频率 A 118.45M B 124.35M</span><br><span class="line"></span><br><span class="line">南京禄口机场（ZSNJ）</span><br><span class="line">南京近进 A 119.25M B 120.35M</span><br><span class="line">行情通播 126.25M</span><br><span class="line">地面频率 121.7M</span><br><span class="line">塔台频率A 118.85M B 118.15M</span><br><span class="line"></span><br><span class="line">广州新白云机场（ZGGG）</span><br><span class="line">广州区调 A 120.4M B 126.35M C 119.6M C 119.7M</span><br><span class="line">行情通播 128.6M</span><br><span class="line">CLD 121.95M</span><br><span class="line">地面频率A 121.75M B 121.85M C 121.6M</span><br><span class="line">塔台频率A 118.1M B 118.8M C 124.3M</span><br><span class="line"></span><br><span class="line">澳门国际机场（VMMC）</span><br><span class="line">ONG KONG RDR A 126.3M B 119.1M</span><br><span class="line">行情通播126.4M</span><br><span class="line">地面频率 A 121.725M B 121.975M</span><br><span class="line">塔台频率 A 118.0M</span><br><span class="line"></span><br><span class="line">香港新机场（VHHH）</span><br><span class="line">APP A 119.1M B 119.35M C 133.7M</span><br><span class="line">行情通播128.2M</span><br><span class="line">区域控制 120.6M</span><br><span class="line">CLNC 放行频率 A 129.9M B 124.65M</span><br><span class="line">离场频率A 123.8M B 124.05M</span><br><span class="line">地面频率 A 122.55M B 121.6M</span><br><span class="line">精确近进 A 133.7M</span><br><span class="line">塔台频率 A 118.4M B 118.2M C 118.7M</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">北京区域 Beijing Center ZBPE_CTR</span><br><span class="line">ZBAA&#x2F;PEK 北京首都国际机场</span><br><span class="line">ATIS Departure ZBAA 128.65</span><br><span class="line">ATIS Arrivel ZBAA 127.60</span><br><span class="line">北京放行1 BEIJING Delivery 01 121.60 ZBAA_DEL West of Rwy 18L&#x2F;36R</span><br><span class="line">北京放行2 BEIJING Delivery 02 121.65 ZBAA_DEL East of Rwy 18L&#x2F;36R</span><br><span class="line">北京地面1 BEIJING Ground 01 121.90 ZBAA_GND</span><br><span class="line">北京地面2 BEIJING Ground 02 121.70 ZBAA_GND</span><br><span class="line">北京地面3 BEIJING Ground 03 121.80 ZBAA_GND</span><br><span class="line">北京地面4 BEIJING Ground 04 121.75 ZBAA_GND</span><br><span class="line">北京地面5 BEIJING Ground 05 121.85 ZBAA_GND</span><br><span class="line">北京塔台1 BEIJING Tower 01 124.30 ZBAA_TWR Rwys 18R,36L</span><br><span class="line">北京塔台2 BEIJING Tower 02 118.50 ZBAA_TWR Rwys 18L,36R</span><br><span class="line">北京塔台3 BEIJING Tower 03 118.05 ZBAA_TWR Rwys 01,19(0200-1000)</span><br><span class="line">北京进近1 BEIJING Approach 01 119.00 ZBAA_APP</span><br><span class="line">北京进近2 BEIJING Approach 02 126.10 ZBAA_APP</span><br><span class="line">北京进近3 BEIJING Approach 03 120.60 ZBAA_APP</span><br><span class="line">北京进近4 BEIJING Approach 04 119.70 ZBAA_APP</span><br><span class="line">ZBHH&#x2F;HET 呼和浩特白塔机场</span><br><span class="line">ATIS ZBHH 126.25</span><br><span class="line">呼和浩特地面 HOHHOT Ground 118.10 ZBHH_GND</span><br><span class="line">呼和浩特塔台 HOHHOT Tower 118.10 ZBHH_TWR</span><br><span class="line">ZBLD&#x2F;HLD 海拉尔东山机场</span><br><span class="line">海拉尔塔台 HAILAR Tower 118.50 ZBLD_TWR</span><br><span class="line">ZBSJ&#x2F;SJW 石家庄郑定机场</span><br><span class="line">ATIS ZBSJ 127.85</span><br><span class="line">石家庄塔台 SHIJIAZHUANG Tower 118.35 ZBSJ_TWR</span><br><span class="line">ZBTJ&#x2F;TSN 天津滨海国际机场</span><br><span class="line">ATIS ZBTJ 126.40</span><br><span class="line">天津地面 TIANJIN Ramp Control (GND) 121.95 ZBTJ_GND</span><br><span class="line">天津塔台 TIANJIN Tower 118.20 ZBTJ_TWR</span><br><span class="line">天津进近 TIANJIN Approach 127.90 ZBTJ_APP</span><br><span class="line">ZBYN&#x2F;TYN 太原武宿机场</span><br><span class="line">ATIS ZBYN 126.45</span><br><span class="line">太原地面 TAIYUAN Ground 121.80 ZBYN_GND</span><br><span class="line">太原塔台 TAIYUAN Tower 118.25 ZBYN_TWR</span><br><span class="line">太原进近 TAIYUAN Approach 119.20 ZBYN_APP</span><br><span class="line">太原进近 TAIYUAN Approach 125.55 ZBYN_APP</span><br><span class="line">广州区域 Guangzhou Center ZGZU_CTR</span><br><span class="line">ZGGG&#x2F;CAN 广州白云国际机场</span><br><span class="line">ATIS Departure ZGGG 127.00</span><br><span class="line">ATIS ZGGG 128.60</span><br><span class="line">白云放行 BAIYUN Delivery 121.95 ZGGG_DEL</span><br><span class="line">白云地面 BAIYUN Ground 121.85 ZGGG_GND Rwy 02L&#x2F;20R</span><br><span class="line">白云地面 BAIYUN Ground 121.75 ZGGG_GND Rwy 02R&#x2F;2OL</span><br><span class="line">白云塔台 BAIYUN Tower 118.80 ZGGG_TWR Rwy 02L&#x2F;20R</span><br><span class="line">白云塔台 BAIYUN Tower 118.10 ZGGG_TWR Rwy 02R&#x2F;20L</span><br><span class="line">广州进近 GUANGZHOU Approach 120.40 ZGGG_APP</span><br><span class="line">ZGHA&#x2F;HHA 长沙黄花机场</span><br><span class="line">ATIS ZGHA 128.80</span><br><span class="line">黄花地面 HUANGHUA Ground 121.75 ZGHA_GND</span><br><span class="line">黄花塔台 HUANGHUA Tower 118.55 ZGHA_TWR</span><br><span class="line">长沙进近 CHANGSHA Approach 119.65 ZGHA_APP</span><br><span class="line">ZGKL&#x2F;KWL 桂林两江机场</span><br><span class="line">ATIS ZGKL 126.45</span><br><span class="line">两江地面 LIANGJIANG Ground 121.65 ZGKL_GND</span><br><span class="line">两江塔台 LIANGJIANG Tower 118.00 ZGKL_TWR</span><br><span class="line">ZGNN&#x2F;NNG 南宁吴圩机场</span><br><span class="line">ATIS ZGNN 126.25</span><br><span class="line">南宁地面 NANNING Ground 121.75 ZGNN_GND</span><br><span class="line">南宁塔台 NANNING Tower 118.20 ZGNN_TWR</span><br><span class="line">南宁塔台 NANNING Tower 118.35 ZGNN_TWR</span><br><span class="line">南宁塔台 NANNING Tower 130.00 ZGNN_TWR</span><br><span class="line">ZGSZ&#x2F;SZX 深圳宝安国际机场</span><br><span class="line">D.ATIS ZGSZ 127.45</span><br><span class="line">宝安放行 BAOAN Delivery 121.95 ZGSZ_DEL</span><br><span class="line">宝安地面 BAOAN Ground 121.65 ZGSZ_GND</span><br><span class="line">宝安塔台 BAOAN Tower 118.45 ZGSZ_TWR</span><br><span class="line">珠海进近 ZHUHAI Approach 120.35 ZGSZ_APP</span><br><span class="line">珠海进近 ZHUHAI Approach 124.25 ZGSZ_APP</span><br><span class="line">珠海进近 ZHUHAI Approach 124.75 ZGSZ_APP</span><br><span class="line">ZJHK&#x2F;HAK 海口美兰国际机场</span><br><span class="line">ATIS ZJHK 127.65</span><br><span class="line">美兰地面 MEILAN Ground 121.65 ZJHK_GND</span><br><span class="line">海口塔台 HAIKOU Tower 118.60 ZJHK_TWR</span><br><span class="line">海口进近 HAIKOU Approach 119.15 ZJHK_APP</span><br><span class="line">ZJSY&#x2F;SYX 三亚凤凰国际机场</span><br><span class="line">ATIS ZJSY 126.45</span><br><span class="line">凤凰地面 FENGHUANG Ground 121.70 ZJSY_GND</span><br><span class="line">凤凰塔台 FENGHUANG Tower 118.15 ZJSY_TWR</span><br><span class="line">武汉区域 Wuhan Center ZHWH_CTR</span><br><span class="line">ZHCC&#x2F;CGO 郑州新郑机场</span><br><span class="line">ATIS ZHCC 128.45</span><br><span class="line">郑州地面 ZHENGZHOU Ground 121.75 ZHCC_GND</span><br><span class="line">郑州塔台 ZHENGZHOU Tower 130.00 ZHCC_TWR</span><br><span class="line">ZHHH&#x2F;WUH 武汉天河国际机场</span><br><span class="line">ATIS ZHHH 126.60</span><br><span class="line">武汉地面 WUHAN Ground 121.65 ZHHH_GND</span><br><span class="line">武汉塔台 WUHAN Tower 124.35 ZHHH_TWR</span><br><span class="line">兰州区域 Lanzhou Center ZLHW_CTR</span><br><span class="line">ZLIC&#x2F;INC 银川河东机场</span><br><span class="line">ATIS ZLIC 126.65</span><br><span class="line">银川地面 YINCHUAN Ground 121.60 ZLIC_GND</span><br><span class="line">银川塔台 YINCHUAN Tower 130.00 ZLIC_TWR</span><br><span class="line">ZLLL&#x2F;ZGC 兰州中川机场</span><br><span class="line">兰州塔台 LANZHOU Tower 118.10 ZLLL_TWR</span><br><span class="line">ZLXY&#x2F;XIY 西安咸阳机场</span><br><span class="line">ATIS ZLXY 127.45</span><br><span class="line">咸阳地面 XIANYANG Ground 121.80 ZLXY_GND</span><br><span class="line">咸阳塔台 XIANYANG Tower 124.30 ZLXY_TWR</span><br><span class="line">西安进近1 XI’AN Approach 01 125.10 ZLXY_APP</span><br><span class="line">西安进近2 XI’AN Approach 02 119.60 ZLXY_APP</span><br><span class="line">昆明区域 Kunming Center ZPKM_CTR</span><br><span class="line">ZPJH 西双版纳嘎萨机场</span><br><span class="line">版纳塔台 BANNA Tower 130.00 ZPJH_TWR</span><br><span class="line">ZPPP&#x2F;KMG 昆明巫家坝国际机场</span><br><span class="line">ATIS ZPPP 128.45</span><br><span class="line">昆明放行 KUNMING Delivery 121.70 ZPPP_DEL</span><br><span class="line">昆明地面 KUNMING Ground 121.85 ZPPP_GND</span><br><span class="line">昆明塔台 KUNMING Tower 118.10 ZPPP_TWR</span><br><span class="line">昆明进近 KUNMING Approach 124.25 ZPPP_APP</span><br><span class="line">昆明进近 KUNMING Approach 119.00 ZPPP_APP</span><br><span class="line">ZUCK&#x2F;CKG 重庆江北国际机场</span><br><span class="line">ATIS ZUCK 126.40</span><br><span class="line">重庆地面 CHONGQING Ground 121.75 ZUCK_GND</span><br><span class="line">重庆塔台 CHONGQING Tower 118.20 ZUCK_TWR</span><br><span class="line">重庆进近 CHONGQING Approach 125.20 ZUCK_APP</span><br><span class="line">ZUGY&#x2F;KWE 贵阳龙洞堡机场</span><br><span class="line">ATIS ZUGY 127.05</span><br><span class="line">贵阳塔台 GUIYANG Tower 118.30 ZUGY_TWR</span><br><span class="line">贵阳进近 GUIYANG Approach 126.05 ZUGY_APP</span><br><span class="line">ZULS&#x2F;LXA 拉萨贡嘎机场</span><br><span class="line">拉萨地面 LHASA Ground 121.65 ZULS_GND</span><br><span class="line">拉萨塔台 LHASA Tower 130.00 ZULS_TWR</span><br><span class="line">ZUUU&#x2F;CTU 成都双流国际机场</span><br><span class="line">ATIS ZUUU 128.60</span><br><span class="line">成都放行 CHENGDU Delivery 121.60 ZUUU_DEL</span><br><span class="line">成都地面 CHENGDU Ground 121.85 ZUUU_GND</span><br><span class="line">成都塔台 CHENGDU Tower 123.00 ZUUU_TWR</span><br><span class="line">成都进近 CHENGDU Approach 125.60 ZUUU_APP</span><br><span class="line">ZUXC&#x2F;XIC 西昌青山机场</span><br><span class="line">西昌塔台 XICHANG Tower 130.00 ZUXC_TWR</span><br><span class="line">上海区域 Shanghai Center ZSHA_CTR</span><br><span class="line">ZSAM&#x2F;XMN 厦门高崎国际机场</span><br><span class="line">ATIS ZSAM 126.25</span><br><span class="line">厦门地面 XIAMEN Ground 121.70 ZSAM_GND</span><br><span class="line">厦门塔台 XIAMEN Tower 118.25 ZSAM_TWR</span><br><span class="line">厦门进近 XIAMEN Approach 121.35 ZSAM_APP</span><br><span class="line">ZSCN&#x2F;KHN 南昌昌北机场</span><br><span class="line">ATIS ZSCN 128.40</span><br><span class="line">南昌地面 NANCHANG Ground 121.70 ZSCN_GND</span><br><span class="line">南昌塔台 NANCHANG Tower 118.65 ZSCN_TWR</span><br><span class="line">ZSFZ&#x2F;FOC 福州长乐国际机场</span><br><span class="line">ATIS ZSFZ 126.40</span><br><span class="line">福州地面 FUZHOU Ground 121.90 ZSFZ_GND</span><br><span class="line">福州塔台 FUZHOU Tower 118.45 ZSFZ_TWR</span><br><span class="line">福州进近 FUZHOU Approach 119.45 ZSFZ_APP</span><br><span class="line">ZSHC&#x2F;HGH 杭州萧山机场</span><br><span class="line">D.ATIS ZSHC 127.25</span><br><span class="line">杭州地面 HANGZHOU Ground 121.65 ZSHC_GND</span><br><span class="line">杭州塔台 HANGZHOU Tower 118.30 ZSHC_TWR</span><br><span class="line">杭州进近 HANGZHOU Approach 125.55 ZSHC_APP</span><br><span class="line">杭州进近 HANGZHOU Approach 126.05 ZSHC_APP</span><br><span class="line">杭州进近 HANGZHOU Approach 120.05 ZSHC_APP</span><br><span class="line">ZSJN&#x2F;TNA 济南姚蔷机场</span><br><span class="line">ATIS ZSJN 127.05</span><br><span class="line">济南地面 JINAN Ground 121.85 ZSJN_GND</span><br><span class="line">济南塔台 JINAN Tower 118.55 ZSJN_TWR</span><br><span class="line">济南进近 JINAN Approach 119.05 ZSJN_APP</span><br><span class="line">ZSNB&#x2F;NGB 宁波栎社机场</span><br><span class="line">ATIS ZSNB 126.45</span><br><span class="line">宁波地面 NINGBO Ground 121.85 ZSNB_GND</span><br><span class="line">宁波塔台 NINGBO Tower 118.35 ZSNB_TWR</span><br><span class="line">ZSNJ&#x2F;NKG 南京禄口国际机场</span><br><span class="line">ATIS ZSNJ 126.25</span><br><span class="line">南京地面 NANJING Ground 121.70 ZSNJ_GND</span><br><span class="line">南京塔台 NANJING Tower 118.85 ZSNJ_TWR</span><br><span class="line">南京进近 NANJING Approach 119.25 ZSNJ_APP</span><br><span class="line">ZSOF&#x2F;HFE 合肥骆岗机场</span><br><span class="line">ATIS ZSOF 128.85</span><br><span class="line">合肥塔台 HEFEI Tower 118.75 ZSOF_TWR</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line">ZSPD&#x2F;PVG 上海浦东国际机场</span><br><span class="line">ATIS ZSPD 127.85</span><br><span class="line">浦东放行 PUDONG Delivery 121.95 ZSPD_DEL</span><br><span class="line">浦东地面 PUDONG Ground 121.65 ZSPD_GND West</span><br><span class="line">浦东地面 PUDONG Ground 121.80 ZSPD_GND East</span><br><span class="line">浦东塔台 PUDONG Tower 118.80 ZSPD_TWR West</span><br><span class="line">浦东塔台 PUDONG Tower 118.40 ZSPD_TWR East</span><br><span class="line">上海进近 SHANGHAI Approach 120.30 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 125.40 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 125.85 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 123.80 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 126.65 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 126.30 ZSPD_APP</span><br><span class="line">ZSQD&#x2F;TAO 青岛流亭国际机场</span><br><span class="line">ATIS ZSQD 127.20</span><br><span class="line">青岛地面 QINGDAO Control Center(GND) 121.65 ZSQD_GND</span><br><span class="line">青岛塔台 QINGDAO Tower 118.70 ZSQD_TWR</span><br><span class="line">青岛进近 QINGDAO Approach 119.40 ZSQD_APP</span><br><span class="line">ZSSS&#x2F;SHA 上海虹桥国际机场</span><br><span class="line">ATIS ZSSS 132.25</span><br><span class="line">虹桥放行 HONGQIAO Delivery 121.75 ZSSS_DEL</span><br><span class="line">虹桥地面 HONGQIAO Ground 121.60 ZSSS_GND</span><br><span class="line">虹桥塔台 HONGQIAO Tower 118.10 ZSSS_TWR</span><br><span class="line">上海进近 SHANGHAI Approach 120.30 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 125.40 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 125.85 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 123.80 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 126.65 ZSPD_APP</span><br><span class="line">上海进近 SHANGHAI Approach 126.30 ZSPD_APP</span><br><span class="line">ZSWH&#x2F;WEH 威海大水泊机场</span><br><span class="line">威海塔台 WEIHAI Tower 130.00 ZSWH_TWR</span><br><span class="line">ZSYN&#x2F;YNZ 盐城南阳机场</span><br><span class="line">盐城塔台 YANCHENG Tower 118.40 ZSYN_TWR</span><br><span class="line">ZSYT&#x2F;YNT 烟台莱山机场</span><br><span class="line">烟台塔台 YANTAI Tower 118.45 ZSYT_TWR</span><br><span class="line">乌鲁木齐区域 Urumqi Center ZWUQ_CTR</span><br><span class="line">ZWSH&#x2F;KHG 喀什机场</span><br><span class="line">喀什塔台 KASHI Tower 118.50 ZWSH_TWR</span><br><span class="line">ZWTN&#x2F;HTN 和田机场</span><br><span class="line">和田塔台 HOTAN Tower 118.65 ZWTN_TWR</span><br><span class="line">ZWWW&#x2F;URC 乌鲁木齐地窝铺国际机场</span><br><span class="line">ATIS ZWWW 126.70</span><br><span class="line">地窝铺地面 DIWOPU Ground 121.65 ZWWW_GND</span><br><span class="line">地窝铺塔台 DIWOPU Tower 118.10 ZWWW_TWR</span><br><span class="line">沈阳区域 Shenyang Center ZYSH_CTR</span><br><span class="line">ZYCC&#x2F;CGQ 长春龙嘉国际机场</span><br><span class="line">ATIS ZYCC 126.25</span><br><span class="line">龙嘉塔台 LONGJIA Tower 118.85 ZYCC_TWR</span><br><span class="line">长春进近 CHANGCHUN Approach 119.45 ZYCC_APP</span><br><span class="line">ZYHB&#x2F;HRB 哈尔滨太平国际机场</span><br><span class="line">ATIS ZYHB 127.49</span><br><span class="line">哈尔滨地面 HARBIN Ground 121.85 ZYHB_GND</span><br><span class="line">哈尔滨塔台 HARBIN Tower 118.70 ZYHB_TWR</span><br><span class="line">哈尔滨进近 HARBIN Approach 119.65 ZYHB_APP</span><br><span class="line">哈尔滨进近 HARBIN Approach 127.75 ZYHB_APP</span><br><span class="line">ZYJM&#x2F;JMU 佳木斯机场</span><br><span class="line">佳木斯塔台 JIAMUSI Tower 130.00 ZYJM_TWR</span><br><span class="line">ZYMD&#x2F;MDG 牡丹江海浪机场</span><br><span class="line">海浪塔台 HAILANG Tower 130.00 ZYMD_TWR</span><br><span class="line">ZYQQ&#x2F;NDG 齐齐哈尔三家子机场</span><br><span class="line">齐齐哈尔塔台 QIQIHAR Tower 130.00 ZYQQ_TWR</span><br><span class="line">ZYTL&#x2F;DLC 大连周水子国际机场</span><br><span class="line">D.ATIS ZYTL 126.65</span><br><span class="line">大连地面 DALIAN Ground 121.65 ZYTL_GND</span><br><span class="line">大连塔台 DALIAN Tower 118.25 ZYTL_TWR</span><br><span class="line">大连进近 DALIAN Approach 123.85 ZYTL_APP 0100-1200</span><br><span class="line">大连进近 DALIAN Approach 118.25 ZYTL_APP 1200-0100</span><br><span class="line">ZYTX&#x2F;SHE 沈阳桃仙国际机场</span><br><span class="line">ATIS ZYTX 127.45</span><br><span class="line">桃仙地面 TAOXIAN Ground 121.90 ZYTX_GND</span><br><span class="line">沈阳塔台 SHENYANG Tower 118.10 ZYTX_TWR</span><br><span class="line">沈阳进近 SHENYANG Approach 120.85 ZYTX_APP</span><br><span class="line">ZYYJ&#x2F;YNJ 延吉机场</span><br><span class="line">延吉塔台 YANJI Tower 130.00 ZYYJ_TWR</span><br><span class="line">香港区域 Hong Kong Center VHHK_CTR</span><br><span class="line">VHHH&#x2F;HKG 香港赤腊角国际机场</span><br><span class="line">D.ATIS Departure VHHH 127.05</span><br><span class="line">D.ATIS Arrival VHHH 128.20</span><br><span class="line">香港放行 HONG KONG Delivery 129.90 VHHH_DEL</span><br><span class="line">香港地面 HONG KONG Ground 121.60 VHHH_GND North</span><br><span class="line">香港地面 HONG KONG Ground 122.55 VHHH_GND South</span><br><span class="line">香港塔台 HONG KONG Tower 118.20 VHHH_TWR North</span><br><span class="line">香港塔台 HONG KONG Tower 118.40 VHHH_TWR South</span><br><span class="line">香港离场 HONG KONG Departure 123.80 VHHH_DEP</span><br><span class="line">香港进近 HONG KONG Approach 119.10 VHHH_APP</span><br><span class="line">HONG KONG Director 119.50</span><br><span class="line">VMMC&#x2F;MFM 澳门国际机场</span><br><span class="line">ATIS VMMC 126.40</span><br><span class="line">澳门地面 MACAO Ground 121.72 VMMC_GND</span><br><span class="line">澳门地面 MACAO Ground 121.97 VMMC_GND</span><br><span class="line">澳门塔台 MACAO Tower 118.00 VMMC_TWR</span><br><span class="line">珠海进近 ZHUHAI Approach 120.35 VMMC_APP</span><br><span class="line">HONG KONG Radar 126.30</span><br><span class="line">台北区域 Taipei Center RCTP_CTR</span><br><span class="line">RCBS&#x2F;KNH 金门尚义机场</span><br><span class="line">ATIS RCBS 127.20</span><br><span class="line">金门地面 KINMEN Ground 126.20 RCBS_GND</span><br><span class="line">金门塔台 KINMEN Tower 118.00 RCBS_TWR</span><br><span class="line">台中进近 TAICHUNG Approach 124.60 RCBS_APP</span><br><span class="line">台中进近 TAICHUNG Approach 133.10 RCBS_APP</span><br><span class="line">RCFN&#x2F;TTT 台东丰年机场</span><br><span class="line">ATIS RCFN 127.00</span><br><span class="line">丰年塔台 FONGNIAN Tower 118.10 RCFN_TWR</span><br><span class="line">台东进近 TAITUNG Approach 119.40 RCFN_APP</span><br><span class="line">RCKH&#x2F;KHH 高雄机场</span><br><span class="line">D.ATIS RCKH 127.80</span><br><span class="line">高雄放行 KAOHSIUNG Clearance 121.80 RCKH_DEL</span><br><span class="line">高雄地面 KAOHSIUNG Ground 121.90 RCKH_GND</span><br><span class="line">高雄塔台 KAOHSIUNG Tower 118.70 RCKH_TWR</span><br><span class="line">高雄塔台 KAOHSIUNG Tower 120.70 RCKH_TWR</span><br><span class="line">高雄进近 KAOHSIUNG Approach 121.10 RCKH_APP</span><br><span class="line">高雄进近 KAOHSIUNG Approach 124.70 RCKH_APP</span><br><span class="line">高雄进近 KAOHSIUNG Approach 125.70 RCKH_APP</span><br><span class="line">高雄进近 KAOHSIUNG Approach 126.20 RCKH_APP</span><br><span class="line">RCKU&#x2F;CYI 嘉义机场</span><br><span class="line">嘉义塔台 CHIAYI Tower 118.60 RCKU_TWR</span><br><span class="line">嘉义塔台 CHIAYI Tower 122.70 RCKU_TWR</span><br><span class="line">嘉义塔台 CHIAYI Tower 126.18 RCKU_TWR</span><br><span class="line">嘉义进近 CHIAYI Approach 120.60 RCKU_APP</span><br><span class="line">RCMQ&#x2F;RMQ 台中清泉岗机场</span><br><span class="line">ATIS RCMQ 127.75</span><br><span class="line">清泉岗塔台 CINGCYUANGANG Tower 118.75 RCMQ_TWR</span><br><span class="line">清泉岗塔台 CINGCYUANGANG Tower 120.25 RCMQ_TWR</span><br><span class="line">台中进近 TAICHUNG Approach 130.10 RCMQ_APP</span><br><span class="line">台中进近 TAICHUNG Approach 129.60 RCMQ_APP</span><br><span class="line">RCNN&#x2F;TNN 台南机场</span><br><span class="line">台南地面 TAINAN Ground(Clearance Delivery) 121.60 RCNN_GND</span><br><span class="line">台南塔台 TAINAN Tower 118.40 RCNN_TWR</span><br><span class="line">台南塔台 TAINAN Tower 126.18 RCNN_TWR</span><br><span class="line">高雄进近 KAOHSIUNG Approach 124.70 RCKH_APP</span><br><span class="line">RCQC&#x2F;MZG 马公机场</span><br><span class="line">ATIS RCQC 127.05</span><br><span class="line">马公地面 MAGONG Ground 121.90 RCQC_GND</span><br><span class="line">马公塔台 MAGONG Tower 118.30 RCQC_TWR</span><br><span class="line">马公塔台 MAGONG Tower 121.90 RCQC_TWR</span><br><span class="line">台中离场 TAICHUNG Departure 128.10 RCMQ_DEP</span><br><span class="line">台中进近 TAICHUNG Approach 128.10 RCMQ_APP</span><br><span class="line">RCSS&#x2F;TSA 台北松山机场</span><br><span class="line">D.ATIS RCSS 127.40</span><br><span class="line">松山放行 SONGSHAN CLEARANCE Delivery 121.20 RCSS_DEL</span><br><span class="line">松山地面 SONGSHAN Ground 121.90 RCSS_GND</span><br><span class="line">松山塔台 SONGSHAN Tower 118.10 RCSS_TWR</span><br><span class="line">松山塔台 SONGSHAN Tower 126.30 RCSS_TWR</span><br><span class="line">台北离场 TAIPEI Departure 125.10 RCTP_DEP</span><br><span class="line">台北进近 TAIPEI Approach 119.60 RCTP_APP</span><br><span class="line">台北进近 TAIPEI Approach 119.70 RCTP_APP</span><br><span class="line">台北进近 TAIPEI Approach 125.10 RCTP_APP</span><br><span class="line">RCTP&#x2F;TPE 台北桃园国际机场</span><br><span class="line">D.ATIS RCTP 127.60</span><br><span class="line">台北放行 TAIPEI Delivery 121.80 RCTP_DEL</span><br><span class="line">台北地面 TAIPEI Ground 121.70 RCTP_GND</span><br><span class="line">台北地面 TAIPEI Ground 121.80 RCTP_GND</span><br><span class="line">台北塔台 TAIPEI Tower 118.70 RCTP_TWR</span><br><span class="line">台北进近 TAIPEI Approach 119.70 RCTP_APP</span><br><span class="line">台北进近 TAIPEI Approach 125.10 RCTP_APP</span><br><span class="line">RCYU&#x2F;HUN 花莲机场</span><br><span class="line">花莲地面 HUALIEN Ground 121.90 RCYU_GND</span><br><span class="line">花莲塔台 HUALIEN Tower 118.10 RCYU_TWR</span><br><span class="line">花莲塔台 HUALIEN Tower 126.18 RCYU_TWR</span><br><span class="line">花莲进近 HUALIEN Approach 124.00 RCYU_APP</span><br><span class="line">花莲进近 HUALIEN Approach 119.10 RCYU_APP</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <style type="text/css">
+    .fade
+    {
+        position:relative;
+        display:none;
+    }
+
+</style>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+   $(document).ready(function(){
+           // latest lunch
+           $(".fade").fadeIn(1500);
+           $(".fade").slideDown("slow");
+   });
+   </script>
+</article>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/space/">space</a></li>
+         
+          <li><a href="/R-shell/">R-shell</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&text=SDR｜Listener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&is_video=false&description=SDR｜Listener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SDR｜Listener&body=Check out this article: http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&title=SDR｜Listener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&name=SDR｜Listener&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/05/11/SDR%EF%BD%9CListener/&t=SDR｜Listener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    Elli0t
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/space/">space</a></li>
+         
+          <li><a href="/R-shell/">R-shell</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
