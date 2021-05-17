@@ -191,9 +191,9 @@
     <link href="http://spacey.top/2021/04/06/10%E5%8F%B7%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/"/>
     <id>http://spacey.top/2021/04/06/10%E5%8F%B7%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</id>
     <published>2021-04-06T09:17:27.000Z</published>
-    <updated>2021-04-07T13:25:05.120Z</updated>
+    <updated>2021-05-14T02:07:09.376Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="10号无人机设计思路"><a href="#10号无人机设计思路" class="headerlink" title="10号无人机设计思路"></a>10号无人机设计思路</h1><h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>激光切割机</p><p>3D 打印机</p><p>钢丝钳</p><h3 id="机身"><a href="#机身" class="headerlink" title="机身"></a>机身</h3><ul><li>碳纤杆</li><li>热复合亮光版</li><li>胶水<ul><li>AB 胶（强度高）</li><li>502（不能黏 kt 板）</li><li>白乳胶</li><li>热熔胶枪（20 w）+ 热熔胶</li><li>螺丝胶（低、高、中强度）</li><li>泡沫胶</li><li>UHU pro 胶水（比较贵但是相对泡沫胶不容易老化）</li><li>环氧树脂胶 + 固化剂</li></ul></li><li>胶带<ul><li>普通透明胶</li><li>普通双面胶</li><li>纸胶带（暂时固定）</li><li>纤维胶（修飞机）</li><li>电子高温胶带</li><li>海绵双面胶</li></ul></li></ul><h3 id="飞控"><a href="#飞控" class="headerlink" title="飞控"></a>飞控</h3><p>Pixhawk 飞控内置了三轴陀螺仪+三轴加速度计+三轴磁力计+气压计传感器</p><p>机载计算机 Raspberry Pi, Odroid</p><h3 id="传感器"><a href="#传感器" class="headerlink" title="传感器"></a>传感器</h3><ul><li><p>定位</p><ul><li><p>GPS**/**COMPASS</p></li><li><p>PX4FLOW 光流计（可在 GPS 信号不佳的时候辅助定位）</p></li><li><blockquote><p>PX4FLOW 集成了声呐传感器的光流智能摄像头可以进行运动跟踪。声呐和摄像头的信息被送到Pixhawk飞控进行数据融合以实现定位功能</p></blockquote></li></ul></li><li><p>测速</p><ul><li>空速计</li></ul></li></ul><ul><li>测距<ul><li>红外测距（10cm-200cm）</li><li>激光测距 Lidar-Lite2（0-40m）</li></ul></li><li>摄像头</li></ul><p><img src="https://pic3.zhimg.com/80/b276a86214a31527b190e7e5d494b972_1440w.jpg" alt="传感器"></p><p>（Note: The image above is from 3DR.）</p><h2 id="软体"><a href="#软体" class="headerlink" title="软体"></a>软体</h2><p>飞控固件：<a href="https://dev.px4.cc/master/zh/">px4</a></p><p><a href="https://www.youtube.com/watch?v=tMbMGiMs1cQ&t=1s">px4 in macos</a></p><p>地面控制站：</p><ul><li><a href="https://github.com/mavlink/qgroundcontrol">QGroundControl</a></li><li><a href="https://github.com/ArduPilot/MissionPlanner">MissionPlanner（无 macos 版本）</a></li></ul><p>模拟器：</p><p>jMAVSim</p><p><a href="https://dev.px4.cc/master/zh/companion_computer/pixhawk_companion.html">机载计算机与Pixhawk系列的配合</a></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="其他飞控"><a href="#其他飞控" class="headerlink" title="其他飞控"></a>其他飞控</h3><p>F4, APM, 双子星, 司南</p><p>Link</p><p><a href="https://zhuanlan.zhihu.com/p/21975165">https://zhuanlan.zhihu.com/p/21975165</a></p><p><a href="https://space.bilibili.com/74529609/video">https://space.bilibili.com/74529609/video</a></p><p><a href="https://pixhawk.org/">https://pixhawk.org/</a></p><p><a href="https://px4.io/">px4</a></p><p><a href="https://www.thingiverse.com/">https://www.thingiverse.com/</a></p><p><a href="https://www.thingiverse.com/">makerbot</a></p><p><a href="https://www.youtube.com/channel/UCkrtSvera-xusjMtgMUe-HA">px4 官方油管</a></p><p><a href="https://space.bilibili.com/246607918">国产 Pixhawk 教学视频（时间新）</a></p><p><a href="https://www.youtube.com/channel/UCx4CPLum5dhbh8cYQUDxpyA">国产 Pixhawk 教学视频</a></p><p><a href="https://www.youtube.com/watch?v=pJK78G27qTM">Pixhawk 视频教程</a></p><p><a href="https://www.youtube.com/watch?v=cZVNndOaYCE">树莓派连接 pixhawk</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="10号无人机设计思路"><a href="#10号无人机设计思路" class="headerlink" title="10号无人机设计思路"></a>10号无人机设计思路</h1><h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>激光切割机</p><p>3D 打印机</p><p>钢丝钳</p><h3 id="机身"><a href="#机身" class="headerlink" title="机身"></a>机身</h3><ul><li>碳纤杆</li><li>热复合亮光版</li><li>胶水<ul><li>AB 胶（强度高）</li><li>502（不能黏 kt 板）</li><li>白乳胶</li><li>热熔胶枪（20 w）+ 热熔胶</li><li>螺丝胶（低、高、中强度）</li><li>泡沫胶</li><li>UHU pro 胶水（比较贵但是相对泡沫胶不容易老化）</li><li>环氧树脂胶 + 固化剂</li></ul></li><li>胶带<ul><li>普通透明胶</li><li>普通双面胶</li><li>纸胶带（暂时固定）</li><li>纤维胶（修飞机）</li><li>电子高温胶带</li><li>海绵双面胶</li></ul></li></ul><h3 id="飞控"><a href="#飞控" class="headerlink" title="飞控"></a>飞控</h3><p>Pixhawk 飞控内置了三轴陀螺仪+三轴加速度计+三轴磁力计+气压计传感器</p><p>机载计算机 Raspberry Pi, Odroid</p><h3 id="传感器"><a href="#传感器" class="headerlink" title="传感器"></a>传感器</h3><ul><li><p>定位</p><ul><li><p>GPS**/**COMPASS</p></li><li><p>PX4FLOW 光流计（可在 GPS 信号不佳的时候辅助定位）</p></li><li><blockquote><p>PX4FLOW 集成了声呐传感器的光流智能摄像头可以进行运动跟踪。声呐和摄像头的信息被送到Pixhawk飞控进行数据融合以实现定位功能</p></blockquote></li></ul></li><li><p>测速</p><ul><li>空速计</li></ul></li></ul><ul><li>测距<ul><li>红外测距（10cm-200cm）</li><li>激光测距 Lidar-Lite2（0-40m）</li></ul></li><li>摄像头</li></ul><p><img src="https://pic3.zhimg.com/80/b276a86214a31527b190e7e5d494b972_1440w.jpg" alt="传感器"></p><p>（Note: The image above is from 3DR.）</p><h2 id="软体"><a href="#软体" class="headerlink" title="软体"></a>软体</h2><p>飞控固件：<a href="https://dev.px4.cc/master/zh/">px4</a></p><p><a href="https://www.youtube.com/watch?v=tMbMGiMs1cQ&t=1s">px4 in macos</a></p><p>地面控制站：</p><ul><li><a href="https://github.com/mavlink/qgroundcontrol">QGroundControl</a></li><li><a href="https://github.com/ArduPilot/MissionPlanner">MissionPlanner（无 macos 版本）</a></li></ul><p>模拟器：</p><p>jMAVSim</p><p><a href="https://dev.px4.cc/master/zh/companion_computer/pixhawk_companion.html">机载计算机与Pixhawk系列的配合</a></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="其他飞控"><a href="#其他飞控" class="headerlink" title="其他飞控"></a>其他飞控</h3><p>F4, APM, 双子星, 司南</p><p>Link</p><p><a href="https://zhuanlan.zhihu.com/p/21975165">https://zhuanlan.zhihu.com/p/21975165</a></p><p><a href="https://space.bilibili.com/74529609/video">https://space.bilibili.com/74529609/video</a></p><p><a href="https://pixhawk.org/">https://pixhawk.org/</a></p><p><a href="https://px4.io/">px4</a></p><p><a href="https://www.thingiverse.com/">https://www.thingiverse.com/</a></p><p><a href="https://www.thingiverse.com/">makerbot</a></p><p><a href="https://www.youtube.com/channel/UCkrtSvera-xusjMtgMUe-HA">px4 官方油管</a></p><p><a href="https://space.bilibili.com/246607918">国产 Pixhawk 教学视频（时间新）</a></p><p><a href="https://www.youtube.com/channel/UCx4CPLum5dhbh8cYQUDxpyA">国产 Pixhawk 教学视频</a></p><p><a href="https://www.youtube.com/watch?v=pJK78G27qTM">Pixhawk 视频教程</a></p><p><a href="https://www.youtube.com/watch?v=cZVNndOaYCE">树莓派连接 pixhawk</a></p><p><a href="http://pix.1yuav.com/">Pixhawk 飞控教程</a></p>]]></content>
     
     
       
@@ -226,9 +226,9 @@
     
     
     
-    <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
-    
     <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
+    
+    <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
     
     <category term="RaspberryPi" scheme="http://spacey.top/tags/RaspberryPi/"/>
     
@@ -389,18 +389,17 @@
     <link href="http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/"/>
     <id>http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/</id>
     <published>2021-03-07T19:28:01.000Z</published>
-    <updated>2021-03-08T03:12:17.214Z</updated>
+    <updated>2021-05-15T11:59:51.239Z</updated>
     
-    <content type="html"><![CDATA[<p>2100万个比特币</p><p>ETH: Dapp (Decentralized Application)</p><p>钱包</p><p><a href="https://www.myetherwallet.com/interface">MEW</a></p><p>购买币</p><p><a href="https://www.huobi.com/zh-cn/">Huobi</a></p><p><a href="https://www.binance.com/en">BINANCE</a></p><p>网站</p><p><a href="https://coinmarketcap.com/">CoinMarketCap</a></p><p><a href="https://www.coindesk.com/">新闻资讯</a></p><p><a href="https://bitcointalk.org/">论坛</a></p><p><a href="https://ethereum.org/zh/">ETH官网</a></p><p>视频</p><p>ETH</p><p><a href="https://www.bilibili.com/video/BV1D54y1v7XA/?spm_id_from=333.788.recommend_more_video.-1">ETH介绍</a></p><p><a href="https://www.youtube.com/watch?v=P5zSjgru0Ac">ETH：以太幣的十件事</a></p><p>BTC</p><p><a href="https://www.youtube.com/watch?v=vqSautdQEoI">什么是比特币</a></p><p><a href="https://www.youtube.com/watch?v=7B-1vDFuYRk">比特幣，人類進入虛擬世界的第一步</a></p>]]></content>
+    <content type="html"><![CDATA[<p>2100万个比特币</p><p><a href="https://cloud.tencent.com/developer/article/1365609">名词汇总</a></p><p>ETH: Dapp (Decentralized Application)</p><p>钱包</p><p><a href="https://www.myetherwallet.com/interface">MEW</a></p><p>购买币</p><p><a href="https://www.huobi.com/zh-cn/">Huobi</a></p><p><a href="https://www.binance.com/en">BINANCE</a></p><p>网站</p><p><a href="https://coinmarketcap.com/">CoinMarketCap</a></p><p><a href="https://www.coindesk.com/">新闻资讯</a></p><p><a href="https://bitcointalk.org/">论坛</a></p><p><a href="https://ethereum.org/zh/">ETH官网</a></p><p>视频</p><p>ETH</p><p><a href="https://www.bilibili.com/video/BV1D54y1v7XA/?spm_id_from=333.788.recommend_more_video.-1">ETH介绍</a></p><p><a href="https://www.youtube.com/watch?v=P5zSjgru0Ac">ETH：以太幣的十件事</a></p><p>BTC</p><p><a href="https://www.youtube.com/watch?v=vqSautdQEoI">什么是比特币</a></p><p><a href="https://www.youtube.com/watch?v=7B-1vDFuYRk">比特幣，人類進入虛擬世界的第一步</a></p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;2100万个比特币&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1365609&quot;&gt;名词汇总&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;ETH: Dapp (Decentralized Application)&lt;/p&gt;
-&lt;p&gt;钱包&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.myetherwallet.com/interface&quot;&gt;MEW&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;</summary>
+</summary>
       
     
     
@@ -415,9 +414,9 @@
     <link href="http://spacey.top/2021/03/07/Kerbal-Space-Program-KSP/"/>
     <id>http://spacey.top/2021/03/07/Kerbal-Space-Program-KSP/</id>
     <published>2021-03-07T09:35:17.000Z</published>
-    <updated>2021-03-09T11:21:20.610Z</updated>
+    <updated>2021-05-17T14:19:27.158Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://github.com/Ezriilc/HyperEdit">HyperEdit</a></p><blockquote><p>HyperEdit is a plugin for Kerbal Space Program, that allows you to teleport any ship, and edit any orbit - even the planets! Just choose your desired position, and <em>POOF!</em> - you’re there. It also does some other stuff.</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://github.com/Ezriilc/HyperEdit">HyperEdit</a></p><blockquote><p>HyperEdit is a plugin for Kerbal Space Program, that allows you to teleport any ship, and edit any orbit - even the planets! Just choose your desired position, and <em>POOF!</em> - you’re there. It also does some other stuff.</p></blockquote><h2 id="mod"><a href="#mod" class="headerlink" title="mod"></a>mod</h2><p>多提引体mod</p><p>RSSmod</p>]]></content>
     
     
       
