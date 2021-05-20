@@ -226,9 +226,9 @@
     
     
     
-    <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
-    
     <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
+    
+    <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
     
     <category term="RaspberryPi" scheme="http://spacey.top/tags/RaspberryPi/"/>
     
