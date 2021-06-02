@@ -40,9 +40,9 @@
     
     <category term="WEB" scheme="http://spacey.top/tags/WEB/"/>
     
-    <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
-    
     <category term="Misc" scheme="http://spacey.top/tags/Misc/"/>
+    
+    <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
     
   </entry>
   
@@ -190,9 +190,9 @@
     <link href="http://spacey.top/2021/04/17/Flite-Test-Tiny-Trainer-BUILD/"/>
     <id>http://spacey.top/2021/04/17/Flite-Test-Tiny-Trainer-BUILD/</id>
     <published>2021-04-17T12:11:15.000Z</published>
-    <updated>2021-04-17T05:19:33.244Z</updated>
+    <updated>2021-06-02T12:44:46.667Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Tiny-Trainer"><a href="#Tiny-Trainer" class="headerlink" title="Tiny Trainer"></a>Tiny Trainer</h1><p>Tiny Trainer 飞机是 Flite Test 专门为初学者定制的一款简单的飞机，包括电机总共5通道，机身采用 kt 泡沫板制作，翼展：95cm，机身长度：50cm。</p><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210417131707.jpg" alt="1-FT Tiny Trainer Assembly Guide"></p><h2 id="制作工具"><a href="#制作工具" class="headerlink" title="制作工具"></a>制作工具</h2><table><thead><tr><th align="left">热熔胶枪 + 热熔胶棒</th></tr></thead><tbody><tr><td align="left">纤维胶带*2</td></tr><tr><td align="left">透明胶带*2</td></tr><tr><td align="left">美工刀</td></tr><tr><td align="left">电池防爆袋</td></tr><tr><td align="left">磨砂纸</td></tr><tr><td align="left">尺子</td></tr><tr><td align="left">尖嘴钳</td></tr><tr><td align="left">电池固定贴</td></tr><tr><td align="left">航模模拟器</td></tr><tr><td align="left">电烙铁（用来焊接香蕉头，一般在电机上）</td></tr><tr><td align="left">泡沫胶（选）</td></tr></tbody></table><h2 id="配件"><a href="#配件" class="headerlink" title="配件"></a>配件</h2><table><thead><tr><th align="left">遥控器：T-Lite（不改装的话不支持915 MHZ）</th></tr></thead><tbody><tr><td align="left">遥控器包</td></tr><tr><td align="left">接收器：R8（也可选择 R900 但是遥控器需要改装）</td></tr><tr><td align="left">电池*2：2S 15C 800mah</td></tr><tr><td align="left">电池充电器</td></tr><tr><td align="left">电机：银燕MT1860, 2280kv, 2.0mm 香蕉头</td></tr><tr><td align="left">电调：银燕 12A电调（XT60 插头 + 2.0mm 香蕉头）</td></tr><tr><td align="left">桨叶*6：6030正（注意要买四轴无人机的桨叶，即薄的桨）</td></tr><tr><td align="left">舵机*4：银燕4.3g</td></tr><tr><td align="left">测电器</td></tr><tr><td align="left">舵机延长线</td></tr></tbody></table><p>当然还有最重要的 kt 板空机 + 配件包</p><h2 id="飞机图纸"><a href="#飞机图纸" class="headerlink" title="飞机图纸"></a>飞机图纸</h2><div class="row">    <embed src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/other/2-FLT-1023%20Flite%20Test%20Tiny%20Trainer%20v1.1%20Full%20Size%20Plans.pdf" width="100%" height="550" type="application/pdf"></div><p>相关基础知识：</p><ul><li>电机 KV值。例如（KV2200），表示每增加1V电压，转速大约提高2200rpm(转每分)</li><li>电池 C 最大放电电流。（如40C），最大放电倍率，即 6000mA * 40 = 240A的电流放电。</li><li>电机和桨叶要同步（一个正转另一个也要正转）</li></ul><blockquote><p>电池⚠️注意事项：</p><p>单片充电截止电压：<strong>4.2v</strong></p><p>单片放点截止电压：<strong>3.6v</strong></p><p>存放：<strong>3.85v</strong>每片</p></blockquote><p>Link</p><p><a href="https://www.youtube.com/watch?v=KJWg5HJBGGc&amp;t=4111s">https://www.youtube.com/watch?v=KJWg5HJBGGc&amp;t=4111s</a></p><p><a href="https://zhuanlan.zhihu.com/p/52404720">电池，电调，涵道相关知识</a></p><p><a href="https://www.zhihu.com/question/23850405/answer/57093163">如何自制固定翼航模？</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Tiny-Trainer"><a href="#Tiny-Trainer" class="headerlink" title="Tiny Trainer"></a>Tiny Trainer</h1><p>Tiny Trainer 飞机是 Flite Test 专门为初学者定制的一款简单的飞机，包括电机总共5通道，机身采用 kt 泡沫板制作，翼展：95cm，机身长度：50cm。</p><p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210417131707.jpg" alt="1-FT Tiny Trainer Assembly Guide"></p><h2 id="制作工具"><a href="#制作工具" class="headerlink" title="制作工具"></a>制作工具</h2><table><thead><tr><th align="left">热熔胶枪 + 热熔胶棒</th></tr></thead><tbody><tr><td align="left">纤维胶带*2</td></tr><tr><td align="left">透明胶带*2</td></tr><tr><td align="left">美工刀</td></tr><tr><td align="left">电池防爆袋</td></tr><tr><td align="left">磨砂纸</td></tr><tr><td align="left">尺子</td></tr><tr><td align="left">尖嘴钳</td></tr><tr><td align="left">电池固定贴</td></tr><tr><td align="left">航模模拟器</td></tr><tr><td align="left">电烙铁（用来焊接香蕉头，一般在电机上）</td></tr><tr><td align="left">泡沫胶（选）</td></tr></tbody></table><h2 id="配件"><a href="#配件" class="headerlink" title="配件"></a>配件</h2><table><thead><tr><th align="left">遥控器：T-Lite（不改装的话不支持915 MHZ，笔者已经改装完毕）</th></tr></thead><tbody><tr><td align="left">遥控器包</td></tr><tr><td align="left">接收器：R8（也可选择 R900 但是遥控器需要改装）</td></tr><tr><td align="left">电池*2：2S 15C 800mah</td></tr><tr><td align="left">电池充电器</td></tr><tr><td align="left">电机：银燕MT1860, 2280kv, 2.0mm 香蕉头</td></tr><tr><td align="left">电调：银燕 12A电调（XT60 插头 + 2.0mm 香蕉头）</td></tr><tr><td align="left">桨叶*6：6030正（注意要买四轴无人机的桨叶，即薄的桨）</td></tr><tr><td align="left">舵机*4：银燕4.3g</td></tr><tr><td align="left">测电器</td></tr><tr><td align="left">舵机延长线</td></tr></tbody></table><p>当然还有最重要的 kt 板空机 + 配件包</p><h2 id="飞机图纸"><a href="#飞机图纸" class="headerlink" title="飞机图纸"></a>飞机图纸</h2><div class="row">    <embed src="https://cdn.jsdelivr.net/gh/ybm911/Blog_Document/other/2-FLT-1023%20Flite%20Test%20Tiny%20Trainer%20v1.1%20Full%20Size%20Plans.pdf" width="100%" height="550" type="application/pdf"></div><p>相关基础知识：</p><ul><li>电机 KV值。例如（KV2200），表示每增加1V电压，转速大约提高2200rpm(转每分)</li><li>电池 C 最大放电电流。（如40C），最大放电倍率，即 6000mA * 40 = 240A的电流放电。</li><li>电机和桨叶要同步（一个正转另一个也要正转）</li></ul><blockquote><p>电池⚠️注意事项：</p><p>单片充电截止电压：<strong>4.2v</strong></p><p>单片放点截止电压：<strong>3.6v</strong></p><p>存放：<strong>3.85v</strong>每片</p></blockquote><iframe src="//player.bilibili.com/player.html?aid=887714726&bvid=BV1tK4y1P7gV&cid=325305129&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><p>Link</p><p><a href="https://www.youtube.com/watch?v=KJWg5HJBGGc&amp;t=4111s">https://www.youtube.com/watch?v=KJWg5HJBGGc&amp;t=4111s</a></p><p><a href="https://zhuanlan.zhihu.com/p/52404720">电池，电调，涵道相关知识</a></p><p><a href="https://www.zhihu.com/question/23850405/answer/57093163">如何自制固定翼航模？</a></p>]]></content>
     
     
       
@@ -249,9 +249,9 @@
     
     
     
-    <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
-    
     <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
+    
+    <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
     
     <category term="RaspberryPi" scheme="http://spacey.top/tags/RaspberryPi/"/>
     

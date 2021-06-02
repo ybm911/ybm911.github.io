@@ -200,7 +200,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003511.jpg" alt="UsnJrnl2Csv"></p>
 <p>得到的csv文件如下</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003528.png" alt="csv"></p>
-<p>可以发现，在日志中，除了以上提到过的文件外，还有对新建文本文档.txt和<a href="mailto:&#57;&#111;&#55;&#x40;&#x58;&#x73;&#55;&#56;&#x49;&#48;&#x2e;&#x74;&#x78;&#x74;">&#57;&#111;&#55;&#x40;&#x58;&#x73;&#55;&#56;&#x49;&#48;&#x2e;&#x74;&#x78;&#x74;</a>的操作，猜测是修改了文件名。使用<code>9o7@Xs78I0</code>进行加密磁盘的解密，成功了。</p>
+<p>可以发现，在日志中，除了以上提到过的文件外，还有对新建文本文档.txt和<a href="mailto:&#x39;&#111;&#x37;&#x40;&#88;&#x73;&#55;&#56;&#73;&#48;&#46;&#x74;&#x78;&#116;">&#x39;&#111;&#x37;&#x40;&#88;&#x73;&#55;&#56;&#73;&#48;&#46;&#x74;&#x78;&#116;</a>的操作，猜测是修改了文件名。使用<code>9o7@Xs78I0</code>进行加密磁盘的解密，成功了。</p>
 <p>但是打开之后提示磁盘格式错误，需要格式化（点击取消）。应该是引导分区出了问题，在Winhex中打开，在winhex使用快捷键F9打开此磁盘。<img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003541.png" alt="winhex快捷键"><br>根据DBR可以发现扇区偏移16进制数的00-10被擦写为0，残余DBR可以看出文件系统是FAT16。<br>在此处有两个方法获得flag，一是直接在打开的16进制中查找关于flag的字段。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/20210217003557.png" alt="winhex_flag1"></p>
 <p>二是手动修复FAT16磁盘。手动修复又有两种方法：1、用工具Dekart Private Disk创建一个相同的加密磁盘然后进行分析。2、依据FAT分区的磁盘结构，手动恢复被擦除的DBR引导记录的字节。（第二种方法细节可以查看文章开头的链接🔗）</p>
