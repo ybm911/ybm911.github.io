@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="puppeteer Chrome Node.js API playwright 浏览器自动测试框架">
+    <meta name="description" content="XSS 攻击助手：xssor2 XSS 高级扫描器：XSS trike XSS 反弹平台：XSS Platform">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爬虫框架🔧">
-<meta property="og:url" content="http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/index.html">
+<meta property="og:title" content="XSS经验合集">
+<meta property="og:url" content="http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
-<meta property="og:description" content="puppeteer Chrome Node.js API playwright 浏览器自动测试框架">
+<meta property="og:description" content="XSS 攻击助手：xssor2 XSS 高级扫描器：XSS trike XSS 反弹平台：XSS Platform">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-11T17:17:52.000Z">
-<meta property="article:modified_time" content="2021-05-11T12:06:20.785Z">
+<meta property="article:published_time" content="2021-06-02T20:38:25.000Z">
+<meta property="article:modified_time" content="2021-06-02T12:40:21.131Z">
 <meta property="article:author" content="Elli0t">
-<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="WEB">
 <meta name="twitter:card" content="summary">
     
     
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>爬虫框架🔧</title>
+    <title>XSS经验合集</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -84,10 +84,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/3007/01/09/EXP-for-ctf/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2021/05/12/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -100,17 +100,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&text=爬虫框架🔧"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&is_video=false&description=爬虫框架🔧"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=爬虫框架🔧&body=Check out this article: http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&name=爬虫框架🔧&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&t=爬虫框架🔧"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&text=XSS经验合集"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&is_video=false&description=XSS经验合集"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS经验合集&body=Check out this article: http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&name=XSS经验合集&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&t=XSS经验合集"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -127,7 +127,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        爬虫框架🔧
+        XSS经验合集
     </h1>
 
 
@@ -139,7 +139,7 @@
       
     <div class="postdate">
       
-        <time datetime="2021-05-11T17:17:52.000Z" itemprop="datePublished">2021-05-11</time>
+        <time datetime="2021-06-02T20:38:25.000Z" itemprop="datePublished">2021-06-02</time>
         
       
     </div>
@@ -150,7 +150,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+        <a class="tag-link-link" href="/tags/WEB/" rel="tag">WEB</a>
     </div>
 
 
@@ -159,8 +159,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p><a target="_blank" rel="noopener" href="https://github.com/puppeteer/puppeteer">puppeteer Chrome Node.js API</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright">playwright 浏览器自动测试框架</a></p>
+    <p>XSS 攻击助手：<a target="_blank" rel="noopener" href="https://github.com/evilcos/xssor2">xssor2</a></p>
+<p>XSS 高级扫描器：<a target="_blank" rel="noopener" href="https://github.com/s0md3v/XSStrike">XSS trike</a></p>
+<p>XSS 反弹平台：<a target="_blank" rel="noopener" href="https://github.com/78778443/xssplatform">XSS Platform</a></p>
 
   </div>
   <style type="text/css">
@@ -214,17 +215,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&text=爬虫框架🔧"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&is_video=false&description=爬虫框架🔧"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=爬虫框架🔧&body=Check out this article: http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&title=爬虫框架🔧"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&name=爬虫框架🔧&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/05/12/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%F0%9F%94%A7/&t=爬虫框架🔧"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&text=XSS经验合集"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&is_video=false&description=XSS经验合集"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XSS经验合集&body=Check out this article: http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&title=XSS经验合集"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&name=XSS经验合集&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://spacey.top/2021/06/03/XSS%E7%BB%8F%E9%AA%8C%E5%90%88%E9%9B%86/&t=XSS经验合集"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
