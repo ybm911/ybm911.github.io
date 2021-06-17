@@ -47,6 +47,30 @@
   </entry>
   
   <entry>
+    <title>Oh_my_fish</title>
+    <link href="http://spacey.top/2021/06/17/Oh-my-fish/"/>
+    <id>http://spacey.top/2021/06/17/Oh-my-fish/</id>
+    <published>2021-06-17T12:34:48.000Z</published>
+    <updated>2021-06-17T05:28:16.373Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install fish</span><br><span class="line">curl -L https://get.oh-my.fish | fish</span><br></pre></td></tr></table></figure><h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p><a href="https://geoff.greer.fm/lscolors/">设置 lscolors 颜色</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">缺省LSCOLORS设定</a></p><p><img src="https://raw.githubusercontent.com/ybm911/blog_picture/master/img/20210617132253.png" alt="lscolors"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件</span></span><br><span class="line">~/.config/fish/config.fish</span><br></pre></td></tr></table></figure><p><code>config.fish</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> sp=<span class="string">&quot;export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890&quot;</span></span><br><span class="line"><span class="built_in">alias</span> nsp=<span class="string">&quot;unset http_proxy https_proxy all_proxy&quot;</span></span><br><span class="line"><span class="built_in">alias</span> cip=<span class="string">&quot;curl cip.cc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># define funtions</span></span><br><span class="line"><span class="keyword">function</span> <span class="built_in">unset</span></span><br><span class="line">        <span class="built_in">set</span> --erase <span class="variable">$argv</span></span><br><span class="line">end</span><br><span class="line"><span class="comment"># autojump-plugin</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> -f /Users/elli0t/.autojump/share/autojump/autojump.fish; . /Users/elli0t/.autojump/share/autojump/autojump.fish; end</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置目录颜色 lscolors</span></span><br><span class="line"><span class="built_in">export</span> CLICOLOR=1</span><br><span class="line"><span class="built_in">export</span> LSCOLORS=gxfxcxdxbxegedabagacad</span><br><span class="line"></span><br><span class="line"><span class="comment"># mac 命令记录</span></span><br><span class="line"><span class="comment"># sw_vers</span></span><br></pre></td></tr></table></figure><p>Link</p><p><a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html">Fish shell 入门教程</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">LSCOLORS 对应的11种文件的示例文件生成</a></p><p><a href="https://github.com/oh-my-fish/oh-my-fish">oh-my-fish</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Install&quot;&gt;&lt;a href=&quot;#Install&quot; class=&quot;headerlink&quot; title=&quot;Install&quot;&gt;&lt;/a&gt;Install&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;</summary>
+      
+    
+    
+    
+    
+    <category term="shell" scheme="http://spacey.top/tags/shell/"/>
+    
+    <category term="Oh_my_fish" scheme="http://spacey.top/tags/Oh-my-fish/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CrityOS</title>
     <link href="http://spacey.top/2021/06/16/CrityOS/"/>
     <id>http://spacey.top/2021/06/16/CrityOS/</id>
@@ -476,30 +500,6 @@
     
     
     <category term="BTC" scheme="http://spacey.top/tags/BTC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kerbal Space Program (KSP)</title>
-    <link href="http://spacey.top/2021/03/07/Kerbal-Space-Program-KSP/"/>
-    <id>http://spacey.top/2021/03/07/Kerbal-Space-Program-KSP/</id>
-    <published>2021-03-07T09:35:17.000Z</published>
-    <updated>2021-05-17T14:19:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://github.com/Ezriilc/HyperEdit">HyperEdit</a></p><blockquote><p>HyperEdit is a plugin for Kerbal Space Program, that allows you to teleport any ship, and edit any orbit - even the planets! Just choose your desired position, and <em>POOF!</em> - you’re there. It also does some other stuff.</p></blockquote><h2 id="mod"><a href="#mod" class="headerlink" title="mod"></a>mod</h2><p>多提引体mod</p><p>RSSmod</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/Ezriilc/HyperEdit&quot;&gt;HyperEdit&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;HyperEdit is a plugin for Kerbal Space Program, that all</summary>
-      
-    
-    
-    
-    
-    <category term="KSP" scheme="http://spacey.top/tags/KSP/"/>
     
   </entry>
   
