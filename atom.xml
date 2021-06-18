@@ -47,13 +47,37 @@
   </entry>
   
   <entry>
+    <title>Knowledge System</title>
+    <link href="http://spacey.top/2021/06/19/Knowledge-System/"/>
+    <id>http://spacey.top/2021/06/19/Knowledge-System/</id>
+    <published>2021-06-18T17:59:33.000Z</published>
+    <updated>2021-06-18T13:12:10.525Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.tinkercad.com/">tinkercad</a> arduino 仿真器（可运行代码）</p><p><a href="https://flutter.dev/">flutter</a> 优秀的手机端开发框架</p><p><a href="https://socket.io/">socket.io</a> 客户端和服务器双向通信的解决方案的一个封装</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://www.tinkercad.com/&quot;&gt;tinkercad&lt;/a&gt; arduino 仿真器（可运行代码）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://flutter.dev/&quot;&gt;flutter&lt;/a&gt; 优秀的手机端开发框架&lt;/p&gt;
+&lt;p</summary>
+      
+    
+    
+    
+    
+    <category term="Knowledge_System" scheme="http://spacey.top/tags/Knowledge-System/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Oh_my_fish</title>
     <link href="http://spacey.top/2021/06/17/Oh-my-fish/"/>
     <id>http://spacey.top/2021/06/17/Oh-my-fish/</id>
     <published>2021-06-17T12:34:48.000Z</published>
-    <updated>2021-06-17T05:28:16.373Z</updated>
+    <updated>2021-06-17T05:32:22.984Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install fish</span><br><span class="line">curl -L https://get.oh-my.fish | fish</span><br></pre></td></tr></table></figure><h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p><a href="https://geoff.greer.fm/lscolors/">设置 lscolors 颜色</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">缺省LSCOLORS设定</a></p><p><img src="https://raw.githubusercontent.com/ybm911/blog_picture/master/img/20210617132253.png" alt="lscolors"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件</span></span><br><span class="line">~/.config/fish/config.fish</span><br></pre></td></tr></table></figure><p><code>config.fish</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> sp=<span class="string">&quot;export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890&quot;</span></span><br><span class="line"><span class="built_in">alias</span> nsp=<span class="string">&quot;unset http_proxy https_proxy all_proxy&quot;</span></span><br><span class="line"><span class="built_in">alias</span> cip=<span class="string">&quot;curl cip.cc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># define funtions</span></span><br><span class="line"><span class="keyword">function</span> <span class="built_in">unset</span></span><br><span class="line">        <span class="built_in">set</span> --erase <span class="variable">$argv</span></span><br><span class="line">end</span><br><span class="line"><span class="comment"># autojump-plugin</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> -f /Users/elli0t/.autojump/share/autojump/autojump.fish; . /Users/elli0t/.autojump/share/autojump/autojump.fish; end</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置目录颜色 lscolors</span></span><br><span class="line"><span class="built_in">export</span> CLICOLOR=1</span><br><span class="line"><span class="built_in">export</span> LSCOLORS=gxfxcxdxbxegedabagacad</span><br><span class="line"></span><br><span class="line"><span class="comment"># mac 命令记录</span></span><br><span class="line"><span class="comment"># sw_vers</span></span><br></pre></td></tr></table></figure><p>Link</p><p><a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html">Fish shell 入门教程</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">LSCOLORS 对应的11种文件的示例文件生成</a></p><p><a href="https://github.com/oh-my-fish/oh-my-fish">oh-my-fish</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install fish</span><br><span class="line">curl -L https://get.oh-my.fish | fish</span><br></pre></td></tr></table></figure><h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set theme</span></span><br><span class="line">fish_config</span><br></pre></td></tr></table></figure><p><a href="https://geoff.greer.fm/lscolors/">设置 lscolors 颜色</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">缺省LSCOLORS设定</a></p><p><img src="https://raw.githubusercontent.com/ybm911/blog_picture/master/img/20210617132253.png" alt="lscolors"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件</span></span><br><span class="line">~/.config/fish/config.fish</span><br></pre></td></tr></table></figure><p><code>config.fish</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> sp=<span class="string">&quot;export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890&quot;</span></span><br><span class="line"><span class="built_in">alias</span> nsp=<span class="string">&quot;unset http_proxy https_proxy all_proxy&quot;</span></span><br><span class="line"><span class="built_in">alias</span> cip=<span class="string">&quot;curl cip.cc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># define funtions</span></span><br><span class="line"><span class="keyword">function</span> <span class="built_in">unset</span></span><br><span class="line">        <span class="built_in">set</span> --erase <span class="variable">$argv</span></span><br><span class="line">end</span><br><span class="line"><span class="comment"># autojump-plugin</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> -f /Users/elli0t/.autojump/share/autojump/autojump.fish; . /Users/elli0t/.autojump/share/autojump/autojump.fish; end</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置目录颜色 lscolors</span></span><br><span class="line"><span class="built_in">export</span> CLICOLOR=1</span><br><span class="line"><span class="built_in">export</span> LSCOLORS=gxfxcxdxbxegedabagacad</span><br><span class="line"></span><br><span class="line"><span class="comment"># mac 命令记录</span></span><br><span class="line"><span class="comment"># sw_vers</span></span><br></pre></td></tr></table></figure><p>Link</p><p><a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html">Fish shell 入门教程</a></p><p><a href="https://blog.csdn.net/liumiaocn/article/details/102962845">LSCOLORS 对应的11种文件的示例文件生成</a></p><p><a href="https://github.com/oh-my-fish/oh-my-fish">oh-my-fish</a></p>]]></content>
     
     
       
@@ -320,9 +344,9 @@
     
     
     
-    <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
-    
     <category term="Arduino" scheme="http://spacey.top/tags/Arduino/"/>
+    
+    <category term="飞控" scheme="http://spacey.top/tags/%E9%A3%9E%E6%8E%A7/"/>
     
     <category term="RaspberryPi" scheme="http://spacey.top/tags/RaspberryPi/"/>
     
@@ -475,31 +499,6 @@
     
     
     <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数字货币</title>
-    <link href="http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/"/>
-    <id>http://spacey.top/2021/03/08/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/</id>
-    <published>2021-03-07T19:28:01.000Z</published>
-    <updated>2021-05-15T11:59:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>2100万个比特币</p><p><a href="https://cloud.tencent.com/developer/article/1365609">名词汇总</a></p><p>ETH: Dapp (Decentralized Application)</p><p>钱包</p><p><a href="https://www.myetherwallet.com/interface">MEW</a></p><p>购买币</p><p><a href="https://www.huobi.com/zh-cn/">Huobi</a></p><p><a href="https://www.binance.com/en">BINANCE</a></p><p>网站</p><p><a href="https://coinmarketcap.com/">CoinMarketCap</a></p><p><a href="https://www.coindesk.com/">新闻资讯</a></p><p><a href="https://bitcointalk.org/">论坛</a></p><p><a href="https://ethereum.org/zh/">ETH官网</a></p><p>视频</p><p>ETH</p><p><a href="https://www.bilibili.com/video/BV1D54y1v7XA/?spm_id_from=333.788.recommend_more_video.-1">ETH介绍</a></p><p><a href="https://www.youtube.com/watch?v=P5zSjgru0Ac">ETH：以太幣的十件事</a></p><p>BTC</p><p><a href="https://www.youtube.com/watch?v=vqSautdQEoI">什么是比特币</a></p><p><a href="https://www.youtube.com/watch?v=7B-1vDFuYRk">比特幣，人類進入虛擬世界的第一步</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;2100万个比特币&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1365609&quot;&gt;名词汇总&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;ETH: Dapp (Decentralized Application)&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    
-    <category term="BTC" scheme="http://spacey.top/tags/BTC/"/>
     
   </entry>
   
