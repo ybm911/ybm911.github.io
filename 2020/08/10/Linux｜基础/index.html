@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="The Code: Story of Linux documentary Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其">
+    <meta name="description" content="The Code: Story of Linux documentary ubuntu 官方硬件支持列表 Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux｜ubuntu 基础">
 <meta property="og:url" content="http://spacey.top/2020/08/10/Linux%EF%BD%9C%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Elli0t&#39;s Blog">
-<meta property="og:description" content="The Code: Story of Linux documentary Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其">
+<meta property="og:description" content="The Code: Story of Linux documentary ubuntu 官方硬件支持列表 Ubuntu 服务器入门指南 lsb_release -a 查看 ubuntu 版本  为什么可以利用GPU加速？ 在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123134234Options.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/123123htacess.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/32452345require.png">
 <meta property="article:published_time" content="2020-08-10T10:08:49.000Z">
-<meta property="article:modified_time" content="2021-02-14T09:05:06.000Z">
+<meta property="article:modified_time" content="2021-06-30T08:06:24.997Z">
 <meta property="article:author" content="Elli0t">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Ubuntu">
@@ -165,13 +165,15 @@
 
   <div class="content" itemprop="articleBody">
     <p><a target="_blank" rel="noopener" href="https://youtu.be/XMm0HsmOTFI">The Code: Story of Linux documentary</a></p>
+<p><a target="_blank" rel="noopener" href="https://ubuntu.com/certified">ubuntu 官方硬件支持列表</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.ubuntu.org.cn/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">Ubuntu 服务器入门指南</a></p>
 <p><code>lsb_release -a</code> 查看 ubuntu 版本</p>
 <blockquote>
 <p>为什么可以利用GPU加速？</p>
 <p>在介绍为什么可以利用GPU加速前，我们需要明确一个观点，两者都为了完成计算任务而设计。<br>那为什么会想到使用GPU加速呢?这是就要说到两者的不同了: CPU虽然有多核，但总数没有超过两位数，并且每个核的运算能力极其强大。而GPU的核数远超CPU,但每个核的运算能力与CPU的核相比就相差甚远了。<br>我们可以简单的举个例子，解一道题，CPU 就是博士生，GPU就是小学生，CPU负责理解题目并且整理出解题的步骤以及解法，而GPU负责其中很简单但是数量又很大的简单运算就行了。<br>因此理论上在破解密码的过程中，我们完全可以使用GPU来加速这一过程。<br>事实上，这样的工具也已经出现了，Hashcat便是最出名的一个，它号称是世界上最快的密码恢复工具，可以基于CPU/GPU等工作。有兴趣的可以访问他的官网hashcat.net/hashcat/进行了解。</p>
 </blockquote>
-<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apt-get install package</span><br><span class="line">apt-get remove package</span><br><span class="line"></span><br><span class="line">apt-cache search package	# 搜索</span><br><span class="line">apt-cache show package	# 获取包的相关信息</span><br><span class="line">apt-get install package --reinstall	# 重新安装</span><br><span class="line"></span><br><span class="line">apt-get -f install	# 修复安装</span><br><span class="line">apt-get remove package --purge	# 删除包和配置文件</span><br><span class="line">apt-get build-dep package	# 安装相关的编译环境</span><br><span class="line">apt-cache depends package	# 了解该包依赖哪些包</span><br><span class="line">apt-cache rdepends package	# 查看该包被哪些包依赖</span><br><span class="line">apt-get source package	# 下载该包的源代码</span><br></pre></td></tr></table></figure>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html">Linux 基础教程</a></p>
+<h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apt-get install package</span><br><span class="line">apt-get remove package</span><br><span class="line"></span><br><span class="line">apt-cache search package	# 搜索</span><br><span class="line">apt-cache show package	# 获取包的相关信息</span><br><span class="line">apt-get install package --reinstall	# 重新安装</span><br><span class="line"></span><br><span class="line">apt-get -f install	# 修复安装</span><br><span class="line">apt-get remove package --purge	# 删除包和配置文件</span><br><span class="line">apt-get build-dep package	# 安装相关的编译环境</span><br><span class="line">apt-cache depends package	# 了解该包依赖哪些包</span><br><span class="line">apt-cache rdepends package	# 查看该包被哪些包依赖</span><br><span class="line">apt-get source package	# 下载该包的源代码</span><br></pre></td></tr></table></figure>
 
 
 
