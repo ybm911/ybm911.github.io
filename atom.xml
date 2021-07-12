@@ -40,9 +40,9 @@
     
     <category term="WEB" scheme="http://spacey.top/tags/WEB/"/>
     
-    <category term="Misc" scheme="http://spacey.top/tags/Misc/"/>
-    
     <category term="PWN" scheme="http://spacey.top/tags/PWN/"/>
+    
+    <category term="Misc" scheme="http://spacey.top/tags/Misc/"/>
     
   </entry>
   
@@ -51,15 +51,14 @@
     <link href="http://spacey.top/2021/07/08/Github-Shopping/"/>
     <id>http://spacey.top/2021/07/08/Github-Shopping/</id>
     <published>2021-07-08T11:33:54.000Z</published>
-    <updated>2021-07-08T03:37:30.607Z</updated>
+    <updated>2021-07-12T07:33:26.890Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="shopping"><a href="#shopping" class="headerlink" title="shopping"></a>shopping</h1><p><a href="https://js.wiki/">wiki</a> 团队文档</p><p><a href="https://github.com/humhub/humhub">humhub</a> 社交网站</p><p><a href="https://github.com/idank/explainshell/">explainshell</a> 解释 Linux 命令工具</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="shopping"><a href="#shopping" class="headerlink" title="shopping"></a>shopping</h1><p><a href="https://github.com/topics/awesome">Awesome Lists</a></p><p><a href="https://awesomelists.top/">Awesome Search</a> 搜索 Awesome 项目</p><p><a href="https://github.com/521xueweihan/HelloGitHub">HelloGitHub</a> GitHub 有趣开源项目期刊</p><p><a href="https://js.wiki/">wiki</a> 团队文档</p><p><a href="https://github.com/humhub/humhub">humhub</a> 社交网站</p><p><a href="https://github.com/idank/explainshell/">explainshell</a> 解释 Linux 命令工具</p><p><a href="https://github.com/karan/Projects">Projects</a> 小项目（帮助刚开始编程的人可以完成的小项目）</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;shopping&quot;&gt;&lt;a href=&quot;#shopping&quot; class=&quot;headerlink&quot; title=&quot;shopping&quot;&gt;&lt;/a&gt;shopping&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://js.wiki/&quot;&gt;wiki&lt;/a&gt; 团队文档&lt;/p&gt;
-&lt;</summary>
+    <summary type="html">&lt;h1 id=&quot;shopping&quot;&gt;&lt;a href=&quot;#shopping&quot; class=&quot;headerlink&quot; title=&quot;shopping&quot;&gt;&lt;/a&gt;shopping&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/topics/awesome&quot;&gt;Aw</summary>
       
     
     
