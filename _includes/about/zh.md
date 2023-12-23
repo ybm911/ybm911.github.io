@@ -1,4 +1,4 @@
-Hey，我是年糕（a.k.a. NoPwn, _@NoPwn_），北半球情报部新闻司，ip: 美国
+Hey，我是年糕（a.k.a. NoPwn, _@NoPwn_），北半球情报部新闻司，ip: Taiwan
 
 🇨🇳🇨🇳🇨🇳
 
